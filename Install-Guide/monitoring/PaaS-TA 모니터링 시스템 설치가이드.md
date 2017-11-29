@@ -108,7 +108,7 @@
 
 - [설치 가이드](https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Install-Guide/BOSH/Bosh%20Monitoring%20Agent%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md)
 
-[2-1-1]:images/monitoring-architecture/2-1-1.png
-[2-2-1]:images/monitoring-architecture/2-2-1.png
-[3-1-1]:images/monitoring-architecture/3-1-1.png
-[3-2-1]:images/monitoring-architecture/3-2-1.png
+[2-1-1]:images/2-1-1.png
+[2-2-1]:images/2-2-1.png
+[3-1-1]:images/3-1-1.png
+[3-2-1]:images/3-2-1.png
