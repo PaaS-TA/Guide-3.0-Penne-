@@ -731,7 +731,7 @@
 2.	품질 게이트가 삭제되었음을 확인한다.
 ![179]
 
-[002]:\Use-Guide\images\pipeline\image002.png
+[002]:/Use-Guide/images/pipeline/image002.png
 [003]:\Use-Guide\images\pipeline\image003.png
 [004]:\Use-Guide\images\pipeline\image004.png
 [005]:\Use-Guide\images\pipeline\image005.png
