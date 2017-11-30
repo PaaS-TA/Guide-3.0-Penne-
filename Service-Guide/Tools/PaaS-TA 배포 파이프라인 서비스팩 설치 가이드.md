@@ -999,12 +999,12 @@ Context: admin, from client admin
 ```
 - 파이프라인 포탈 계정 생성을 한다.
 ```
-$ uaac client add pipeclient -s clientsecret --redirect_uri "[URL]" \
---scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
---authorized_grant_types "authorization_code , client_credentials , refresh_token" \
---authorities="uaa.resource" \
+$ uaac client add pipeclient -s clientsecret --redirect_uri "[URL]" /
+--scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" /
+--authorized_grant_types "authorization_code , client_credentials , refresh_token" /
+--authorities="uaa.resource" /
 --autoapprove="openid , cloud_controller_service_permissions.read"
 
 ```
 
-[1-1-3]:\Service-Guide\images\pipeline\Delivery_Pipeline_Architecture.jpg
+[1-1-3]:/Service-Guide/images/pipeline/Delivery_Pipeline_Architecture.jpg

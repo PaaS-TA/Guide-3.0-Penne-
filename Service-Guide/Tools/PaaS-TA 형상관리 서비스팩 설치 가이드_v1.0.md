@@ -38,8 +38,8 @@
 <br>
 <div id='5'></div>
 ### 1.4. 참고자료
-[**http://bosh.io/docs**](http://bosh.io/docs) <br>
-[**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
+**http://bosh.io/docs** <br>
+**http://docs.cloudfoundry.org/**
 
 <br>
 <div id='6'></div>
@@ -721,11 +721,11 @@ Context : admin, from client admin
 -SC포탈 계정 생성을 한다.
 
 ```
-$ uaac client add scclient -s password --redirect_uri "[URL]" \
-scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
---authorized_grant_types "authorization_code , client_credentials , refresh_token" \
---authorities="uaa.resource" \
+$ uaac client add scclient -s password --redirect_uri "[URL]" /
+scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" /
+--authorized_grant_types "authorization_code , client_credentials , refresh_token" /
+--authorities="uaa.resource" /
 --autoapprove="openid , cloud_controller_service_permissions.read"
 ```
 
-[source_controller_Service_Guide01]:‪\Service-Guide\images\source_control\source_controller_Service_Guide01.PNG
+[source_controller_Service_Guide01]:‪/Service-Guide/images/source_control/source_controller_Service_Guide01.PNG
