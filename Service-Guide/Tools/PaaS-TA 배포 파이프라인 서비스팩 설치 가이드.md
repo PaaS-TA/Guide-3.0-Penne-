@@ -1007,4 +1007,4 @@ $ uaac client add pipeclient -s clientsecret --redirect_uri "[URL]" \
 
 ```
 
-[1-1-3]:\Service-Guide\images\Delivery_Pipeline_Architecture.jpg
+[1-1-3]:\Service-Guide\images\pipeline\Delivery_Pipeline_Architecture.jpg
