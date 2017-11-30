@@ -33,11 +33,9 @@ http://docs.cloudfoundry.org/
 
 
 <br>
-<div id='6'></div>
-#   2. 형상관리 서비스팩 설치
+# <div id='6'/> 2. 형상관리 서비스팩 설치
 
-<div id='7'></div>
-### 2.1. 설치전 준비사항
+### <div id='7'>2.1. 설치전 준비사항
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
 서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.
 BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
@@ -46,15 +44,16 @@ PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (Pa
 -   설치에 필요한 모든 다운로드 파일 및 문서는 다음 Url에서 찾을 수 있다. **https://github.com/PaaS-TA /Documents- -3.0**
 
 <br>
-<div id='8'></div>
-###   2.2. 형상관리 서비스 릴리즈 업로드
+### <div id='8'> 2.2. 형상관리 서비스 릴리즈 업로드
 
 -	PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 GlusterFS 서비스 릴리즈 paasta-glusterfs-2.0.tgz 파일을 확인한다.
+
 ```
 $ cd bosh-space
 $ ll paasta-sourcecontrol-release-1.0.tgz
 -rw-r--r-- 1 root root 566041075 Jul  5 10:37 paasta-sourcecontrol-release-1.0.tgz
 ```
+
 <br>
 -형상관리 서비스 릴리즈 파일을 업로드한다.
 ```
