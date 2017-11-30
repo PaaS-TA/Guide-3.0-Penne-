@@ -25,7 +25,7 @@
 - Web IDE 설치
   - [Web IDE](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/WEBIDE/PaaS-TA%20WEB%20IDE%20설치%20가이드.md)
 - 통합 개발 도구 설치
-  - [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드.md)
+  - [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드.md)
   
 ## 포털 설치 가이드
 - [PaaS-TA 포털](../../../Guide-2.0-Linguine-/blob/master/Development-Guide/Portal_Page.md)
