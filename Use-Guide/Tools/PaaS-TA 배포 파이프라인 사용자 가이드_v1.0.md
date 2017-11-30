@@ -742,7 +742,7 @@
 [009]:/Use-Guide/images/pipeline/image009.png
 [010]:/Use-Guide/images/pipeline/image010.png
 [011]:/Use-Guide/images/pipeline/image011.png
-[012]:/Use-Guide/images/pipeline/image012.png
+[012]:/Use-Guide/images/pipeline/image012.jpg
 [013]:/Use-Guide/images/pipeline/image013.png
 [014]:/Use-Guide/images/pipeline/image014.png
 [015]:/Use-Guide/images/pipeline/image015.png
