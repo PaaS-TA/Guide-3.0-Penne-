@@ -236,8 +236,7 @@ Release tarball (539.6M): /mnt/bosh-space/sjchoi/paasta-sourcecontrol-releases/d
 
 ```
 
-<br>
--	업로드된 형상관리 릴리즈를 확인한다.
+- 업로드된 형상관리 릴리즈를 확인한다.
 ```
 $bosh releases paasta-sourcecontrol-release-1.0.tgz
 
@@ -271,20 +270,17 @@ $bosh releases paasta-sourcecontrol-release-1.0.tgz
 ```
 형상관리 서비스 릴리즈가 업로드 되어 있는 것을 확인 할 수 있다.
 
-<br>
-<div id='9'></div>
-###   2.3. glusterfs 서비스 Deployment 파일 수정 및 배포
+
+###  <div id='9'> 2.3. glusterfs 서비스 Deployment 파일 수정 및 배포
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
+- 다운로드 받은 Deployment .yml 파일을 확인한다. (paasta-sourcecontrol-1.0.yml)
 
-<br>
--	다운로드 받은 Deployment Yml 파일을 확인한다. (paasta-sourcecontrol-1.0.yml)
-
-다운로드 받은 Deployment Yml 파일을 확인한다.
 ```
 $ ls –all
 ```
+
 ```
 total 851588
 drwxrwxr-x  5 inception inception      4096 Jan  9 10:18 .
@@ -294,7 +290,7 @@ drwxrwxr-x 11 inception inception      4096 Dec 21 09:28 ..
 ```
 
 <br>
--	-	Director UUID를 확인한다.
+- Director UUID를 확인한다.
 BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다.
 
 
@@ -348,8 +344,8 @@ Stemcells total: 7
 ```
 Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 버전을 업로드를 해야 한다.
 
-<br>
--	Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
+
+- Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
 
 ```yaml
 # 설정 파일 내용
