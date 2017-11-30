@@ -1,4 +1,4 @@
-#[PaaS-TA 형상관리 서비스팩 설치 가이드]
+# [PaaS-TA 형상관리 서비스팩 설치 가이드]
 
 ## 목차
 1. [문서 개요](#1)
@@ -14,64 +14,47 @@
      * [2.5. 형상관리 UAA Client Id 등록](#11)
 
 
-<br>
-<div id='1'></div>
-# 1. 문서 개요
 
+# <div id='1'/> 1. 문서 개요
 
-<div id='2'></div>
-### 1.1. 목적
+### <div id='2'/> 1.1 목적
 본 문서(형상관리 서비스팩 설치 가이드)는 개방형 PaaS 플랫폼 고도화 및 개발자 지원환경 기반의 Open PaaS에서 제공되는 서비스팩인 형상관리 서비스를 Bosh를 이용하여 설치 하는 방법을 기술하였다.
 
-
-<br>
-<div id='3'></div>
-### 1.2. 범위
+### <div id='3'/> 1.2 범위
 본 문서의 설치된 시스템 구성도입니다. 형상관리 Server, 형상관리 서비스 브로커로 최소사항을 구성하였다.
 
-<br>
-<div id='4'></div>
-### 1.3. 시스템 구성도
+### <div id='4'/> 1.3 시스템 구성도
 본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
 ![source_controller_Service_Guide01]
 
-<br>
-<div id='5'></div>
-### 1.4. 참고자료
-**http://bosh.io/docs** <br>
-**http://docs.cloudfoundry.org/**
+### <div id='5'/> 1.4 참고자료
+http://bosh.io/docs
+http://docs.cloudfoundry.org/
 
-<br>
+
 # <div id='6'/> 2. 형상관리 서비스팩 설치
 
-<<<<<<< HEAD
-
-<div id='7'></div>
-### 2.1. 설치전 준비사항
-=======
-### <div id='7'>2.1. 설치전 준비사항
->>>>>>> 46e34120d7888acb7f64306d167f4766fbf23391
+### <div id='7'> 2.1. 설치전 준비사항
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
 서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.
 BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
 PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
 
+- 설치에 필요한 모든 다운로드 파일 및 문서는 다음 Url에서 찾을 수 있다. 
+https://github.com/PaaS-TA /Documents- -3.0
 
--   설치에 필요한 모든 다운로드 파일 및 문서는 다음 Url에서 찾을 수 있다. **https://github.com/PaaS-TA /Documents- -3.0**
 
-<br>
 ### <div id='8'> 2.2. 형상관리 서비스 릴리즈 업로드
 
--	PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 GlusterFS 서비스 릴리즈 paasta-glusterfs-2.0.tgz 파일을 확인한다.
-
+- PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 GlusterFS 서비스 릴리즈 paasta-glusterfs-2.0.tgz 파일을 확인한다.
 ```
 $ cd bosh-space
 $ ll paasta-sourcecontrol-release-1.0.tgz
 -rw-r--r-- 1 root root 566041075 Jul  5 10:37 paasta-sourcecontrol-release-1.0.tgz
 ```
 
-<br>
--형상관리 서비스 릴리즈 파일을 업로드한다.
+- 형상관리 서비스 릴리즈 파일을 업로드한다.
+
 ```
 $ sudo bosh create release --force --with-tarball --name paasta-sourcecontrol-release --version 1.0
 $ [WARNING] Missing blobstore configuration, please update config/final.yml before making a final release
@@ -725,11 +708,11 @@ Context : admin, from client admin
 -SC포탈 계정 생성을 한다.
 
 ```
-$ uaac client add scclient -s password --redirect_uri "[URL]" /
-scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" /
---authorized_grant_types "authorization_code , client_credentials , refresh_token" /
---authorities="uaa.resource" /
+$ uaac client add scclient -s password --redirect_uri "[URL]" \
+scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
+--authorized_grant_types "authorization_code , client_credentials , refresh_token" \
+--authorities="uaa.resource" \
 --autoapprove="openid , cloud_controller_service_permissions.read"
 ```
 
-[source_controller_Service_Guide01]:‪/Service-Guide/images/source_control/source_controller_Service_Guide01.PNG
+[source_controller_Service_Guide01]:‪\Service-Guide\images\source_control\source_controller_Service_Guide01.PNG
