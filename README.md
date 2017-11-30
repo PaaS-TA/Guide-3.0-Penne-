@@ -34,7 +34,7 @@
 ## 활용 가이드
 - [BOSH CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaaS_PaaSTA_BOSH_CLI_guide.md)
 - [CF CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaas%20CLi%20가이드.md)
-- [Eclipse plugin 개발도구 사용] (../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/Open%20PaaS%20개발환경%20사용%20가이드.md)
+- [Eclipse plugin 개발도구 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/Open%20PaaS%20개발환경%20사용%20가이드.md)
 - [운영자 포털 가이드]
 - [사용자 포털 가이드]
 
