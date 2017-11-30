@@ -15,36 +15,26 @@
 
 
 <br>
-<div id='1'></div>
-# 1. 문서 개요
+# <div id='1'/> 1. 문서 개요
 
-
-<div id='2'></div>
-### 1.1. 목적
+### <div id='11'/> 1.1 목적
 본 문서(형상관리 서비스팩 설치 가이드)는 개방형 PaaS 플랫폼 고도화 및 개발자 지원환경 기반의 Open PaaS에서 제공되는 서비스팩인 형상관리 서비스를 Bosh를 이용하여 설치 하는 방법을 기술하였다.
 
-
-<br>
-<div id='3'></div>
-### 1.2. 범위
+### <div id='12'/> 1.2 범위
 본 문서의 설치된 시스템 구성도입니다. 형상관리 Server, 형상관리 서비스 브로커로 최소사항을 구성하였다.
 
-<br>
-<div id='4'></div>
-### 1.3. 시스템 구성도
+### <div id='13'/> 1.3 시스템 구성도
 본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
 ![source_controller_Service_Guide01]
 
-<br>
-<div id='5'></div>
-### 1.4. 참고자료
-[**http://bosh.io/docs**](http://bosh.io/docs) <br>
-[**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
+### <div id='14'/> 1.4 참고자료
+http://bosh.io/docs
+http://docs.cloudfoundry.org/
+
 
 <br>
 <div id='6'></div>
 #   2. 형상관리 서비스팩 설치
-
 
 <div id='7'></div>
 ### 2.1. 설치전 준비사항
@@ -52,7 +42,6 @@
 서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.
 BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
 PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
-
 
 -   설치에 필요한 모든 다운로드 파일 및 문서는 다음 Url에서 찾을 수 있다. **https://github.com/PaaS-TA /Documents- -3.0**
 
