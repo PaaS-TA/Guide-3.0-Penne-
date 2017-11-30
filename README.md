@@ -39,19 +39,19 @@
 - [사용자 포털 가이드]
 
 ## 개발 언어 별 어플리케이션 가이드
-- [Node.js](../../../Documents-PaaSTA-1.0/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Nodejs_develope_guide.md)
-- [PHP](../../../Documents-PaaSTA-1.0/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_PHP_develope_guide.md)
-- [Python](../../../Documents-PaaSTA-1.0/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Python_develope_guide.md)
-- [Ruby](../../../Documents-PaaSTA-1.0/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Ruby_develope_guide.md)
-- [Java](../../../Documents-PaaSTA-1.0/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Java_develope_guide.md)
-- [Go](../../../Documents-PaaSTA-1.0/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Go_develope_guide.md)
+- [Node.js](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Nodejs_develope_guide.md)
+- [PHP](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_PHP_develope_guide.md)
+- [Python](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Python_develope_guide.md)
+- [Ruby](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Ruby_develope_guide.md)
+- [Java](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Java_develope_guide.md)
+- [Go](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Go_develope_guide.md)
 	
 ## 플랫폼 개발 가이드
-- [스템셀 개발 가이드](../../../Documents-PaaSTA-1.0/blob/master/Development-Guide/OpenPaaS_PaaSTA_Build_Stemcell_guide.md)
-- [서비스팩 개발 가이드](../../../Documents-PaaSTA-1.0/blob/master/Development-Guide/ServicePack_develope_guide.md)
-- [빌드팩 개발 가이드](../../../Documents-PaaSTA-1.0/blob/master/Development-Guide/Buildpack_develope_guide.md)
-- [어플리케이션 APIPlatform 도로주소 개발 가이드](../../../Documents-PaaSTA-1.0/blob/master/Development-Guide/Application_APIPlatform_dorojuso_devlope_guide.md)
-- [퍼블릭 API 개발 가이드](../../../Documents-PaaSTA-1.0/blob/master/Development-Guide/PublicAPI_devlope_guide.md)
-- [Java API 서비스 미터링 개발 가이드](./Development-Guide/PaaS-TA_Java_API_서비스_미터링_개발_가이드.md)
-- [Java 서비스 미터링 개발 가이드](./Development-Guide/PaaS-TA_Java_서비스_미터링_개발_가이드.md)
-- [Nodejs API 서비스 미터링 개발 가이드](./Development-Guide/PaaS-TA_Node.js_API_미터링_개발_가이드.md)
+- [스템셀 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/OpenPaaS_PaaSTA_Build_Stemcell_guide.md)
+- [서비스팩 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/ServicePack_develope_guide.md)
+- [빌드팩 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/Buildpack_develope_guide.md)
+- [어플리케이션 APIPlatform 도로주소 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/Application_APIPlatform_dorojuso_devlope_guide.md)
+- [퍼블릭 API 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/PublicAPI_devlope_guide.md)
+- [Java API 서비스 미터링 개발 가이드](../../../Guide-2.0-Linguine-/blob/master/Development-/PaaS-TA_Java_API_서비스_미터링_개발_가이드.md)
+- [Java 서비스 미터링 개발 가이드](../../../Guide-2.0-Linguine-/blob/master/Development-Guide/PaaS-TA_Java_서비스_미터링_개발_가이드.md)
+- [Nodejs API 서비스 미터링 개발 가이드](../../../Guide-2.0-Linguine-/blob/master/Development-Guide/PaaS-TA_Node.js_API_미터링_개발_가이드.md)
