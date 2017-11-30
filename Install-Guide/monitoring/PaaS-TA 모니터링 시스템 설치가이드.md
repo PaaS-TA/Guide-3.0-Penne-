@@ -112,7 +112,7 @@
 PaaS-TA 모니터링 App이 정상 구동되기 위해서는 Influx-Grafana, Metric Collector가 PaaS-TA에 설치 되어 있어야 한다. Bosh 설치시 Bosh Monitoring Agent가 설치 되어 있어야 한다.
 
 ## 실행환경
-PaaS-TA App은 별도의 Process로 으로 구동되도록 작성 되었다.
+PaaS-TA App은 별도의 Process 와 PaaS-TA App으로 구동되도록 작성 되었다.
 
 - [PaaS-TA 모니터링](https://github.com/PaaS-TA/PaaS-TA-Monitoring)
 
@@ -129,7 +129,7 @@ IaaS모니터링이 정상 작동을 위해서는 Monasca가 설치 되어 있�
 ## 실행환경
 IaaS 모니터링 App은 별도의 Process로 으로 구동되도록 작성 되었다.
 
-- [PaaS-TA 모니터링](https://github.com/PaaS-TA/IaaS-Monitoring)
+- [IaaS 모니터링](https://github.com/PaaS-TA/IaaS-Monitoring)
 
 
 [2-1-1]:images/2-1-1.png
