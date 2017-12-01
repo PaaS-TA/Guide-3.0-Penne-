@@ -320,8 +320,7 @@
 
 6.	알림 메시지 “참여자가 삭제되었습니다.”가 나오면 인스턴스 사용자가 삭제 된다.
 
-[002]:/Use-Guide/images/pipeline/image002.png
-
+[002]:/Use-Guide/images/source_control/image002.png
 [image002.png]:‪‪/Use-Guide/images/source_control/image002.png
 [image003.png]:‪‪/Use-Guide/images/source_control/image003.png
 [image004.png]:‪‪/Use-Guide/images/source_control/image004.png
