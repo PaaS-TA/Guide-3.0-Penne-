@@ -62,17 +62,16 @@
 
 ### <div id='8'/>  3.1.1. 로그인
 1.	PaaS-TA 사용자 포탈에 접속한다.
-![image002.png]
 ![002]
 
 2. "로그인" 버튼을 클릭한다.
-![image003.png]
+![003]
 
 3.	사용할 이메일 계정과 비밀번호를 입력하고, “SING IN” 버튼을 클릭한다.
-![image004.png]
+![004]
 
 4.	로그인 완료 후, 대시보드 화면으로 이동된다.  대시보드 화면에서 조직명을 입력 후 “조직생성”버튼을 클릭하여 조직 대시 보드 화면에서 조직 생성을 한다.
-![image005.png]
+![005]
 
 5.	조직생성 완료 후 화면에는 조직, 공간, 도메인, 사용자가 생성된다. 상단의 “카탈로그” 메뉴를 클릭하여 카탈로그 목록 화면으로 이동한다.
 ![image006.png]
@@ -321,10 +320,9 @@
 6.	알림 메시지 “참여자가 삭제되었습니다.”가 나오면 인스턴스 사용자가 삭제 된다.
 
 [002]:/Use-Guide/images/source_control/image002.png
-[image002.png]:‪‪/Use-Guide/images/source_control/image002.png
-[image003.png]:‪‪/Use-Guide/images/source_control/image003.png
-[image004.png]:‪‪/Use-Guide/images/source_control/image004.png
-[image005.png]:‪‪/Use-Guide/images/source_control/image005.png
+[003]:/Use-Guide/images/source_control/image003.png
+[004]:/Use-Guide/images/source_control/image004.png
+[005]:/Use-Guide/images/source_control/image005.png
 [image006.png]:‪‪/Use-Guide/images/source_control/image006.png
 [image007.png]:‪‪/Use-Guide/images/source_control/image007.png
 [image008.png]:‪‪/Use-Guide/images/source_control/image008.png
