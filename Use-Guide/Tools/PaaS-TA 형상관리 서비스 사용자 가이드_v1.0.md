@@ -62,7 +62,7 @@
 
 ### <div id='8'/>  3.1.1. 로그인
 1.	PaaS-TA 사용자 포탈에 접속한다.
-![002]
+![image002.png]
 
 2. "로그인" 버튼을 클릭한다.
 ![image003.png]
@@ -320,7 +320,7 @@
 6.	알림 메시지 “참여자가 삭제되었습니다.”가 나오면 인스턴스 사용자가 삭제 된다.
 
 
-[002]:‪‪/Use-Guide/images/source_control/image002.png
+[image002.png]:‪‪/Use-Guide/images/source_control/image002.png
 [image003.png]:‪‪/Use-Guide/images/source_control/image003.png
 [image004.png]:‪‪/Use-Guide/images/source_control/image004.png
 [image005.png]:‪‪/Use-Guide/images/source_control/image005.png
