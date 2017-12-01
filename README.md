@@ -40,11 +40,8 @@
 - [Eclipse plugin 개발도구 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/Open%20PaaS%20개발환경%20사용%20가이드.md)
 - [운영자 포털 가이드]
 - [사용자 포털 가이드]
-- [PaaS-TA배포파이프라인 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20배포%20파이프라인%20사용자%20가이드_1.0.md)
-- [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드.md)
-- [PaaS-TA 배포 파이프라인 사용자 가이드](./Guide-3.0-Penne-/Use-Guide/Tools/PaaS-TA 배포 파이프라인 사용자 가이드_v1.0.md)
-- [형상관리 서비스 사용자 가이드](./Use-Guide/Tools/PaaS-TA 형상관리 서비스 사용자 가이드_v1.0.md)
-
+- [PaaS-TA 배포 파이프라인 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20배포%20파이프라인%20사용자%20가이드_1.0.md)
+- [PaaS-TA 형상관리 서비스 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20형상관리%20서비스%20사용자%20가이드_v1.0.md)
 
 ## 개발 언어 별 어플리케이션 가이드
 - [Node.js](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Nodejs_develope_guide.md)
