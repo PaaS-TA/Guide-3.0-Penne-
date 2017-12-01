@@ -74,19 +74,19 @@
 ![005]
 
 5.	조직생성 완료 후 화면에는 조직, 공간, 도메인, 사용자가 생성된다. 상단의 “카탈로그” 메뉴를 클릭하여 카탈로그 목록 화면으로 이동한다.
-![image006.png]
+!![006]
 
 6.	카탈로그 맨 하단의 [통합개발도구]항목에 “형상관리 서비스” 이미지를 클릭하여 형상관리 서비스 상세 화면으로 이동한다.
-![image007.png]
+![007]
 
 7.	형상관리 서비스의 상세 페이지에서는 형상관리 서비스생성을 하기 위한 내용을 입력한다. 서비스 이름을 영문으로 입력하고 “생성”버튼을 클릭하면 형상관리 서비스 인스턴스가 생성이 되고 공간 대시보드로 이동한다.
-![image008.png]
+![008]
 
 8.	공간 대시보드에서 서비스 항목에 입력한 형상관리 서비스 인스턴스를 확인한다. 형상관리 서비스 인스턴스의 우측의 “대시보드” 버튼을 클릭하여 형상관리 대시보드로 이동한다.
-![image009.png]
+![009]
 
 9.	형상관리 서비스 생성 후 최초 대시보드 이용 시 패스워드를 입력한다. 비밀번호는 6~16자로 입력한다.
-![image010.png]
+![010]
 
 ### <div id='9'/> 3.1.2. 레파지토리 참여자 권한 관리
 레파지토리 참여자 권한 관리하는 목적은 레파지토리에 대한 권한을 참여자에게 공유하기 위함이다.
@@ -323,43 +323,44 @@
 [003]:/Use-Guide/images/source_control/image003.png
 [004]:/Use-Guide/images/source_control/image004.png
 [005]:/Use-Guide/images/source_control/image005.png
-[image006.png]:‪‪/Use-Guide/images/source_control/image006.png
-[image007.png]:‪‪/Use-Guide/images/source_control/image007.png
-[image008.png]:‪‪/Use-Guide/images/source_control/image008.png
-[image009.png]:‪‪/Use-Guide/images/source_control/image009.png
-[image010.png]:‪‪/Use-Guide/images/source_control/image010.png
-[image011.png]:/Use-Guide/images/source_control/image011.png
-[image012.png]:/Use-Guide/images/source_control/image012.png
-[image013.png]:‪‪/Use-Guide/images/source_control/image013.png
-[image014.png]:‪‪/Use-Guide/images/source_control/image014.png
-[image015.png]:‪‪/Use-Guide/images/source_control/image015.png
-[image016.png]:‪‪/Use-Guide/images/source_control/image016.png
-[image017.png]:‪‪/Use-Guide/images/source_control/image017.png
-[image018.png]:‪‪/Use-Guide/images/source_control/image018.png
-[image019.png]:‪‪/Use-Guide/images/source_control/image019.png
-[image020.png]:‪‪/Use-Guide/images/source_control/image020.png
-[image021.png]:‪‪/Use-Guide/images/source_control/image021.png
-[image022.png]:‪‪/Use-Guide/images/source_control/image022.png
-[image024.png]:‪‪/Use-Guide/images/source_control/image023.png
-[image023.png]:‪‪/Use-Guide/images/source_control/image024.png
-[image025.png]:‪‪/Use-Guide/images/source_control/image025.png
-[image026.png]:‪‪/Use-Guide/images/source_control/image026.png
-[image027.png]:‪‪/Use-Guide/images/source_control/image027.png
-[image028.png]:‪‪/Use-Guide/images/source_control/image028.png
-[image029.png]:‪‪/Use-Guide/images/source_control/image029.png
-[image030.png]:‪‪/Use-Guide/images/source_control/image030.png
-[image031.png]:‪‪/Use-Guide/images/source_control/image031.png
-[image032.png]:‪‪/Use-Guide/images/source_control/image032.png
-[image033.png]:‪‪/Use-Guide/images/source_control/image033.png
-[image034.png]:‪‪/Use-Guide/images/source_control/image034.png
-[image035.png]:‪‪/Use-Guide/images/source_control/image035.png
-[image036.png]:‪‪/Use-Guide/images/source_control/image036.png
-[image037.png]:‪‪/Use-Guide/images/source_control/image037.png
-[image038.png]:‪‪/Use-Guide/images/source_control/image038.png
-[image039.png]:‪‪/Use-Guide/images/source_control/image039.png
-[image040.png]:‪‪/Use-Guide/images/source_control/image040.png
-[image041.png]:‪‪/Use-Guide/images/source_control/image041.png
-[image042.png]:‪‪/Use-Guide/images/source_control/image042.png
-[image043.png]:‪‪/Use-Guide/images/source_control/image043.png
-[image044.png]:‪‪/Use-Guide/images/source_control/image044.png
-[image045.png]:‪‪/Use-Guide/images/source_control/image045.png
+[006]:/Use-Guide/images/source_control/image006.png
+[007]:/Use-Guide/images/source_control/image007.png
+[008]:/Use-Guide/images/source_control/image008.png
+[009]:/Use-Guide/images/source_control/image009.png
+[010]:/Use-Guide/images/source_control/image010.png
+[011]:/Use-Guide/images/source_control/image011.png
+[012]:/Use-Guide/images/source_control/image012.png
+[013]:/Use-Guide/images/source_control/image013.png
+[014]:/Use-Guide/images/source_control/image014.png
+[015]:/Use-Guide/images/source_control/image015.png
+[016]:/Use-Guide/images/source_control/image016.png
+[017]:/Use-Guide/images/source_control/image017.png
+[018]:/Use-Guide/images/source_control/image018.png
+[019]:/Use-Guide/images/source_control/image019.png
+[020]:/Use-Guide/images/source_control/image020.png
+[021]:/Use-Guide/images/source_control/image021.png
+[022]:/Use-Guide/images/source_control/image022.png
+[023]:/Use-Guide/images/source_control/image023.png
+[024]:/Use-Guide/images/source_control/image024.png
+[025]:/Use-Guide/images/source_control/image025.png
+[026]:/Use-Guide/images/source_control/image026.png
+[027]:/Use-Guide/images/source_control/image027.png
+[028]:/Use-Guide/images/source_control/image028.png
+[029]:/Use-Guide/images/source_control/image029.png
+[030]:/Use-Guide/images/source_control/image030.png
+[031]:/Use-Guide/images/source_control/image031.png
+[032]:/Use-Guide/images/source_control/image032.png
+[033]:/Use-Guide/images/source_control/image033.png
+[034]:/Use-Guide/images/source_control/image034.png
+[035]:/Use-Guide/images/source_control/image035.png
+[036]:/Use-Guide/images/source_control/image036.png
+[037]:/Use-Guide/images/source_control/image037.png
+[038]:/Use-Guide/images/source_control/image038.png
+[039]:/Use-Guide/images/source_control/image039.png
+[040]:/Use-Guide/images/source_control/image040.png
+[041]:/Use-Guide/images/source_control/image041.png
+[042]:/Use-Guide/images/source_control/image042.png
+[043]:/Use-Guide/images/source_control/image043.png
+[044]:/Use-Guide/images/source_control/image044.png
+[045]:/Use-Guide/images/source_control/image045.png
+
