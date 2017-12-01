@@ -38,8 +38,8 @@
 - [BOSH CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaaS_PaaSTA_BOSH_CLI_guide.md)
 - [CF CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaas%20CLi%20가이드.md)
 - [Eclipse plugin 개발도구 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/Open%20PaaS%20개발환경%20사용%20가이드.md)
-- [운영자 포털 가이드]
-- [사용자 포털 가이드]
+- [운영자 포털 가이드]()
+- [사용자 포털 가이드](../../../Guide-2.0-Linguine-/blob/master/Use-Guide/PaaS-TA%20사용자%20포탈%20가이드_v1.0.md)
 - [PaaS-TA 배포 파이프라인 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20배포%20파이프라인%20사용자%20가이드_v1.0.md)
 - [PaaS-TA 형상관리 서비스 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20형상관리%20서비스%20사용자%20가이드_v1.0.md)
 
