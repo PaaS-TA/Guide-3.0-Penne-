@@ -822,6 +822,7 @@
 [085]:/Use-Guide/images/pipeline/image085.jpg
 [086]:/Use-Guide/images/pipeline/image086.png
 [087]:/Use-Guide/images/pipeline/image087.png
+[087-2]:/Use-Guide/images/pipeline/image087(2).png
 [088]:/Use-Guide/images/pipeline/image088.png
 [089]:/Use-Guide/images/pipeline/image089.jpg
 [090]:/Use-Guide/images/pipeline/image090.png
