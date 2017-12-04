@@ -744,7 +744,7 @@
 
 
 
-[PaaSTa_Infra_Dashboard_Use_Guide_Image1]:./../../images/infra_use_guide/allInfraAccout.png
+[PaaSTa_Infra_Dashboard_Use_Guide_Image1]:../images/infra_use_guide/allInfraAccout.png
 [PaaSTa_Infra_Dashboard_Use_Guide_Image2]:./../../images/infra_use_guide/awsAccount.png
 [PaaSTa_Infra_Dashboard_Use_Guide_Image3]:./../../images/infra_use_guide/openstackAccount.png
 [PaaSTa_Infra_Dashboard_Use_Guide_Image4]:images/infra_use_guide/googleAccount.png
