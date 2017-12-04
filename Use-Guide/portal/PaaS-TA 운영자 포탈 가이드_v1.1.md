@@ -458,5 +458,4 @@ PaaSTA 포탈의 서비스 관리를 수행하기 위한 메뉴이다.
 
 
 
-[01]:./images/admin-portal/portal-web-admin-01.png
-
+[01]:../../../Use-Guide/images/admin-portal/portal-web-admin-01.png
