@@ -240,7 +240,7 @@ PaaSTA 포탈의 관리에 필요한 기능을 수행하기 위한 메뉴이다.
 ![47_2]
 
 3. 서비스를 삭제하기 위해 왼쪽 하단의 삭제버튼을 누른다.<br>
-![48]
+![48_2]
 
 4. 카탈로그 화면에서 서비스를 등록하기 위해 서비스 등록버튼을 누르면 다음의 화면이 나온다. 
 이름, 분류, 서비스, 썸네일, 파라미터, 공개여부, 요약, 설명을 입력하고 등록버튼을 누르면 새로운 서비스가 등록된다. <br>
@@ -375,7 +375,7 @@ PaaSTA 포탈의 서비스 관리를 수행하기 위한 메뉴이다.<br>
 [45]:./../../Use-Guide/images/admin-portal/portal-web-admin-45.png					
 [46]:./../../Use-Guide/images/admin-portal/portal-web-admin-46.png					
 [47_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-47(2).png					
-[48]:./../../Use-Guide/images/admin-portal/portal-web-admin-48.png					
+[48_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-48(2).png					
 [49_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2).png					
 [50]:./../../Use-Guide/images/admin-portal/portal-web-admin-50.png					
 [51]:./../../Use-Guide/images/admin-portal/portal-web-admin-51.png					
