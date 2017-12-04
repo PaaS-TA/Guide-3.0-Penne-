@@ -64,7 +64,7 @@ PaaSTA 관리자 포탈 웹 사이트에 접속한다.
 
 1.  PaaSTA 관리자 포탈에 접속하면 인증을 위한 로그인 화면이 나타난다.
 
-> ![01]
+> ![01]:./Use-Guide/images/admin-portal/portal-web-admin-01.png
 
 1.  아이디와 비밀번호를 입력후 LOGIN 버튼을 클릭한다.
 
