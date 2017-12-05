@@ -250,6 +250,7 @@ BOOTSTRAP(Microbosh) 또는 BOSH의 디렉터 정보를 관리하는 화면이�
 
 -   기본 설치 관리자로 설정된 설치 관리자 정보를 보여준다.
 
+![PaaSTa_Platform_Use_Guide_Image05_1]
 
 ### <div id='9'/>2.1.3.  ***환경설정 및 관리 -> 스템셀 관리***
 
@@ -1153,6 +1154,8 @@ BOOTSTRAP을 설치하기 위해서는 사전에 인프라 환경 구축이 필�
     -   BOOTSTRAP 설치 시 Ingress Rule 항목에 “bosh-security” 버튼을 클릭한다.
     -   CF 설치 시 Ingress Rule 항목에 “cf-security” 버튼을 클릭한다.
 
+![PaaSTa_Platform_Use_Guide_Image46_1]
+
 ### <div id='37'/>3.6.3.  ***인프라 환경 설정 관리***
 BOOTSTRAP을 설치하기 위해서는 설치 할 인프라의 환경 설정 정보를 등록해야 한다.
 플랫폼 설치 자동화 웹 화면에서 “배포 정보 조회 및 관리”  “인프라 환경 설정 관리” 메뉴로 이동한다. “인프라 환경 설정 관리” 메뉴에서는 AWS/OPENSTACK/vSphere/GOOGLE 등 4개 인프라의 전체 환경 설정 목록 조회 기능과 관리 화면으로 이동하는 기능을 제공한다. (인프라 환경 설정 관리 화면 설명은 2.1.21 참고)
@@ -1250,6 +1253,8 @@ BOOTSTRAP을 설치하기 위해서는 BOSH 릴리즈와 BOSH CPI릴리즈 2개�
 
 -   구글 환경으로 BOOTSTRAP 설치 시 필요하다.
 -   릴리즈 등록 팝업화면에서 OS CONF 릴리즈 정보를 입력하고, “등록” 버튼 클릭한다.
+
+![PaaSTa_Platform_Use_Guide_Image54_1]
 
 ### <div id='40'/>3.6.6.  ***BOOTSTRAP 설치***
 
@@ -1361,6 +1366,8 @@ PaaS-TA개발팀에서 제공하는 PaaS-TA Controller 3.0버전의 릴리즈(pa
 ![PaaSTa_Platform_Use_Guide_Image72]
 
 #### 2.  Loggeregator 릴리즈 업로드
+
+![PaaSTa_Platform_Use_Guide_Image72_1]
 
 ### <div id='45'/>3.7.3.  ***CF 설치***
 
@@ -1791,114 +1798,132 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 
 ![PaaSTa_Platform_Use_Guide_Image124]
 
-[PaaSTa_Platform_Use_Guide_Image01]:images/PaaSTa_Platform_Use_Guide/manual/login.png
-[PaaSTa_Platform_Use_Guide_Image02]:images/PaaSTa_Platform_Use_Guide/manual/passwordChange.png
-[PaaSTa_Platform_Use_Guide_Image03]:images/PaaSTa_Platform_Use_Guide/manual/Dashboard.png
-[PaaSTa_Platform_Use_Guide_Image04]:images/PaaSTa_Platform_Use_Guide/manual/DirectorConfig.png
-[PaaSTa_Platform_Use_Guide_Image05]:images/PaaSTa_Platform_Use_Guide/manual/DirectorConfigAdd.png
-[PaaSTa_Platform_Use_Guide_Image06]:images/PaaSTa_Platform_Use_Guide/manual/StemcellConfig.png
-[PaaSTa_Platform_Use_Guide_Image07]:images/PaaSTa_Platform_Use_Guide/manual/ReleaseConfig.png
-[PaaSTa_Platform_Use_Guide_Image08]:images/PaaSTa_Platform_Use_Guide/manual/CodeManagement.png
-[PaaSTa_Platform_Use_Guide_Image09]:images/PaaSTa_Platform_Use_Guide/manual/AuthManagement.png
-[PaaSTa_Platform_Use_Guide_Image10]:images/PaaSTa_Platform_Use_Guide/manual/UseManagement.png
-[PaaSTa_Platform_Use_Guide_Image11]:images/PaaSTa_Platform_Use_Guide/manual/BootStrapInstall.png
-[PaaSTa_Platform_Use_Guide_Image12]:images/PaaSTa_Platform_Use_Guide/manual/BoshInstall.png
-[PaaSTa_Platform_Use_Guide_Image13]:images/PaaSTa_Platform_Use_Guide/manual/CfInstall.png
-[PaaSTa_Platform_Use_Guide_Image14]:images/PaaSTa_Platform_Use_Guide/manual/DiegoInstall.png
-[PaaSTa_Platform_Use_Guide_Image15]:images/PaaSTa_Platform_Use_Guide/manual/Cf_DiegoInstall.png
-[PaaSTa_Platform_Use_Guide_Image16]:images/PaaSTa_Platform_Use_Guide/manual/ServicePackInstall.png
-[PaaSTa_Platform_Use_Guide_Image17]:images/PaaSTa_Platform_Use_Guide/manual/StemcellUpload.png
-[PaaSTa_Platform_Use_Guide_Image18]:images/PaaSTa_Platform_Use_Guide/manual/ReleaseUpload.png
-[PaaSTa_Platform_Use_Guide_Image19]:images/PaaSTa_Platform_Use_Guide/manual/DeploymentInfo.png
-[PaaSTa_Platform_Use_Guide_Image20]:images/PaaSTa_Platform_Use_Guide/manual/TaskInfo.png
-[PaaSTa_Platform_Use_Guide_Image21]:images/PaaSTa_Platform_Use_Guide/manual/VmInfo.png
-[PaaSTa_Platform_Use_Guide_Image22]:images/PaaSTa_Platform_Use_Guide/manual/PropertyInfo.png
-[PaaSTa_Platform_Use_Guide_Image23]:images/PaaSTa_Platform_Use_Guide/manual/SnapshotInfo.png
-[PaaSTa_Platform_Use_Guide_Image24]:images/PaaSTa_Platform_Use_Guide/manual/ManifestInfo.png
+[PaaSTa_Platform_Use_Guide_Image01]:Use-Guide/images/platform_use_guide/Login/Login.png
+[PaaSTa_Platform_Use_Guide_Image02]:Use-Guide/images/platform_use_guide/Login/PasswordChange.png
+[PaaSTa_Platform_Use_Guide_Image03]:Use-Guide/images/platform_use_guide/Main/MainDashboard.png
+[PaaSTa_Platform_Use_Guide_Image04]:Use-Guide/images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup.png
+[PaaSTa_Platform_Use_Guide_Image05]:Use-Guide/images/platform_use_guide/EnvSet&Mgnt/SetupAdminAdd.png
+[PaaSta_Platform_Use_Guide_Image05_1]:Use-Guide/images/platform_use_guide/EnvSet&Mgnt/DefaultAdminInfo.png
+[PaaSTa_Platform_Use_Guide_Image06]:Use-Guide/images/platform_use_guide/EnvSet&Mgnt/StemcellMgnt/StemcellRegList.png
+[PaaSTa_Platform_Use_Guide_Image07]:Use-Guide/images/platform_use_guide/EnvSet&Mgnt/ReleaseMgnt/ReleaseRegList.png
+[PaaSTa_Platform_Use_Guide_Image08]:Use-Guide/images/platform_use_guide/PlatformInstallAutoMgnt/CodeMgnt.png
+[PaaSTa_Platform_Use_Guide_Image09]:Use-Guide/images/platform_use_guide/PlatformInstallAutoMgnt/AuthorityMgnt.png
+[PaaSTa_Platform_Use_Guide_Image10]:Use-Guide/images/platform_use_guide/PlatformInstallAutoMgnt/UserMgnt.png
+[PaaSTa_Platform_Use_Guide_Image11]:Use-Guide/images/platform_use_guide/PlatformInstall/BootstrapInstallMgnt.png
+[PaaSTa_Platform_Use_Guide_Image12]:Use-Guide/images/platform_use_guide/PlatformInstall/CFInstallMgnt.png
+[PaaSTa_Platform_Use_Guide_Image13]:Use-Guide/images/platform_use_guide/PlatformInstall/DIEGOInstallMgnt.png
+[PaaSTa_Platform_Use_Guide_Image14]:Use-Guide/images/platform_use_guide/PlatformInstall/CF&DIEGOInstallMgnt.png
+[PaaSTa_Platform_Use_Guide_Image15]:Use-Guide/images/platform_use_guide/PlatformInstall/ServicepackInstallMgnt.png
+[PaaSTa_Platform_Use_Guide_Image16]:Use-Guide/images/platform_use_guide/Info/StemcellUpload.png
+[PaaSTa_Platform_Use_Guide_Image17]:Use-Guide/images/platform_use_guide/Info/ReleaseUpload.png
+[PaaSTa_Platform_Use_Guide_Image18]:Use-Guide/images/platform_use_guide/Info/DeploymentInfo.png
+[PaaSTa_Platform_Use_Guide_Image19]:Use-Guide/images/platform_use_guide/Info/TaskInfo.png
+[PaaSTa_Platform_Use_Guide_Image20]:Use-Guide/images/platform_use_guide/Info/VMInfoList.png
+[PaaSTa_Platform_Use_Guide_Image21]:Use-Guide/images/platform_use_guide/Info/PropertyMgnt.png
+[PaaSTa_Platform_Use_Guide_Image22]:Use-Guide/images/platform_use_guide/Info/SnapshotMgnt.png
+[PaaSTa_Platform_Use_Guide_Image23]:Use-Guide/images/platform_use_guide/Info/ManifestMgnt.png
+[PaaSTa_Platform_Use_Guide_Image24]:Use-Guide/images/platform_use_guide/Info/InfraEnvMgnt.png
+[PaaSTa_Platform_Use_Guide_Image25]:Use-Guide/images/platform_use_guide/Info/InfraEnvMgnt2.png
 
-[PaaSTa_Platform_Use_Guide_Image25]:images/PaaSTa_Platform_Use_Guide/platformProcess/PlatformProcess.png
-[PaaSTa_Platform_Use_Guide_Image26]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/codeGroupAdd.png
-[PaaSTa_Platform_Use_Guide_Image27]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/codeGroupModify.png
-[PaaSTa_Platform_Use_Guide_Image28]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/codeAdd.png
-[PaaSTa_Platform_Use_Guide_Image29]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/codeModify.png
-[PaaSTa_Platform_Use_Guide_Image30]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/authCodeADD.png
-[PaaSTa_Platform_Use_Guide_Image31]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/authGroupadd.png
-[PaaSTa_Platform_Use_Guide_Image32]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/authGroupModify.png
-[PaaSTa_Platform_Use_Guide_Image33]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/authDetailAdd.png
-[PaaSTa_Platform_Use_Guide_Image34]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/userAdd.png
-[PaaSTa_Platform_Use_Guide_Image35]:images/PaaSTa_Platform_Use_Guide/platformProcess/Management/userModify.png
-[PaaSTa_Platform_Use_Guide_Image36]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapProcess.png
-[PaaSTa_Platform_Use_Guide_Image37]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/StemcellAdd.png
-[PaaSTa_Platform_Use_Guide_Image38]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/releaseAdd.png
-[PaaSTa_Platform_Use_Guide_Image39]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/releaseAdd2.png
-[PaaSTa_Platform_Use_Guide_Image40]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapIaasSelect.png
-[PaaSTa_Platform_Use_Guide_Image41]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapOpenstackInfo.png
-[PaaSTa_Platform_Use_Guide_Image42]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapAWSInfo.png
-[PaaSTa_Platform_Use_Guide_Image43]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapVsphereInfo.png
-[PaaSTa_Platform_Use_Guide_Image44]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapDefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image45]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapOpenstackNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image46]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapAWSNetowrkInfo.png
-[PaaSTa_Platform_Use_Guide_Image47]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapVsphereNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image48]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapAwsOpenstackResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image49]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapVsphereResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image50]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapDeployInfo.png
-[PaaSTa_Platform_Use_Guide_Image51]:images/PaaSTa_Platform_Use_Guide/platformProcess/bootstrap/BootStrapDirectorAdd.png
-[PaaSTa_Platform_Use_Guide_Image52]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshInstallProcess.png
-[PaaSTa_Platform_Use_Guide_Image53]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/StemcellUpload.png
-[PaaSTa_Platform_Use_Guide_Image54]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/ReleaseUpload.png
-[PaaSTa_Platform_Use_Guide_Image55]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshOpenstackInfo.png
-[PaaSTa_Platform_Use_Guide_Image56]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshAwsInfo.png
-[PaaSTa_Platform_Use_Guide_Image57]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshVsphereInfo.png
-[PaaSTa_Platform_Use_Guide_Image58]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshDefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image59]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshOpenstackNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image60]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshAwsNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image61]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshVsphereNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image62]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshAwsOpenstackResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image63]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshVsphereResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image64]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshDeployInfo.png
-[PaaSTa_Platform_Use_Guide_Image65]:images/PaaSTa_Platform_Use_Guide/platformProcess/bosh/BoshInstallInfo.png
-[PaaSTa_Platform_Use_Guide_Image66]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfProcess.png
-[PaaSTa_Platform_Use_Guide_Image67]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfDiegoCheck.png
-[PaaSTa_Platform_Use_Guide_Image68]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfDefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image69]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfOpenstackNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image70]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfAwsNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image71]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfVsphereNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image72]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfKeyInfo.png
-[PaaSTa_Platform_Use_Guide_Image73]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfAwsOpenstackResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image74]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfVsphereResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image75]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfDeployInfo.png
-[PaaSTa_Platform_Use_Guide_Image76]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf/CfInstallInfo.png
-[PaaSTa_Platform_Use_Guide_Image77]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoProcess.png
-[PaaSTa_Platform_Use_Guide_Image78]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoDefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image79]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoOpenstackNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image80]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoAwsNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image81]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoVsphereNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image82]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoCreateKey.png
-[PaaSTa_Platform_Use_Guide_Image83]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoAwsOpenstackResourceinfo.png
-[PaaSTa_Platform_Use_Guide_Image84]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoVsphereResourceinfo.png
-[PaaSTa_Platform_Use_Guide_Image85]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoDeployinfo.png
-[PaaSTa_Platform_Use_Guide_Image86]:images/PaaSTa_Platform_Use_Guide/platformProcess/Diego/DiegoInstallInfo.png
-[PaaSTa_Platform_Use_Guide_Image87]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfDiegoProcess.png
-[PaaSTa_Platform_Use_Guide_Image88]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfDefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image89]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfOpenstackNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image90]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfAwsNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image91]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfVsphereNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image92]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfKeyInfo.png
-[PaaSTa_Platform_Use_Guide_Image93]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfAwsOpenstackResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image94]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfVsphereResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image95]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfDeployInfo.png
-[PaaSTa_Platform_Use_Guide_Image96]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoDefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image97]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoOpenstackNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image98]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoAwsNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image99]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoVsphereNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image100]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoAwsOpenstackResourceinfo.png
-[PaaSTa_Platform_Use_Guide_Image101]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoVsphereResourceinfo.png
-[PaaSTa_Platform_Use_Guide_Image102]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoDeployinfo.png
-[PaaSTa_Platform_Use_Guide_Image103]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/CfInstallInfo.png
-[PaaSTa_Platform_Use_Guide_Image104]:images/PaaSTa_Platform_Use_Guide/platformProcess/Cf_Diego/DiegoInstallInfo.png
-[PaaSTa_Platform_Use_Guide_Image105]:images/PaaSTa_Platform_Use_Guide/platformProcess/ServicePack/ServicePackProcess.png
-[PaaSTa_Platform_Use_Guide_Image106]:images/PaaSTa_Platform_Use_Guide/platformProcess/ServicePack/ServicePackManifestUpload.png
-[PaaSTa_Platform_Use_Guide_Image107]:images/PaaSTa_Platform_Use_Guide/platformProcess/ServicePack/ServicePackManifestInfo.png
-[PaaSTa_Platform_Use_Guide_Image108]:images/PaaSTa_Platform_Use_Guide/platformProcess/ServicePack/ServicePackInstallInfo.png
-[PaaSTa_Platform_Use_Guide_Image109]:images/PaaSTa_Platform_Use_Guide/platformProcess/Property/PropertyAdd.png
-[PaaSTa_Platform_Use_Guide_Image110]:images/PaaSTa_Platform_Use_Guide/platformProcess/Property/PropertyModify.png
+[PaaSTa_Platform_Use_Guide_Image26]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/01_Process.png
+[PaaSTa_Platform_Use_Guide_Image27]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/02_CodeGroupReg.png
+[PaaSTa_Platform_Use_Guide_Image28]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/03_CodeGroupModify.png
+[PaaSTa_Platform_Use_Guide_Image29]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/04_CodeReg.png
+[PaaSTa_Platform_Use_Guide_Image30]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/05_CodeModify.png
+[PaaSTa_Platform_Use_Guide_Image31]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/06_AuthorityCodeReg.png
+[PaaSTa_Platform_Use_Guide_Image32]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/07_AuthorityGroupReg.png
+[PaaSTa_Platform_Use_Guide_Image33]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/08_AuthorityGroupModify.png
+[PaaSTa_Platform_Use_Guide_Image34]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/09_DetailAuthorityReg.png
+[PaaSTa_Platform_Use_Guide_Image35]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/UserReg.png
+[PaaSTa_Platform_Use_Guide_Image36]:Use-Guide/images/platform_use_guide/PlatformDeploymentAutomationUse/UserModify.png
+[PaaSTa_Platform_Use_Guide_Image37]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/Process.png
+[PaaSTa_Platform_Use_Guide_Image38]:Use-Guide/images/platform_use_guide/BootstrapInstall/AccountMgnt/AccountMgntMainView.png
+[PaaSTa_Platform_Use_Guide_Image39]:Use-Guide/images/platform_use_guide/BootstrapInstall/AccountMgnt/AWSAccountReg.png
+[PaaSTa_Platform_Use_Guide_Image40]:Use-Guide/images/platform_use_guide/BootstrapInstall/AccountMgnt/OpenstackAccountReg.png
+[PaaSTa_Platform_Use_Guide_Image41]:Use-Guide/images/platform_use_guide/BootstrapInstall/AccountMgnt/GoogleAccountReg.png
+[PaaSTa_Platform_Use_Guide_Image42]:Use-Guide/images/platform_use_guide/BootstrapInstall/AccountMgnt/vSphereAccountReg.png
+[PaaSTa_Platform_Use_Guide_Image43]:Use-Guide/images/platform_use_guide/BootstrapInstall/OpenstackMgnt/NetworkReg.png
+[PaaSTa_Platform_Use_Guide_Image44]:Use-Guide/images/platform_use_guide/BootstrapInstall/OpenstackMgnt/InterfaceAttach.png
+[PaaSTa_Platform_Use_Guide_Image45]:Use-Guide/images/platform_use_guide/BootstrapInstall/OpenstackMgnt/KeyPairMgnt.png
+[PaaSTa_Platform_Use_Guide_Image46]:Use-Guide/images/platform_use_guide/BootstrapInstall/OpenstackMgnt/FloatingIPAllocate.png
+[PaaSTa_Platform_Use_Guide_Image46_1]:Use-Guide/images/platform_use_guide/BootstrapInstall/OpenstackMgnt/SecurityGroupCreate.png
+[PaaSTa_Platform_Use_Guide_Image47]:Use-Guide/images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/InfraEnvSetupMainView.png
+[PaaSTa_Platform_Use_Guide_Image48]:Use-Guide/images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/AWSEnvSetupReg.png
+[PaaSTa_Platform_Use_Guide_Image49]:Use-Guide/images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/OpenstackEnvSetupReg.png
+[PaaSTa_Platform_Use_Guide_Image50]:Use-Guide/images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/GoogleEnvSetupReg.png
+[PaaSTa_Platform_Use_Guide_Image51]:Use-Guide/images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/vSphereEnvSetupReg.png
+[PaaSTa_Platform_Use_Guide_Image52]:Use-Guide/images/platform_use_guide/BootstrapInstall/Stemcell/OpenstackStemcellReg.png
+[PaaSTa_Platform_Use_Guide_Image53]:Use-Guide/images/platform_use_guide/BootstrapInstall/Release/OpenstackBOSHReleaseReg.png
+[PaaSTa_Platform_Use_Guide_Image54]:Use-Guide/images/platform_use_guide/BootstrapInstall/Release/OpenstackReleaseReg.png
+[PaaSTa_Platform_Use_Guide_Image54_1]:Use-Guide/images/platform_use_guide/BootstrapInstall/Release/os-confReleaseReg.png
+[PaaSTa_Platform_Use_Guide_Image55]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/IaasSelect.png
+[PaaSTa_Platform_Use_Guide_Image56]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/OpenstackInfo.png
+[PaaSTa_Platform_Use_Guide_Image57]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/AWSInfo.png
+[PaaSTa_Platform_Use_Guide_Image58]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/vSphereInfo.png
+[PaaSTa_Platform_Use_Guide_Image59]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/GoogleInfo.png
+[PaaSTa_Platform_Use_Guide_Image60]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/DefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image61]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/GoogleDefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image62]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/DefaultNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image63]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/vSphereNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image64]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/GoogleNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image65]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/DefaultResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image66]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/vSphereResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image67]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/DeploymentFileInfo.png
+[PaaSTa_Platform_Use_Guide_Image68]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/Deploy.png
+[PaaSTa_Platform_Use_Guide_Image69]:Use-Guide/images/platform_use_guide/BootstrapInstall/Install/DefaultAdminSetup.png
+[PaaSTa_Platform_Use_Guide_Image70]:Use-Guide/images/platform_use_guide/CFInstall/CFProcess.png
+[PaaSTa_Platform_Use_Guide_Image71]:Use-Guide/images/platform_use_guide/CFInstall/StemcellUpload.png
+[PaaSTa_Platform_Use_Guide_Image72]:Use-Guide/images/platform_use_guide/CFInstall/ReleaseUpload.png
+[PaaSTa_Platform_Use_Guide_Image72_1]:Use-Guide/images/platform_use_guide/CFInstall/ReleaseUpload_loggregator.png
+[PaaSTa_Platform_Use_Guide_Image73]:Use-Guide/images/platform_use_guide/CFInstall/Install/DIEGOUseSelect.png
+[PaaSTa_Platform_Use_Guide_Image74]:Use-Guide/images/platform_use_guide/CFInstall/Install/DefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image75]:Use-Guide/images/platform_use_guide/CFInstall/Install/OpenstackNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image76]:Use-Guide/images/platform_use_guide/CFInstall/Install/AWSNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image77]:Use-Guide/images/platform_use_guide/CFInstall/Install/vSphereNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image78]:Use-Guide/images/platform_use_guide/CFInstall/Install/GoogleNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image79]:Use-Guide/images/platform_use_guide/CFInstall/Install/KeyCreationInfo.png
+[PaaSTa_Platform_Use_Guide_Image80]:Use-Guide/images/platform_use_guide/CFInstall/Install/AdvencedSetupInfo.png
+[PaaSTa_Platform_Use_Guide_Image81]:Use-Guide/images/platform_use_guide/CFInstall/Install/DefaultResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image82]:Use-Guide/images/platform_use_guide/CFInstall/Install/vSphereResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image83]:Use-Guide/images/platform_use_guide/CFInstall/Install/DeploymentFileInfo.png
+[PaaSTa_Platform_Use_Guide_Image84]:Use-Guide/images/platform_use_guide/CFInstall/Install/Deployment.png
+[PaaSTa_Platform_Use_Guide_Image85]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/DIEGOProcess.png
+[PaaSTa_Platform_Use_Guide_Image86]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/DefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image87]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/OpenstackNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image88]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/AWSNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image89]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/vSphereNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image90]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/GoogleNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image91]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/KeyCreation.png
+[PaaSTa_Platform_Use_Guide_Image92]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/AdvencedSetupInfo.png
+[PaaSTa_Platform_Use_Guide_Image93]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/DefaultResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image94]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/vSphereResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image95]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/DeploymentFileInfo.png
+[PaaSTa_Platform_Use_Guide_Image96]:Use-Guide/images/platform_use_guide/DIEGOInstall/Install/Deployment.png
+[PaaSTa_Platform_Use_Guide_Image97]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/CF&DIEGOProcess.png
+[PaaSTa_Platform_Use_Guide_Image98]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/CFDefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image99]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/OpenstackNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image100]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/AWSNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image101]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/vSphereNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image102]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/GoogleNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image103]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/CFKeyCreation.png
+[PaaSTa_Platform_Use_Guide_Image104]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DefaultResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image105]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/vSphereResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image106]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/AdvencedSetupInfo.png
+[PaaSTa_Platform_Use_Guide_Image107]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DeploymentFileInfo.png
+[PaaSTa_Platform_Use_Guide_Image108]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoDefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image109]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoOpenstackNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image110]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoAWSNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image111]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegovSphereNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image112]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoGoogleNetworkInfo.png
+[PaaSTa_Platform_Use_Guide_Image113]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoDefaultResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image114]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegovSphereResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image115]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoAdvencedSetupInfoInfo.png
+[PaaSTa_Platform_Use_Guide_Image116]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoDeploymentFileInfo.png
+[PaaSTa_Platform_Use_Guide_Image117]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/CFDeployment.png
+[PaaSTa_Platform_Use_Guide_Image118]:Use-Guide/images/platform_use_guide/CF&DIEGOInstall/DiegoDeployment.png
+[PaaSTa_Platform_Use_Guide_Image119]:Use-Guide/images/platform_use_guide/ServicePackInstall/ServicePackProcess.png
+[PaaSTa_Platform_Use_Guide_Image120]:Use-Guide/images/platform_use_guide/ServicePackInstall/ManifestUpload.png
+[PaaSTa_Platform_Use_Guide_Image121]:Use-Guide/images/platform_use_guide/ServicePackInstall/ServicePackDeployment.png
+[PaaSTa_Platform_Use_Guide_Image122]:Use-Guide/images/platform_use_guide/ServicePackInstall/ServicePackDeploymentLog.png
+[PaaSTa_Platform_Use_Guide_Image123]:Use-Guide/images/platform_use_guide/ServicePackInstall/PropertyCreate.png
+[PaaSTa_Platform_Use_Guide_Image124]:Use-Guide/images/platform_use_guide/ServicePackInstall/PropertyModify.png
