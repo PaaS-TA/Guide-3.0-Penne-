@@ -1798,7 +1798,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 
 ![PaaSTa_Platform_Use_Guide_Image124]
 
-[PaaSTa_Platform_Use_Guide_Image01]:images/platform_use_guide/Login/Login.png
+[PaaSTa_Platform_Use_Guide_Image01]:../images/platform_use_guide/Login/Login.png
 [PaaSTa_Platform_Use_Guide_Image02]:Use-Guide/images/platform_use_guide/Login/PasswordChange.png
 [PaaSTa_Platform_Use_Guide_Image03]:Use-Guide/images/platform_use_guide/Main/MainDashboard.png
 [PaaSTa_Platform_Use_Guide_Image04]:Use-Guide/images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup.png
