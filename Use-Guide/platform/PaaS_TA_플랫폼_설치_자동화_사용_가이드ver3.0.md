@@ -1801,9 +1801,9 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image01]:../images/platform_use_guide/Login/Login.png
 [PaaSTa_Platform_Use_Guide_Image02]:../images/platform_use_guide/Login/PasswordChange.png
 [PaaSTa_Platform_Use_Guide_Image03]:../images/platform_use_guide/Main/MainDashboard.png
-[PaaSTa_Platform_Use_Guide_Image04]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup.png
-[PaaSTa_Platform_Use_Guide_Image05]:../images/platform_use_guide/EnvSet&Mgnt/SetupAdminAdd.png
-[PaaSta_Platform_Use_Guide_Image05_1]:../images/platform_use_guide/EnvSet&Mgnt/DefaultAdminInfo.png
+[PaaSTa_Platform_Use_Guide_Image04]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup/AdminSetup.png
+[PaaSTa_Platform_Use_Guide_Image05]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup/SetupAdminAdd.png
+[PaaSta_Platform_Use_Guide_Image05_1]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup/DefaultAdminInfo.png
 [PaaSTa_Platform_Use_Guide_Image06]:../images/platform_use_guide/EnvSet&Mgnt/StemcellMgnt/StemcellRegList.png
 [PaaSTa_Platform_Use_Guide_Image07]:../images/platform_use_guide/EnvSet&Mgnt/ReleaseMgnt/ReleaseRegList.png
 [PaaSTa_Platform_Use_Guide_Image08]:../images/platform_use_guide/PlatformInstallAutoMgnt/CodeMgnt.png
@@ -1881,7 +1881,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image77]:../images/platform_use_guide/CFInstall/Install/vSphereNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image78]:../images/platform_use_guide/CFInstall/Install/GoogleNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image79]:../images/platform_use_guide/CFInstall/Install/KeyCreationInfo.png
-[PaaSTa_Platform_Use_Guide_Image80]:../images/platform_use_guide/CFInstall/Install/AdvencedSetupInfo.png
+[PaaSTa_Platform_Use_Guide_Image80]:../images/platform_use_guide/CFInstall/Install/AdvancedSetupInfo.png
 [PaaSTa_Platform_Use_Guide_Image81]:../images/platform_use_guide/CFInstall/Install/DefaultResourceInfo.png
 [PaaSTa_Platform_Use_Guide_Image82]:../images/platform_use_guide/CFInstall/Install/vSphereResourceInfo.png
 [PaaSTa_Platform_Use_Guide_Image83]:../images/platform_use_guide/CFInstall/Install/DeploymentFileInfo.png
@@ -1907,7 +1907,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image103]:../images/platform_use_guide/CF&DIEGOInstall/CFKeyCreation.png
 [PaaSTa_Platform_Use_Guide_Image104]:../images/platform_use_guide/CF&DIEGOInstall/DefaultResourceInfo.png
 [PaaSTa_Platform_Use_Guide_Image105]:../images/platform_use_guide/CF&DIEGOInstall/vSphereResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image106]:../images/platform_use_guide/CF&DIEGOInstall/AdvencedSetupInfo.png
+[PaaSTa_Platform_Use_Guide_Image106]:../images/platform_use_guide/CF&DIEGOInstall/AdvancedSetupInfo.png
 [PaaSTa_Platform_Use_Guide_Image107]:../images/platform_use_guide/CF&DIEGOInstall/DeploymentFileInfo.png
 [PaaSTa_Platform_Use_Guide_Image108]:../images/platform_use_guide/CF&DIEGOInstall/DiegoDefaultInfo.png
 [PaaSTa_Platform_Use_Guide_Image109]:../images/platform_use_guide/CF&DIEGOInstall/DiegoOpenstackNetworkInfo.png
@@ -1916,7 +1916,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image112]:../images/platform_use_guide/CF&DIEGOInstall/DiegoGoogleNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image113]:../images/platform_use_guide/CF&DIEGOInstall/DiegoDefaultResourceInfo.png
 [PaaSTa_Platform_Use_Guide_Image114]:../images/platform_use_guide/CF&DIEGOInstall/DiegovSphereResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image115]:../images/platform_use_guide/CF&DIEGOInstall/DiegoAdvencedSetupInfoInfo.png
+[PaaSTa_Platform_Use_Guide_Image115]:../images/platform_use_guide/CF&DIEGOInstall/DiegoAdvancedSetupInfo.png
 [PaaSTa_Platform_Use_Guide_Image116]:../images/platform_use_guide/CF&DIEGOInstall/DiegoDeploymentFileInfo.png
 [PaaSTa_Platform_Use_Guide_Image117]:../images/platform_use_guide/CF&DIEGOInstall/CFDeployment.png
 [PaaSTa_Platform_Use_Guide_Image118]:../images/platform_use_guide/CF&DIEGOInstall/DiegoDeployment.png
