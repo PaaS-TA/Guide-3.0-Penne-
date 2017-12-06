@@ -920,7 +920,7 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
 
 <table>
   <tr>
-     <td rowspan="7">BootStrap</td>
+     <td rowspan="6">BootStrap</td>
      <td rowspan="4">스템셀</td>
      <td>aws</td>
      <td>bosh-stemcell-3445.2-aws-xen-ubuntu-trusty-go_agent.tgz</td>
