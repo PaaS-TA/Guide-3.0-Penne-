@@ -938,17 +938,13 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
      <td>bosh-stemcell-3445.2-google-kvm-ubuntu-trusty-go_agent.tgz</td>
   </tr>
   <tr>
-  	 <td rowspan="3">릴리즈</td>
+  	 <td rowspan="2">릴리즈</td>
      <td>BOSH</td>
      <td>bosh-261.tgz</td>
   </tr>
   <tr>
      <td>BOSH CPI</td>
      <td>bosh-openstack-cpi-28.tgz</td>
-  </tr>
-  <tr>
-     <td>OS-CONF</td>
-     <td>os-conf-release-16.tgz</td>
   </tr>
   <tr>
      <td rowspan="7">Controller</td>
@@ -1248,13 +1244,6 @@ BOOTSTRAP을 설치하기 위해서는 BOSH 릴리즈와 BOSH CPI릴리즈 2개�
 ![PaaSTa_Platform_Use_Guide_Image54]
 
 ※ 본 가이드에서는 v30을 다운로드 하였다.
-
-#### 3.  OS CONF 릴리즈
-
--   구글 환경으로 BOOTSTRAP 설치 시 필요하다.
--   릴리즈 등록 팝업화면에서 OS CONF 릴리즈 정보를 입력하고, “등록” 버튼 클릭한다.
-
-![PaaSTa_Platform_Use_Guide_Image54_1]
 
 ### <div id='40'/>3.6.6.  ***BOOTSTRAP 설치***
 
@@ -1854,7 +1843,6 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image52]:../images/platform_use_guide/BootstrapInstall/Stemcell/OpenstackStemcellReg.png
 [PaaSTa_Platform_Use_Guide_Image53]:../images/platform_use_guide/BootstrapInstall/Release/OpenstackBOSHReleaseReg.png
 [PaaSTa_Platform_Use_Guide_Image54]:../images/platform_use_guide/BootstrapInstall/Release/OpenstackReleaseReg.png
-[PaaSTa_Platform_Use_Guide_Image54_1]:../images/platform_use_guide/BootstrapInstall/Release/os-confReleaseReg.png
 [PaaSTa_Platform_Use_Guide_Image55]:../images/platform_use_guide/BootstrapInstall/Install/IaasSelect.png
 [PaaSTa_Platform_Use_Guide_Image56]:../images/platform_use_guide/BootstrapInstall/Install/OpenstackInfo.png
 [PaaSTa_Platform_Use_Guide_Image57]:../images/platform_use_guide/BootstrapInstall/Install/AWSInfo.png
