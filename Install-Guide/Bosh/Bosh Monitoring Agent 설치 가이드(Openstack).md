@@ -225,7 +225,7 @@ cloud_provider:
 
 ### 3.4.  Bosh 배포
 
-Log Collector Agent 파일을 실행한다.
+bosh-init 명령을 사용하여 bosh deploy한다.
 
 ```
 $ bosh-init deploy bosh-init.yml

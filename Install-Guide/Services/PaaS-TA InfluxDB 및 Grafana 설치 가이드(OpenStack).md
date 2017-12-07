@@ -29,7 +29,7 @@
 
 ### 1.3. 참고  
       
-> <a style="text-decoration:underline" href="https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20Architecture.md">모니터링 시스템 Architecutre</a>
+> <a style="text-decoration:underline" href="https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Install-Guide/monitoring/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%A4%EC%B9%98%EA%B0%80%EC%9D%B4%EB%93%9C.md">모니터링 시스템 Architecutre</a>
 
 <div id='5'></div>
 
@@ -46,10 +46,10 @@
 >PaaS-TA 모니터링 : **<https://paas-ta.kr/data/packages/3.0/PaaSTA-Monitoring.zip>**
 
 >다운로드 받은 PaaSTA-Monitoring.zip 파일을 압축해제한다. <br>
->paasta-influxdb-grafana-3.0.tgz 파일을 확인한다. <br>
+>paasta-influxdb-grafana-2.0.tgz 파일을 확인한다. <br>
 다음의 명령어를 이용하여 릴리즈 파일을 bosh에 업로드한다. <br>
 
-$ bosh upload release paasta-influxdb-grafana-3.0.tgz
+$ bosh upload release paasta-influxdb-grafana-2.0.tgz
 
 <kbd>![2-1-1]</kbd>
 <kbd>![2-1-2]</kbd>

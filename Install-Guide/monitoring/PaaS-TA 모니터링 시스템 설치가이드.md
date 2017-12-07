@@ -76,7 +76,7 @@
 
 - [OpenStack 환경](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Install-Guide/Services/PaaS-TA%20InfluxDB%20%EB%B0%8F%20Grafana%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C(OpenStack).md)
 - [Vsphere  환경](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Install-Guide/Services/PaaS-TA%20InfluxDB%20%EB%B0%8F%20Grafana%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C(VMWare).md)
-- [AWS 환경](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Install-Guide/Services/PaaS-TA%20InfluxDB%20%EB%B0%8F%20Grafana%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C(VMWare).md)
+- [AWS 환경](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Install-Guide/Services/PaaS-TA%20InfluxDB%20%EB%B0%8F%20Grafana%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C(AWS).md)
 
 <div id='11'></div>
 
