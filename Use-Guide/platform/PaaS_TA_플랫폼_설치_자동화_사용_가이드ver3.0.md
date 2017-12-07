@@ -935,7 +935,7 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
   </tr>
   <tr>
      <td>구글</td>
-     <td>bosh-stemcell-3445.2-google-kvm-ubuntu-trusty-go_agent.tgz</td>
+     <td>bosh-stemcell-3363.42-google-kvm-ubuntu-trusty-go_agent.tgz</td>
   </tr>
   <tr>
   	 <td rowspan="2">릴리즈</td>
@@ -962,7 +962,7 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
   </tr>
   <tr>
      <td>구글</td>
-     <td>bosh-stemcell-3445.2-google-kvm-ubuntu-trusty-go_agent.tgz</td>
+     <td>bosh-stemcell-3363.42-google-kvm-ubuntu-trusty-go_agent.tgz</td>
   </tr>
   <tr>
   	 <td rowspan="3">릴리즈</td>
@@ -992,7 +992,7 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
   </tr>
   <tr>
      <td>구글</td>
-     <td>bosh-stemcell-3445.2-google-kvm-ubuntu-trusty-go_agent.tgz</td>
+     <td>bosh-stemcell-3363.42-google-kvm-ubuntu-trusty-go_agent.tgz</td>
   </tr>
   <tr>
   	 <td rowspan="6">릴리즈</td>
@@ -1199,7 +1199,7 @@ BOOTSTRAP을 설치하기 위해서는 설치 할 인프라의 환경 설정 정
 |  Openstack            |  http://bosh.io/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent       |   
 |  vSphere             |  http://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent       |   
 |  Google          |   http://bosh.io/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent      |    
-<p style="color:red;">※	본 가이드에서는 버전 3445.2을 다운로드 하였다.</p>
+<p style="color:red;">※	본 가이드에서는 버전 3445.2, 3363.42을 다운로드 하였다.</p>
 
 ![PaaSTa_Platform_Use_Guide_Image52]
 
@@ -1277,13 +1277,9 @@ BOOTSTRAP 설치하기 위해 플랫폼 설치 자동화 웹 화면에서 “플
 
 #### 3.  BOOTSTRAP 설치 – 기본 정보
 
--   AWS, 오픈스택 및 VSPHERE 환경을 선택한 경우 아래의 기본 정보 입력 후 “다음” 버튼을 클릭한다.
+-   IaaS 환경을 선택한 경우 아래의 기본 정보 입력 후 “다음” 버튼을 클릭한다.
 
 ![PaaSTa_Platform_Use_Guide_Image60]
-
--   구글 환경을 선택한 경우 아래의 기본 정보 입력 후 “다음” 버튼을 클릭한다.
-
-![PaaSTa_Platform_Use_Guide_Image61]
 
 #### 4.  BOOTSTRAP 설치 – 클라우드 환경 별 네트워크 정보
 
@@ -1849,7 +1845,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image58]:../images/platform_use_guide/BootstrapInstall/Install/vSphereInfo.png
 [PaaSTa_Platform_Use_Guide_Image59]:../images/platform_use_guide/BootstrapInstall/Install/GoogleInfo.png
 [PaaSTa_Platform_Use_Guide_Image60]:../images/platform_use_guide/BootstrapInstall/Install/DefaultInfo.png
-[PaaSTa_Platform_Use_Guide_Image61]:../images/platform_use_guide/BootstrapInstall/Install/GoogleDefaultInfo.png
+
 [PaaSTa_Platform_Use_Guide_Image62]:../images/platform_use_guide/BootstrapInstall/Install/DefaultNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image63]:../images/platform_use_guide/BootstrapInstall/Install/vSphereNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image64]:../images/platform_use_guide/BootstrapInstall/Install/GoogleNetworkInfo.png
