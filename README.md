@@ -43,7 +43,7 @@
 - [PaaS-TA 배포 파이프라인 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20배포%20파이프라인%20사용자%20가이드_v1.0.md)
 - [PaaS-TA 형상관리 서비스 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20형상관리%20서비스%20사용자%20가이드_v1.0.md)
 
-## 개발 언어별 어플리케이션 가이드
+## 개발 언어별 애플리케이션 가이드
 - [Node.js](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Nodejs_develope_guide.md)
 - [PHP](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_PHP_develope_guide.md)
 - [Python](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Python_develope_guide.md)
@@ -55,7 +55,7 @@
 - [스템셀 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/OpenPaaS_PaaSTA_Build_Stemcell_guide.md)
 - [서비스팩 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/ServicePack_develope_guide.md)
 - [빌드팩 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/Buildpack_develope_guide.md)
-- [어플리케이션 APIPlatform 도로주소 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/Application_APIPlatform_dorojuso_devlope_guide.md)
+- [애플리케이션 APIPlatform 도로주소 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/Application_APIPlatform_dorojuso_devlope_guide.md)
 - [퍼블릭 API 개발 가이드](../../../Guide-1.0-Spaghetti-/blob/master/Development-Guide/PublicAPI_devlope_guide.md)
 - [Java API 서비스 미터링 개발 가이드](../../../Guide-2.0-Linguine-/blob/master/Development-Guide/PaaS-TA_Java_API_서비스_미터링_개발_가이드.md)
 - [Java 서비스 미터링 개발 가이드](../../../Guide-2.0-Linguine-/blob/master/Development-Guide/PaaS-TA_Java_서비스_미터링_개발_가이드.md)
