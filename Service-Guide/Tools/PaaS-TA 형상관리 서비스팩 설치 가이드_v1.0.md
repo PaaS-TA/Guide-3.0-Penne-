@@ -5,9 +5,9 @@
      * [1.1. 목적](#2)
      * [1.2. 범위](#3)
      * [1.3. 시스템 구성도](#4)
-     * [1.4. 참고자료](#5)
+     * [1.4. 참고 자료](#5)
 2. [형상관리 서비스팩 설치](#6)
-     * [2.1. 설치전 준비사항](#7)
+     * [2.1. 설치 전 준비사항](#7)
      * [2.2. 형상관리 서비스 릴리즈 업로드](#8)
      * [2.3. 형상관리 서비스 Deployment 파일 수정 및 배포](#9)
      * [2.4. 형상관리 서비스 브로커 등록](#10)
@@ -18,27 +18,27 @@
 # <div id='1'/> 1. 문서 개요
 
 ### <div id='2'/> 1.1 목적
-본 문서(형상관리 서비스팩 설치 가이드)는 개방형 PaaS 플랫폼 고도화 및 개발자 지원환경 기반의 Open PaaS에서 제공되는 서비스팩인 형상관리 서비스를 Bosh를 이용하여 설치 하는 방법을 기술하였다.
+본 문서(형상관리 서비스팩 설치 가이드)는 개방형 PaaS 플랫폼 고도화 및 개발자 지원 환경 기반의 Open PaaS에서 제공되는 서비스팩인 형상관리 서비스를 Bosh를 이용하여 설치하는 방법을 기술하였다.
 
 ### <div id='3'/> 1.2 범위
-본 문서의 설치된 시스템 구성도입니다. 형상관리 Server, 형상관리 서비스 브로커로 최소사항을 구성하였다.
+본 문서의 설치된 시스템 구성도입니다. 형상관리 Server, 형상관리 서비스 브로커로 최소 사항을 구성하였다.
 
 ### <div id='4'/> 1.3 시스템 구성도
-본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
+본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소 사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
 ![source_controller_Service_Guide01]
 
-### <div id='5'/> 1.4 참고자료
+### <div id='5'/> 1.4 참고 자료
 http://bosh.io/docs
 http://docs.cloudfoundry.org/
 
 
 # <div id='6'/> 2. 형상관리 서비스팩 설치
 
-### <div id='7'/> 2.1. 설치전 준비사항
+### <div id='7'/> 2.1. 설치 전 준비사항
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
-서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.
-BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
-PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
+서비스팩 설치를 위해서는 먼저 BOSH CLI가 설치되어 있어야 하고 BOSH에 로그인 및 타깃 설정이 되어 있어야 한다.
+BOSH CLI 가 설치되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고하여 BOSH CLI를 설치해야 한다.
+PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운로드한다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
 
 - 설치에 필요한 모든 다운로드 파일 및 문서는 다음 Url에서 찾을 수 있다. 
 https://github.com/PaaS-TA /Documents- -3.0
@@ -268,14 +268,14 @@ $bosh releases paasta-sourcecontrol-release-1.0.tgz
 +--------------------------------------------+----------+-------------+
 (*) Currently deployed
 ```
-형상관리 서비스 릴리즈가 업로드 되어 있는 것을 확인 할 수 있다.
+형상관리 서비스 릴리즈가 업로드되어 있는 것을 확인할 수 있다.
 
 
 ### <div id='9'/> 2.3. glusterfs 서비스 Deployment 파일 수정 및 배포
-BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
-Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
+BOSH Deployment manifest는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
+Deployment manifest에는 sotfware를 설치하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할 것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
-- 다운로드 받은 Deployment .yml 파일을 확인한다. (paasta-sourcecontrol-1.0.yml)
+- 다운로드한 Deployment.yml 파일을 확인한다. (paasta-sourcecontrol-1.0.yml)
 
 ```
 $ ls –all
@@ -290,7 +290,7 @@ drwxrwxr-x 11 inception inception      4096 Dec 21 09:28 ..
 ```
 
 - Director UUID를 확인한다.
-BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다.
+BOSH CLI가 배포에 대한 모든 작업을 허용하기 위한 현재 대상 BOSH Director의 UUID와 일치해야 한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director에 target 되어 있는 UUID를 확인할 수 있다.
 
 
 ```
@@ -317,7 +317,7 @@ Manifest   /home/lij/bosh-space/mongodb-release/mariadb-release-monitering.yml
 ```
 
 
-- Deploy시 사용할 Stemcell을 확인한다.
+- Deploy 시 사용할 Stemcell을 확인한다.
 
 ```
 $ bosh stemcells
@@ -343,9 +343,9 @@ Acting as user 'admin' on 'bosh'
 Stemcells total: 7
 ```
 
-Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 버전을 업로드를 해야 한다.
+Stemcell 목록이 존재하지 않을 경우 BOSH 설치 가이드 문서를 참고하여 Stemcell 버전을 업로드를 해야 한다.
 
-- Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
+- Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석 내용을 참고)
 
 ```
 yaml
@@ -548,7 +548,7 @@ yaml
     version: latest
 ```
 
-- Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
+- Deploy 할 deployment manifest 파일을 BOSH에 지정한다.
 ```
 $ bosh deployment paasta-sourcecontrol-deployment.yml
 ```
@@ -556,7 +556,7 @@ $ bosh deployment paasta-sourcecontrol-deployment.yml
 RSA 1024 bit CA certificates are loaded due to old openssl compatibility '/mnt/workspace/deployments/test-deployments/paasta_glusterfs_vsphere_2.0.yml'
 ```
 
-- 형상관리 서비스팩 배포설정 및 배포한다.
+- 형상관리 서비스팩 배포 설정 및 배포한다.
 ```
 $ bosh deploy (or bosh deploy --no-redact)
 ```
@@ -589,8 +589,8 @@ Task 2567695 done
 ```
 
 ### <div id='10'/> 2.4. 형상관리 서비스 브로커 등록
-형상관리 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 형상관리 서비스 브로커를 등록해 주어야 한다.
-서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
+형상관리 서비스팩 배포가 완료되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 형상관리 서비스 브로커를 등록해 주어야 한다.
+서비스 브로커 등록 시 개방형 클라우드 플랫폼에서 서비스 브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
 
 - 서비스 브로커 목록을 확인한다.
 
@@ -638,7 +638,7 @@ rabbitmq
 ```
 $ cf service-access
 ```
-- 서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
+- 서비스 브로커 생성 시 디폴트로 접근을 허용하지 않는다.
 
 - 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. (전체 조직)
 ```
@@ -649,12 +649,12 @@ service                         plan              access              orgs
 p-paasta-sourcecontrol          Default           all
 ```
 
-서비스 브로커 등록시 최초에는 접근을 허용하지 않는다. 따라서 access는 none으로 설정된다.
+서비스 브로커 등록 시 최초에는 접근을 허용하지 않는다. 따라서 access는 none으로 설정된다.
 
 
 ### <div id='11'/> 2.5. 형상관리 UAA Client Id 등록
 UAA 포털 계정 등록 절차에 대한 순서입니다.
-아래와 같은 URL 일 경우 , http://localhost:8084 까지만 입력 여러개 입력시 "," 를 이용하여 다중 입력가능하며, 루트 도메인만 입력하면 됩니다.
+아래와 같은 URL 일 경우, http://localhost:8084 까지만 입력 여러 개 입력시 ","를 이용하여 다중 입력 가능하며, 루트 도메인만 입력하면 됩니다.
 
  - 예시
   http://localhost:8084/dashboard/198c1dd4-6eec-4387-bf73-2e968005ccc1
