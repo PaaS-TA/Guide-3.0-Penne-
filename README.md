@@ -43,7 +43,7 @@
 - [PaaS-TA 배포 파이프라인 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20배포%20파이프라인%20사용자%20가이드_v1.0.md)
 - [PaaS-TA 형상관리 서비스 사용자 가이드](./Use-Guide/Tools/PaaS-TA%20형상관리%20서비스%20사용자%20가이드_v1.0.md)
 
-## 개발 언어 별 어플리케이션 가이드
+## 개발 언어별 어플리케이션 가이드
 - [Node.js](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Nodejs_develope_guide.md)
 - [PHP](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_PHP_develope_guide.md)
 - [Python](../../../Guide-1.0-Spaghetti-/blob/master/Sample-App-Guide/OpenPaaS_PaaSTA_Application_Python_develope_guide.md)
