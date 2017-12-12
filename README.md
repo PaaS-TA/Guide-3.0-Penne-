@@ -3,7 +3,7 @@
 ## 플랫폼 설치 가이드
 - [설치 파일 다운로드 받기](./Download_Page.md)
 - 플랫폼 설치
-  - [플랫폼 설치 자동화](./Install-Guide/Platform%20Install%20System/PaaS-TA_플랫폼 설치 자동화 설치 가이드 v2.0.md)  
+  - [플랫폼 설치 자동화](./Install-Guide/Platform Install System/PaaS-TA_플랫폼 설치 자동화 설치 가이드 v2.0.md)  
 - 인프라 관리 대시보드 사용가이드  
   - [인프라 관리 대시보드 사용가이드](./Use-Guide/infra/PaaS-TA_인프라_관리_대시보드_사용가이드_v1.0.md)  
 - 플랫폼 설치 자동화 사용가이드  
