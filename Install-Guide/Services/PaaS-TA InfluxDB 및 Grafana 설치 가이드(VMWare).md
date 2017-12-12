@@ -8,9 +8,12 @@
      * [2.2.  manifest 파일 설정](#7)
      * [2.3.  deploy](#8)
      * [2.4.  확인](#9)
+3. [InfluxDB WebAdmin](#10)
+   * [3.1.  InfluxDB WebAdmin](#11)
+4. [Grafana 설정](#12)
+   * [3.1.  DataSource 설정](#13)
 
 <div id='1'></div>
-
 # 1. 문서 개요
 
 <div id='2'></div>
@@ -239,6 +242,43 @@ $ bosh deployments
 
 <kbd>![2-4-1]</kbd>
 
+<div id='10'></div>
+# 3.  InfluxDB WebAdmin
+
+<div id='11'></div>
+### 3.1.  InfluxDB WebAdmin 접속
+1. InfluxDB WebAdmin에 접속 한다. 접속 URL은 InfluxDB Instance의 public ip로 접근
+   ex)xxx.xxx.xxx.xxx:8083
+
+2. 화면 상단 Database를 클릭하면 bosh_metric_db, cf_metric_db, container_metric_db가 존재하는지 확인한다.
+
+  <kbd>![2-6-1]</kbd>
+
+3. Database를 cf_metric_db로 선택하고 SHOW MEASUREMENTS 명령어 실행하여 measurement를 확인한다.
+  <kbd>![2-6-2]</kbd>
+4. cf_metrics metric Data를 조회한다.
+<kbd>![2-6-3]</kbd>
+
+<div id='12'></div>
+# 3.  Grafana 설정
+
+<div id='13'></div>
+### 3.1.  DataSource 설정
+
+1. Grafana에 접속하여 로그인 한다. 접속 URL은 Grafana Instance의 public ip로 접근
+   계정: admin/admin ( influxdb-grafana-release.yml 에서 계정 설정 가능)
+<kbd>![2-5-1]</kbd>
+
+2. 화면 좌측에 PaaS-TA Monitor를 클릭하여 DataSource를 클릭한다.
+
+  <kbd>![2-5-2]</kbd>
+
+3. Add data Source를 클릭하고 InfluxDB DataSource설정정보를 등록한다.
+<kbd>![2-5-3]</kbd>
+
+4. 등록된 DataSource를 확인한다.
+
+<kbd>![2-5-4]</kbd>
 
 [2-1-1]:images/influxdb-grafana/2-1-1.png
 [2-1-2]:images/influxdb-grafana/2-1-2.png
@@ -246,3 +286,10 @@ $ bosh deployments
 [2-3-1]:images/influxdb-grafana/2-3-1.png
 [2-3-2]:images/influxdb-grafana/2-3-2.png
 [2-4-1]:images/influxdb-grafana/2-4-1.png
+[2-5-1]:images/influxdb-grafana/2-5-1.png
+[2-5-2]:images/influxdb-grafana/2-5-2.png
+[2-5-3]:images/influxdb-grafana/2-5-3.png
+[2-5-4]:images/influxdb-grafana/2-5-4.png
+[2-6-1]:images/influxdb-grafana/2-6-1.png
+[2-6-2]:images/influxdb-grafana/2-6-2.png
+[2-6-3]:images/influxdb-grafana/2-6-3.png
