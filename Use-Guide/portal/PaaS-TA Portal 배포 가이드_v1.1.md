@@ -2251,6 +2251,6 @@ test.skipSSLValidation=true
 $ gradle -Plocation=local clean test
 ```
 
-[portal_deploy_image_01]:./../../images/paasta-portal-deploy/portal_deploy_image_01.png
-[portal_deploy_image_02]:./../../images/paasta-portal-deploy/portal_deploy_image_02.png
-[object_storage_image_01]:./../../images/paasta-portal-deploy/object_storage_image_01.png
+[portal_deploy_image_01]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_01.png
+[portal_deploy_image_02]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_02.png
+[object_storage_image_01]:./../../Use-Guide/images/paasta-portal-deploy/object_storage_image_01.png
