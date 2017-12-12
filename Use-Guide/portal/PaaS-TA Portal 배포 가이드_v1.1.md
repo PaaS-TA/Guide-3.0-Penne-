@@ -252,7 +252,7 @@ portal-eureka-service  user-provided
 본 문서에서 설명하는 Object Storage의 시스템 설치 구성도이다. OpenStack Swift의 간편한 설치를 지원하는 Swift All In One과 인증처리를 위한 Keystone으로 기본 최소사항을 구성하였다.
 ※	Openstack 환경에서는 Portal Object Storage를 설치할 필요없이, OpenStack이 제공하는 Openstack Swift 서비스를 이용할 수 있다.
 
-![시스템 구성도][object_storage_image_01]
+![object_storage_image_01]
 
 <table>
   <tr>
