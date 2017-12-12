@@ -243,9 +243,11 @@ $ bosh deployments
 <kbd>![2-4-1]</kbd>
 
 <div id='10'></div>
+
 # 3.  InfluxDB WebAdmin
 
 <div id='11'></div>
+
 ### 3.1.  InfluxDB WebAdmin 접속
 1. InfluxDB WebAdmin에 접속 한다. 접속 URL은 InfluxDB Instance의 public ip로 접근
    ex)xxx.xxx.xxx.xxx:8083
@@ -260,9 +262,11 @@ $ bosh deployments
 <kbd>![2-6-3]</kbd>
 
 <div id='12'></div>
+
 # 3.  Grafana 설정
 
 <div id='13'></div>
+
 ### 3.1.  DataSource 설정
 
 1. Grafana에 접속하여 로그인 한다. 접속 URL은 Grafana Instance의 public ip로 접근
