@@ -455,7 +455,7 @@ Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (
 
 
 -	PaaSTA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 IaaS별 Portal Object Storage Deployment 파일을 복사한다.
-예) vsphere 일 경우 paasta_portal_object_storage_vsphere_2.0.yml를 복사
+예) vsphere 일 경우 paasta-portal-vsphere-1.0.yml 복사
 
 
 
@@ -512,89 +512,156 @@ Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 �
 
 ```
 yaml
-# paasta_portal_object_storage_vsphere_2.0.yml 설정 파일 내용
+# paasta-portal-vsphere-1.0.yml 설정 파일 내용
 ---
-name: paasta-portal-release                           # 서비스 배포 이름 (필수)
-director_uuid: d363905f-eaa0-4539-a461-8c1318498a32   # bosh status로 확인한 Director UUID
-
-releases:                                             
-- name: paasta-portal-release                         # 서비스 릴리즈 이름(필수)
-  version: latest                                     # 서비스 릴리즈 버전(필수): latest 시 업로드된 서비스 릴리즈 최신버전
-
-update:
-  canaries: 0                                         # canary 인스턴스 수(필수)
-  canary_watch_time: 30000-240000                     # canary 인스턴스가 수행하기 위한 대기 시간(필수)
-  max_in_flight: 1                                    # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)     
-  serial: true
-  update_watch_time: 30000-240000                     # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
-
-compilation:                                          # 컴파일시 필요한 가상머신의 속성(필수)
-  cloud_properties:                                   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
-    cpu: 4                                             
-    disk: 20480
+---
+name: paasta-portal # 서비스 배포이름(필수) bosh deployments 로 확인가능한 이름
+director_uuid: <%= `bosh status --uuid` %>  # Director UUID을 입력(필수) bosh status 명령으로 확인가능
+ 
+release:
+  name: paasta-portal-release #서비스 릴리즈 이름(필수) bosh releases로 확인가능
+  version: latest   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+ 
+compilation:          # 컴파일시 필요한 가상머신의 속성(필수)
+  workers: 4          # 컴파일 하는 가상머신의 최대수(필수)
+  network: default    # Networks block에서 선언한 network 이름(필수)
+  reuse_compilation_vms: true
+  cloud_properties:   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
     ram: 4096
-  network: default
-  reuse_compilation_vms: false
-  workers: 4                                          # 컴파일 하는 가상머신의 최대수(필수)
-
-resource_pools:                                       # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
-- cloud_properties:                                   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
-    cpu: 1
-    disk: 4096
-    ram: 2048
-  name: swift-keystone                                # 고유한 resource pool 이름
-  network: default
-  stemcell:
-    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent    # 사용할 stemcell 이름(필수)
-    version: 3263.8                                   # stemcell 버전(필수)
-
-jobs:
-- instances: 1                                  # job 인스턴스 수(필수)
-  name: swift-keystone                          # 작업 이름(필수)
-  networks:                                     # 네트워크 구성정보
-  - name: default                               # Networks block에서 선언한 network 이름(필수)
-    static_ips:
-    - 10.30.131.12                              # 사용할 IP addresses 정의(필수)
-  persistent_disk: 2048                         # object storage 저장 공간 크기(필수)
-  resource_pool: swift-keystone                 # resource_pools block에 정의한 resource pool 이름(필수)
-  templates:
-  - name: swift-keystone                        # job template 이름(필수)
-
-networks:                                       # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
-- name: default                                 # vsphere 에서 사용하는 network 이름(필수)
+    disk: 8192
+    cpu: 4
+ 
+# this section describes how updates are handled
+update:
+  canaries: 1                        # canary 인스턴스 수(필수)
+  serial: false
+  canary_watch_time: 30000-600000    # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 30000-600000     # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 1                   # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+ 
+networks:                     # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
+- name: default
   subnets:
   - cloud_properties:
-      name: Internal
-    dns:
+      name: Internal          # vsphere 에서 사용하는 network 이름(필수)
+    dns:                      # DNS 정보
     - 10.30.20.24
     - 8.8.8.8
     gateway: 10.30.20.23
-    name: default_unused
+    name: default_unusedls
     range: 10.30.0.0/16
-    reserved:                                   # 설치시 제외할 IP 설정
-    - 10.30.0.1 - 10.30.0.5
+    reserved:                 # 설치시 제외할 IP 설정
+    - 10.30.20.0 - 10.30.20.22
+    - 10.30.20.24 - 10.30.20.255
+    - 10.30.40.0 - 10.30.40.255
+    - 10.30.60.0 - 10.30.60.112
     static:
-    - 10.30.131.12                              # 사용 가능한 IP 설정
-  type: manual
+    - 10.30.115.30 - 10.30.115.50          #사용 가능한 IP 설정
+ 
+resource_pools:               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
+  - name: small      # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+      version: 3445.2           # stemcell 버전(필수)
+    cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 2048
+    env:
+      bosh:             #password : c1oudc0w
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+  - name: small_api      # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+      version: 3445.2           # stemcell 버전(필수)
+    cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 1024
+    env:
+      bosh:
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+ 
+  - name: medium      # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+      version: 3445.2           # stemcell 버전(필수)
+    cloud_properties:       # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 4096
+    env:
+      bosh:
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+ 
+jobs:
+- name: mariadb
+  template: mariadb
+  instances: 1
+  resource_pool: small
+  persistent_disk: 4096
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.115.31
 
+- name: binary_storage
+  template: binary_storage
+  instances: 1
+  persistent_disk: 10240
+  resource_pool: medium
+  networks:
+  - name: default
+    static_ips:  
+    - 10.30.115.32
+ 
 properties:
-  proxy_ip: 10.30.131.12                      # 프록시 서버  IP  (swift-keystone job의 static_ip, Object Storage 접속 IP)
-  proxy_port: 10008                           # 프록시 서버 Port (Object Storage 접속 Port)
-  keystone_username: paasta-portal            # 최초 생성되는 유저이름(Object Storage 접속 유저이름)
-  keystone_password: paasta                   # 최초 생성되는 유저 비밀번호(Object Storage 접속 유저 비밀번호)
-  keystone_tenantname: paasta-portal          # 최초 생성되는 테넌트 이름(Object Storage 접속 테넌트 이름)
-  keystone_auth_port: 5000                    # Keystone 인증을 위해 사용하는 포트
-  keystone_email: email@email.com             # 최소 생성되는 유저의 이메일
+ 
+  mariadb:
+    port: 3306
+    admin_user:
+      password: "xxxxxx"
+    host: 10.30.115.31
+    host_names:
+    - mariadb0
+    host_ips:
+    - 10.30.115.31
+    datasource:
+      url: jdbc:mysql://10.30.115.31:3306/portaldb?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      username: paastamonitering
+      password: "xxxxxxxxxxxxxxx"
+      driver_class_name: com.mysql.cj.jdbc.Driver
+      database: portaldb
+    jpa:
+      database:
+        name: portaldb
+ 
+  binary_storage:
+    proxy_ip: 10.30.115.32              # 프록시 서버  IP  (swift-keystone job의 static_ip, Object Storage 접속 IP)
+    proxy_port: 10008                   # 프록시 서버 Port (Object Storage 접속 Port)
+    default_username: paasta-portal     # 최초 생성되는 유저이름(Object Storage 접속 유저이름)
+    default_password: xxxxxx            # 최초 생성되는 유저 비밀번호(Object Storage 접속 유저 비밀번호)
+    default_tenantname: paasta-portal   # 최초 생성되는 테넌트 이름(Object Storage 접속 테넌트 이름)
+    default_email: email@email.com      # 최소 생성되는 유저의 이메일
+    container: portal-container
+    auth_port: 5000
+ 
 ```
 
 
 -    Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
 ```
-$ bosh deployment paasta_portal_object_storage_vsphere_2.0.yml
+$ bosh deployment paasta-portal-vsphere-1.0.yml
 ```
 ```
 RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-Deployment set to '/home/inception/bosh-space/kimdojun/swift/paasta_portal_object_storage_vsphere_2.0.yml'
+Deployment set to '/home/inception/bosh-space/kimdojun/swift/paasta-portal-vsphere-1.0.yml'
 ```
 
 
@@ -646,7 +713,7 @@ Started		2017-01-13 08:04:45 UTC
 Finished	2017-01-13 08:14:43 UTC
 Duration	:09:58
 
-Deployed 'paasta-portal-object-storage' to 'bosh'
+Deployed 'paasta-portal-release' to 'bosh'
 ```
 
 
@@ -697,11 +764,6 @@ PaaS-TA-Portal 서비스를 하기 위해 배포 파일이 있는 PaaSTA-Portal/
 postgresql.sql 파일을 vi 에티더로 연다.
 ```
 $ vi postgresql.sql
-```
-
-3958 라인으로 이동한다.
-```
-:3958
 ```
 
 관리자 계정을 Portal DB의 user_detail 컬럼에 삽입하는 SQL을 추가한다. 현재 user_id를 '관리자 계정'이라는 값으로 삽입하도록 작성되어 있는데, Portal API 배포시 manifest.yml 파일에 입력한 관리자 ID와 동일한 값으로 변경한다. Portal API의 manifest.yml의 'cloudfoundry_user_admin_username' 값이 관리자 계정 ID가 된다. [[**3.2. 포탈 API 배포**](#16)] 를 참고한다.
