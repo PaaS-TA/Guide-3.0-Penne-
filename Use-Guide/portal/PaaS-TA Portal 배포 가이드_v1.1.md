@@ -17,11 +17,11 @@
      - [2.7.1.2. 범위](#12-1-2)
      - [2.7.1.3. 시스템 구성도](#12-1-3)
      - [2.7.1.4. 참고자료](#12-1-4)
-     - [2.7.2. Object Storage 설치](#12-2)
+     - [2.7.2. Portal Object Storage 설치](#12-2)
      - [2.7.2.1. 설치 전 준비 사항](#12-2-1)
-     - [2.7.2.2. Object Strorage 릴리즈 업로드](#12-2-2)
-     - [2.7.2.3. Object Strorage Deployment 파일 수정 및 배포](#12-2-3)
-     - [2.7.3. Object Storage 설정 변경](#12-3)
+     - [2.7.2.2. Portal Object Strorage 릴리즈 업로드](#12-2-2)
+     - [2.7.2.3. Portal Object Strorage Deployment 파일 수정 및 배포](#12-2-3)
+     - [2.7.3. Portal Object Storage 설정 변경](#12-3)
      - [2.8. Postgresql 기본 데이터 베이스 생성](#13)
 - 3. [PaaS-TA 배포](#14)
      - [3.1. 포탈 Registration 배포](#15)
@@ -241,7 +241,7 @@ portal-eureka-service  user-provided
 #### <div id='12-1'> 2.7.1. 개요
 
 #### <div id='12-1-1'> 2.7.1.1. 목적
-- 포털은 파일 관리를 위해 Object Storage를 사용하기 때문에 PaaSTA 포털 Object Storage를 설치 하여야 한다.
+- 포털은 파일 관리를 위해 Object Storage를 사용하기 때문에 PaaS-TA 포털 Object Storage를 설치 하여야 한다.
 
 - PaaS-TA 포털에서 사용하는 Object Storage의 설치를 Bosh를 이용하여 설치 하는 방법을 기술하였다.
 
@@ -252,7 +252,6 @@ portal-eureka-service  user-provided
 본 문서에서 설명하는 Object Storage의 시스템 설치 구성도이다. OpenStack Swift의 간편한 설치를 지원하는 Swift All In One과 인증처리를 위한 Keystone으로 기본 최소사항을 구성하였다.
 ※	Openstack 환경에서는 Portal Object Storage를 설치할 필요없이, OpenStack이 제공하는 Openstack Swift 서비스를 이용할 수 있다.
 
-![object_storage_image_01]
 
 <table>
   <tr>
@@ -260,8 +259,12 @@ portal-eureka-service  user-provided
     <td>스펙</td>
   </tr>
   <tr>
-    <td>swift-ketstone</td>
+    <td>mariadb</td>
     <td>1vCPU / 2GB RAM / 4GB Disk</td>
+  </tr>
+  <tr>
+    <td>binary_storage</td>
+    <td>1vCPU / 2GB RAM / 20GB Disk</td>
   </tr>
 </table>
 
@@ -288,14 +291,14 @@ BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문
 
 
 
-#### <div id='12-2-2'> 2.7.2.2. Object Storage 릴리즈 업로드
+#### <div id='12-2-2'> 2.7.2.2. Portal Object Storage 릴리즈 업로드
 
--	PaaSTA-Portal.zip의 압축을 풀고 폴더 안에 있는 파스타 포털 Object Storage 릴리즈 paasta-portal-object-storage-2.0.tgz 파일을 확인한다.
+-	PaaSTA-Portal.zip의 압축을 풀고 폴더 안에 있는 파스타 포털 Object Storage 릴리즈 paasta-portal-release-1.0.tgz 파일을 확인한다.
 ```
 $ ls --all
 ```
-```
-.   카탈로그이미지  api2          paasta-portal-object-storage-2.0.tgz  registraion  web-admin
+``` 
+..  api2          paasta-portal-release-1.0.tgz  registraion  web-admin
 ..  api             auto-scaling  postgresql
 ```
 
@@ -322,7 +325,7 @@ Portal Object Storage 릴리즈가 업로드 되어 있지 않은 것을 확인
 
 -	Object Storage 릴리즈 파일을 업로드한다
 ```
-$ bosh upload release paasta-portal-object-storage-2.0.tgz
+$ bosh upload release paasta-portal-release-1.0.tgz
 ```
 ```
 RSA 1024 bit CA certificates are loaded due to old openssl compatibility
@@ -377,8 +380,8 @@ Monit file for 'swift-keystone'                              OK
 
 Release info
 ------------
-Name:    paasta-portal-object-storage
-Version: 2.0
+Name:    paasta-portal-release
+Version: 1.0
 
 Packages
  - python (4e255efa754d91b825476b57e111345f200944e1)
@@ -449,7 +452,7 @@ Acting as user 'admin' on 'bosh'
 | paasta-logsearch             | 2.0*     | 00000000    |
 | paasta-metrics-collector     | 2.0*     | 00000000    |
 | paasta-monitoring-api-server | 2.0      | 00000000    |
-| paasta-portal-object-storage | 2.0      | 00000000    |
+| paasta-portal-release        | 2.0      | 00000000    |
 | paasta-redis                 | 2.0      | 2d766084+   |
 | paasta-web-ide               | 2.0      | 00000000    |
 +------------------------------+----------+-------------+
@@ -462,7 +465,7 @@ Releases total: 13
 
 
 
-#### <div id='12-2-3'> 2.7.2.3. Object Storage Deployment 파일 수정 및 배포
+#### <div id='12-2-3'> 2.7.2.3. Portal Object Storage Deployment 파일 수정 및 배포
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent)을 사용 할 것인지와 Release(Software packages, Config templates, Scripts)의 이름과 버전, VMs 용량, Jobs params 등이 정의 되어 있다.
 
@@ -527,11 +530,11 @@ Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 �
 yaml
 # paasta_portal_object_storage_vsphere_2.0.yml 설정 파일 내용
 ---
-name: paasta-portal-object-storage                    # 서비스 배포 이름 (필수)
+name: paasta-portal-release                           # 서비스 배포 이름 (필수)
 director_uuid: d363905f-eaa0-4539-a461-8c1318498a32   # bosh status로 확인한 Director UUID
 
 releases:                                             
-- name: paasta-portal-object-storage                  # 서비스 릴리즈 이름(필수)
+- name: paasta-portal-release                         # 서비스 릴리즈 이름(필수)
   version: latest                                     # 서비스 릴리즈 버전(필수): latest 시 업로드된 서비스 릴리즈 최신버전
 
 update:
@@ -618,7 +621,7 @@ $ bosh deploy
 ```
 ```
 RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-Acting as user 'admin' on deployment 'paasta-portal-object-storage' on 'bosh'
+Acting as user 'admin' on deployment 'paasta-portal-release' on 'bosh'
 Getting deployment properties from director...
 Unable to get properties list from director, trying without it...
 
@@ -665,11 +668,11 @@ Deployed 'paasta-portal-object-storage' to 'bosh'
 
 -	배포된 Object Storage를 확인한다.
 ```
-$ bosh vms paasta-portal-object-storage
+$ bosh vms paasta-portal-release
 ```
 ```
 RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-Acting as user 'admin' on deployment 'paasta-portal-object-storage' on 'bosh'
+Acting as user 'admin' on deployment 'paasta-portal-release' on 'bosh'
 
 Director task
 
@@ -686,7 +689,7 @@ VMs total: 1
 
 
 
-#### <div id='12-3'> 2.7.3. Object Storage 설정 변경
+#### <div id='12-3'> 2.7.3. Portal Object Storage 설정 변경
 
 Object Storage 설치가 완료되었다면, Portal API manifest.yml 파일에 설정된 값을 수정해야 한다. Object Storage 설치 시 입력한 값을 바탕으로 다음 항목의 값을 수정한다.
 
@@ -1853,7 +1856,7 @@ portal-api-v2        started           1/1         1G       1G     portal-api-v2
 
 ### <div id='20'> 3.6. 카탈로그 이미지 파일 업로드
 
-PaaS-TA 포털에 기본 생성되는 카탈로그에 대한 이미지를 업로드 한다. 카탈로그 이미지 업로드는 운영자 포털을 통해서 진행하고 사용자 포털의 카탈로그 화면에서 이미지를 확인할 수 있다. 업로드할 이미지 파일은 '카탈로그 이미지' 폴더에서 확인할 수 있다. [[**PaaS-TA 운영자 포털 가이드**](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Use-Guide/portal/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.1.md)]의 [[**5.4 카탈로그 관리 서비스**](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Use-Guide/portal/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.1.md#5.4)] 항목을 참고하여 각 카탈로그에 맞는 이미지를 업로드한다.
+PaaS-TA 포털에 기본 생성되는 카탈로그에 대한 이미지를 업로드 한다. 카탈로그 이미지 업로드는 운영자 포털을 통해서 진행하고 사용자 포털의 카탈로그 화면에서 이미지를 확인할 수 있다. 업로드할 이미지 파일은 '카탈로그 이미지' 폴더에서 확인할 수 있다. [[**PaaSTA 운영자 포털 가이드**](https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md)]의 [[**5.4 카탈로그 관리 서비스**](https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md#5.4)] 항목을 참고하여 각 카탈로그에 맞는 이미지를 업로드한다.
 
 
 
@@ -2251,6 +2254,5 @@ test.skipSSLValidation=true
 $ gradle -Plocation=local clean test
 ```
 
-[portal_deploy_image_01]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_01.png
-[portal_deploy_image_02]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_02.png
-[object_storage_image_01]:./../../Use-Guide/images/paasta-portal-deploy/object_storage_image_01.png
+[portal_deploy_image_01]:./../../Use-Guide/images/paasta-portal/portal-deploy/portal_deploy_image_01.png
+[portal_deploy_image_02]:./../../Use-Guide/images/paasta-portal/portal-deploy/portal_deploy_image_02.png
