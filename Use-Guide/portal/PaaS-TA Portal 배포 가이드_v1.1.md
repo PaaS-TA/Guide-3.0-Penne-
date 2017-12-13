@@ -1307,57 +1307,50 @@ $ vi manifest.yml
 yml
 ---
 applications:
-- name: portal-api-v2                       # 앱 이름
-  memory: 1024M                             # 앱 메모리 크기
-  instances: 1                              # 앱 인스턴스 수
-  host: portal-api-v2                       # 앱과 바인드될 호스트
-  path: ./paasta-portal-api-v2-1.0.war      # war 파일 경로
-  buildpack: java_buildpack_offline         # 앱이 사용할 빌드팩 이름
-  services:                                 # 앱과 바인드되는 서비스 목록
-  - portal-eureka-service                   # 사용자 생성 서비스(UserProvided Service) 유레카
+- name: portal-api-v2
+  memory: 1536M
+  instances: 1
+  host: portal-api-v2
+  path: paasta-portal-api-v2-1.0.war
+  buildpack: java_buildpack
+  services:
+  - portal-eureka-service
+
   env:
-    spring_application_name: portal-api-v2  # 앱 이름
-    server_port: 3333
+   SPRING_PROFILES_ACTIVE: dev
+   spring_application_name: portal-api-v2
+   server_port: 3333
 
-    # 스프링 시큐리티 계정 정보
-    security_user_name: admin
-    security_user_password: openpaasta
+   security_user_name: admin
+   security_user_password: openpaasta
 
-    multipart_maxFileSize: 1000Mb
-    multipart_maxRequestSize: 1000Mb
+   multipart_maxFileSize: 1000Mb
+   multipart_maxRequestSize: 1000Mb
 
-    # 사용자 생성 서비스(UserProvided Service) 유레카 접속 정보를 포털 API 앱의 환경정보에서 읽을 수 있도록 설정되어 있음.
-    eureka_instance_hostname: ${vcap.application.uris[0]}
-    eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
+   eureka_instance_hostname: ${vcap.application.uris[0]}
+   eureka_instance_nonSecurePort: 80
+   eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
 
+   cf_apiHost: api.104.198.117.201.xip.io
+   cf_sslSkipValidation: true
+   cf_clientId: admin
+   cf_clientSecret: admin-secret
+   cf_username: admin
+   cf_password: xxxxxx
 
-    cf_apiHost: api.115.68.46.186.xip.io     # PaaS-TA API 호스트
-    cf_sslSkipValidation: true
-    cf_clientId: cf
-    #cf_clientSecret:
-    cf_username: admin
-    cf_password: admin
+   datasource_cc_driverClassName: org.postgresql.Driver
+   datasource_cc_url: jdbc:postgresql://192.168.20.38:5524/ccdb
+   datasource_cc_username: ccadmin
+   datasource_cc_password: xxxxxx
+   datasource_portal_driverClassName: org.postgresql.Driver
+   datasource_portal_url: jdbc:postgresql://192.168.10.80:5432/portaldb
+   datasource_portal_username: portaladmin
+   datasource_portal_password: xxxxxx
+   datasource_uaa_driverClassName: org.postgresql.Driver
+   datasource_uaa_url: jdbc:postgresql://192.168.20.38:5524/uaadb
+   datasource_uaa_username: uaaadmin
+   datasource_uaa_password: xxxxxx
 
-    # PaaS-TA CCDB 접속 정보
-    # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    datasource_cc_driverClassName: org.postgresql.Driver
-    datasource_cc_url: jdbc:postgresql://10.30.150.42:5524/ccdb
-    datasource_cc_username: ccadmin
-    datasource_cc_password: admin
-
-    # PaaS-TA 포털 DB 접속 정보
-    # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    datasource_portal_driverClassName: org.postgresql.Driver
-    datasource_portal_url: jdbc:postgresql://10.30.150.42:5524/portaldb
-    datasource_portal_username: portaladmin
-    datasource_portal_password: admin
-
-    # PaaS-TA 포털 Object Storage 접속 정보
-    # 포털 Object Storage Deployment 파일인 paasta_portal_object_storage_{IaaS 종류}_2.0.yml 파일을 참조하여 작성
-    datasource_uaa_driverClassName: org.postgresql.Driver
-    datasource_uaa_url: jdbc:postgresql://10.30.150.42:5524/uaadb
-    datasource_uaa_username: uaaadmin
-    datasource_uaa_password: admin
 ```
 
 
