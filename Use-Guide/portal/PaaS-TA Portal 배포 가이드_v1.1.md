@@ -1322,7 +1322,7 @@ applications:
    server_port: 3333
 
    security_user_name: admin
-   security_user_password: openpaasta
+   security_user_password: xxxxxx
 
    multipart_maxFileSize: 1000Mb
    multipart_maxRequestSize: 1000Mb
@@ -1461,17 +1461,13 @@ applications:
   memory: 1024M
   instances: 1
   host: portal-web-user
-  path: ./paasta-portal-web-user-1.0.war
+  path: paasta-portal-web-user-1.0.war
   buildpack: java_buildpack_offline
   services:
   - portal-eureka-service
-  - portal-redis-session
   env:
     spring_application_name: portal-web-user
-    spring_redis_host: ${vcap.services.portal-redis-session.credentials.host}
-    spring_redis_password: ${vcap.services.portal-redis-session.credentials.password}
-    spring_redis_port: ${vcap.services.portal-redis-session.credentials.port}
-    spring_redis_timeout: 2100
+
 
     multipart_maxFileSize: 1000Mb
     multipart_maxRequestSize: 1000Mb
@@ -1481,21 +1477,21 @@ applications:
     eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
     eureka_instance_hostname: ${vcap.application.uris[0]}
 
-    # api manifest의 spring_security_username + ":" + spring_security_password를 Base64 인코딩하여 입력해야 합니다.
-    # 예를 들어서 api manifest의 값이 아래와 같다면
-    # spring_security_username: user
-    # spring_security_password: password
-    # user:password 를 인코딩해야합니다.
-    # Base64 인코딩 사이트: http://www.convertstring.com/ko/EncodeDecode/Base64Encode
     paasta_portal_api_authorization_base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
     paasta_portal_api_url: http://PORTAL-API
 
     ribbon_eureka_enabled: true
     ribbon_ConnectTimeout: 30000
     ribbon_ReadTimeout: 30000
-    eureka_instance_hostname: ${vcap.application.uris[0]}
-    eureka_instance_nonSecurePort: 80
-    eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
+
+    cf_uaa_oauth_info_uri: https://uaa.104.198.117.201.xip.io/userinfo
+    cf_uaa_oauth_token_check_uri: https://uaa.104.198.117.201.xip.io/check_token
+    cf_uaa_oauth_token_access_uri: https://uaa.104.198.117.201.xip.io/oauth/token
+    cf_uaa_oauth_logout_url: https://uaa.104.198.117.201.xip.io/logout.do
+    cf_uaa_oauth_authorization_uri: https://uaa.104.198.117.201.xip.io/oauth/authorize
+    cf_uaa_oauth_client_id: portalclient
+    cf_uaa_oauth_client_secret: clientsecret
+
 ```
 
 
@@ -1609,45 +1605,18 @@ yml
 ---
 applications:
 - name: portal-web-admin
-  memory: 1024M
+  memory: 768M
   instances: 1
   host: portal-web-admin
-  path: ./paasta-portal-web-admin-1.0.war
+  path: paasta-portal-web-admin-1.0.war
   buildpack: java_buildpack_offline
   services:
   - portal-eureka-service
   - portal-redis-session
   env:
-    spring_application_name: portal-web-admin
-    spring_redis_host: ${vcap.services.portal-redis-session.credentials.host}
-    spring_redis_password: ${vcap.services.portal-redis-session.credentials.password}
-    spring_redis_port: ${vcap.services.portal-redis-session.credentials.port}
-    spring_redis_timeout: 2100
+#    SPRING_PROFILES_ACTIVE: dev
+    test_value: DEV_TEST_VALUE
 
-    multipart_maxFileSize: 1000Mb
-    multipart_maxRequestSize: 1000Mb
-
-    server_port: 8090
-
-    eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
-    eureka_instance_hostname: ${vcap.application.uris[0]}
-
-    # api manifest의 spring_security_username + ":" + spring_security_password를 Base64 인코딩하여 입력해야 합니다.
-    # 예를 들어서 api manifest의 값이 아래와 같다면
-    # spring_security_username: user
-    # spring_security_password: password
-    # user:password 를 인코딩해야합니다.
-    # Base64 인코딩 사이트: http://www.convertstring.com/ko/EncodeDecode/Base64Encode
-    paasta_portal_api_authorization_base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
-    paasta_portal_api_url: http://PORTAL-API
-
-    ribbon_eureka_enabled: true
-    ribbon_ConnectTimeout: 30000
-    ribbon_ReadTimeout: 30000
-
-   monitoringSite_url: http://115.68.151.183:3000
-    monitoringSite_id: openpaas
-    monitoringSite_password: openpaas
 ```
 
 
