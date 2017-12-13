@@ -25,7 +25,6 @@
 
 ### <div id='4'/> 1.3 시스템 구성도
 본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소 사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
-
 ![source_controller_Service_Guide01]
 
 ### <div id='5'/> 1.4 참고 자료
