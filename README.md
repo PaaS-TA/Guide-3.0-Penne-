@@ -33,6 +33,7 @@
 
 ## 모니터링 설치 가이드
 - [PaaS-TA 모니터링](Install-Guide/monitoring/PaaS-TA%20모니터링%20시스템%20설치가이드.md)
+- [IaaS 모니터링](https://github.com/PaaS-TA/IaaS-Monitoring)
 
 ## 활용 가이드
 - [BOSH CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaaS_PaaSTA_BOSH_CLI_guide.md)
