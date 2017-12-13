@@ -276,7 +276,7 @@ portal-eureka-service  user-provided
 [**http://docs.openstack.org/developer/swift/**](http://docs.openstack.org/developer/swift/)
 
 
-#### <div id='12-2'> 2.7.2. Object Storage 설치
+#### <div id='12-2'> 2.7.2. Portal Object Storage 설치
 
 #### <div id='12-2-1'> 2.7.2.1. 설치 전 준비 사항
 본 설치는 Linux 환경에서 설치하는 것을 기준으로 하였다.
