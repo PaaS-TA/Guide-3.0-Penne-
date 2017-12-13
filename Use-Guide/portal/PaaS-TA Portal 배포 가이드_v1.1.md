@@ -862,7 +862,7 @@ $ vi ./portal-postgresql-init.sh
 #!/bin/bash
 
 # ENVIRONMENTS
-PSQL_VERSION=postgres-9.4.9
+PSQL_VERSION=postgres-9.4.9             # postgresql 버전 확인
 PSQL_USER=vcap
 PSQL_PORT=5524
 PSQL_BIN_DIR=/var/vcap/packages/$PSQL_VERSION/bin
