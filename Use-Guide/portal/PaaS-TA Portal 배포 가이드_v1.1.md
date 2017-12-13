@@ -16,7 +16,6 @@
      - [2.7.1.1. 목적](#12-1-1)
      - [2.7.1.2. 범위](#12-1-2)
      - [2.7.1.3. 시스템 구성도](#12-1-3)
-     - [2.7.1.4. 참고자료](#12-1-4)
      - [2.7.2. Portal Object Storage 설치](#12-2)
      - [2.7.2.1. 설치 전 준비 사항](#12-2-1)
      - [2.7.2.2. Portal Object Strorage 릴리즈 업로드](#12-2-2)
@@ -260,12 +259,6 @@ portal-eureka-service  user-provided
   </tr>
 </table>
 
-
-
-#### <div id='12-1-4'> 2.7.1.4. 시스템 구성도
-[**http://bosh.io/docs**](http://bosh.io/docs)
-[**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
-[**http://docs.openstack.org/developer/swift/**](http://docs.openstack.org/developer/swift/)
 
 
 #### <div id='12-2'> 2.7.2. Portal Object Storage 설치
