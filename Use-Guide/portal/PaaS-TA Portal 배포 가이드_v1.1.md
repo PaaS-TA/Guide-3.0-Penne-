@@ -28,7 +28,8 @@
      - [3.3. 포탈 APIV2 배포](#17)
      - [3.4. 사용자 포탈 배포](#18)
      - [3.5. 운영자 포탈 배포](#19)
-     - [3.6. 카탈로그 이미지 파일 업로드](#20)
+     - [3.6. Client 생성 방법](#19-1)
+     - [3.7. 카탈로그 이미지 파일 업로드](#20)
 - 4. [테스트 케이스 구동 가이드](#21)
      - [4.1. 테스트시 절차](#22)
 
@@ -761,7 +762,7 @@ PaaS-TA-Portal 서비스를 하기 위해 배포 파일이 있는 PaaSTA-Portal/
 
 ※ postgresql.sql을 실행하기 전에 파일을 열어 관리자 계정의 정보를 Potal-DB에 삽입하는 SQL을 추가한다. 관리자 계정의 정보를 Portal DB에 삽입하지 않을 경우, 관리자 포털(Web Admin)에 로그인했을때, 관리자 메뉴에 접근 할 수 없는 오류가 발생할 수 있다.
 
-postgresql.sql 파일을 vi 에티더로 연다.
+postgresql.sql 파일을 vi 에디터로 연다.
 ```
 $ vi postgresql.sql
 ```
@@ -1743,11 +1744,31 @@ portal-api-v2        started           1/1         1G       1G     portal-api-v2
 ```
 
 
+### <div id='19-1'> 3.6. UAA 포탈 클라이언트 계정 등록
+1. uaac target
+- 본인이 사용하고 있는 uaa 주소를 설정한다.
 
+2. uaac token client get
+- uaac 관리자 권한을 얻는다
 
+기본 계정 정보 : admin ,기본 비밀 번호 : admin-secret
 
+```
+uaac client add portalclient -s [클라이언트 비밀번호] --redirect_uri "[실제URL]" \
+--scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
+--authorized_grant_types "authorization_code , client_credentials , refresh_token" \
+--authorities="uaa.resource" \
+--autoapprove="openid , cloud_controller_service_permissions.read"
 
-### <div id='20'> 3.6. 카탈로그 이미지 파일 업로드
+[실제 URL]
+URL 입력 방법
+예) http://10.10.10.1:8080 까지 입력 포트번호가 없을 경우 http://10.10.10.1 까지만 입력
+
+클라이언트를 등록시 다중 URL 입력 가능
+예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력
+```
+
+### <div id='20'> 3.7. 카탈로그 이미지 파일 업로드
 
 PaaS-TA 포털에 기본 생성되는 카탈로그에 대한 이미지를 업로드 한다. 카탈로그 이미지 업로드는 운영자 포털을 통해서 진행하고 사용자 포털의 카탈로그 화면에서 이미지를 확인할 수 있다. 업로드할 이미지 파일은 '카탈로그 이미지' 폴더에서 확인할 수 있다. [[**PaaSTA 운영자 포털 가이드**](https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md)]의 [[**5.4 카탈로그 관리 서비스**](https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md#5.4)] 항목을 참고하여 각 카탈로그에 맞는 이미지를 업로드한다.
 
