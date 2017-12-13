@@ -25,11 +25,13 @@
 
 ### <div id='4'/> 1.3 시스템 구성도
 본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소 사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
+<br>
 ![source_controller_Service_Guide01]
 
 ### <div id='5'/> 1.4 참고 자료
-http://bosh.io/docs
-http://docs.cloudfoundry.org/
+> http://bosh.io/docs
+
+> http://docs.cloudfoundry.org/
 
 
 # <div id='6'/> 2. 형상관리 서비스팩 설치
@@ -41,7 +43,7 @@ BOSH CLI 가 설치되어 있지 않을 경우 먼저 BOSH 설치 가이드 문�
 PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운로드한다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
 
 - 설치에 필요한 모든 다운로드 파일 및 문서는 다음 Url에서 찾을 수 있다. 
-https://github.com/PaaS-TA /Documents- -3.0
+> https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Download_Page.md
 
 
 ### <div id='8'/> 2.2. 형상관리 서비스 릴리즈 업로드
@@ -698,4 +700,4 @@ scope "cloud_controller_service_permissions.read , openid , cloud_controller.rea
 --autoapprove="openid , cloud_controller_service_permissions.read"
 ```
 
-[source_controller_Service_Guide01]:‪\Service-Guide\images\source_control\source_controller_Service_Guide01.PNG
+[source_controller_Service_Guide01]:/Service-Guide/images/source_control/source_controller_Service_Guide01.PNG
