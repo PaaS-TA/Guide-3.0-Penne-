@@ -94,12 +94,6 @@
     <td>1GB</td>    
     <td>1GB Disk</td>
   </tr>
-  <tr>
-    <td>app-autoscaler</td>
-    <td>1</td>
-    <td>1GB</td>    
-    <td>1GB Disk</td>
-  </tr>  
 </table>
 
 
