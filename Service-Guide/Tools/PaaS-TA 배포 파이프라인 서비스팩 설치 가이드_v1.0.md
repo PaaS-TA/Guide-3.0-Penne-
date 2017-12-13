@@ -126,8 +126,9 @@
 </table>
 
 ### <div id='14'/> 1.4 참고 자료
->http://bosh.io/docs
->http://docs.cloudfoundry.org/
+> http://bosh.io/docs
+
+> http://docs.cloudfoundry.org/
 
 # <div id='2'/> 2. 배포 파이프라인 서비스팩 설치
 
