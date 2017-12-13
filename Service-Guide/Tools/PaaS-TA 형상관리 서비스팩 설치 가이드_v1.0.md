@@ -48,7 +48,7 @@ PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운로드한다. 
 
 ### <div id='8'/> 2.2. 형상관리 서비스 릴리즈 업로드
 
-- PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 GlusterFS 서비스 릴리즈 paasta-glusterfs-2.0.tgz 파일을 확인한다.
+- PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 Source Control 서비스 릴리즈 paasta-sourcecontrol-release-1.0.tgz 파일을 확인한다.
 ```
 $ cd bosh-space
 $ ll paasta-sourcecontrol-release-1.0.tgz
