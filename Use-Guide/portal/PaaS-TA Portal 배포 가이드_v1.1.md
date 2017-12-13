@@ -497,8 +497,8 @@ Acting as user 'admin' on 'bosh'
 +------------------------------------------+---------------+---------+-----------------------------------------+
 | Name                                     | OS            | Version | CID                                     |
 +------------------------------------------+---------------+---------+-----------------------------------------+
-| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3263.8* | sc-af443b65-9335-43b1-9b64-6d1791a10428 |
-| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3309*   | sc-e00c788b-ac6b-4089-bc43-f56a3ffdb55a |
+| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3445.2* | sc-af443b65-9335-43b1-9b64-6d1791a10428 |
+| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3445.2* | sc-e00c788b-ac6b-4089-bc43-f56a3ffdb55a |
 +------------------------------------------+---------------+---------+-----------------------------------------+
 
 (*) Currently in-use
