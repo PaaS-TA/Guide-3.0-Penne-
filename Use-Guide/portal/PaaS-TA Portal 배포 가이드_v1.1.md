@@ -436,7 +436,7 @@ Acting as user 'admin' on 'bosh'
 | paasta-logsearch             | 2.0*     | 00000000    |
 | paasta-metrics-collector     | 2.0*     | 00000000    |
 | paasta-monitoring-api-server | 2.0      | 00000000    |
-| paasta-portal-release        | 2.0      | 00000000    |
+| paasta-portal-release        | 1.0      | 00000000    |
 | paasta-redis                 | 2.0      | 2d766084+   |
 | paasta-web-ide               | 2.0      | 00000000    |
 +------------------------------+----------+-------------+
