@@ -176,7 +176,7 @@ Acting as user 'admin' on 'bosh'
 | paasta-mongodb-shard                    | 2.0      | 85e3f01e+   |
 | paasta-mysql                            | 2.0*     | 85e3f01e+   |
 | paasta-pinpoint                         | 2.0*     | 2dbb8bf3+   |
-| paasta-portal-object-storage            | 2.0*     | 00000000    |
+| paasta-portal-release			  | 1.0*     | 00000000    |
 | paasta-rabbitmq                         | 2.0*     | 21516d49+   |
 | paasta-redis                            | 2.0*     | 2d766084+   |
 | paasta-sourcecontrol-release            | 1.0*     | badc45e9+   |
@@ -223,7 +223,7 @@ Acting as user 'admin' on 'bosh'
 | paasta-mongodb-shard                    | 2.0      | 85e3f01e+   |
 | paasta-mysql                            | 2.0*     | 85e3f01e+   |
 | paasta-pinpoint                         | 2.0*     | 2dbb8bf3+   |
-| paasta-portal-object-storage            | 2.0*     | 00000000    |
+| paasta-portal-release		          | 1.0*     | 00000000    |
 | paasta-rabbitmq                         | 2.0*     | 21516d49+   |
 | paasta-redis                            | 2.0*     | 2d766084+   |
 | paasta-sourcecontrol-release            | 1.0*     | badc45e9+   |
