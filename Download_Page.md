@@ -1,7 +1,7 @@
 # PaaSTA 3.0 다운로드
 
 |패키지 명|설명 |다운로드 링크|check sum|
-|---------|-------|--------------|
+|---------|-------|--------------|---------------|
 |PaaSTA-Container|PaaS-TA 컨테이너 릴리즈|http://115.68.46.186:8080/data/packages/3.0/PaaSTA-Container.zip |md5sum: 9e63d1dc9add6abb662392e1df45e489 |
 |PaaSTA-Controller|PaaS-TA 컨트롤러 릴리즈|http://115.68.46.186:8080/data/packages/3.0/PaaSTA-Controller.zip |md5sum: 9f05057bbaee804c6dd5212396d1f3cc |
 |PaaSTA-Deployment|PaaS-TA 배포 Manifest|http://115.68.46.186:8080/data/packages/3.0/PaaSTA-Deployment.zip |md5sum: 4799b27f97541a87ec5a44f649ae276f |
