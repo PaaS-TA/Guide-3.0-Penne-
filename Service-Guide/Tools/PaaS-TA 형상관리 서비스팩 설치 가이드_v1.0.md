@@ -620,7 +620,7 @@ cf create-service-broker {서비스브로커 이름} {서비스브로커 사용�
 - 서비스브로커 URL : 서비스 브로커가 제공하는 API를 사용할 수 있는 URL을 입력한다.
 ```
 ```
-$ cf create-service-broker p-paasta-sourcecontrol injeonglee 123456 http://sorucecontrol-webui.115.xxx.co.kr
+$ cf create-service-broker p-paasta-sourcecontrol admin cloudfoundry http://10.30.130.137
 lij@inception-new:~/bosh-space/paasta-sourcecontrol-releases/deployment$ cf service-brokers
 Getting service brokers as admin...
 
@@ -630,7 +630,7 @@ delivery-pipline              http://paas-ta-delivery-pipline-broker.115.68.46.1
 glusterfs-service             http://10.30.120.197:8080
 mysql-service-broker          http://10.30.40.195:8080
 paasta-redis-broker           http://10.30.60.71:12350
-paasta-sourcecontrol-broker   http://paasta-sourcecontrol-broker.115.68.46.187.xip.io
+paasta-sourcecontrol-broker   http://10.30.130.137
 rabbitmq
 
 ```
