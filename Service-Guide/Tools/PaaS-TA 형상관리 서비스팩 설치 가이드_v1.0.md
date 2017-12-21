@@ -272,7 +272,7 @@ $bosh releases paasta-sourcecontrol-release-1.0.tgz
 형상관리 서비스 릴리즈가 업로드되어 있는 것을 확인할 수 있다.
 
 
-### <div id='9'/> 2.3.  서비스 Deployment 파일 수정 및 배포
+### <div id='9'/> 2.3. 형상관리 서비스 Deployment 파일 수정 및 배포
 BOSH Deployment manifest는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest에는 sotfware를 설치하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할 것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
