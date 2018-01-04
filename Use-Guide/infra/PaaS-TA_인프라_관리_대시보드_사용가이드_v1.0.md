@@ -221,7 +221,7 @@
 
 ![PaaSTa_Infra_Dashboard_Use_Guide_Image5]
 
-####	1.	Google 계정 목록
+####	1.	vSphere 계정 목록
 -	등록 한 vSphere 계정 목록을 보여 준다.
 ####	2.	등록
 -	실제 vSphere 계정을 인프라 관리 대시보드에 등록하는 기능을 수행 한다.
