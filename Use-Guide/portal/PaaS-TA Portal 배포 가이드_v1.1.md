@@ -16,7 +16,6 @@
      - [2.7.1.1. 목적](#12-1-1)
      - [2.7.1.2. 범위](#12-1-2)
      - [2.7.1.3. 시스템 구성도](#12-1-3)
-     - [2.7.1.4. 참고자료](#12-1-4)
      - [2.7.2. Portal Object Storage 설치](#12-2)
      - [2.7.2.1. 설치 전 준비 사항](#12-2-1)
      - [2.7.2.2. Portal Object Strorage 릴리즈 업로드](#12-2-2)
@@ -29,7 +28,8 @@
      - [3.3. 포탈 APIV2 배포](#17)
      - [3.4. 사용자 포탈 배포](#18)
      - [3.5. 운영자 포탈 배포](#19)
-     - [3.6. 카탈로그 이미지 파일 업로드](#20)
+     - [3.6. UAA 포탈 클라이언트 계정 등록](#19-1)
+     - [3.7. 카탈로그 이미지 파일 업로드](#20)
 - 4. [테스트 케이스 구동 가이드](#21)
      - [4.1. 테스트시 절차](#22)
 
@@ -262,12 +262,6 @@ portal-eureka-service  user-provided
 
 
 
-#### <div id='12-1-4'> 2.7.1.4. 시스템 구성도
-[**http://bosh.io/docs**](http://bosh.io/docs)
-[**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
-[**http://docs.openstack.org/developer/swift/**](http://docs.openstack.org/developer/swift/)
-
-
 #### <div id='12-2'> 2.7.2. Portal Object Storage 설치
 
 #### <div id='12-2-1'> 2.7.2.1. 설치 전 준비 사항
@@ -443,7 +437,7 @@ Acting as user 'admin' on 'bosh'
 | paasta-logsearch             | 2.0*     | 00000000    |
 | paasta-metrics-collector     | 2.0*     | 00000000    |
 | paasta-monitoring-api-server | 2.0      | 00000000    |
-| paasta-portal-release        | 2.0      | 00000000    |
+| paasta-portal-release        | 1.0      | 00000000    |
 | paasta-redis                 | 2.0      | 2d766084+   |
 | paasta-web-ide               | 2.0      | 00000000    |
 +------------------------------+----------+-------------+
@@ -462,7 +456,7 @@ Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (
 
 
 -	PaaSTA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 IaaS별 Portal Object Storage Deployment 파일을 복사한다.
-예) vsphere 일 경우 paasta_portal_object_storage_vsphere_2.0.yml를 복사
+예) vsphere 일 경우 paasta-portal-vsphere-1.0.yml 복사
 
 
 
@@ -504,8 +498,8 @@ Acting as user 'admin' on 'bosh'
 +------------------------------------------+---------------+---------+-----------------------------------------+
 | Name                                     | OS            | Version | CID                                     |
 +------------------------------------------+---------------+---------+-----------------------------------------+
-| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3263.8* | sc-af443b65-9335-43b1-9b64-6d1791a10428 |
-| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3309*   | sc-e00c788b-ac6b-4089-bc43-f56a3ffdb55a |
+| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3445.2* | sc-af443b65-9335-43b1-9b64-6d1791a10428 |
+| bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3445.2* | sc-e00c788b-ac6b-4089-bc43-f56a3ffdb55a |
 +------------------------------------------+---------------+---------+-----------------------------------------+
 
 (*) Currently in-use
@@ -519,89 +513,156 @@ Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 �
 
 ```
 yaml
-# paasta_portal_object_storage_vsphere_2.0.yml 설정 파일 내용
+# paasta-portal-vsphere-1.0.yml 설정 파일 내용
 ---
-name: paasta-portal-release                           # 서비스 배포 이름 (필수)
-director_uuid: d363905f-eaa0-4539-a461-8c1318498a32   # bosh status로 확인한 Director UUID
-
-releases:                                             
-- name: paasta-portal-release                         # 서비스 릴리즈 이름(필수)
-  version: latest                                     # 서비스 릴리즈 버전(필수): latest 시 업로드된 서비스 릴리즈 최신버전
-
-update:
-  canaries: 0                                         # canary 인스턴스 수(필수)
-  canary_watch_time: 30000-240000                     # canary 인스턴스가 수행하기 위한 대기 시간(필수)
-  max_in_flight: 1                                    # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)     
-  serial: true
-  update_watch_time: 30000-240000                     # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
-
-compilation:                                          # 컴파일시 필요한 가상머신의 속성(필수)
-  cloud_properties:                                   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
-    cpu: 4                                             
-    disk: 20480
+---
+name: paasta-portal # 서비스 배포이름(필수) bosh deployments 로 확인가능한 이름
+director_uuid: <%= `bosh status --uuid` %>  # Director UUID을 입력(필수) bosh status 명령으로 확인가능
+ 
+release:
+  name: paasta-portal-release #서비스 릴리즈 이름(필수) bosh releases로 확인가능
+  version: latest   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+ 
+compilation:          # 컴파일시 필요한 가상머신의 속성(필수)
+  workers: 4          # 컴파일 하는 가상머신의 최대수(필수)
+  network: default    # Networks block에서 선언한 network 이름(필수)
+  reuse_compilation_vms: true
+  cloud_properties:   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
     ram: 4096
-  network: default
-  reuse_compilation_vms: false
-  workers: 4                                          # 컴파일 하는 가상머신의 최대수(필수)
-
-resource_pools:                                       # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
-- cloud_properties:                                   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
-    cpu: 1
-    disk: 4096
-    ram: 2048
-  name: swift-keystone                                # 고유한 resource pool 이름
-  network: default
-  stemcell:
-    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent    # 사용할 stemcell 이름(필수)
-    version: 3263.8                                   # stemcell 버전(필수)
-
-jobs:
-- instances: 1                                  # job 인스턴스 수(필수)
-  name: swift-keystone                          # 작업 이름(필수)
-  networks:                                     # 네트워크 구성정보
-  - name: default                               # Networks block에서 선언한 network 이름(필수)
-    static_ips:
-    - 10.30.131.12                              # 사용할 IP addresses 정의(필수)
-  persistent_disk: 2048                         # object storage 저장 공간 크기(필수)
-  resource_pool: swift-keystone                 # resource_pools block에 정의한 resource pool 이름(필수)
-  templates:
-  - name: swift-keystone                        # job template 이름(필수)
-
-networks:                                       # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
-- name: default                                 # vsphere 에서 사용하는 network 이름(필수)
+    disk: 8192
+    cpu: 4
+ 
+# this section describes how updates are handled
+update:
+  canaries: 1                        # canary 인스턴스 수(필수)
+  serial: false
+  canary_watch_time: 30000-600000    # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 30000-600000     # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 1                   # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+ 
+networks:                     # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
+- name: default
   subnets:
   - cloud_properties:
-      name: Internal
-    dns:
+      name: Internal          # vsphere 에서 사용하는 network 이름(필수)
+    dns:                      # DNS 정보
     - 10.30.20.24
     - 8.8.8.8
     gateway: 10.30.20.23
-    name: default_unused
+    name: default_unusedls
     range: 10.30.0.0/16
-    reserved:                                   # 설치시 제외할 IP 설정
-    - 10.30.0.1 - 10.30.0.5
+    reserved:                 # 설치시 제외할 IP 설정
+    - 10.30.20.0 - 10.30.20.22
+    - 10.30.20.24 - 10.30.20.255
+    - 10.30.40.0 - 10.30.40.255
+    - 10.30.60.0 - 10.30.60.112
     static:
-    - 10.30.131.12                              # 사용 가능한 IP 설정
-  type: manual
+    - 10.30.115.30 - 10.30.115.50          #사용 가능한 IP 설정
+ 
+resource_pools:               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
+  - name: small      # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+      version: 3445.2           # stemcell 버전(필수)
+    cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 2048
+    env:
+      bosh:             #password : c1oudc0w
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+  - name: small_api      # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+      version: 3445.2           # stemcell 버전(필수)
+    cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 1024
+    env:
+      bosh:
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+ 
+  - name: medium      # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+      version: 3445.2           # stemcell 버전(필수)
+    cloud_properties:       # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 4096
+    env:
+      bosh:
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+ 
+jobs:
+- name: mariadb
+  template: mariadb
+  instances: 1
+  resource_pool: small
+  persistent_disk: 4096
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.115.31
 
+- name: binary_storage
+  template: binary_storage
+  instances: 1
+  persistent_disk: 10240
+  resource_pool: medium
+  networks:
+  - name: default
+    static_ips:  
+    - 10.30.115.32
+ 
 properties:
-  proxy_ip: 10.30.131.12                      # 프록시 서버  IP  (swift-keystone job의 static_ip, Object Storage 접속 IP)
-  proxy_port: 10008                           # 프록시 서버 Port (Object Storage 접속 Port)
-  keystone_username: paasta-portal            # 최초 생성되는 유저이름(Object Storage 접속 유저이름)
-  keystone_password: paasta                   # 최초 생성되는 유저 비밀번호(Object Storage 접속 유저 비밀번호)
-  keystone_tenantname: paasta-portal          # 최초 생성되는 테넌트 이름(Object Storage 접속 테넌트 이름)
-  keystone_auth_port: 5000                    # Keystone 인증을 위해 사용하는 포트
-  keystone_email: email@email.com             # 최소 생성되는 유저의 이메일
+ 
+  mariadb:
+    port: 3306
+    admin_user:
+      password: "xxxxxx"
+    host: 10.30.115.31
+    host_names:
+    - mariadb0
+    host_ips:
+    - 10.30.115.31
+    datasource:
+      url: jdbc:mysql://10.30.115.31:3306/portaldb?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      username: paastamonitering
+      password: "xxxxxxxxxxxxxxx"
+      driver_class_name: com.mysql.cj.jdbc.Driver
+      database: portaldb
+    jpa:
+      database:
+        name: portaldb
+ 
+  binary_storage:
+    proxy_ip: 10.30.115.32              # 프록시 서버  IP  (swift-keystone job의 static_ip, Object Storage 접속 IP)
+    proxy_port: 10008                   # 프록시 서버 Port (Object Storage 접속 Port)
+    default_username: paasta-portal     # 최초 생성되는 유저이름(Object Storage 접속 유저이름)
+    default_password: xxxxxx            # 최초 생성되는 유저 비밀번호(Object Storage 접속 유저 비밀번호)
+    default_tenantname: paasta-portal   # 최초 생성되는 테넌트 이름(Object Storage 접속 테넌트 이름)
+    default_email: email@email.com      # 최소 생성되는 유저의 이메일
+    container: portal-container
+    auth_port: 5000
+ 
 ```
 
 
 -    Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
 ```
-$ bosh deployment paasta_portal_object_storage_vsphere_2.0.yml
+$ bosh deployment paasta-portal-vsphere-1.0.yml
 ```
 ```
 RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-Deployment set to '/home/inception/bosh-space/kimdojun/swift/paasta_portal_object_storage_vsphere_2.0.yml'
+Deployment set to '/home/inception/bosh-space/kimdojun/swift/paasta-portal-vsphere-1.0.yml'
 ```
 
 
@@ -653,7 +714,7 @@ Started		2017-01-13 08:04:45 UTC
 Finished	2017-01-13 08:14:43 UTC
 Duration	:09:58
 
-Deployed 'paasta-portal-object-storage' to 'bosh'
+Deployed 'paasta-portal-release' to 'bosh'
 ```
 
 
@@ -672,7 +733,9 @@ Task 2486 done
 +---------------------------------------------------------+---------+-----+----------------+--------------+
 | VM                                                      | State   | AZ  | VM Type        | IPs          |
 +---------------------------------------------------------+---------+-----+----------------+--------------+
-| swift-keystone/0 (dea97c2b-10d2-4655-a867-fc1c781340c3) | running | n/a | swift-keystone | 10.30.131.12 |
+| mariadb/0 (dea97c2b-10d2-4655-a867-fc1c781340c3)        | running | n/a | small          | 10.30.115.31 |
++---------------------------------------------------------+---------+-----+----------------+--------------+
+| binary_storage/0 (e02a2870-3dae-4b86-9a6e-54131adb9e35) | running | n/a | medium         | 10.30.115.32 |
 +---------------------------------------------------------+---------+-----+----------------+--------------+
 
 VMs total: 1
@@ -701,14 +764,9 @@ PaaS-TA-Portal 서비스를 하기 위해 배포 파일이 있는 PaaSTA-Portal/
 
 ※ postgresql.sql을 실행하기 전에 파일을 열어 관리자 계정의 정보를 Potal-DB에 삽입하는 SQL을 추가한다. 관리자 계정의 정보를 Portal DB에 삽입하지 않을 경우, 관리자 포털(Web Admin)에 로그인했을때, 관리자 메뉴에 접근 할 수 없는 오류가 발생할 수 있다.
 
-postgresql.sql 파일을 vi 에티더로 연다.
+postgresql.sql 파일을 vi 에디터로 연다.
 ```
 $ vi postgresql.sql
-```
-
-3958 라인으로 이동한다.
-```
-:3958
 ```
 
 관리자 계정을 Portal DB의 user_detail 컬럼에 삽입하는 SQL을 추가한다. 현재 user_id를 '관리자 계정'이라는 값으로 삽입하도록 작성되어 있는데, Portal API 배포시 manifest.yml 파일에 입력한 관리자 ID와 동일한 값으로 변경한다. Portal API의 manifest.yml의 'cloudfoundry_user_admin_username' 값이 관리자 계정 ID가 된다. [[**3.2. 포탈 API 배포**](#16)] 를 참고한다.
@@ -804,7 +862,7 @@ $ vi ./portal-postgresql-init.sh
 #!/bin/bash
 
 # ENVIRONMENTS
-PSQL_VERSION=postgres-9.4.9
+PSQL_VERSION=postgres-9.4.9             # postgresql 버전 확인
 PSQL_USER=vcap
 PSQL_PORT=5524
 PSQL_BIN_DIR=/var/vcap/packages/$PSQL_VERSION/bin
@@ -1038,22 +1096,24 @@ $ vi manifest.yml
 ```
 yml
 ---
+---
 applications:
 - name: portal-api                         # 앱 이름
   memory: 1536M                            # 앱 메모리 크기
-  instances: 2                             # 앱 인스턴스 수
+  instances: 1                             # 앱 인스턴스 수
   host: portal-api                         # 앱과 바인드될 호스트
-  path: ./paasta-portal-api-1.0.war        # war 파일 경로
+  path: paasta-portal-api-1.0.war          # war 파일 경로
   buildpack: java_buildpack_offline        # 앱이 사용할 빌드팩 이름
   services:                                # 앱과 바인드되는 서비스 목록
   - portal-eureka-service                  # 사용자 생성 서비스(UserProvided Service) 유레카
-  env:
-    SPRING_PROFILES_ACTIVE: prd
+env:
+    SPRING_PROFILES_ACTIVE: dev
     spring_application_name: portal-api    # 앱 이름
     spring_jdbc: postgresql                # PaaS-TA 포털이 사용할 DBMS
     server_port: 2222
-    cloudfoundry_cc_api_url: https://api.115.68.46.186.xip.io     # PaaS-TA CloudController의 api Url
-    cloudfoundry_cc_api_uaaUrl: https://uaa.115.68.46.186.xip.io  # PaaS-TA Uaa Url
+    cloudfoundry_cc_api_url: https://api.104.198.117.201.xip.io      # PaaS-TA CloudController의 api Url
+    cloudfoundry_cc_api_uaaUrl: https://uaa.104.198.117.201.xip.io   # PaaS-TA Uaa Url
+
 
     # PaaS-TA Uaa 계정 정보
     cloudfoundry_user_admin_username: admin
@@ -1064,57 +1124,69 @@ applications:
     cloudfoundry_user_uaaClient_adminClientSecret: admin-secret
     cloudfoundry_user_uaaClient_loginClientId: login
     cloudfoundry_user_uaaClient_loginClientSecret: login-secret
-
-    cloudfoundry_user_uaaClient_skipSSLValidation: true       # Uaa와 통신할 때, ssl 유효성 체크 skip 여부. 기본값 true이며 true 일때 유효성 체크 하지 않음
+    cloudfoundry_user_uaaClient_skipSSLValidation: true
     cloudfoundry_authorization: cf-Authorization
 
-    abacus_url: http://paasta-usage-reporting.115.68.46.186.xip.io/v1     # 모니터링 앱 Url
+    abacus_url: http://paasta-usage-reporting.104.198.117.201.xip.io/v1
+
+    monitoring_api_url: http://MonitApi.104.198.117.201.xip.io
+
 
     # 스프링 시큐리티 계정 정보
     spring_security_username: admin
-    spring_security_password: openpaasta
+    spring_security_password: xxxxxx
 
-    # PaaS-TA CCDB 접속 정보.
+    spring_datasource_mysql_driverClassName: com.mysql.jdbc.Driver
+    spring_datasource_postgresql_driverClassName: org.postgresql.Driver
+
+    # PaaS-TA CCDB 접속 정보
     # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    spring_datasource_cc_driverClassName: org.postgresql.Driver
-    spring_datasource_cc_url: jdbc:postgresql://10.30.150.42:5524/ccdb
+    spring_datasource_cc_jdbc: postgresql
+    spring_datasource_cc_url: jdbc:postgresql://192.168.20.38:5524/ccdb
     spring_datasource_cc_username: ccadmin
-    spring_datasource_cc_password: admin
+    spring_datasource_cc_password: xxxxxx
 
-    # PaaS-TA 포털 DB 접속 정보.
+    # PaaS-TA 포털 DB 접속 정보
     # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    spring_datasource_portal_driverClassName: org.postgresql.Driver
-    spring_datasource_portal_url: jdbc:postgresql://10.30.150.42:5524/portaldb
+    spring_datasource_portal_jdbc: postgresql
+    spring_datasource_portal_url: jdbc:postgresql://192.168.20.38:5524/portaldb
     spring_datasource_portal_username: portaladmin
-    spring_datasource_portal_password: admin
+    spring_datasource_portal_password: xxxxxx
 
-    # PaaS-TA UAA DB 접속 정보.
+    # PaaS-TA UAA DB 접속 정보
     # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    spring_datasource_uaa_driverClassName: org.postgresql.Driver
-    spring_datasource_uaa_url: jdbc:postgresql://10.30.150.42:5524/uaadb
+    spring_datasource_uaa_jdbc: postgresql
+    spring_datasource_uaa_url: jdbc:postgresql://192.168.20.38:5524/uaadb
     spring_datasource_uaa_username: uaaadmin
-    spring_datasource_uaa_password: admin
+    spring_datasource_uaa_password: xxxxxx
+
+    spring_datasource_autoScailing_jdbc: mysql
+    spring_datasource_autoScailing_url: jdbc:mysql://192.168.20.38:5524/portaldb
+    spring_datasource_autoScailing_username: paastamonitering
+    spring_datasource_autoScailing_password: xxxxxx
+
 
     # PaaS-TA 포털 Object Storage 접속 정보.
     # 포털 Object Storage Deployment 파일인 paasta_portal_object_storage_{IaaS 종류}_2.0.yml 파일을 참조하여 작성
     spring_objectStorage_tenantName: paasta-portal
     spring_objectStorage_username: paasta-portal
-    spring_objectStorage_password: paasta
-    spring_objectStorage_authUrl: http://10.30.131.12:5000/v2.0
+    spring_objectStorage_password: xxxxxx
+    spring_objectStorage_authUrl: http://192.168.40.32:5000/v2.0
     spring_objectStorage_container: portal-container
+
 
     # 포털 SMTP 정보
     spring_mail_smtp_host: smtp.gmail.com
     spring_mail_smtp_port: 465
     spring_mail_smtp_username: PaaS-TA 관리자
-    spring_mail_smtp_password: openpasta!
+    spring_mail_smtp_password: xxxxxx
     spring_mail_smtp_userEmail: openpasta@gmail.com
     spring_mail_smtp_properties_auth: true
     spring_mail_smtp_properties_starttls_enable: true
-    spring_mail_smtp_properties_starttls_required: true
+    spring_mail_smtp_properties_starttls_required: truie
     spring_mail_smtp_properties_maximumTotalQps: 90
-    spring_mail_smtp_properties_authUrl: http://portal-web-user.115.68.46.186.xip.io         # PaaS-TA 사용자 포털 Url
-    spring_mail_smtp_properties_imgUrl: http://52.201.48.51:8080/v1/KEY_84586dfdc15e4f8b9c2a8e8090ed9810/portal-container/65bdc7f43e11433b8f17683f96c7e626.png                                    # PaaS-TA 로고 이미지 Url   
+    spring_mail_smtp_properties_authUrl: http://portal-web-user-dev.115.68.46.186.xip.io
+    spring_mail_smtp_properties_imgUrl: http://52.201.48.51:8080/v1/KEY_84586dfdc15e4f8b9c2a8e8090ed9810/portal-container/65bdc7f43e11433b8f17683f96c7e626.png
     spring_mail_smtp_properties_sFile: emailTemplate.html
     spring_mail_smtp_properties_subject: PaaS-TA User Potal 인증메일
     spring_mail_smtp_properties_contextUrl: user/authUser
@@ -1122,10 +1194,10 @@ applications:
     multipart_maxFileSize: 1000Mb
     multipart_maxRequestSize: 1000Mb
 
-    # 사용자 생성 서비스(UserProvided Service) 유레카 접속 정보를 포털 API 앱의 환경정보에서 읽을 수 있도록 설정되어 있음.
     eureka_instance_hostname: ${vcap.application.uris[0]}
     eureka_instance_nonSecurePort: 80
     eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
+
 ```
 
 - manifest.yml이 있는 폴더로 이동하여 cf push 명령어를 이용하여 배포한다.
@@ -1237,57 +1309,50 @@ $ vi manifest.yml
 yml
 ---
 applications:
-- name: portal-api-v2                       # 앱 이름
-  memory: 1024M                             # 앱 메모리 크기
-  instances: 1                              # 앱 인스턴스 수
-  host: portal-api-v2                       # 앱과 바인드될 호스트
-  path: ./paasta-portal-api-v2-1.0.war      # war 파일 경로
-  buildpack: java_buildpack_offline         # 앱이 사용할 빌드팩 이름
-  services:                                 # 앱과 바인드되는 서비스 목록
-  - portal-eureka-service                   # 사용자 생성 서비스(UserProvided Service) 유레카
+- name: portal-api-v2
+  memory: 1536M
+  instances: 1
+  host: portal-api-v2
+  path: paasta-portal-api-v2-1.0.war
+  buildpack: java_buildpack
+  services:
+  - portal-eureka-service
+
   env:
-    spring_application_name: portal-api-v2  # 앱 이름
-    server_port: 3333
+   SPRING_PROFILES_ACTIVE: dev
+   spring_application_name: portal-api-v2
+   server_port: 3333
 
-    # 스프링 시큐리티 계정 정보
-    security_user_name: admin
-    security_user_password: openpaasta
+   security_user_name: admin
+   security_user_password: xxxxxx
 
-    multipart_maxFileSize: 1000Mb
-    multipart_maxRequestSize: 1000Mb
+   multipart_maxFileSize: 1000Mb
+   multipart_maxRequestSize: 1000Mb
 
-    # 사용자 생성 서비스(UserProvided Service) 유레카 접속 정보를 포털 API 앱의 환경정보에서 읽을 수 있도록 설정되어 있음.
-    eureka_instance_hostname: ${vcap.application.uris[0]}
-    eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
+   eureka_instance_hostname: ${vcap.application.uris[0]}
+   eureka_instance_nonSecurePort: 80
+   eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
 
+   cf_apiHost: api.104.198.117.201.xip.io
+   cf_sslSkipValidation: true
+   cf_clientId: admin
+   cf_clientSecret: admin-secret
+   cf_username: admin
+   cf_password: xxxxxx
 
-    cf_apiHost: api.115.68.46.186.xip.io     # PaaS-TA API 호스트
-    cf_sslSkipValidation: true
-    cf_clientId: cf
-    #cf_clientSecret:
-    cf_username: admin
-    cf_password: admin
+   datasource_cc_driverClassName: org.postgresql.Driver
+   datasource_cc_url: jdbc:postgresql://192.168.20.38:5524/ccdb
+   datasource_cc_username: ccadmin
+   datasource_cc_password: xxxxxx
+   datasource_portal_driverClassName: org.postgresql.Driver
+   datasource_portal_url: jdbc:postgresql://192.168.10.80:5432/portaldb
+   datasource_portal_username: portaladmin
+   datasource_portal_password: xxxxxx
+   datasource_uaa_driverClassName: org.postgresql.Driver
+   datasource_uaa_url: jdbc:postgresql://192.168.20.38:5524/uaadb
+   datasource_uaa_username: uaaadmin
+   datasource_uaa_password: xxxxxx
 
-    # PaaS-TA CCDB 접속 정보
-    # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    datasource_cc_driverClassName: org.postgresql.Driver
-    datasource_cc_url: jdbc:postgresql://10.30.150.42:5524/ccdb
-    datasource_cc_username: ccadmin
-    datasource_cc_password: admin
-
-    # PaaS-TA 포털 DB 접속 정보
-    # PaaS-TA Cloud Controller Deployment 파일인 paasta-controller-2.0-{IaaS 종류}.yml 파일을 참조하여 작성
-    datasource_portal_driverClassName: org.postgresql.Driver
-    datasource_portal_url: jdbc:postgresql://10.30.150.42:5524/portaldb
-    datasource_portal_username: portaladmin
-    datasource_portal_password: admin
-
-    # PaaS-TA 포털 Object Storage 접속 정보
-    # 포털 Object Storage Deployment 파일인 paasta_portal_object_storage_{IaaS 종류}_2.0.yml 파일을 참조하여 작성
-    datasource_uaa_driverClassName: org.postgresql.Driver
-    datasource_uaa_url: jdbc:postgresql://10.30.150.42:5524/uaadb
-    datasource_uaa_username: uaaadmin
-    datasource_uaa_password: admin
 ```
 
 
@@ -1398,17 +1463,13 @@ applications:
   memory: 1024M
   instances: 1
   host: portal-web-user
-  path: ./paasta-portal-web-user-1.0.war
+  path: paasta-portal-web-user-1.0.war
   buildpack: java_buildpack_offline
   services:
   - portal-eureka-service
-  - portal-redis-session
   env:
     spring_application_name: portal-web-user
-    spring_redis_host: ${vcap.services.portal-redis-session.credentials.host}
-    spring_redis_password: ${vcap.services.portal-redis-session.credentials.password}
-    spring_redis_port: ${vcap.services.portal-redis-session.credentials.port}
-    spring_redis_timeout: 2100
+
 
     multipart_maxFileSize: 1000Mb
     multipart_maxRequestSize: 1000Mb
@@ -1418,21 +1479,21 @@ applications:
     eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
     eureka_instance_hostname: ${vcap.application.uris[0]}
 
-    # api manifest의 spring_security_username + ":" + spring_security_password를 Base64 인코딩하여 입력해야 합니다.
-    # 예를 들어서 api manifest의 값이 아래와 같다면
-    # spring_security_username: user
-    # spring_security_password: password
-    # user:password 를 인코딩해야합니다.
-    # Base64 인코딩 사이트: http://www.convertstring.com/ko/EncodeDecode/Base64Encode
     paasta_portal_api_authorization_base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
     paasta_portal_api_url: http://PORTAL-API
 
     ribbon_eureka_enabled: true
     ribbon_ConnectTimeout: 30000
     ribbon_ReadTimeout: 30000
-    eureka_instance_hostname: ${vcap.application.uris[0]}
-    eureka_instance_nonSecurePort: 80
-    eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
+
+    cf_uaa_oauth_info_uri: https://uaa.104.198.117.201.xip.io/userinfo
+    cf_uaa_oauth_token_check_uri: https://uaa.104.198.117.201.xip.io/check_token
+    cf_uaa_oauth_token_access_uri: https://uaa.104.198.117.201.xip.io/oauth/token
+    cf_uaa_oauth_logout_url: https://uaa.104.198.117.201.xip.io/logout.do
+    cf_uaa_oauth_authorization_uri: https://uaa.104.198.117.201.xip.io/oauth/authorize
+    cf_uaa_oauth_client_id: portalclient
+    cf_uaa_oauth_client_secret: clientsecret
+
 ```
 
 
@@ -1546,45 +1607,18 @@ yml
 ---
 applications:
 - name: portal-web-admin
-  memory: 1024M
+  memory: 768M
   instances: 1
   host: portal-web-admin
-  path: ./paasta-portal-web-admin-1.0.war
+  path: paasta-portal-web-admin-1.0.war
   buildpack: java_buildpack_offline
   services:
   - portal-eureka-service
   - portal-redis-session
   env:
-    spring_application_name: portal-web-admin
-    spring_redis_host: ${vcap.services.portal-redis-session.credentials.host}
-    spring_redis_password: ${vcap.services.portal-redis-session.credentials.password}
-    spring_redis_port: ${vcap.services.portal-redis-session.credentials.port}
-    spring_redis_timeout: 2100
+#    SPRING_PROFILES_ACTIVE: dev
+    test_value: DEV_TEST_VALUE
 
-    multipart_maxFileSize: 1000Mb
-    multipart_maxRequestSize: 1000Mb
-
-    server_port: 8090
-
-    eureka_client_serviceUrl_defaultZone: ${vcap.services.portal-eureka-service.credentials.uri}/eureka/
-    eureka_instance_hostname: ${vcap.application.uris[0]}
-
-    # api manifest의 spring_security_username + ":" + spring_security_password를 Base64 인코딩하여 입력해야 합니다.
-    # 예를 들어서 api manifest의 값이 아래와 같다면
-    # spring_security_username: user
-    # spring_security_password: password
-    # user:password 를 인코딩해야합니다.
-    # Base64 인코딩 사이트: http://www.convertstring.com/ko/EncodeDecode/Base64Encode
-    paasta_portal_api_authorization_base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
-    paasta_portal_api_url: http://PORTAL-API
-
-    ribbon_eureka_enabled: true
-    ribbon_ConnectTimeout: 30000
-    ribbon_ReadTimeout: 30000
-
-   monitoringSite_url: http://115.68.151.183:3000
-    monitoringSite_id: openpaas
-    monitoringSite_password: openpaas
 ```
 
 
@@ -1688,11 +1722,31 @@ portal-api-v2        started           1/1         1G       1G     portal-api-v2
 ```
 
 
+### <div id='19-1'> 3.6. UAA 포탈 클라이언트 계정 등록
+1. 본인이 사용하고 있는 uaa 주소를 설정한다.
+- uaac target
 
+2. uaac 관리자 권한을 얻는다
+- uaac token client get
 
+기본 계정 정보 : admin ,기본 비밀 번호 : admin-secret
 
+```
+uaac client add portalclient -s [클라이언트 비밀번호] --redirect_uri "[실제URL]" \
+--scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
+--authorized_grant_types "authorization_code , client_credentials , refresh_token" \
+--authorities="uaa.resource" \
+--autoapprove="openid , cloud_controller_service_permissions.read"
 
-### <div id='20'> 3.6. 카탈로그 이미지 파일 업로드
+[실제 URL]
+URL 입력 방법
+예) http://10.10.10.1:8080 까지 입력 포트번호가 없을 경우 http://10.10.10.1 까지만 입력
+
+클라이언트를 등록시 다중 URL 입력 가능
+예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력
+```
+
+### <div id='20'> 3.7. 카탈로그 이미지 파일 업로드
 
 PaaS-TA 포털에 기본 생성되는 카탈로그에 대한 이미지를 업로드 한다. 카탈로그 이미지 업로드는 운영자 포털을 통해서 진행하고 사용자 포털의 카탈로그 화면에서 이미지를 확인할 수 있다. 업로드할 이미지 파일은 '카탈로그 이미지' 폴더에서 확인할 수 있다. [[**PaaSTA 운영자 포털 가이드**](https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md)]의 [[**5.4 카탈로그 관리 서비스**](https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md#5.4)] 항목을 참고하여 각 카탈로그에 맞는 이미지를 업로드한다.
 

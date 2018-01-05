@@ -21,11 +21,10 @@
 본 문서(형상관리 서비스팩 설치 가이드)는 개방형 PaaS 플랫폼 고도화 및 개발자 지원 환경 기반의 Open PaaS에서 제공되는 서비스팩인 형상관리 서비스를 Bosh를 이용하여 설치하는 방법을 기술하였다.
 
 ### <div id='3'/> 1.2 범위
-본 문서의 설치된 시스템 구성도입니다. 형상관리 Server, 형상관리 서비스 브로커로 최소 사항을 구성하였다.
+설치 범위는 형상관리 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
 
 ### <div id='4'/> 1.3 시스템 구성도
-본 문서의 설치된 시스템 구성도이다. Mysql Server, GlusterFS 서비스 브로커로 최소 사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있다.
-<br>
+본 문서의 설치된 시스템 구성도입니다. 형상관리 Server, 형상관리 서비스 브로커로 최소 사항을 구성하였다.
 ![source_controller_Service_Guide01]
 
 ### <div id='5'/> 1.4 참고 자료
@@ -48,7 +47,7 @@ PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운로드한다. 
 
 ### <div id='8'/> 2.2. 형상관리 서비스 릴리즈 업로드
 
-- PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 GlusterFS 서비스 릴리즈 paasta-glusterfs-2.0.tgz 파일을 확인한다.
+- PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 Source Control 서비스 릴리즈 paasta-sourcecontrol-release-1.0.tgz 파일을 확인한다.
 ```
 $ cd bosh-space
 $ ll paasta-sourcecontrol-release-1.0.tgz
@@ -273,7 +272,7 @@ $bosh releases paasta-sourcecontrol-release-1.0.tgz
 형상관리 서비스 릴리즈가 업로드되어 있는 것을 확인할 수 있다.
 
 
-### <div id='9'/> 2.3. glusterfs 서비스 Deployment 파일 수정 및 배포
+### <div id='9'/> 2.3. 형상관리 서비스 Deployment 파일 수정 및 배포
 BOSH Deployment manifest는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest에는 sotfware를 설치하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할 것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
@@ -621,7 +620,7 @@ cf create-service-broker {서비스브로커 이름} {서비스브로커 사용�
 - 서비스브로커 URL : 서비스 브로커가 제공하는 API를 사용할 수 있는 URL을 입력한다.
 ```
 ```
-$ cf create-service-broker p-paasta-sourcecontrol injeonglee 123456 http://sorucecontrol-webui.115.xxx.co.kr
+$ cf create-service-broker p-paasta-sourcecontrol admin cloudfoundry http://10.30.130.137
 lij@inception-new:~/bosh-space/paasta-sourcecontrol-releases/deployment$ cf service-brokers
 Getting service brokers as admin...
 
@@ -631,7 +630,7 @@ delivery-pipline              http://paas-ta-delivery-pipline-broker.115.68.46.1
 glusterfs-service             http://10.30.120.197:8080
 mysql-service-broker          http://10.30.40.195:8080
 paasta-redis-broker           http://10.30.60.71:12350
-paasta-sourcecontrol-broker   http://paasta-sourcecontrol-broker.115.68.46.187.xip.io
+paasta-sourcecontrol-broker   http://10.30.130.137
 rabbitmq
 
 ```
