@@ -16,13 +16,13 @@
 
 ### 1.1. 목적
 
-본 문서는 IaaS(Infrastructure as a Service) 중 하나인 Openstack 환경에서 Bosh VM 환경의 시스템 Metrics(CPU, Memory, Disk, Process, Network) 정보를 수집하기 위한 agent를  설치하는 방법을 제공하는데 그 목적이 있다.
+본 문서는 IaaS(Infrastructure as a Service) 중 하나인 Vsphere 환경에서 Bosh VM 환경의 시스템 Metrics(CPU, Memory, Disk, Process, Network) 정보를 수집하기 위한 agent를  설치하는 방법을 제공하는데 그 목적이 있다.
 
 <div id='3'></div>
 
 ### 1.2. 범위
 
-본 문서는 Openstack 기반에 설치하기 위한 내용으로 한정되어 있다.
+본 문서는 VSphere 기반에 설치하기 위한 내용으로 한정되어 있다.
 
 <div id='4'></div>
 
@@ -35,7 +35,13 @@
 # 2.  Bosh 배포
 
 ## Prerequisites
-Bosh를 설치 하기 위해서는 bosh-init이 Inception에 설치 되어 있어야 한다.
+Bosh를 설치 하기 위해서는 bosh-init이 PaaS 서비스 설치환경에 설치 되어 있어야 한다.
+
+### 참고  
+ PaaS 서비스 설치환경 : PaaS-TA를 설치하기위한 환경으로 Ubuntu를 기본으로 한다.
+
+> <a style="text-decoration:underline" href="https://github.com/OpenPaaSRnD/Documents-PaaSTA-1.0/blob/master/Install-Guide/BOSH/OpenPaaS_PaaSTA_BOSH_Openstack_install_guide.md">설치 환경 참조 </a>
+
 
 
 본 장에서는 Bosh를 배포하는 방법에 대해서 기술하였다. PaaS-TA 2.0 에서는 Bosh Monitoring Agent를 수동으로 배포 하였으나 PaaS-TA3.0에서는 Bosh Deploy명령으로 Bosh Monitoring Agent를 자동 배포 할 수 있다.
