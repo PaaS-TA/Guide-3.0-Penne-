@@ -38,9 +38,9 @@
 Bosh를 설치 하기 위해서는 bosh-init이 PaaS 서비스 설치환경에 설치 되어 있어야 한다.
 
 ### 참고  
- PaaS 서비스 설치환경 : PaaS-TA를 설치하기위한 환경으로 Ubuntu를 기본으로 한다.
+ PaaS 서비스 설치환경 : PaaS-TA를 설치하기위한 환경으로 Ubuntu OS를 기본으로 한다.
 
-> <a style="text-decoration:underline" href="https://github.com/OpenPaaSRnD/Documents-PaaSTA-1.0/blob/master/Install-Guide/BOSH/OpenPaaS_PaaSTA_BOSH_Openstack_install_guide.md">설치 환경 참조 </a>
+> <a style="text-decoration:underline" href="https://github.com/PaaS-TA/Guide-1.0-Spaghetti-/blob/master/Install-Guide/BOSH/OpenPaaS_PaaSTA_BOSH_Openstack_install_guide.md">Bosh 설치 환경 참조 </a>
 
 
 
