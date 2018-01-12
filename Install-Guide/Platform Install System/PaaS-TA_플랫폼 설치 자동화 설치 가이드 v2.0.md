@@ -39,7 +39,6 @@
 설치 자동화의 설치하는 방법에 대해 작성되었다.
 
 Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전의 범위는 아래와 같다.
-
 <table border="1px;">
 <tr>
 <td>Openstack Version</td>
