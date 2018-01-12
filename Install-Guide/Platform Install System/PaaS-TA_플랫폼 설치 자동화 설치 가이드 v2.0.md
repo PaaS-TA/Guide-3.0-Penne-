@@ -38,6 +38,115 @@
 본 문서에서는 Linux 환경(Ubuntu 14.04)을 기준으로 인프라 환경에 플랫폼
 설치 자동화의 설치하는 방법에 대해 작성되었다.
 
+Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전의 범위는 아래와 같다.
+
+<table border="1px;">
+	<tr>
+    	<td>Openstack Version</td>
+        <td>Service Name</td>
+        <td>API Version</td>
+    </tr>
+    <tr>
+    	<td rowspan="5">liverty</td>
+        <td>Identify</td>
+        <td>v2</td>
+    </tr>
+    <tr>
+
+    	<td>Compute</td>
+        <td>v2</td>
+   
+    </tr>
+    <tr>
+    	<td>Glance</td>
+        <td>v1</td>
+
+    </tr>
+    <tr>
+    	<td>Network</td>
+        <td>v1</td>
+    </tr>
+    <tr>
+    	<td>Volume</td>
+        <td>v1,v2</td>
+    </tr>
+    
+    <tr>
+    	<td rowspan="5">mitaka</td>
+        <td>Identify</td>
+        <td>v2</td>
+    </tr>
+    <tr>
+
+    	<td>Compute</td>
+        <td>v2.1</td>
+   
+    </tr>
+    <tr>
+    	<td>Glance</td>
+        <td>v1</td>
+
+    </tr>
+    <tr>
+    	<td>Network</td>
+        <td>v1</td>
+    </tr>
+    <tr>
+    	<td>Volume</td>
+        <td>v1,v2</td>
+    </tr>
+    
+    <tr>
+    	<td rowspan="5">newton</td>
+        <td>Identify</td>
+        <td>v2</td>
+    </tr>
+    <tr>
+
+    	<td>Compute</td>
+        <td>v2.1</td>
+   
+    </tr>
+    <tr>
+    	<td>Glance</td>
+        <td>v1</td>
+
+    </tr>
+    <tr>
+    	<td>Network</td>
+        <td>v1</td>
+    </tr>
+    <tr>
+    	<td>Volume</td>
+        <td>v1,v2</td>
+    </tr>
+    
+     <tr>
+    	<td rowspan="5">ocata</td>
+        <td>Identify</td>
+        <td>v3</td>
+    </tr>
+    <tr>
+
+    	<td>Compute</td>
+        <td>v2.1</td>
+   
+    </tr>
+    <tr>
+    	<td>Glance</td>
+        <td>v1</td>
+
+    </tr>
+    <tr>
+    	<td>Network</td>
+        <td>v1</td>
+    </tr>
+    <tr>
+    	<td>Volume</td>
+        <td>v2,v3</td>
+    </tr>
+</table>
+
 ## <div id='4'/>1.3.  참고자료
 
 본 문서는 Cloud Foundry의 Document를 참고로 작성하였다.
