@@ -52,15 +52,12 @@ Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전�
         <td>v2</td>
     </tr>
     <tr>
-
-    	<td>Compute</td>
+       <td>Compute</td>
         <td>v2</td>
-   
     </tr>
     <tr>
     	<td>Glance</td>
         <td>v1</td>
-
     </tr>
     <tr>
     	<td>Network</td>
@@ -70,22 +67,18 @@ Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전�
     	<td>Volume</td>
         <td>v1,v2</td>
     </tr>
-    
     <tr>
     	<td rowspan="5">mitaka</td>
         <td>Identify</td>
         <td>v2</td>
     </tr>
     <tr>
-
     	<td>Compute</td>
-        <td>v2.1</td>
-   
+        <td>v2.1</td>   
     </tr>
     <tr>
     	<td>Glance</td>
         <td>v1</td>
-
     </tr>
     <tr>
     	<td>Network</td>
@@ -95,22 +88,18 @@ Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전�
     	<td>Volume</td>
         <td>v1,v2</td>
     </tr>
-    
     <tr>
     	<td rowspan="5">newton</td>
         <td>Identify</td>
         <td>v2</td>
     </tr>
     <tr>
-
     	<td>Compute</td>
         <td>v2.1</td>
-   
     </tr>
     <tr>
     	<td>Glance</td>
         <td>v1</td>
-
     </tr>
     <tr>
     	<td>Network</td>
@@ -120,22 +109,18 @@ Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전�
     	<td>Volume</td>
         <td>v1,v2</td>
     </tr>
-    
      <tr>
     	<td rowspan="5">ocata</td>
         <td>Identify</td>
         <td>v3</td>
     </tr>
     <tr>
-
     	<td>Compute</td>
         <td>v2.1</td>
-   
     </tr>
     <tr>
     	<td>Glance</td>
         <td>v1</td>
-
     </tr>
     <tr>
     	<td>Network</td>
