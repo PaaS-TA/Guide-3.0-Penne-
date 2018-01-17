@@ -38,7 +38,7 @@
 본 문서에서는 Linux 환경(Ubuntu 14.04)을 기준으로 인프라 환경에 플랫폼
 설치 자동화의 설치하는 방법에 대해 작성되었다.
 
-Openstack을 통해 PaaS-TA를 배포 할 경우 지원하는 Openstack 버전의 범위는 아래와 같다.
+Openstack을 통해 PaaS-TA를 배포 할 경우 지원이 검증 된 Openstack 버전의 범위는 아래와 같다.
 <table>
 <tr>
 <td>Openstack Version</td>
