@@ -62,7 +62,7 @@ $ bosh upload release paasta-influxdb-grafana-2.0.tgz
 
 ### 2.2.  manifest 파일 설정
 
-> <a style="text-decoration:underline" href="https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20DB%20%EB%B0%8F%20Metrics%20%EA%B0%80%EC%9D%B4%EB%93%9C.md">InfluxDB 참조</a>
+> <a style="text-decoration:underline" https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20DB%20%EB%B0%8F%20Metrics%20%EA%B0%80%EC%9D%B4%EB%93%9C.md">PaaS-TA 모니터링 DB 및 Metrics 가이드</a>
 
 1. "InfluxDB & Grafana" 서비스가 배포되는 환경에 맞게 manifest 파일의 설정 정보를 수정한다.
 
@@ -72,131 +72,131 @@ $ vi influxdb-grafana-release.yml
 ---
 name: paasta-influxdb-grafana									#deployment name
 
-compilation:
+compilation:                                  #paasta-influxdb-grafana Deployment 소스를 배포시 사용할 임시 Compile VM 설정
   cloud_properties:
     name: random
-    instance_type: monitoring									#openstack flavor
-    availability_zone: nova										#available zone
-  network: paasta-influxdb-grafana-net							#network name
+    instance_type: monitoring									#인스턴스 크기(openstack flavor)
+    availability_zone: nova										#가용존(available zone) : Openstack에서 제공(IaaS에서 정의)
+  network: paasta-influxdb-grafana-net				#network 명
   reuse_compilation_vms: true
   workers: 2
 
-director_uuid: <%= `bosh status --uuid` %>						#bosh uuid
+director_uuid: <%= `bosh status --uuid` %>		#bosh uuid
 
 releases:
-- name: paasta-influxdb-grafana									#release name
-  version: latest  												#release version
+- name: paasta-influxdb-grafana								#release 명(paasta-influxdb-grafana deployment가 사용할 Release)
+  version: latest  												    #release version
 
 disk_pools:
 - cloud_properties:
-    type: gp2
-  disk_size: 10240 												#influxdb disk pool size
+    type: gp2                                 #Openstack IaaS에서 제공하는 Volumn Type (IaaS에서 정의)
+  disk_size: 10240 												    #influxdb disk pool size
   name: influx_data
 
 jobs:
-- name: influxdb												#influxdb service name
+- name: influxdb												      #influxdb service name
   templates:
   - name: influxdb																		
     release: paasta-influxdb-grafana
   instances: 1
-  resource_pool: influx											#resource name
-  persistent_disk_pool: influx_data								#disk pool name
+  resource_pool: influx										   	#resource name
+  persistent_disk_pool: influx_data						#disk pool name
   networks:
   - default:
     - gateway
     - dns
-    name: paasta-influxdb-grafana-net							#network name
+    name: paasta-influxdb-grafana-net					#Influxdb VM이 사용할 내부 network 명
     static_ips:
-    - 10.10.18.51												#static IP
-  - name: elastic												#external network(public) name
+    - 10.10.18.51											      	#PaaS-TA 내부 IP
+  - name: elastic											      	#Influxdb VM이 사용할 외부 내트워크명
     static_ips:
-    - "xxx.xxx.xxx.xxx"											#external IP (public)
+    - "xxx.xxx.xxx.xxx"									  		#public IP
   properties:
     influxdb:
-      database: cf_metric_db									#default database
-      user: root												#admin account
-      password: root											#admin password
+      database: cf_metric_db									#InfluxDB default database
+      user: root												      #admin account
+      password: root										    	#admin password
       replication: 1      														
-      ips: 10.10.18.51											#local IP
+      ips: 10.10.18.51										   	#local IP
 
-- name: grafana													#grafana service name
+- name: grafana													      #grafana service name
   templates:
   - name: grafana
     release: paasta-influxdb-grafana
   instances: 1
-  resource_pool: grafana										#resoure name		
+  resource_pool: grafana								  		#resoure name		
   networks:
   - default:
     - gateway
     - dns
-    name: paasta-influxdb-grafana-net													
+    name: paasta-influxdb-grafana-net         #grafana VM이 사용할 내부 network 명
     static_ips:																				
-    - 10.10.18.53												#local IP			
-  - name: elastic												#external network(public) name
+    - 10.10.18.53											      	#local IP			
+  - name: elastic											      	#grafana VM이 사용할 외부 network명
     static_ips:
-    - "xxx.xxx.xxx.xxx"                                         #public ip
+    - "xxx.xxx.xxx.xxx"                       #public ip
 
-  properties:
+  properties:                                 #grafana에서 접속할 InfluxDB 설정
     grafana:
-      listen_port: 3000											#grafana listen port
+      listen_port: 3000											  #grafana listen port
       admin_username: admin										#grafana admin account
       admin_password: admin 									#grafana admin password
       users:
         allow_sign_up: true
         auto_assign_organization: true
 
-      datasource:
-        url: http://10.10.18.51:8086/							#database url
-        name: Grafanadb							
-        database_type: Influxdb									#database type
-        user: root												#database admin account
-        password: root											#database admin password
-        database_name: cf_metric_db								#default database
+    datasource:                             #grafana에서 접속할 InfluxDB 설정
+      url: http://10.10.18.51:8086/					#grafana에서 접속할 InfluxDB URL
+      name: Grafanadb							
+      database_type: Influxdb								#grafana에서 Influx에 접속할 DB TYPE
+      user: root												    #grafana에서 Influx에 접속할 계정
+      password: root											  #grafana에서 Influx에 접속할 Password
+      database_name: cf_metric_db						#grafana에서 Influx에 접속할 default Database
 
 networks:
-- name: paasta-influxdb-grafana-net
+- name: paasta-influxdb-grafana-net         #내부 network 정의
   subnets:
   - cloud_properties:
       name: random
-      net_id: b7c8c08f-2d3b-4a86-bd10-641cb6faa317				#openstack network id
-      security_groups: [bosh]									#security group
+      net_id: b7c8c08f-2d3b-4a86-bd10-641cb6faa317				#openstack subnet id
+      security_groups: [bosh]								#security group(IaaS에서 정의)
     dns:
-    - 10.10.18.2												#dns
+    - 10.10.18.2												    #dns
     gateway: 10.10.18.1											#gateway
-    range: 10.10.18.0/24										#static ip range
+    range: 10.10.18.0/24										#static ip range(cider)
     reserved:
-    - 10.10.18.2 - 10.10.18.49									#reserved ip range
+    - 10.10.18.2 - 10.10.18.49							#reserved ip range
     static:
-    - 10.10.18.50 - 10.10.18.55									#available ip range
+    - 10.10.18.50 - 10.10.18.55							#available ip range
   type: manual
 
-- name: elastic
+- name: elastic                             #외부 network 정의
   type: vip
   cloud_properties:
     net_id: bb29696d-c0af-4a98-9108-edd23b27c493
-    security_groups: [bosh]  
+    security_groups: [bosh]                #security group(IaaS에서 정의)
 
 properties:
 
 resource_pools:
 - cloud_properties:
     name: random
-    instance_type: m1.xlarge 									#openstack flavor
+    instance_type: m1.xlarge 									#openstack instace type(IaaS에서 정의)
     availability_zone: nova										#available zone
-  name: influx													#resource name
-  network: paasta-influxdb-grafana-net							#network name
+  name: influx												      	#resource name
+  network: paasta-influxdb-grafana-net				#network name
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent				#stemcell name
-    version: latest												#stemcell version
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent				#stemcell name
+    version: latest												    #stemcell version
 - cloud_properties:
     name: random
-    instance_type: m1.xlarge 									#openstack flavor
+    instance_type: m1.xlarge 									#openstack instace type(IaaS에서 정의)
     availability_zone: nova										#available zone
   name: grafana													#resource name
-  network: paasta-influxdb-grafana-net							#network name
+  network: paasta-influxdb-grafana-net				#network name
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent				#stemcell name
-    version: 3232.17											#stemcell version
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent				#stemcell name
+    version: latest 											    #stemcell version
 
 update:
   canaries: 1

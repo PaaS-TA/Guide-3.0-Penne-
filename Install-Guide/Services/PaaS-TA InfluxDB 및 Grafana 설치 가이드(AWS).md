@@ -61,7 +61,7 @@ $ bosh upload release paasta-influxdb-grafana-2.0.tgz
 
 ### 2.2.  manifest 파일 설정
 
-> <a style="text-decoration:underline" href="https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20DB%20%EB%B0%8F%20Metrics%20%EA%B0%80%EC%9D%B4%EB%93%9C.md">InfluxDB 참조</a>
+> <a style="text-decoration:underline" https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20DB%20%EB%B0%8F%20Metrics%20%EA%B0%80%EC%9D%B4%EB%93%9C.md">PaaS-TA 모니터링 DB 및 Metrics 가이드</a>
 
 1. "InfluxDB & Grafana" 서비스가 배포되는 환경에 맞게 manifest 파일의 설정 정보를 수정한다.
 
@@ -70,84 +70,84 @@ $ vi influxdb-grafana-release.yml
 ```
 ---
 name: paasta-influxdb-grafana
-compilation:
+compilation:                                    #paasta-influxdb-grafana Deployment 소스를 배포시 사용할 임시 Compile VM 설정
   cloud_properties:
-    availability_zone: us-east-1d								#available zone
-    instance_type: c4.large 									#aws flavor
-  network: paasta-influxdb-grafana-net                          #network name
+    availability_zone: us-east-1d								#가용존(available zone) : AWS 에서 제공
+    instance_type: c4.large 									  #인스턴스 크기(aws flavor)
+  network: paasta-influxdb-grafana-net          #network 명
   reuse_compilation_vms: true
   workers: 2
-director_uuid: <%= `bosh status --uuid` %>						#bosh uuid
+director_uuid: <%= `bosh status --uuid` %>			#bosh uuid
 
 releases:
-- name: paasta-influxdb-grafana									#release name
-  version: latest  												#release version
+- name: paasta-influxdb-grafana									#release 명(paasta-influxdb-grafana deployment가 사용할 Release)
+  version: latest  												      #release 버전
 
 disk_pools:
 - cloud_properties:
-    type: gp2
-  disk_size: 10240 												#influxdb disk pool size
+    type: gp2                                   #AWS IaaS에서 제공하는 Volumn Type
+  disk_size: 10240 												      #influxdb disk pool size
   name: influx_data
 
 jobs:
-- name: influxdb												#influxdb service name
+- name: influxdb												        #influxdb 서비스명(Influxdb VM명)
   templates:
   - name: influxdb																		
     release: paasta-influxdb-grafana
   instances: 1
-  resource_pool: influx											#resource name
-  persistent_disk_pool: influx_data								#disk pool name
+  resource_pool: influx											    #resource name
+  persistent_disk_pool: influx_data							#disk pool name
   networks:
   - default:
     - gateway
     - dns
-    name: paasta-influxdb-grafana-net							#network name
+    name: paasta-influxdb-grafana-net						#Influxdb VM이 사용할 내부 network 명
     static_ips:
-    - 10.10.18.51												#static IP
-  - name: elastic												#external network(public) name
+    - 10.10.18.51									            	#PaaS-TA 내부 IP
+  - name: elastic												        #외부 내트워크명
     static_ips:
-    - "xxx.xxx.xxx.xxx"											#external IP (public)
+    - "xxx.xxx.xxx.xxx"											    #public IP
   properties:
     influxdb:
-      database: cf_metric_db									#default database
-      user: root												#admin account
-      password: root											#admin password
+      database: cf_metric_db									#InfluxDB default database
+      user: root											      	#admin account
+      password: root									    		#admin password
       replication: 1      														
-      ips: 10.10.18.51											#local IP
+      ips: 10.10.18.51										   	#local IP
 
-- name: grafana													#grafana service name
+- name: grafana											      		#grafana 서비스명(grafana VM명)
   templates:
   - name: grafana
     release: paasta-influxdb-grafana
   instances: 1
-  resource_pool: grafana										#resoure name		
+  resource_pool: grafana										  #resoure name		
   networks:
   - default:
     - gateway
     - dns
-    name: paasta-influxdb-grafana-net													
+    name: paasta-influxdb-grafana-net					#grafana VM이 사용할 외부 network명				
     static_ips:																				
-    - 10.10.18.53												#local IP			
- - name: elastic												#external network(public) name
+    - 10.10.18.53											      	#PaaS-TA 내부 IP
+ - name: elastic												      #외부 네트워크명
    static_ips:
-   - "xxx.xxx.xxx.xxx"											#external IP (public)
+   - "xxx.xxx.xxx.xxx"											  #public IP
 
   properties:
     grafana:
-      listen_port: 3000											   #grafana listen port
-      admin_username: admin										 #grafana admin account
-      admin_password: admin 									 #grafana admin password
+      listen_port: 3000											  #grafana listen port
+      admin_username: admin										#grafana admin account
+      admin_password: admin 									#grafana admin password
       users:
         allow_sign_up: true
         auto_assign_organization: true
 
-      datasource:
-        url: http://10.10.18.51:8086/							#database url
+      datasource:                             #grafana에서 접속할 InfluxDB 설정
+        url: http://10.10.18.51:8086/					#grafana에서 접속할 InfluxDB URL
         name: Grafanadb							
-        database_type: Influxdb									#database type
-        user: root												      #database admin account
-        password: root											    #database admin password
-        database_name: cf_metric_db							#default database
+        database_type: Influxdb								#grafana에서 Influx에 접속할 DB TYPE
+        user: root												    #grafana에서 Influx에 접속할 계정
+        password: root											  #grafana에서 Influx에 접속할 Password
+        database_name: cf_metric_db						#grafana에서 Influx에 접속할 default Database
 
 networks:
 - name: paasta-influxdb-grafana-net
@@ -162,7 +162,7 @@ networks:
     dns:
     - 10.10.18.2														              #dns
     gateway: 10.10.18.1													          #gateway
-    range: 10.10.18.0/24												          #static ip range
+    range: 10.10.18.0/24												          #static ip range(cider)
     reserved:
     - 10.10.18.2 - 10.10.18.49											      #reserved ip range
     static:
@@ -174,27 +174,27 @@ networks:
 resource_pools:
 - cloud_properties:
     availability_zone: us-east-1d										#available zone
-    aws_access_key_id: xxxxxxxxxxxxxxxxxxxx								#aws access key
-    aws_secret_access_key: xxxxxxxxxxxxxxxxxxx                  		#aws secret key
+    aws_access_key_id: xxxxxxxxxxxxxxxxxxxx					#aws access key
+    aws_secret_access_key: xxxxxxxxxxxxxxxxxxx      #aws secret key
     ephemeral_disk:
       size: 2048
       type: gp2
-    instance_type: m3.xlarge											#aws flavor
-  name: influx															#resource name
-  network: paasta-influxdb-grafana-net									#network name
+    instance_type: m3.xlarge											#aws instace type
+  name: influx															      #resource name
+  network: paasta-influxdb-grafana-net						#network name
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent						#stemcell name
-    version: latest														#stemcell version
+    version: latest													    	#stemcell version
 - cloud_properties:
-    availability_zone: us-east-1d										#available zone
-    aws_access_key_id: xxxxxxxxxxxxxxxxxxxx								#aws access key
-    aws_secret_access_key: xxxxxxxxxxxxxxxxxxx                  		#aws secret key
+    availability_zone: us-east-1d									#available zone
+    aws_access_key_id: xxxxxxxxxxxxxxxxxxxx			  #aws access key
+    aws_secret_access_key: xxxxxxxxxxxxxxxxxxx    #aws secret key
     instance_type: t2.small												#aws flavor
-  name: grafana															#resource name
-  network: paasta-influxdb-grafana-net									#network name
+  name: grafana															      #resource name
+  network: paasta-influxdb-grafana-net						#network name
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent						#stemcell name
-    version: 3232.17													#stemcell version
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent	#stemcell name
+    version: 3232.17													    #stemcell version
 
 update:
   canaries: 1
