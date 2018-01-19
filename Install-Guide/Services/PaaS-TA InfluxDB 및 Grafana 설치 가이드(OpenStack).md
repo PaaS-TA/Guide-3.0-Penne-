@@ -62,7 +62,7 @@ $ bosh upload release paasta-influxdb-grafana-2.0.tgz
 
 ### 2.2.  manifest 파일 설정
 
-> <a style="text-decoration:underline" https://github.com/OpenPaaSRnD/Documents-PaaSTA-2.0/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20DB%20%EB%B0%8F%20Metrics%20%EA%B0%80%EC%9D%B4%EB%93%9C.md">PaaS-TA 모니터링 DB 및 Metrics 가이드</a>
+> <a style="text-decoration:underline" href="https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Use-Guide/PaaS-TA%20%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%20DB%20%EB%B0%8F%20Metrics%20%EA%B0%80%EC%9D%B4%EB%93%9C.md">PaaS-TA 모니터링 DB 및 Metrics 가이드</a>
 
 1. "InfluxDB & Grafana" 서비스가 배포되는 환경에 맞게 manifest 파일의 설정 정보를 수정한다.
 
