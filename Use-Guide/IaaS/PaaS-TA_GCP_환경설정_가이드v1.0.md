@@ -164,27 +164,27 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 
 ![PaaSTa_Google_Use_Guide_Image21]
 
-[PaaSTa_Google_Use_Guide_Image1]:../images/IaaS/Google/1.png
-[PaaSTa_Google_Use_Guide_Image2]:../images/IaaS/Google/2.png
-[PaaSTa_Google_Use_Guide_Image3]:../images/IaaS/Google/3.png
-[PaaSTa_Google_Use_Guide_Image4]:../images/IaaS/Google/4.png
-[PaaSTa_Google_Use_Guide_Image5]:../images/IaaS/Google/5.png
-[PaaSTa_Google_Use_Guide_Image6]:../images/IaaS/Google/6.png
-[PaaSTa_Google_Use_Guide_Image7]:../images/IaaS/Google/7.png
-[PaaSTa_Google_Use_Guide_Image8]:../images/IaaS/Google/8.png
-[PaaSTa_Google_Use_Guide_Image9]:../images/IaaS/Google/9.png
-[PaaSTa_Google_Use_Guide_Image10]:../images/IaaS/Google/10.png
-[PaaSTa_Google_Use_Guide_Image11]:../images/IaaS/Google/11.png
-[PaaSTa_Google_Use_Guide_Image12]:../images/IaaS/Google/12.png
-[PaaSTa_Google_Use_Guide_Image13]:../images/IaaS/Google/13.png
-[PaaSTa_Google_Use_Guide_Image14]:../images/IaaS/Google/14.png
-[PaaSTa_Google_Use_Guide_Image15]:../images/IaaS/Google/15.png
-[PaaSTa_Google_Use_Guide_Image16]:../images/IaaS/Google/16.png
-[PaaSTa_Google_Use_Guide_Image17]:../images/IaaS/Google/17.png
-[PaaSTa_Google_Use_Guide_Image18]:../images/IaaS/Google/18.png
-[PaaSTa_Google_Use_Guide_Image19]:../images/IaaS/Google/19.png
-[PaaSTa_Google_Use_Guide_Image20]:../images/IaaS/Google/20.png
-[PaaSTa_Google_Use_Guide_Image21]:../images/IaaS/Google/21.png
-[PaaSTa_Google_Use_Guide_Image22]:../images/IaaS/Google/22.png
+[PaaSTa_Google_Use_Guide_Image1]:../images/IaaS/google/1.png
+[PaaSTa_Google_Use_Guide_Image2]:../images/IaaS/google/2.png
+[PaaSTa_Google_Use_Guide_Image3]:../images/IaaS/google/3.png
+[PaaSTa_Google_Use_Guide_Image4]:../images/IaaS/google/4.png
+[PaaSTa_Google_Use_Guide_Image5]:../images/IaaS/google/5.png
+[PaaSTa_Google_Use_Guide_Image6]:../images/IaaS/google/6.png
+[PaaSTa_Google_Use_Guide_Image7]:../images/IaaS/google/7.png
+[PaaSTa_Google_Use_Guide_Image8]:../images/IaaS/google/8.png
+[PaaSTa_Google_Use_Guide_Image9]:../images/IaaS/google/9.png
+[PaaSTa_Google_Use_Guide_Image10]:../images/IaaS/google/10.png
+[PaaSTa_Google_Use_Guide_Image11]:../images/IaaS/google/11.png
+[PaaSTa_Google_Use_Guide_Image12]:../images/IaaS/google/12.png
+[PaaSTa_Google_Use_Guide_Image13]:../images/IaaS/google/13.png
+[PaaSTa_Google_Use_Guide_Image14]:../images/IaaS/google/14.png
+[PaaSTa_Google_Use_Guide_Image15]:../images/IaaS/google/15.png
+[PaaSTa_Google_Use_Guide_Image16]:../images/IaaS/google/16.png
+[PaaSTa_Google_Use_Guide_Image17]:../images/IaaS/google/17.png
+[PaaSTa_Google_Use_Guide_Image18]:../images/IaaS/google/18.png
+[PaaSTa_Google_Use_Guide_Image19]:../images/IaaS/google/19.png
+[PaaSTa_Google_Use_Guide_Image20]:../images/IaaS/google/20.png
+[PaaSTa_Google_Use_Guide_Image21]:../images/IaaS/google/21.png
+[PaaSTa_Google_Use_Guide_Image22]:../images/IaaS/google/22.png
 
 
