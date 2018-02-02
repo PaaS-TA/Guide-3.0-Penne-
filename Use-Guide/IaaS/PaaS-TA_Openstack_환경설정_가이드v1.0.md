@@ -106,7 +106,7 @@ BOSH를 배포하기 위한 OpenStack 사전 준비사항 및 필요한 사항�
 
    - External과 Internal 네트워크를 구성한다.
 
-	![openstack-network1]
+![openstack-network1]
 
 ######  STEP2
 
