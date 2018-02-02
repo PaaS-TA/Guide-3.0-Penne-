@@ -66,7 +66,7 @@ BOSH의 컴포넌트 구성은 다음과 같다.
 6.	Health Monitor: Agent를 통해 VM의 상태 체크
 7.	Agent: 클라우드페 배포 되는 모든 VM에 설치 되며 Director로부터 명령을 받아 개별 작업을 수행
 
-# <div id='8'/>3. Basic BOSH Workflow
+# <div id='8'/>3. BOSH 설치 환경 구성
 
 ## <div id='9'/>3.1. BOSH 설치 절차
 
