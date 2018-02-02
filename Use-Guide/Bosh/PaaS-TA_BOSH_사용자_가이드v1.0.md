@@ -146,35 +146,35 @@ Google Cloud Flatform: [Google 환경 설정 가이드](../IaaS/PaaS-TA_GCP_환�
 BOSH 설치를 위해 다운로드 할 스템셀은 다음과 같다. 설치 할 인프라 환경에 따라 스템셀을 선택하여 다운로드 한다.
 
 <table>
-	<tr>
-    	<th>인프라 환경</th>
-        <th>참조 사이트</th>
-        <th>버전</th>
-    </tr>
-    
-    <tr>
-    	<td>AWS</td>
-        <td>http://bosh.io/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent</td>
-        <td>3445.2</td>
-    </tr>
-    
-    <tr>
-    	<td>Openstack</td>
-        <td>httphttp://bosh.io/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent</td>
-        <td>3445.2</td>
-    </tr>
-    
-    <tr>
-    	<td>vSphere</td>
-        <td>http://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent</td>
-        <td>3445.2</td>
-    </tr>
-    
-     <tr>
-    	<td>Google</td>
-        <td>http://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent</td>
-        <td>3312</td>
-    </tr>
+<tr>
+<th>인프라 환경</th>
+<th>참조 사이트</th>
+<th>버전</th>
+</tr>
+
+<tr>
+<td>AWS</td>
+<td>http://bosh.io/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent</td>
+<td>3445.2</td>
+</tr>
+
+<tr>
+<td>Openstack</td>
+<td>http://bosh.io/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent</td>
+<td>3445.2</td>
+</tr>
+
+<tr>
+<td>vSphere</td>
+<td>http://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent</td>
+<td>3445.2</td>
+</tr>
+
+ <tr>
+<td>Google</td>
+<td>http://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent</td>
+<td>3312</td>
+</tr>
 </table>
 
 ※ Command Line 스템셀 이미지 다운로드 방법
@@ -216,42 +216,42 @@ BOSH를 설치 하기 위해서는 다음과 같은 릴리즈가 필요 하다.
 BOSH 설치를 위해 다운로드 할 릴리즈는 다음과 같다. BOSH-Release는 공통으로 쓰이는 릴리즈이고 설치 할 인프라 환경에 따라 BOSH-CPI-Release를 선택하여 다운로드 한다.
 
 <table>
-	<tr>
-    	<th>릴리즈 명</th>
-        <th>참조 사이트</th>
-        <th>버전</th>
-    </tr>
-    
-    <tr>
-    	<td>BOSH</td>
-        <td>http://bosh.io/releases/github.com/cloudfoundry/bosh?all=1</td>
-        <td>261</td>
-    </tr>
-    
-    <tr>
-    	<td>BOSH-AWS-CPI</td>
-        <td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?all=1</td>
-        <td>50</td>
-    </tr>
-    
-    <tr>
-    	<td>BOSH-Openstack-CPI</td>
-        <td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-openstack-cpi-release?all=1</td>
-        <td>30</td>
-    </tr>
-    
-     <tr>
-    	<td>vSphere</td>
-        <td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?all=1</td>
-        <td>27</td>
-    </tr>
+<tr>
+<th>릴리즈 명</th>
+<th>참조 사이트</th>
+<th>버전</th>
+</tr>
+
+<tr>
+<td>BOSH</td>
+<td>http://bosh.io/releases/github.com/cloudfoundry/bosh?all=1</td>
+<td>261</td>
+</tr>
+
+<tr>
+<td>BOSH-AWS-CPI</td>
+<td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?all=1</td>
+<td>50</td>
+</tr>
+
+<tr>
+<td>BOSH-Openstack-CPI</td>
+<td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-openstack-cpi-release?all=1</td>
+<td>30</td>
+</tr>
+
+ <tr>
+<td>vSphere</td>
+<td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?all=1</td>
+<td>27</td>
+</tr>
 
 
-     <tr>
-    	<td>Google</td>
-        <td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-google-cpi-release?all=1</td>
-        <td>25.0.0</td>
-    </tr>
+ <tr>
+<td>Google</td>
+<td>http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-google-cpi-release?all=1</td>
+<td>25.0.0</td>
+</tr>
 
 </table>
 
@@ -299,32 +299,32 @@ BOSH 설치 Manifest 파일은 배포에 필요한 컴포넌트 및 속성 정�
 설치 할 Manifest 파일의 정보를 IaaS 환경에 맞게 편집 후 저장 한다.
 
 <table>
-	<tr>
-    	<th>IaaS 환경</th>
-        <th>Manifest 파일 명</th>
+<tr>
+<th>IaaS 환경</th>
+<th>Manifest 파일 명</th>
 
-    </tr>
-    
-    <tr>
-    	<td>AWS</td>
-        <td>httppaasta-microbosh-aws-3.0.yml</td>
+</tr>
 
-    </tr>
-    
-    <tr>
-    	<td>Openstack</td>
-        <td>httppaasta-microbosh-openstack-3.0.yml</td>
-    </tr>
+<tr>
+<td>AWS</td>
+<td>httppaasta-microbosh-aws-3.0.yml</td>
+
+</tr>
+
+<tr>
+<td>Openstack</td>
+<td>httppaasta-microbosh-openstack-3.0.yml</td>
+</tr>
    
-    <tr>
-    	<td>vSphere</td>
-        <td>paasta-microbosh-vsphere-3.0.yml</td>
-    </tr>
-    
-     <tr>
-    	<td>GCP</td>
-        <td>paasta-microbosh-gcp-3.0.yml</td>
-    </tr>
+<tr>
+<td>vSphere</td>
+<td>paasta-microbosh-vsphere-3.0.yml</td>
+</tr>
+
+ <tr>
+<td>GCP</td>
+<td>paasta-microbosh-gcp-3.0.yml</td>
+</tr>
 </table>
 
 ## <div id='18'/>3.7. BOSH 배포
@@ -405,7 +405,7 @@ $ bosh status
 	$ export BOSH_INIT_LOG_LEVEL=<로그 레벨>
 
 
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/infra_use_guide/Workflow.png
-[PaaSTa_BOSH_Use_Guide_Image2]:../images/infra_use_guide/Component.png
-[PaaSTa_BOSH_Use_Guide_Image3]:../images/infra_use_guide/InstrallProcess.png
-[PaaSTa_BOSH_Use_Guide_Image4]:../images/infra_use_guide/bosh-init.png
+[PaaSTa_BOSH_Use_Guide_Image1]:../images/Bosh/Workflow.png
+[PaaSTa_BOSH_Use_Guide_Image2]:../images/Bosh/Component.png
+[PaaSTa_BOSH_Use_Guide_Image3]:../images/Bosh/InstrallProcess.png
+[PaaSTa_BOSH_Use_Guide_Image4]:../images/Bosh/bosh-init.png
