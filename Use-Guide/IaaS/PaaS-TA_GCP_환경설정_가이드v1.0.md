@@ -58,11 +58,11 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 
 위에서 범위에서 언급 하였듯이 사전에  Google Cloud Platform 계정이 존해 해야 한다.
 
-####1.	https://console.cloud.google.com GCP 콘솔 접속
+1.https://console.cloud.google.com GCP 콘솔 접속
 
 ![PaaSTa_Google_Use_Guide_Image1]
 
-####2.	추가 버튼을 눌러 프로젝트를 생성한다.
+2.추가 버튼을 눌러 프로젝트를 생성한다.
 
 ![PaaSTa_Google_Use_Guide_Image2]
 
@@ -73,31 +73,31 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 		Enable the IAM API for your project
 		Enable the Cloud Resource Manager API
 
-####1. Google Cloud Platform 콘솔 화면에서 API Manager메뉴를 선택한다.
+1.Google Cloud Platform 콘솔 화면에서 API Manager메뉴를 선택한다.
 ![PaaSTa_Google_Use_Guide_Image3]
 
-####2. Library 메뉴를 선택한다.
+2.Library 메뉴를 선택한다.
 ![PaaSTa_Google_Use_Guide_Image4]
 
 
-####3. GCP API를 Enable 하기 위해 compute를 검색창에 쓰고, 검색 결과 목록에서 Google Compute Engine API (GCE API)를 클릭한다.
+3.GCP API를 Enable 하기 위해 compute를 검색창에 쓰고, 검색 결과 목록에서 Google Compute Engine API (GCE API)를 클릭한다.
 
-####4.	GCE API 상태를 Enable로 변경 한다.
+4.GCE API 상태를 Enable로 변경 한다.
 ![PaaSTa_Google_Use_Guide_Image5]
 
-####5. 위와 같은 방법으로 IAM, Cloud Resource Manager API의 상태도 활성화 한다. 
+5.위와 같은 방법으로 IAM, Cloud Resource Manager API의 상태도 활성화 한다. 
 
 
 ### <div id='9'/>2.1.3. Google Cloud Platform Service Account 생성
 
-#### 1.	Google Cloud Platform IAM & ADMIN 메뉴의 하위 Service accounts 메뉴에서 Service Account를 생성 한다.
+1.Google Cloud Platform IAM & ADMIN 메뉴의 하위 Service accounts 메뉴에서 Service Account를 생성 한다.
 ![PaaSTa_Google_Use_Guide_Image6]
 
 ![PaaSTa_Google_Use_Guide_Image7]
 
 ![PaaSTa_Google_Use_Guide_Image8]
 
-####2.	Service Account 권한
+2.Service Account 권한
 - 보안 상의 이유로 Owner 권한을 주면 안될 경우 
 	- Compute Instance Admin, Compute Network Admin, Compute Network User, 
 	- Compute Storage Admin, Service Account Actor, Storage Admin 5가지 권한을 부여 하면 된다.
@@ -106,7 +106,7 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 
 ### <div id='10'/>2.1.4. Google Cloud Platform Service Account Key 생성
 
-####1.	Service Account에 대한 접근 가능  key를 JSON으로 생성 한다.
+1.Service Account에 대한 접근 가능  key를 JSON으로 생성 한다.
 -	Service Account 목록에서 해당 Service Account의 우측에 Create Key메뉴를 클릭하면 된다.
 
 ![PaaSTa_Google_Use_Guide_Image10]
@@ -116,49 +116,49 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 
 ### <div id='11'/>2.1.5. Google Cloud Platform VPC networks 생성
 
-####1.	Networking의 하위메뉴 VPC networks 메뉴를 선택 하고 CREATE VPC NETWORK 버튼을 클릭 한다.
+1.Networking의 하위메뉴 VPC networks 메뉴를 선택 하고 CREATE VPC NETWORK 버튼을 클릭 한다.
 
 ![PaaSTa_Google_Use_Guide_Image12]
 
-####2.	NETWORK 및 서브넷 정보를 입력 하고 Create 버튼을 클릭 한다.
+2.NETWORK 및 서브넷 정보를 입력 하고 Create 버튼을 클릭 한다.
 
 ![PaaSTa_Google_Use_Guide_Image13]
 
 ### <div id='12'/>2.1.6. Google Cloud Platform External IP Address 생성
 
-####1.	Networking의 하위메뉴 External IP address 메뉴를 선택 하고 Reserve static address 버튼을 클릭 한다.
+1.Networking의 하위메뉴 External IP address 메뉴를 선택 하고 Reserve static address 버튼을 클릭 한다.
 
 ![PaaSTa_Google_Use_Guide_Image14]
 
-####2.	External IP address 정보를 입력하고 Reserve 버튼을 클릭 한다.
+2.External IP address 정보를 입력하고 Reserve 버튼을 클릭 한다.
 
 ![PaaSTa_Google_Use_Guide_Image15]
 
 ### <div id='13'/>2.1.7. Google Cloud Platform External IP Address 생성
 
-####1.	Networking의 하위메뉴 Firewall rules 메뉴를 선택 하고 CREATE FIREWALL RULE 버튼을 클릭 한다.
+1.Networking의 하위메뉴 Firewall rules 메뉴를 선택 하고 CREATE FIREWALL RULE 버튼을 클릭 한다.
 
 ![PaaSTa_Google_Use_Guide_Image16]
 
-####2.	firewall 아래 테이블의 rule 정보 입력 한다.
+2.firewall 아래 테이블의 rule 정보 입력 한다.
 
 ![PaaSTa_Google_Use_Guide_Image17]
 
-####3.	firewall rule 정보를 입력하고 Create 버튼을 클릭 한다.
+3.firewall rule 정보를 입력하고 Create 버튼을 클릭 한다.
 
 ![PaaSTa_Google_Use_Guide_Image18]
 
-####4.	다음과 같이 firewall rules가 생성되는 것을 확인 할 수 있다
+4.	다음과 같이 firewall rules가 생성되는 것을 확인 할 수 있다
 
 ![PaaSTa_Google_Use_Guide_Image19]
 
 ### <div id='14'/>2.1.7. Google Cloud Platform Key pair 생성 
-####1.	Ubuntu Linux 명령어를 사용하여 Key Pair를 생성 한다.
+1.Ubuntu Linux 명령어를 사용하여 Key Pair를 생성 한다.
 
 	$ ssh-keygen -t rsa -f ~/.ssh/vcap -C vcap
 
 ### <div id='15'/>2.1.7. Google Cloud Platform ssh Meta Data 생성
-####1.	Compute Engine 하위 메뉴 Metadata 메뉴를 클릭 하고 ssh Keys 탭 메뉴의 Add SSH keys를 선택 한다.
+1.Compute Engine 하위 메뉴 Metadata 메뉴를 클릭 하고 ssh Keys 탭 메뉴의 Add SSH keys를 선택 한다.
 
 ![PaaSTa_Google_Use_Guide_Image20]
 
