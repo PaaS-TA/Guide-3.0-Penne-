@@ -55,11 +55,15 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 -	Google Cloud Platform Meta Data생성
 
 ### <div id='7'/>2.1.1. Google Cloud Platform 프로젝트 생성
+
 위에서 범위에서 언급 하였듯이 사전에  Google Cloud Platform 계정이 존해 해야 한다.
 
 ####1.	https://console.cloud.google.com GCP 콘솔 접속
+
 ![PaaSTa_Google_Use_Guide_Image1]
+
 ####2.	추가 버튼을 눌러 프로젝트를 생성한다.
+
 ![PaaSTa_Google_Use_Guide_Image2]
 
 ### <div id='8'/>2.1.2. Google Cloud Platform API Enable 설정
@@ -161,26 +165,26 @@ Google Cloud Platform 기본 환경 설정 절차는 다음과 같다.
 ![PaaSTa_Google_Use_Guide_Image21]
 
 [PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/1.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/2.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/3.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/4.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/5.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/6.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/7.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/8.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/9.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/10.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/11.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/12.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/13.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/14.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/15.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/16.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/17.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/18.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/19.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/20.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/21.png
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/IaaS/Google/22.png
+[PaaSTa_BOSH_Use_Guide_Image2]:../images/IaaS/Google/2.png
+[PaaSTa_BOSH_Use_Guide_Image3]:../images/IaaS/Google/3.png
+[PaaSTa_BOSH_Use_Guide_Image4]:../images/IaaS/Google/4.png
+[PaaSTa_BOSH_Use_Guide_Image5]:../images/IaaS/Google/5.png
+[PaaSTa_BOSH_Use_Guide_Image6]:../images/IaaS/Google/6.png
+[PaaSTa_BOSH_Use_Guide_Image7]:../images/IaaS/Google/7.png
+[PaaSTa_BOSH_Use_Guide_Image8]:../images/IaaS/Google/8.png
+[PaaSTa_BOSH_Use_Guide_Image9]:../images/IaaS/Google/9.png
+[PaaSTa_BOSH_Use_Guide_Image10]:../images/IaaS/Google/10.png
+[PaaSTa_BOSH_Use_Guide_Image11]:../images/IaaS/Google/11.png
+[PaaSTa_BOSH_Use_Guide_Image12]:../images/IaaS/Google/12.png
+[PaaSTa_BOSH_Use_Guide_Image13]:../images/IaaS/Google/13.png
+[PaaSTa_BOSH_Use_Guide_Image14]:../images/IaaS/Google/14.png
+[PaaSTa_BOSH_Use_Guide_Image15]:../images/IaaS/Google/15.png
+[PaaSTa_BOSH_Use_Guide_Image16]:../images/IaaS/Google/16.png
+[PaaSTa_BOSH_Use_Guide_Image17]:../images/IaaS/Google/17.png
+[PaaSTa_BOSH_Use_Guide_Image18]:../images/IaaS/Google/18.png
+[PaaSTa_BOSH_Use_Guide_Image19]:../images/IaaS/Google/19.png
+[PaaSTa_BOSH_Use_Guide_Image20]:../images/IaaS/Google/20.png
+[PaaSTa_BOSH_Use_Guide_Image21]:../images/IaaS/Google/21.png
+[PaaSTa_BOSH_Use_Guide_Image22]:../images/IaaS/Google/22.png
 
 
