@@ -2,6 +2,8 @@
 
 ## 플랫폼 설치 가이드
 - [설치 파일 다운로드 받기](./Download_Page.md)
+- 운영 환경 설치
+  - [BOSH 설치(AWS, OpenStack, vSphere, Google)](#./Use-Guide/Bosh/PaaS-TA_BOSH_사용자_가이드v1.0.md)
 - 플랫폼 설치
   - [플랫폼 설치 자동화](./Install-Guide/Platform%20Install%20System/PaaS-TA_플랫폼%20설치%20자동화%20설치%20가이드%20v2.0.md)  
 - 인프라 관리 대시보드 사용가이드
