@@ -1239,8 +1239,8 @@ BOOTSTRAP을 설치하기 위해서는 BOSH 릴리즈와 BOSH CPI릴리즈 2개�
 		※ vsphere의 경우 본 가이드에서는 27 버전의 CPI를 다운로드 했다.
 		https://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?all=1
 
-                	※ Google의 경우 본 가이드에서는 25.0.0 버전의 CPI를 다운로드 했다.
-			https://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-google-cpi-release?all=1
+		※ Google의 경우 본 가이드에서는 25.0.0 버전의 CPI를 다운로드 했다.
+		https://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-google-cpi-release?all=1
 
 ![PaaSTa_Platform_Use_Guide_Image54]
 
