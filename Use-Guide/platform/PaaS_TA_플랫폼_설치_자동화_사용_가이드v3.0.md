@@ -1229,21 +1229,26 @@ BOOTSTRAP을 설치하기 위해서는 BOSH 릴리즈와 BOSH CPI릴리즈 2개�
 -   릴리즈 등록 팝업화면에서 BOSH CPI릴리즈 정보를 입력하고, “등록” 버튼을 클릭한다.
 -   BOSH-CPI 릴리즈 참조 사이트
 
-		※ aws의 경우
+		※ aws의 경우 본 가이드에서는 50 버전의 CPI를 다운로드 했다.
 		http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?all=1
 		
-		※ openstack의 경우
+		※ openstack의 경우 본 가이드에서는 30 버전의 CPI를 다운로드 했다.
 		http://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-openstack-cpi-release?all=1
 		
-		※ vsphere의 경우
+		※ vsphere의 경우 본 가이드에서는 27 버전의 CPI를 다운로드 했다.
 		https://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?all=1
 
-        ※ Google의 경우
+        ※ Google의 경우 본 가이드에서는 25.0.0 버전의 CPI를 다운로드 했다.
 		https://bosh.io/releases/github.com/cloudfoundry-incubator/bosh-google-cpi-release?all=1
 
 ![PaaSTa_Platform_Use_Guide_Image54]
 
-※ 본 가이드에서는 v30을 다운로드 하였다.
+#### 3.  BOSH Monitering 릴리즈
+※ BOSH Monitering 릴리즈는 PaaS-TA 모니터링을 위한 릴리즈이며 BootStrap 설치에 있어 반드시 필요한 릴리즈는 아니다.
+-   릴리즈 등록 팝업화면에서 BOSH Monitering 릴리즈 정보를 입력하고, “등록” 버튼을 클릭한다.
+-   BOSH-Monitering 릴리즈 다운로드 링크 [다운로드](http://115.68.46.186:8080/data/packages/3.0/PaaSTA-Monitoring.zip)
+
+![PaaSTa_Platform_Use_Guide_Image130]
 
 ### <div id='40'/>3.6.6.  ***BOOTSTRAP 설치***
 
@@ -1278,6 +1283,7 @@ BOOTSTRAP 설치하기 위해 플랫폼 설치 자동화 웹 화면에서 “플
 #### 3.  BOOTSTRAP 설치 – 기본 정보
 
 -   IaaS 환경을 선택한 경우 아래의 기본 정보 입력 후 “다음” 버튼을 클릭한다.
+-   BOSH Monitering을 사용 하려면 PaaS-TA 모니터링 사용을 체크하고 PaaS-TA 모니터링에 대한 정보를 입력 후 "다음" 버튼을 클릭 한다. 
 
 ![PaaSTa_Platform_Use_Guide_Image60]
 
@@ -1910,3 +1916,5 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image122]:../images/platform_use_guide/ServicePackInstall/ServicePackDeploymentLog.png
 [PaaSTa_Platform_Use_Guide_Image123]:../images/platform_use_guide/ServicePackInstall/PropertyCreate.png
 [PaaSTa_Platform_Use_Guide_Image124]:../images/platform_use_guide/ServicePackInstall/PropertyModify.png
+[PaaSTa_Platform_Use_Guide_Image130]:../images/platform_use_guide/BootstrapInstall/Release/moniteringRelase.png
+
