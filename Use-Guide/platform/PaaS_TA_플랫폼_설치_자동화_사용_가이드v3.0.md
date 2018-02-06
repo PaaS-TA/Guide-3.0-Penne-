@@ -1199,6 +1199,7 @@ BOOTSTRAP을 설치하기 위해서는 설치 할 인프라의 환경 설정 정
 |  Openstack            |  http://bosh.io/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent       |   
 |  vSphere             |  http://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent       |   
 |  Google          |   http://bosh.io/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent      |    
+
 ※	본 가이드에서는 버전 Openstack, vShpere, AWS 환경에서는 3445.2, GCP 환경에서는 3363.42을 다운로드 하였다.
 
 ![PaaSTa_Platform_Use_Guide_Image52]
@@ -1210,7 +1211,7 @@ BOOTSTRAP을 설치하기 위해서는 BOSH 릴리즈와 BOSH CPI릴리즈 2개�
 릴리즈를 다운로드하기 위해 플랫폼 설치 자동화 웹 화면에서 “환경설정 및
 관리” -> “릴리즈 관리” 메뉴로 이동 후 상단에 위치한 “등록” 버튼을
 클릭하고, 릴리즈 등록 팝업 화면에서 릴리즈 정보 입력 후 “등록” 버튼을
-클릭한다. <p style:"color:red;">(릴리즈 관리 화면 설명은 [2.1.4](#10) 참고)</p>
+클릭한다. (릴리즈 관리 화면 설명은 [2.1.4](#10) 참고)
 
 #### 1.  BOSH 릴리즈
 
