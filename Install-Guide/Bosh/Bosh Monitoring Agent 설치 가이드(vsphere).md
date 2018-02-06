@@ -18,6 +18,8 @@
 
 본 문서는 IaaS(Infrastructure as a Service) 중 하나인 Vsphere 환경에서 Bosh VM 환경의 시스템 Metrics(CPU, Memory, Disk, Process, Network) 정보를 수집하기 위한 agent를  설치하는 방법을 제공하는데 그 목적이 있다.
 
+<kbd>![1-1-1]</kbd>
+
 <div id='3'></div>
 
 ### 1.2. 범위
@@ -34,14 +36,21 @@
 
 # 2.  Bosh 배포
 
+###### Bosh를 설치하는 방법에는 [수동 설치]와 [PaaS-TA Bosh 플랫롬 설치 자동화 Tool]를 이용한 자동설치 2가지 방법이 있다. 본 문서는 수동으로 Bosh 수동 설치시 모니터링 Agent를 설치하는 방법을 제공한다. 만약 Bosh 모니터링 Agent 설치를 원하지 않는다면 아래 Link를 참고하기 바란다.
+
+
 ## Prerequisites
-Bosh를 설치 하기 위해서는 bosh-init이 PaaS 서비스 설치환경에 설치 되어 있어야 한다.
+Bosh를 설치 하기 위해서는 bosh-init이 PaaS 서비스 Inception(설치환경)에 설치 되어 있어야 한다.
 
 ### 참고  
- PaaS 서비스 설치환경 : PaaS-TA를 설치하기위한 환경으로 Ubuntu OS를 기본으로 한다.
+PaaS 서비스 설치환경 : PaaS-TA를 설치하기위한 환경으로 Ubuntu OS를 기본으로 한다.
 
-> <a style="text-decoration:underline" href="https://github.com/PaaS-TA/Guide-1.0-Spaghetti-/blob/master/Install-Guide/BOSH/OpenPaaS_PaaSTA_BOSH_Openstack_install_guide.md">Bosh 설치 환경 참조 </a>
+Bosh개념 이해 및 수동 설치를 하기 위해서는 아래 Link를 참조
+> <a style="text-decoration:underline" href="https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Use-Guide/Bosh/PaaS-TA_BOSH_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md">Bosh 수동설치 사용자 가이드 </a>
 
+PaaS-TA Bosh 플랫롬 설치 자동화 Tool을 활용하여 Bosh 설치하려면 아래 Link를 참조
+자동화 Tool에서 Bosh 모니터링을 사용하기 위해서는 Link 3.6.6의 [BOOTSTRAP 설치 – 기본 정보] 부분을 참조
+> <a style="text-decoration:underline" href="https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Use-Guide/platform/PaaS_TA_%ED%94%8C%EB%9E%AB%ED%8F%BC_%EC%84%A4%EC%B9%98_%EC%9E%90%EB%8F%99%ED%99%94_%EC%82%AC%EC%9A%A9_%EA%B0%80%EC%9D%B4%EB%93%9Cv3.0.md#40">Bosh 자동화 설치 사용자 가이드 </a>
 
 
 본 장에서는 Bosh를 배포하는 방법에 대해서 기술하였다. PaaS-TA 2.0 에서는 Bosh Monitoring Agent를 수동으로 배포 하였으나 PaaS-TA3.0에서는 Bosh Deploy명령으로 Bosh Monitoring Agent를 자동 배포 할 수 있다.
@@ -63,6 +72,19 @@ Bosh를 설치 하기 위해서는 bosh-init이 PaaS 서비스 설치환경에 �
 ### 2.2.  manifest 파일 설정
 
 1. "bosh" 서비스가 배포되는 환경에 맞게 manifest 파일의 설정 정보를 수정한다.
+
+※ 다음은 BOSH 설치 Manifest 파일의 Block 설명 이다.
+
+1.	Deployment Identification: 배포 명과 Director의 고유 UUID를 설정하는 Block
+2.	Releases Block: 배포 시 사용할 Release 명과 버전을 설정하는 Block
+3.	Networks Block: 배포 시 할당 할 IaaS의 네트워크 정보를 설정하는 Block
+4.	Resource Pools Block: BOSH가 설치 하고 관리 하는 VM의 속성 Block
+5.	Disk Pools Block: BOSH가 작성하고 관리하는 Disk Pool의 등록 정보를 설정하는 Block
+6.	Compilation Block: VM의 컴파일 속성을 설정하는 Block
+7.	Update Block: 배포 중에 BOSH가 작업 인스턴스를 업데이트하는 방법을 정의하는 Block
+8.	Jobs Block: Job에 대한 구성 및 자원을 설정하는 Block
+9.	Properties Block: 전역 속성과 일반화 된 구성 정보(config)를 설정 하는 Block
+10. Template: Bosh VM에서 실행될 Process Job
 
 $ vi bosh-init.yml
 
@@ -104,7 +126,7 @@ jobs:
   networks:
   - name: private
     static_ips:
-    - 10.30.40.105
+    - 10.30.40.105          #Internal IP
   - default:
     - dns
     - gateway
@@ -113,19 +135,22 @@ jobs:
     - xxx.xxx.xxx.xxx
   persistent_disk_pool: disks
   properties:
+    ####### Monitoing Agent 설정 Start #######
     logstash:
       ingestor_bosh:
-        host: 10.30.152.121                #logsearch-ingestor vm's IP - pre-defined.
+        host: 10.30.152.121                # Bosh Log Data(CPU/Memory/Disk) 정보를 전송할 Ingestor VM IP(PaaS-TA Logsearch 설치시 Log Data 전송됨)
         port: 3001
       input:
         file_path: /var/vcap/store/director/tasks/**/debug
     metrics_agent:
       influxdb:
-        url: 10.30.200.11:8059            # IP :Port - influx ip : bosh port - pre-defined.
+        url: 10.30.200.11:8059            # Metric Data(CPU/Memory/Disk) 정보를 전송할 InfluxDB VM IP(Paas-TA-Influx-Grafana 설치시 Data 전송됨)
         database: bosh_metric_db
         measurement: bosh_metrics
         processMeasurement: bosh_process_metrics
       origin: bosh
+    ####### Monitoing Agent 설정 Stop #######
+
     agent:
       mbus: nats://nats:nats-password@10.30.40.105:4222
     blobstore:
@@ -206,8 +231,10 @@ jobs:
     release: bosh
   - name: vsphere_cpi
     release: bosh-vsphere-cpi
+  # Bosh 모니터링 Metric Agent Release Job 추가 (Option)
   - name: metrics_agent
     release: bosh-monitoring-agent
+  # Bosh 모니터링 Log Agent Release Job 추가 (Option)
   - name: logstash
     release: bosh-monitoring-agent
 name: bootstrap-vsphere
@@ -236,6 +263,7 @@ releases:
   url: file:////home/inception/.bosh_plugin/release/bosh-260.1.tgz
 - name: bosh-vsphere-cpi
   url: file:////home/inception/.bosh_plugin/release/bosh-vsphere-cpi-release-35.tgz
+# Bosh 모니터링 Agent Release (Option)
 - name: bosh-monitoring-agent
   url: file:////home/inception/bosh-space1/paasta3.0/release/bosh-monitoring-agent-1.2.tgz
 resource_pools:
@@ -261,3 +289,5 @@ bosh-init 명령을 사용하여 bosh deploy한다.
 ```
 $ bosh-init deploy bosh-init.yml
 ```
+
+[1-1-1]:images/1-1-1.png
