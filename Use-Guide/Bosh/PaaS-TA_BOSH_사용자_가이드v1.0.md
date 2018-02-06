@@ -405,7 +405,7 @@ $ bosh status
 	$ export BOSH_INIT_LOG_LEVEL=<로그 레벨>
 
 
-[PaaSTa_BOSH_Use_Guide_Image1]:../images/Bosh/Workflow.png
+[PaaSTa_BOSH_Use_Guide_Image1]:../images/Bosh/boshworkFlow.png
 [PaaSTa_BOSH_Use_Guide_Image2]:../images/Bosh/Component.png
 [PaaSTa_BOSH_Use_Guide_Image3]:../images/Bosh/InstrallProcess.png
 [PaaSTa_BOSH_Use_Guide_Image4]:../images/Bosh/bosh-init.png
