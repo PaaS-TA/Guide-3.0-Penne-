@@ -1284,6 +1284,7 @@ BOOTSTRAP 설치하기 위해 플랫폼 설치 자동화 웹 화면에서 “플
 #### 3.  BOOTSTRAP 설치 – 기본 정보
 
 -   IaaS 환경을 선택한 경우 아래의 기본 정보 입력 후 “다음” 버튼을 클릭한다.
+
 ※ BOSH Monitering을 사용 하려면 PaaS-TA 모니터링 사용을 체크하고 PaaS-TA 모니터링에 대한 정보를 입력 한다. 
 
 ![PaaSTa_Platform_Use_Guide_Image60]
