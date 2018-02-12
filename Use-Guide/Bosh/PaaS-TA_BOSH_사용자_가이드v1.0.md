@@ -59,12 +59,12 @@ BOSH의 컴포넌트 구성은 다음과 같다.
 ![PaaSTa_BOSH_Use_Guide_Image2]
 
 1.	Command Line Interface(CLI): Director와 상호작용을 위한 Command Line Interface
-2.	Director: Director는 VM을 생성과 배포뿐만 아니라 소프트웨어와 서비스의 생명 주기를 제어하는 BOSH에서 가장 핵심적인 컴포넌트
-3.	Database: BOSH 관리 메타 데이터를 저장하는 Postgres 데이터베이스
-4.	Nats: Director과 Agent 컴포넌트 간 통신을 위한 메시지 채널
+2.	Director: Director가 VM을 생성 또는 수정할 때 설정 정보를 레지스트리에 저장한다. 저장된 레지스트리 정보는 VM의 bootstrapping stage에서 이용된다.
+3.	Database: Director가 사용하는 Postgres 데이터베이스로 Deployment시에 필요로하는 Stemcell / Release / Deployment의 메타 정보들을 저장한다.
+4.	Message Bus(Nats): Message Bus는 Director와 Agent간 통신하기 위한 publish-subscribe 방식의 Message System으로 VM 모니터링과 특정 명령을 수행하기 위해 사용된다.
 5.	Registry: VM 생성을 위한 설정 정보 저장
-6.	Health Monitor: Agent를 통해 VM의 상태 체크
-7.	Agent: 클라우드페 배포 되는 모든 VM에 설치 되며 Director로부터 명령을 받아 개별 작업을 수행
+6.	Health Monitor: Health Monitor는 BOSH Agent로부터 클라우드의 상태정보들을 수집한다. 클라우드로부터 특정 Alert이 발생하면 Resurrector를 하거나 Notification Plug-in을 통해 Alert Message를 전송할 수도 있다.
+7.	Agent: Agent는 클라우드에 배포되는 모든 VM에 설치되고 Director로부터 특정 명령을 받고 수행하는 역할을 하게된다. Agent는 Director로부터 수신 받은 Job Specification(설치할 패키지 및 구성 방법)정보로부터 해당 VM에 Director의 지시대로 지정된 패키지를 설치하고, 필요한 구성정보를 설정하게 된다.
 
 # <div id='8'/>3. BOSH 설치 환경 구성
 
