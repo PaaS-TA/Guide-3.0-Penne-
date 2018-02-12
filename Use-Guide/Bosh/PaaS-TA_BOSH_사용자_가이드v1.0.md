@@ -124,7 +124,7 @@ Ruby언어로 구현이 되어 있으며 BOSH-CLI를 통하여 Director를 로�
 
 ※ BOSH-CLI 설치 확인
 
-	$ BOSH
+	$ bosh
 
 ※ 기타 BOSH-CLI(Command Line Interface) 사용 방법은 아래 링크에서 참고 한다.
 
@@ -137,7 +137,7 @@ AWS: [AWS 환경 설정 가이드](../IaaS/PaaS-TA_AWS_환경설정_가이드v1.
 
 Openstack:  [Openstack 환경 설정 가이드](../IaaS/PaaS-TA_Openstack_환경설정_가이드v1.0.md)
 
-Google Cloud Flatform: [Google 환경 설정 가이드](../IaaS/PaaS-TA_GCP_환경설정_가이드v1.0.md)
+Google Cloud Platform: [Google 환경 설정 가이드](../IaaS/PaaS-TA_GCP_환경설정_가이드v1.0.md)
 
 ## <div id='15'/>3.4. 스템셀 다운로드
 
@@ -371,7 +371,7 @@ BOSH를 삭제할 경우 필요한 파일 이므로 삭제하지 않는다. 만�
 
 	$ bosh target <외부 IP>
 	$ name: admin
-	$ passworkd: admin
+	$ password: admin
 
 ※ BOSH의 상태 정보를 확인 한다.
 
