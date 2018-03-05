@@ -26,6 +26,8 @@
   - [API 플랫폼](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/ETC/PaaS-TA%20API%20플랫폼%20서비스팩%20설치%20가이드.md)
 - Web IDE 설치
   - [Web IDE](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/WEBIDE/PaaS-TA%20WEB%20IDE%20설치%20가이드.md)
+- Pinpoint APM 설치
+  - [Web IDE](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/ETC/PaaS-TA%20Pinpoint%20서비스팩%20설치%20가이드.md)  
 - 통합 개발 도구 설치
   - [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드_v1.0.md)
   - [형상관리](./Service-Guide/Tools/PaaS-TA%20형상관리%20서비스팩%20설치%20가이드_v1.0.md)
