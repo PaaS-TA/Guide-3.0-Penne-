@@ -1819,8 +1819,8 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image04]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup/AdminSetup.png
 [PaaSTa_Platform_Use_Guide_Image05]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup/SetupAdminAdd.png
 [PaaSta_Platform_Use_Guide_Image05_1]:../images/platform_use_guide/EnvSet&Mgnt/AdministraterSetup/DefaultAdminInfo.png
-[PaaSTa_Platform_Use_Guide_Image06]:../images/platform_use_guide/EnvSet&Mgnt/StemcellMgnt/StemcellRegList.png
-[PaaSTa_Platform_Use_Guide_Image07]:../images/platform_use_guide/EnvSet&Mgnt/ReleaseMgnt/ReleaseRegList.png
+[PaaSTa_Platform_Use_Guide_Image06]:../images/platform_use_guide/EnvSet&Mgnt-3.1/StemcellMgnt/StemcellRegList.png
+[PaaSTa_Platform_Use_Guide_Image07]:../images/platform_use_guide/EnvSet&Mgnt-3.1/ReleaseMgnt/ReleaseRegList.png
 [PaaSTa_Platform_Use_Guide_Image08]:../images/platform_use_guide/PlatformInstallAutoMgnt/CodeMgnt.png
 [PaaSTa_Platform_Use_Guide_Image09]:../images/platform_use_guide/PlatformInstallAutoMgnt/AuthorityMgnt.png
 [PaaSTa_Platform_Use_Guide_Image10]:../images/platform_use_guide/PlatformInstallAutoMgnt/UserMgnt.png
@@ -1866,7 +1866,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image49]:../images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/OpenstackEnvSetupReg.png
 [PaaSTa_Platform_Use_Guide_Image50]:../images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/GoogleEnvSetupReg.png
 [PaaSTa_Platform_Use_Guide_Image51]:../images/platform_use_guide/BootstrapInstall/InfraEnvSetupMgnt/vSphereEnvSetupReg.png
-[PaaSTa_Platform_Use_Guide_Image52]:../images/platform_use_guide/BootstrapInstall/Stemcell/OpenstackStemcellReg.png
+[PaaSTa_Platform_Use_Guide_Image52]:../images/platform_use_guide/BootstrapInstall-3.1/Stemcell/StemcellReg.png
 [PaaSTa_Platform_Use_Guide_Image53]:../images/platform_use_guide/BootstrapInstall/Release/OpenstackBOSHReleaseReg.png
 [PaaSTa_Platform_Use_Guide_Image54]:../images/platform_use_guide/BootstrapInstall/Release/OpenstackReleaseReg.png
 [PaaSTa_Platform_Use_Guide_Image55]:../images/platform_use_guide/BootstrapInstall/Install/IaasSelect.png
@@ -1879,8 +1879,8 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image62]:../images/platform_use_guide/BootstrapInstall/Install/DefaultNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image63]:../images/platform_use_guide/BootstrapInstall/Install/vSphereNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image64]:../images/platform_use_guide/BootstrapInstall/Install/GoogleNetworkInfo.png
-[PaaSTa_Platform_Use_Guide_Image65]:../images/platform_use_guide/BootstrapInstall/Install/DefaultResourceInfo.png
-[PaaSTa_Platform_Use_Guide_Image66]:../images/platform_use_guide/BootstrapInstall/Install/vSphereResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image65]:../images/platform_use_guide/BootstrapInstall-3.1/Install/DefaultResourceInfo.png
+[PaaSTa_Platform_Use_Guide_Image66]:../images/platform_use_guide/BootstrapInstall-3.1/Install/vSphereResourceInfo.png
 [PaaSTa_Platform_Use_Guide_Image67]:../images/platform_use_guide/BootstrapInstall/Install/DeploymentFileInfo.png
 [PaaSTa_Platform_Use_Guide_Image68]:../images/platform_use_guide/BootstrapInstall/Install/Deploy.png
 [PaaSTa_Platform_Use_Guide_Image69]:../images/platform_use_guide/BootstrapInstall/Install/DefaultAdminSetup.png
@@ -1901,7 +1901,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image83]:../images/platform_use_guide/CFInstall/Install/DeploymentFileInfo.png
 [PaaSTa_Platform_Use_Guide_Image84]:../images/platform_use_guide/CFInstall/Install/Deployment.png
 [PaaSTa_Platform_Use_Guide_Image85]:../images/platform_use_guide/DIEGOInstall/Install/DIEGOProcess.png
-[PaaSTa_Platform_Use_Guide_Image86]:../images/platform_use_guide/DIEGOInstall/Install/DefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image86]:../images/platform_use_guide/DIEGOInstall-3.1/Install/DefaultInfo.png
 [PaaSTa_Platform_Use_Guide_Image87]:../images/platform_use_guide/DIEGOInstall/Install/OpenstackNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image88]:../images/platform_use_guide/DIEGOInstall/Install/AWSNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image89]:../images/platform_use_guide/DIEGOInstall/Install/vSphereNetworkInfo.png
