@@ -958,7 +958,6 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
      <td>bosh-vsphere-cpi-28.tgz</td>
   </tr>
   <tr>
-
      <td>Google</td>
      <td>bosh-google-cpi-25.0.0.tgz</td>
   </tr>
