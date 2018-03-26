@@ -958,7 +958,6 @@ Home 디렉토리에 .bosh_plugin 디렉토리를 생성하고 배포에 필요�
      <td>bosh-vsphere-cpi-28.tgz</td>
   </tr>
   <tr>
-
      <td>Google</td>
      <td>bosh-google-cpi-25.0.0.tgz</td>
   </tr>
@@ -1554,8 +1553,6 @@ DIEGO를 설치하기 위해 플랫폼 설치 자동화 웹 화면에서 “플�
 
 ![PaaSTa_Platform_Use_Guide_Image90]
 
-![PaaSTa_Platform_Use_Guide_Image91]
-
 #### 5.  DIEGO 설치 – 고급 설정 정보(생략 가능)
 
 -   리소스 정보 화면에서 “고급 기능” 버튼을 클릭한다.
@@ -1627,7 +1624,6 @@ DIEGO설치를 위해서는 Container 역할을 하는 릴리즈와 의존 관�
       <td>3.1</td>
       <td>paasta-garden-runc-3.1.tgz</td>
     </tr>
-
     <tr>
       <td>PaaS-TA cflinuxfs2-rootfs<br> (cflinuxfs2 릴리즈)</td>
       <td>3.1</td>
@@ -1889,7 +1885,7 @@ Property를 생성하기 위해 플랫폼 설치 자동화 웹 화면에서 “�
 [PaaSTa_Platform_Use_Guide_Image72]:../images/platform_use_guide/CFInstall/ReleaseUpload.png
 [PaaSTa_Platform_Use_Guide_Image72_1]:../images/platform_use_guide/CFInstall/ReleaseUpload_loggregator.png
 [PaaSTa_Platform_Use_Guide_Image73]:../images/platform_use_guide/CFInstall/Install/DIEGOUseSelect.png
-[PaaSTa_Platform_Use_Guide_Image74]:../images/platform_use_guide/CFInstall/Install/DefaultInfo.png
+[PaaSTa_Platform_Use_Guide_Image74]:../images/platform_use_guide/CFInstall-3.1/Install/DefaultInfo.png
 [PaaSTa_Platform_Use_Guide_Image75]:../images/platform_use_guide/CFInstall/Install/OpenstackNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image76]:../images/platform_use_guide/CFInstall/Install/AWSNetworkInfo.png
 [PaaSTa_Platform_Use_Guide_Image77]:../images/platform_use_guide/CFInstall/Install/vSphereNetworkInfo.png
