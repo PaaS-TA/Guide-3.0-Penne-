@@ -7,7 +7,7 @@
 - 플랫폼 설치
   - [플랫폼 설치 자동화](./Install-Guide/Platform%20Install%20System/PaaS-TA_플랫폼%20설치%20자동화%20설치%20가이드%20v2.0.md)  
 - 인프라 관리 대시보드 사용가이드
-  - [인프라 관리 대시보드 사용가이드](./Use-Guide/infra/PaaS-TA_인프라_관리_대시보드_사용가이드_v3.1.md)  
+  - [인프라 관리 대시보드 사용가이드](./Use-Guide/infra/PaaS-TA_인프라_관리_대시보드_사용_가이드_v3.1.md)  
 - 플랫폼 설치 자동화 사용가이드  
   - [플랫폼 설치 자동화 사용가이드](./Use-Guide/platform/PaaS_TA_플랫폼_설치_자동화_사용_가이드v3.1.md)
 
