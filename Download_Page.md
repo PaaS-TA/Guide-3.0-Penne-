@@ -1,5 +1,5 @@
 # PaaSTA 3.1 다운로드
-#### 3.0 Release를 이용하시려면 Git Hub의 Tag에서 3.0을 선택하시길 바라겠습니다. 
+#### PaaSTA Penne 3.0 Release를 이용하시려면 해당 Git Hub의 Tag에서 3.0을 선택하시길 바라겠습니다. 
 |패키지 명|설명 |다운로드 링크|checksum|
 |---------|-------|--------------|---------------|
 |PaaSTA-Container|PaaS-TA 컨테이너 릴리즈| 3.1 Release Download URL |md5sum:  |
