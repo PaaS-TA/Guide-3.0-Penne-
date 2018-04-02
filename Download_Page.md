@@ -2,9 +2,9 @@
 #### PaaSTA Penne 3.0 Release를 이용하시려면 해당 Git Hub의 Tag에서 3.0을 선택 하십시오.
 |패키지 명|설명 |다운로드 링크|checksum|
 |---------|-------|--------------|---------------|
-|PaaSTA-Container|PaaS-TA 컨테이너 릴리즈| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Container.zip |md5sum: 150c51987108d3c6a7387184297458cf  |
-|PaaSTA-Controller|PaaS-TA 컨트롤러 릴리즈| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Controller.zip |md5sum: 645ca8011ecac73b42fcc1d1eeb33323  |
-|PaaSTA-Deployment|PaaS-TA 배포 Manifest| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Deployment.zip |md5sum: 38f3bef9948c64c7d5a981d82be38438  |
+|PaaSTA-Container|PaaS-TA 컨테이너 릴리즈| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Container.zip |md5sum: 6ee490d6cfec11b82f44076edcdb2732  |
+|PaaSTA-Controller|PaaS-TA 컨트롤러 릴리즈| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Controller.zip |md5sum: 69ba7ca23e02416975dab9c502763c0e  |
+|PaaSTA-Deployment|PaaS-TA 배포 Manifest| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Deployment.zip |md5sum: f55d629dab1424cf95de26d83be5e93d  |
 |PaaSTA-Env|PaaS-TA 설치자동화| http://115.68.46.186:8080/data/packages/3.1/PaaSTA-Env.zip |md5sum: 6503d9810274366a0e539e637fbaf776 |
 |PaaSTA-Monitoring|PaaS-TA 모니터링 |http://115.68.46.186:8080/data/packages/3.0/PaaSTA-Monitoring.zip |md5sum: b9570b01a0295ce8a4d941dcacd07e65 |
 |PaaSTA-Portal|PaaS-TA 포털|http://115.68.46.186:8080/data/packages/3.0/PaaSTA-Portal.zip |md5sum:  fab7321af554ba5283d2e60318e8c249|
