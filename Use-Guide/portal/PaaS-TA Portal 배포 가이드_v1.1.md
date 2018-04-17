@@ -1107,7 +1107,7 @@ applications:
   services:                                # 앱과 바인드되는 서비스 목록
   - portal-eureka-service                  # 사용자 생성 서비스(UserProvided Service) 유레카
 env:
-    SPRING_PROFILES_ACTIVE: dev
+    SPRING_PROFILES_ACTIVE: local
     spring_application_name: portal-api    # 앱 이름
     spring_jdbc: postgresql                # PaaS-TA 포털이 사용할 DBMS
     server_port: 2222
