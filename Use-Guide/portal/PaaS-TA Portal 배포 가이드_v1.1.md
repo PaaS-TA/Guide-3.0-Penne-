@@ -2158,8 +2158,25 @@ $ gradle -Plocation=local clean test
 
 Root 권한으로 진행한다.
 
+1. Bosh vms로 uaa의 위치를 확인한다. Ssh vcap@[uaa서버 IP]로 접속한다. 비번은 배포할시 사용된 비밀번호를 이용하여, 접속한다.
+![portal_deploy_image_03]
+
+
+2. uaa.yml 파일 위치로 이동한다. 기본적으로 /var/vcap/jobs/uaa/config/Uaa.yml 을 수정한다.
+![portal_deploy_image_04]
+
+3. uaa.yml에 whitelist: 에 
+[파스타포털주소]/login 까지 입력하여 저장한다.(Port를 사용시, Port번호까지 입력한다.)
+![portal_deploy_image_05]
+
+4. Monit restart all를 이용하여, 서비스를 재시작한다.
+![portal_deploy_image_06]
 
 
 
 [portal_deploy_image_01]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_01.png
 [portal_deploy_image_02]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_02.png
+[portal_deploy_image_03]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_01.png
+[portal_deploy_image_04]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_02.png
+[portal_deploy_image_05]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_03.png
+[portal_deploy_image_06]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_04.png
