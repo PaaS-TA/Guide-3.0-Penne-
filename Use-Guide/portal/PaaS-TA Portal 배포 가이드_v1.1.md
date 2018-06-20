@@ -2155,7 +2155,7 @@ $ gradle -Plocation=local clean test
 
 ### <div id='24'> 5.1.  등록
 
-Root 권한으로 진행한다.
+**Root 권한으로 진행한다.**
 
 1. Bosh vms로 uaa의 위치를 확인한다. Ssh vcap@[uaa서버 IP]로 접속한다. 비번은 배포할시 사용된 비밀번호를 이용하여, 접속한다.
 ![portal_deploy_image_03]
@@ -2176,12 +2176,12 @@ Root 권한으로 진행한다.
 
 ### <div id='26'> 6.1.  계정 생성 및 패스워드 변경
 
-Root 권한으로 진행한다.
+**Root 권한으로 진행한다.**
 
 1. Paasta-Portal 웹페이지를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공
 - uaa.yml에 links: 에 Passwd 에 패스워드 변경 페이지 URL을 입력한다. 예) http://xxx.xxx.xxx.xxx /user/resetPassword (xxx는 사용자 포털 주소)
 - Signup 에 신규생성 페이지 URL을 입력한다. 예)http://xxx.xxx.xxx.xxx/user/addUser (xxx는 사용자 포털 주소)
-(단 사용자 포털이 SMTP설정이 되어 있어야한다.)
+**(단 사용자 포털이 SMTP설정이 되어 있어야한다.)**
 ![portal_deploy_image_07]
 
 2. UAA를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공
