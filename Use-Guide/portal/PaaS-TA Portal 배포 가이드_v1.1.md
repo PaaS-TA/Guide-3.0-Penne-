@@ -33,7 +33,8 @@
      - [3.8. 사용자 계정 생성 관련 설정](#21)
 - 4. [테스트 케이스 구동 가이드](#21)
      - [4.1. 테스트시 절차](#22)
-
+- 5. [UAA White-List 등록](#23)
+     - [5.1. 등록](#24)
 
 
 # <div id='1'> 1. 문서 개요
@@ -2146,6 +2147,19 @@ test.skipSSLValidation=true
 ```
 $ gradle -Plocation=local clean test
 ```
+
+
+
+# <div id='23'>  5. UAA White-List 등록
+
+
+
+### <div id='24'> 5.1.  등록
+
+Root 권한으로 진행한다.
+
+
+
 
 [portal_deploy_image_01]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_01.png
 [portal_deploy_image_02]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_02.png
