@@ -35,7 +35,8 @@
      - [4.1. 테스트시 절차](#22)
 - 5. [UAA White-List 등록](#23)
      - [5.1. 등록](#24)
-
+- 6. [UAA 계정 생성 및 패스워드 변경](#25)
+     - [6.1. 계정 생성 및 패스워드 변경](#26)
 
 # <div id='1'> 1. 문서 개요
 
@@ -2152,8 +2153,6 @@ $ gradle -Plocation=local clean test
 
 # <div id='23'>  5. UAA White-List 등록
 
-
-
 ### <div id='24'> 5.1.  등록
 
 Root 권한으로 진행한다.
@@ -2173,6 +2172,24 @@ Root 권한으로 진행한다.
 ![portal_deploy_image_06]
 
 
+# <div id='25'>  6. UAA 계정 생성 및 패스워드 변경
+
+### <div id='26'> 6.1.  계정 생성 및 패스워드 변경
+
+Root 권한으로 진행한다.
+
+1. Paasta-Portal 웹페이지를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공
+- uaa.yml에 links: 에 Passwd 에 패스워드 변경 페이지 URL을 입력한다. 예) http://xxx.xxx.xxx.xxx /user/resetPassword (xxx는 사용자 포털 주소)
+- Signup 에 신규생성 페이지 URL을 입력한다. 예)http://xxx.xxx.xxx.xxx/user/addUser (xxx는 사용자 포털 주소)
+(단 사용자 포털이 SMTP설정이 되어 있어야한다.)
+![portal_deploy_image_07]
+
+2. UAA를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공
+- Links는 디폴트 설정값으로 유지한다.
+- uaa.yml에 smtp: 에 이메일 서버 정보를 입력한다.
+![portal_deploy_image_08]
+
+
 
 [portal_deploy_image_01]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_01.png
 [portal_deploy_image_02]:./../../Use-Guide/images/paasta-portal-deploy/portal_deploy_image_02.png
@@ -2180,3 +2197,5 @@ Root 권한으로 진행한다.
 [portal_deploy_image_04]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_02.png
 [portal_deploy_image_05]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_03.png
 [portal_deploy_image_06]:./../../Use-Guide/images/paasta-portal-deploy/bosh_vms_uaa_04.png
+[portal_deploy_image_07]:./../../Use-Guide/images/paasta-portal-deploy/create_account_uaa_01.png
+[portal_deploy_image_08]:./../../Use-Guide/images/paasta-portal-deploy/create_account_uaa_02.png
