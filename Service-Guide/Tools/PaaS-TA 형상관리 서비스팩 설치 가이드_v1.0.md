@@ -692,8 +692,8 @@ Context : admin, from client admin
 -SC포탈 계정 생성을 한다.
 
 ```
-$ uaac client add scclient -s password --redirect_uri "[URL]" \
-scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
+$ uaac client add scclient -s [클라이언트 비밀번호] --redirect_uri "[실제 사용 할 URL]" \
+--scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
 --authorized_grant_types "authorization_code , client_credentials , refresh_token" \
 --authorities="uaa.resource" \
 --autoapprove="openid , cloud_controller_service_permissions.read"
