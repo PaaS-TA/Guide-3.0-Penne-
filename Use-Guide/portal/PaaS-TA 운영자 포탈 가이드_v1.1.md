@@ -245,13 +245,13 @@ PaaS-TA 포탈의 관리에 필요한 기능을 수행하기 위한 메뉴이다
 배포파이프라인 서비스 이름을 후 분류는 '통합개발도구'를 선택하고, 서비스는 'delivery-pipeline-v2'를 선택한다.
 썸네일의 경우 사용자 등록하고자 하는 이미지를 넣어준다.
 서비스 생성 시 필요한 정보 값 owner : '자동입력', org_name : '자동입력',  대시보드 'Y' 을 필수로 지정해준다. 그 외 앱 바인등 사용과 공개여부, 요약, 설명을 모두 입력하면 배포파이프 라인 서비스 등록이 완료 된다. <br>
-![49_2_1]
+![70]
 <br>
 **형상관리 서비스 등록 예시**<br>
 형상관리 서비스 이름을 입력 후 분류는 '통합개발도구'를 선택하고, 서비스는 'p-paasta-sourcecontrol'를 선택한다.
 썸네일의 경우 사용자 등록하고자 하는 이미지를 넣어준다.
 서비스 생성 시 필요한 정보 값 owner : '자동입력', org_name : '자동입력',  대시보드 'Y' 을 필수로 지정해준다. 그 외 앱 바인등 사용과 공개여부, 요약, 설명을 모두 입력하면 형상관리 서비스 등록이 완료 된다. <br>
-![49_2_2]
+![71]
 
 ### <a name="5.5"/>  5.5. 지원\_공지
 
@@ -384,8 +384,8 @@ PaaS-TA 포탈의 서비스 관리를 수행하기 위한 메뉴이다.<br>
 [47_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-47(2).png					
 [48_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-48(2).png					
 [49_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2).png	
-[49_2_1]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2_1).png
-[49_2_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2_2).png
+[70]:./../../Use-Guide/images/admin-portal/portal-web-admin-70.png
+[71]:./../../Use-Guide/images/admin-portal/portal-web-admin-71.png
 [50]:./../../Use-Guide/images/admin-portal/portal-web-admin-50.png					
 [51]:./../../Use-Guide/images/admin-portal/portal-web-admin-51.png					
 [52]:./../../Use-Guide/images/admin-portal/portal-web-admin-52.png					
