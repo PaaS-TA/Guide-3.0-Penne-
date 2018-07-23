@@ -385,7 +385,7 @@ PaaS-TA 포탈의 서비스 관리를 수행하기 위한 메뉴이다.<br>
 [47_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-47(2).png					
 [48_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-48(2).png					
 [49_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2).png	
-[49_2_1]:./Use-Guide/images/admin-portal/portal-web-admin-49(2_1).png
+[49_2_1]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2_1).png
 [49_2_2]:./../../Use-Guide/images/admin-portal/portal-web-admin-49(2_2).png
 [50]:./../../Use-Guide/images/admin-portal/portal-web-admin-50.png					
 [51]:./../../Use-Guide/images/admin-portal/portal-web-admin-51.png					
