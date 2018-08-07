@@ -194,7 +194,7 @@ CLI는 BOSH 배포와 Release를 관리하기 위해 도움을 주는 커맨드 
 
 - **기본 Syntax**
 
-		$ 3.2.	bosh create-env [deploymentFile] [--state path] [-v ...] [-o ...] [--vars-store path]
+		$ bosh create-env [deploymentFile] [--state path] [-v ...] [-o ...] [--vars-store path]
 
 - **설명**
 
@@ -1575,7 +1575,7 @@ CLI는 BOSH 배포와 Release를 관리하기 위해 도움을 주는 커맨드 
 
 - **기본 Syntax**
 
-		$ bosh -e my-env -d my-dep delete-disk cid
+		$ bosh -e [my-env] -d [my-dep] delete-disk [cid]
 
 - **설명**
 
@@ -2011,7 +2011,7 @@ CLI는 BOSH 배포와 Release를 관리하기 위해 도움을 주는 커맨드 
 
 - **기본 Syntax**
 
-		$ bosh -e my-env locks
+		$ bosh -e [my-env] locks
 
 - **설명**
 
