@@ -37,11 +37,11 @@
 # <div id='1'/>1.  문서 개요 
 
 ## <div id='2'/>1.1.  목적
-클라우드 환경에 서비스 시스템을 배포할 수 있는 BOSH는 릴리즈 엔지니어링, 개발, 소프트웨어 라이프사이클 관리를 통합한 오픈소스 프로젝트로 본 문서에서는 Inception환경(설치환경)에서 BOSH를 설치하여 BOSH를 기반으로 pasta-3.5를 설치하는데 그 목적이 있다. 
+클라우드 환경에 서비스 시스템을 배포할 수 있는 BOSH는 릴리즈 엔지니어링, 개발, 소프트웨어 라이프사이클 관리를 통합한 오픈소스 프로젝트로 본 문서에서는 Inception환경(설치환경)에서 BOSH를 설치하여 BOSH를 기반으로 paasta-3.5를 설치하는데 그 목적이 있다. 
 
 ## <div id='3'/>1.2.  범위
 본 가이드에서는 Linux 환경(Ubuntu 16.04)을 기준으로 BOSH 설치를 위한 패키지 및 라이브러리를 설치, 구성을 하고 이를 이용하여 BOSH를 설치하는 것을 기준으로 작성 하였다.
-Pasta-3.5에서 사용하는 bosh는 기존 3.1 이하 버전과 설치 방식이 이전과 다르게 변경되었다.
+Paasta-3.5에서 사용하는 bosh는 기존 3.1 이하 버전과 설치 방식이 이전과 다르게 변경되었다.
 3.1이하 버전은 cloud-foundry bosh1을 기반으로 bosh를 설치 했지만 bosh2에서는 bosh-deployment를 제공하며 이를 기반으로 bosh를 설치한다. 
 
 
@@ -68,8 +68,8 @@ BBosh1은 bosh-init을 통하여 Bosh를 생성하고, bosh1 cli를 통하여 Pa
 
 ## <div id='7'/>2.2. BOSH2
 
-Bosh2는 Bosh2-cli를 통하여 Bosh와 PaaS-TA 를 모두 생성 시켜준다. Bosh생성시 Bosh-deployment를 이용하여 Bosh를 생성한다. Bosh생성 후 pasta-deployment를 활용하여 paasta를 생성한다.
-Pasta-3.1 버전까지는  PaaS-TA Container, Controller를 별도로 deployment로 설치 해야 했지만 3.5부터는 pasta deployment 하나로 통합 되었으며, 한번에 PaaS-TA를 설치 할 수 있다.
+Bosh2는 Bosh2-cli를 통하여 Bosh와 PaaS-TA 를 모두 생성 시켜준다. Bosh생성시 Bosh-deployment를 이용하여 Bosh를 생성한다. Bosh생성 후 paasta-deployment를 활용하여 paasta를 생성한다.
+Paasta-3.1 버전까지는  PaaS-TA Container, Controller를 별도로 deployment로 설치 해야 했지만 3.5부터는 paasta deployment 하나로 통합 되었으며, 한번에 PaaS-TA를 설치 할 수 있다.
 
 ![PaaSTa_BOSH_Use_Guide_Image2]
 
@@ -113,7 +113,7 @@ BOSH 및 PaaS-TA 설치를 위해 Inception 서버에 구성해야 할 컴포넌
 ### <div id='13'/>3.3.1.	Pre-requsite
 
 -	본 설치 가이드는 Ubuntu 16.04 버전을 기준으로 한다.
--	Release, deployment 파일은 /home/{user_name}/workspace/pasta-3.5 이하에 다운로드 받아 야 한다.
+-	Release, deployment 파일은 /home/{user_name}/workspace/paasta-3.5 이하에 다운로드 받아 야 한다.
 
 ### <div id='14'/>3.3.2.	Bosh cli 및 dependency 설치
 
@@ -157,7 +157,7 @@ $ mkdir -p ~/workspace/paasta-3.5/stemcell
 
 
 
-- pasta-3.5 이하 디렉토리
+- paasta-3.5 이하 디렉토리
 
 ![PaaSTa_BOSH_Use_Guide_Image5]
 
@@ -188,7 +188,7 @@ $ mkdir -p ~/workspace/paasta-3.5/stemcell
 </tr>
 <tr>
 <td>cloud-config</td>
-<td>Pasta 설치하기 위한 iaas 관련 network/storage/vm 관련 설정들을 정의 한다. IaaS/network/disk등 상황에 따라 설정이 다르다.(중요)</td>
+<td>Paasta 설치하기 위한 iaas 관련 network/storage/vm 관련 설정들을 정의 한다. IaaS/network/disk등 상황에 따라 설정이 다르다.(중요)</td>
 </tr>   
 <tr>
 <td>paasta-deployment-3.5</td>

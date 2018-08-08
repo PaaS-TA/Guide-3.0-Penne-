@@ -33,8 +33,8 @@
 
 ## <div id='3'/>1.2.  범위
 Paasta-3.5에서 사용하는 설치 방식은 기존 bosh1과 다르다. Bosh2에서 제공하는 bosh-deployment를 기반으로 bosh를 설치 된 환경에서 paasta-3.5 를 설치 한다.
-3.1 버전에서는 파스타 설치 자동화 기능을 제공했지만 3.5에서는 수동 설치 가이드를 제공한다. 
-향후 2018년 12월 4.0에서 설치 자동화 가이드를 제공할 예정이다.
+3.1 버전에서는 파스타 설치 자동화 및 모니터링 기능을 제공했지만 3.5에서는 수동 설치 가이드만을 제공한다. 
+향후 2018년 12월 4.0에서 설치 자동화 및 모니터링 기능을 제공할 예정이다. 
 
 ## <div id='4'/>1.3.  참고자료
 
@@ -56,7 +56,7 @@ BBosh1은 bosh-init을 통하여 Bosh를 생성하고, bosh1 cli를 통하여 Pa
 ![PaaSTa_BOSH_Use_Guide_Image1]
 
 ## <div id='7'/>2.2.	paasta-3.5
-paasta-3.5는 bosh2를 기반으로 설치된다. Bosh2를 사용하여 Bosh생성 후 pasta-deployment를 활용하여 paasta를 deploy한다. Pasta-3.1 버전까지는  PaaS-TA Container, Controller를 별도로 deployment로 설치 해야 했지만 3.5부터는 pasta deployment 하나로 통합 되었으며, 한번에 PaaS-TA를 설치 할 수 있다.
+paasta-3.5는 bosh2를 기반으로 설치된다. Bosh2를 사용하여 Bosh생성 후 paasta-deployment를 활용하여 paasta를 deploy한다. Paasta-3.1 버전까지는  PaaS-TA Container, Controller를 별도로 deployment로 설치 해야 했지만 3.5부터는 paasta deployment 하나로 통합 되었으며, 한번에 PaaS-TA를 설치 할 수 있다.
 
 ![PaaSTa_BOSH_Use_Guide_Image2]
 
@@ -67,7 +67,7 @@ paasta-3.5는 bosh2를 기반으로 설치된다. Bosh2를 사용하여 Bosh생�
 1.	PaaS-ta 3.5를 설치 하기 위해서는 bosh 설치과정에서 언급한 것 처럼 관련 deployment, release , stemcell을 파스타 사이트에서 다운로드 받아 정해진 경로에 복사 해야 한다.
 2.	Bosh를 bosh2 기반으로 설치 되어 있어야 한다.
 3.	Paasta-3.5설치하는 환경은 bosh를 deploy한 inception(설치 환경)에서 작업 해야 한다.
-	
+
 ### <div id='10'/>3.2.	Stemcell upload
 
 Paasta-3.5는 stemcell 3586.26을 기반으로 한다. Bosh login 후 stemcell을 upload 한다. Stemcell은 Deploy될 때 생성되는 PaaS-TA VM Image이다.
@@ -84,7 +84,7 @@ $ bosh -e {director_name} upload-stemcell bosh-google-kvm-ubuntu-trusty-go_agent
 $ bosh -e {director_name} stemcells
 ```
 
-### <div id='11'/>3.3.	Cloud-config
+### <div id='11'/>3.3.	cloud-config
 
 Paasta 설치하기 위한 iaas 관련 network/storage/vm 관련 설정들을 정의 한다. IaaS/network/disk등 상황에 따라 설정이 다르다. paasta-deployment.yml은 cloud-config설정에 따라 paasta-vm을 설치 한다.
 PaaS-TA Deploy전에 cloud-config가 Bosh에 Upload 되어야 한다.
@@ -424,7 +424,7 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \   # paasta mani
    -o operations/use-haproxy-public-network.yml \
    -o operations/use-postgres.yml \              # database postgres 선택
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
-   -v haproxy_public_ip=52.199.190.1 \           # pasta public ip
+   -v haproxy_public_ip=52.199.190.1 \           # paasta public ip
    -v haproxy_public_network_name=vip \   
    -v cf_admin_password=admin \                  # paasta-admin password
    -v cc_db_encryption_key=db-encryption-key \   # version upgrade시 동일한 key이어야 함
@@ -442,7 +442,7 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -o operations/use-haproxy-public-network.yml \
    -o operations/use-postgres.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
-   -v haproxy_public_ip=52.231.156.110 \        # pasta public ip
+   -v haproxy_public_ip=52.231.156.110 \        # paasta public ip
    -v haproxy_public_network_name=vip \
    -v cf_admin_password=admin \                 # cf-admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
@@ -460,7 +460,7 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -o operations/use-haproxy-public-network.yml \
    -o operations/use-postgres.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
-   -v haproxy_public_ip=35.200.2.244 \          # pasta public ip
+   -v haproxy_public_ip=35.200.2.244 \          # paasta public ip
    -v haproxy_public_network_name=vip \
    -v cf_admin_password=admin \                 # cf-admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
@@ -479,7 +479,7 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -o operations/use-haproxy-public-network.yml \
    -o operations/use-postgres.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
-   -v haproxy_public_ip=35.200.2.244 \          # pasta public ip
+   -v haproxy_public_ip=35.200.2.244 \          # paasta public ip
    -v haproxy_public_network_name=vip \
    -v cf_admin_password=admin \                 # cf-admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
