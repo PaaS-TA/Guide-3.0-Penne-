@@ -133,6 +133,41 @@ $ bosh -v
 $ sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
 ```
 
+※  bosh2 cli 
+bosh2 cli는 bosh deploy, paasta deploy시 certificate 정보를 생성해 주는 기능이 있다. 
+bosh site에서 기본으로 받는 bosh cli는 인증서가 1년으로 제한되어 있다. 
+
+만약 인증서 기간을 늘리고 싶다면 bosh-cli 소스를 받아 compile해서 사용 해야 한다.
+
+bosh cli 소스를 컴파일하여 인증서 기간을 늘리고 싶다면 다음 가이드를 따라야 한다.
+
+※ 소스 build 전제 조건
+ - go 1.9.2 버전 이상이 설치 되어 있어야 한다.
+ - 빌드 환경은 ubuntu 이다.
+
+```
+$ mkdir -p ~/workspace/bosh-cli/src/
+$ cd ~/workspace/bosh-cli
+
+$ export GOPATH=$PWD
+$ export PATH=$GOPATH/bin:$PATH
+
+$ go get -d github.com/cloudfoundry/bosh-cli
+$ cd $GOPATH/src/github.com/cloudfoundry/bosh-cli
+$ git checkout v3.0.1
+$ vi ./vendor/github.com/cloudfoundry/config-server/types/certificate_generator.go
+
+func generateCertTemplate 함수에 아래 내용중 365(일)을 원하는 기간 만큼 수정한다.
+
+  - notAfter := now.Add(365 * 24 * time.Hour) 
+
+$ ./bin/build
+cd out
+sudo cp ./bosh /usr/local/bin/bosh
+
+bosh -version
+```
+
 ### <div id='15'/>3.3.3.	Deployment 및 release 파일 다운로드
 
 1.	다운로드 파일이 위치할 경로 디렉토리를 만든다.
