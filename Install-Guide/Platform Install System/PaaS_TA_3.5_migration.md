@@ -98,7 +98,7 @@ schema_migrations Table insert 문장 삭제
 
 
 
-## <div id='10'/>2.3.	paasta-3.5 restore
+## <div id='10'/>2.3.	paasta-3.5 restore (bosh2 cli 기준)
 
 ### <div id='11'/>2.3.1.	pre-requisite
 

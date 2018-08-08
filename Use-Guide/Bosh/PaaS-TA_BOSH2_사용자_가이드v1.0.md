@@ -511,6 +511,7 @@ $ credhub find
 Credhub login 후 find를 해보면 비어 있는 것을 알 수 있다. Paasta를 설치 하면 인증 정보가 저장되어 조회 할 수 있다
 
 
+
 [PaaSTa_BOSH_Use_Guide_Image1]:../images/Bosh2/bosh1.png
 [PaaSTa_BOSH_Use_Guide_Image2]:../images/Bosh2/bosh2.png
 [PaaSTa_BOSH_Use_Guide_Image3]:../images/Bosh2/bosh3.png
