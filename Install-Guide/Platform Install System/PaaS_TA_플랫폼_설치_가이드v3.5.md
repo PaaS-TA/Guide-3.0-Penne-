@@ -319,7 +319,7 @@ Cloud-config설정 정보를 BOSH에 update 한다.
 ```
 $ cd ~/workspace/paasta-3.5/deployment/cloud-config
 $ bosh –e {director_name} update-cloud-config {iaas}_cloud_config.yml
-$ bosh –e {director_name} cloud-config (bosh에 update된 cloud-config 확인)
+$ bosh –e {director_name} cloud-config # bosh에 update된 cloud-config 확인
 ```
 
 upload된 cloud-config 확인 한다.
@@ -512,7 +512,7 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
 
    -v haproxy_private_ip=10.0.0.12
 
-   -v haproxy_public_ip=115.68.151
+   -v haproxy_public_ip=xxx.xxx.xxx.xxx
 
    -v haproxy_public_network_name=vip
 
@@ -525,6 +525,30 @@ $ cd ~/workspace/paasta-3.5/deployment/paasta-deployment-3.5
 $ ./deploy-{iaas}.sh
 ```
 
+### <div id='22'/>3.7.	paasta deploy 확인
+
+```
+bosh -e {director_name} vms
+```
+
+![PaaSTa_VMS_Guide_Image]
+
+### <div id='23'/>2.8.	paasta login 
+
+cf cli를 설치 하고 paasta에 로그인 한다.
+api target 은 paasta deploy시 지정해주었던 system_domain 명을 사용한다.
+ex) cf api api.{system_domain} --skip-ssl-validation
+
+```
+cf api api.domain_name --skip-ssl-validation  #api target 지정
+cf login                                      # login
+```
+
+
+![PaaSTa_LOGIN_Guide_Image]
+
 [PaaSTa_BOSH_Use_Guide_Image1]:../images/paasta-3.5/bosh1.png
 [PaaSTa_BOSH_Use_Guide_Image2]:../images/paasta-3.5/bosh2.png
 [PaaSTa_INSTALL_Use_Guide_Image]:../images/paasta-3.5/cloud-config.png
+[PaaSTa_VMS_Guide_Image]:../images/paasta-3.5/paasta-vms.png
+[PaaSTa_LOGIN_Guide_Image]:../images/paasta-3.5/paasta-login.png

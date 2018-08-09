@@ -336,8 +336,8 @@ $ chmod 755 *.sh
 
 ```
 bosh create-env bosh.yml \
-    --state=state.json \      # bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
-    --vars-store=var-store/creds.yml \  # bosh 내부 인증서 파일 중요 (Backup필요)
+    --state=openstack/state.json \      # bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
+    --vars-store=openstack/creds.yml \  # bosh 내부 인증서 파일 중요 (Backup필요)
     -o openstack/cpi.yml \             # openstack  cpi 적용
     -o uaa.yml  \
     -o credhub.yml  \
@@ -364,8 +364,8 @@ bosh create-env bosh.yml \
 
 ```
 bosh create-env bosh.yml \
-     --state=state.json \                 #bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
-     --vars-store var-store/creds.yml \   # bosh 내부 인증서 파일 중요 (Backup필요)
+     --state=aws/state.json \                 #bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
+     --vars-store aws/creds.yml \   # bosh 내부 인증서 파일 중요 (Backup필요)
      -o aws/cpi.yml \                     # aws cpi 적용
      -o uaa.yml  \
      -o credhub.yml  \
@@ -417,8 +417,8 @@ bosh create-env bosh.yml \
 #### <div id='21'/>3.3.5.4. AZURE BOSH 환경 설정
 ```
 bosh create-env bosh.yml \
-     --state=state.json \  #bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
-     --vars-store var-store/creds.yml \ #bosh 내부 인증서 파일 중요 (Backup필요)
+     --state=azure/state.json \  #bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
+     --vars-store azure/creds.yml \ #bosh 내부 인증서 파일 중요 (Backup필요)
      -o azure/cpi.yml \               # azure CPI 적용
      -o uaa.yml  \
      -o credhub.yml  \
@@ -442,8 +442,8 @@ bosh create-env bosh.yml \
 #### <div id='22'/>3.3.5.5. GOOGLE(GCP) BOSH 환경 설정
 ```
 bosh create-env bosh.yml \
-     --state=state.json \   # bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
-     --vars-store var-store/creds.yml \ # bosh 내부 인증서 파일 중요 (Backup필요)
+     --state=gcp/state.json \   # bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
+     --vars-store gcp/creds.yml \ # bosh 내부 인증서 파일 중요 (Backup필요)
      -o gcp/cpi.yml \                   # google CPI 적용
      -o uaa.yml  \
      -o credhub.yml  \
@@ -465,8 +465,8 @@ bosh create-env bosh.yml \
 #### <div id='23'/>3.3.5.6. BOSH-LITE 환경 설정
 ```
 bosh create-env bosh.yml \
-     --state=state.json \   # bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
-     --vars-store var-store/creds.yml \ # bosh 내부 인증서 파일 중요 (Backup필요)
+     --state=warden/state.json \   # bosh 설치 시 생성되는 파일로 절대 삭제 되면 않됨. (backup 필요)
+     --vars-store warden/creds.yml \ # bosh 내부 인증서 파일 중요 (Backup필요)
      -o virtualbox/cpi.yml \           # virtualbox CPI 적용
      -o virtualbox/outbound-network.yml \  
      -o bosh-lite.yml \            
@@ -501,10 +501,10 @@ bosh가 설치 되면 bosh설치 디렉토리 이하 var-store/creds.yml 이 생
 
 ```
 $ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
-$ export BOSH_CA_CERT=$(bosh int ./var-store/creds.yml --path /director_ssl/ca)
+$ export BOSH_CA_CERT=$(bosh int ./{iaas}/creds.yml --path /director_ssl/ca)
 $ export BOSH_CLIENT=admin
-$ export BOSH_CLIENT_SECRET=$(bosh int ./var-store/creds.yml --path /admin_password)
-$ bosh alias-env {director_name} -e {bosh-internal-ip} --ca-cert <(bosh int var-store/creds.yml --path /director_ssl/ca)
+$ export BOSH_CLIENT_SECRET=$(bosh int ./{iaas}/creds.yml --path /admin_password)
+$ bosh alias-env {director_name} -e {bosh-internal-ip} --ca-cert <(bosh int {iaas}/creds.yml --path /director_ssl/ca)
 $ bosh –e {director_name} env
 ```
 
@@ -513,7 +513,7 @@ BOSH설치시 option file에 jumpbox-user.yml을 추가 하였다. Jumpbox는 BO
 
 ```
 $ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
-$ bosh int var-store/creds.yml --path /jumpbox_ssh/private_key > jumpbox.key 
+$ bosh int {iaas}/creds.yml --path /jumpbox_ssh/private_key > jumpbox.key 
 $ chmod 600 jumpbox.key
 $ ssh jumpbox@{bosh_ip} -i jumpbox.key
 ```
@@ -537,8 +537,8 @@ $ credhub –version
 
 ```
 $ export CREDHUB_CLIENT=credhub-admin
-$ export CREDHUB_SECRET=$(bosh int --path /credhub_admin_client_secret var-store/creds.yml)
-$ export CREDHUB_CA_CERT=$(bosh int --path /credhub_tls/ca var-store/creds.yml)
+$ export CREDHUB_SECRET=$(bosh int --path /credhub_admin_client_secret {iaas}/creds.yml)
+$ export CREDHUB_CA_CERT=$(bosh int --path /credhub_tls/ca {iaas}/creds.yml)
 $ credhub login -s https://10.20.0.6:8844 --skip-tls-validation
 $ credhub find
 ```
