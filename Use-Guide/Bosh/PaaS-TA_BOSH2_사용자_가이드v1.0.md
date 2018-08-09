@@ -44,13 +44,19 @@
 Paasta-3.5에서 사용하는 bosh는 기존 3.1 이하 버전과 설치 방식이 이전과 다르게 변경되었다.
 3.1이하 버전은 cloud-foundry bosh1을 기반으로 bosh를 설치 했지만 bosh2에서는 bosh-deployment를 제공하며 이를 기반으로 bosh를 설치한다. 
 
+본문서는 bosh-deployment v1.1.0을 기준으로 작성 되었다.
 
 ## <div id='4'/>1.3.  참고자료
 
 본 문서는 Cloud Foundry의 BOSH Document와 Cloud Foundry Document를 참고로 작성하였다.
+
 BOSH Document: [http://bosh.io](http://bosh.io)
 
+BOSH DEPLOYMENT: [https://github.com/cloudfoundry/bosh-deployment](https://github.com/cloudfoundry/bosh-deployment)
+
+
 Cloud Foundry Document: [https://docs.cloudfoundry.org/](https://docs.cloudfoundry.org/)
+
 
 
 # <div id='5'/>2. BOSH

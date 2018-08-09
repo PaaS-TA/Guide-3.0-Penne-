@@ -36,12 +36,20 @@ Paasta-3.5에서 사용하는 설치 방식은 기존 bosh1과 다르다. Bosh2�
 3.1 버전에서는 파스타 설치 자동화 및 모니터링 기능을 제공했지만 3.5에서는 수동 설치 가이드만을 제공한다. 
 향후 2018년 12월 4.0에서 설치 자동화 및 모니터링 기능을 제공할 예정이다. 
 
+본문서는 cf-deployment v2.9.0을 기준으로 작성 되었다.
+
 ## <div id='4'/>1.3.  참고자료
 
 본 문서는 Cloud Foundry의 BOSH Document와 Cloud Foundry Document를 참고로 작성하였다.
+
 BOSH Document: [http://bosh.io](http://bosh.io)
 
 Cloud Foundry Document: [https://docs.cloudfoundry.org/](https://docs.cloudfoundry.org/)
+
+BOSH DEPLOYMENT: [https://github.com/cloudfoundry/bosh-deployment](https://github.com/cloudfoundry/bosh-deployment)
+
+CF DEPLOYMENT: [https://github.com/cloudfoundry/cf-deployment](https://github.com/cloudfoundry/cf-deployment)
+
 
 
 # <div id='5'/>2. paasta-3.5
