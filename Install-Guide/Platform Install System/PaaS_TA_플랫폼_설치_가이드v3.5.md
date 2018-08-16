@@ -411,11 +411,9 @@ $ bosh –e {director_name} –d paasta deploy {deploy.yml}
 
 ## <div id='13'/>3.5.	paasta deploy shell
 
- - --vars-store : paasta deploy시 사용하는 option으로 paasta 내부 인증 정보를 담고 있다. 해당 경로에 파일이 없으면 bosh-cli가 자동 생성 해주며 자동 생성해 준다. 그리고 deployment-vars.yml 파일에 기록된다. 
-
  - paasta-deployment.yml 파일은 paasta를 deploy하는 manifest file이다. paasta vm에대한 설치 정의를 하게 된다. vm중 singleton-blobstore, database 의 azs(zone)을 변경 하면 조직, 스페이스, app의 정보가 모두 삭제된다. 
 
-아래 option들은 존재 하지 않으면 bosh-cli가 자동 생성 해준다. 만약 존재하는 deployment-vars.yml 파일에 기록되지 않는다.
+아래 option들은 존재 하지 않으면 bosh가 자동 생성 해준다. 
 
 <table>
 <tr>
@@ -435,12 +433,15 @@ $ bosh –e {director_name} –d paasta deploy {deploy.yml}
 <td>cc_database_password</td>
 <td>cloud_controller(api) database admin pwd</td>
 </tr>
+<tr>
+<td>cert_days</td>
+<td>paasta deploy시 내부 컴포넌트 끼리 통신하기 위한 인증서를 사용한다. 인증서는 Bosh(credhub)에서 생성한다. 인증서 유효 기간을 원하는 기간을정의 한다.(일단위)</td>
+</tr>
 </table>
 
 ### <div id='14'/>3.5.1. deploy-aws.sh
 ```
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \  # paasta manifest file
-   --vars-store deployment-vars.yml \              # 인증 정보 보관 파일(중요, backup 필요)
    -o operations/aws.yml \                         # aws 설정
    -o operations/use-compiled-releases.yml \
    -o operations/use-haproxy.yml \                 # haproxy 사용여부
@@ -449,17 +450,17 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \  # paasta manif
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
    -v haproxy_public_ip=52.199.190.1 \             # pasta public ip
    -v haproxy_public_network_name=vip \   
-   -v cf_admin_password=admin \                    # paasta-admin password
+   -v cf_admin_password=admin \                    # paasta admin password
    -v cc_db_encryption_key=db-encryption-key \     # database 암호화 키 (version upgrade시 동일한 key이어야 함)
    -v uaa_database_password=uaa_admin \            # uaadb database pwd
    -v cc_database_password=cc_admin \              # ccdb database pwd
+   -v cert_days=3650 \                             # paasta 인중서 유효기간
    -v system_domain=52.199.190.1.xip.io            # domain (xip.io를 사용하는 경우 haproxy public_ip와 동일하게 한다)
 ```
 
 ### <div id='15'/>3.5.2. deploy-openstack.sh
 ```
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \   # paasta manifest file
-   --vars-store deployment-vars.yml \              # 인증 정보 보관 파일(중요, backup 필요)
    -o operations/openstack.yml \                  # openstack 설정
    -o operations/use-compiled-releases.yml \      # compile된 release 파일 정보(offline)
    -o operations/use-haproxy.yml \
@@ -468,17 +469,17 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \   # paasta mani
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
    -v haproxy_public_ip=52.199.190.1 \           # paasta public ip
    -v haproxy_public_network_name=vip \   
-   -v cf_admin_password=admin \                  # paasta-admin password
+   -v cf_admin_password=admin \                  # paasta admin password
    -v cc_db_encryption_key=db-encryption-key \   # version upgrade시 동일한 key이어야 함
    -v uaa_database_password=uaa_admin \          # uaadb database pwd
    -v cc_database_password=cc_admin \            # ccdb database pwd
+   -v cert_days=3650 \                           # paasta 인중서 유효기간
    -v system_domain=52.199.190.1.xip.io          # domain (xip.io를 사용하는 경우 haproxy public_ip와 동일하게 한다)
 ```
 
 ### <div id='16'/>3.5.3. deploy-azure.sh
 ```
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
-   --vars-store deployment-vars.yml \              # 인증 정보 보관 파일(중요, backup 필요)
    -o operations/azure.yml \
    -o operations/use-compiled-releases.yml \
    -o operations/use-haproxy.yml \
@@ -487,10 +488,11 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
    -v haproxy_public_ip=52.231.156.110 \        # paasta public ip
    -v haproxy_public_network_name=vip \
-   -v cf_admin_password=admin \                 # cf-admin password
+   -v cf_admin_password=admin \                 # paasta admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
    -v uaa_database_password=uaa_admin \         # uaadb database pwd
    -v cc_database_password=cc_admin \           # ccdb database pwd
+   -v cert_days=3650 \                           # paasta 인중서 유효기간
    -v system_domain=52.231.156.110.xip.io       # domain (xip.io를 사용하는 경우 haproxy public_ip와 동일하게 한다)
 ```
 
@@ -498,7 +500,6 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
 
 ```
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
-   --vars-store deployment-vars.yml \              # 인증 정보 보관 파일(중요, backup 필요)
    -o operations/use-compiled-releases.yml \
    -o operations/use-haproxy.yml \
    -o operations/use-haproxy-public-network.yml \
@@ -506,10 +507,11 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
    -v haproxy_public_ip=35.200.2.244 \          # paasta public ip
    -v haproxy_public_network_name=vip \
-   -v cf_admin_password=admin \                 # cf-admin password
+   -v cf_admin_password=admin \                 # paasta admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
    -v uaa_database_password=uaa_admin \         # uaadb database pwd
    -v cc_database_password=cc_admin \           # ccdb database pwd
+   -v cert_days=3650 \                          # paasta 인중서 유효기간
    -v system_domain=35.200.2.244.xip.io         # domain  (xip.io를 사용하는 경우 haproxy public_ip와 동일하게 한다)
 ```
 
@@ -518,7 +520,6 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
 
 ```
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
-   --vars-store deployment-vars.yml \              # 인증 정보 보관 파일(중요, backup 필요)
    -o operations/use-compiled-releases.yml \
    -o operations/use-haproxy.yml \
    -o operations/use-haproxy-public-network.yml \
@@ -526,10 +527,11 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
    -v haproxy_public_ip=35.200.2.244 \          # paasta public ip
    -v haproxy_public_network_name=vip \
-   -v cf_admin_password=admin \                 # cf-admin password
+   -v cf_admin_password=admin \                 # paasta admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
    -v uaa_database_password=uaa_admin \         # uaadb database pwd
    -v cc_database_password=cc_admin \           # ccdb database pwd
+   -v cert_days=3650 \                           # paasta 인중서 유효기간
    -v system_domain=35.200.2.244.xip.io         # domain  (xip.io를 사용하는 경우 haproxy public_ip와 동일하게 한다)
 ```
 
@@ -537,16 +539,16 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
 
 ```
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
-   --vars-store deployment-vars.yml \              # 인증 정보 보관 파일(중요, backup 필요)
    -o operations/bosh-lite.yml \
    -o operations/use-compiled-releases.yml \
    -o operations/use-postgres.yml \
    -v cf_admin_password=admin \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
-   -v cf_admin_password=admin \                 # cf-admin password
+   -v cf_admin_password=admin \                 # paasta admin password
    -v cc_db_encryption_key=db-encryption-key \  # version upgrade시 동일한 key이어야 함
    -v uaa_database_password=uaa_admin \         # uaadb database pwd
    -v cc_database_password=cc_admin \           # ccdb database pwd
+   -v cert_days=3650 \                           # paasta 인중서 유효기간
    -v system_domain=10.244.0.34.xip.io          # domain (haproxy public_ip와 동일하게 한다)
 ```
 

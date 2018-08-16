@@ -545,11 +545,29 @@ $ credhub –version
 $ export CREDHUB_CLIENT=credhub-admin
 $ export CREDHUB_SECRET=$(bosh int --path /credhub_admin_client_secret {iaas}/creds.yml)
 $ export CREDHUB_CA_CERT=$(bosh int --path /credhub_tls/ca {iaas}/creds.yml)
-$ credhub login -s https://10.20.0.6:8844 --skip-tls-validation
+$ credhub login -s https://10.20.0.6:8844 --skip-tls-validation  (bosh internal ip)
 $ credhub find
 ```
 
 Credhub login 후 find를 해보면 비어 있는 것을 알 수 있다. Paasta를 설치 하면 인증 정보가 저장되어 조회 할 수 있다
+
+```
+$ credhub find
+ex) uaa 인증정보 조회
+$ credhub get -n /{director}/{deployment}/uaa_ca
+```
+
+## <div id='28'/>4. BOSH 인증서 UPDATE
+
+## <div id='29'/>4.1. BOSH 인증서 UPDATE
+BOSH는 설치시 인증서(certificate)는 deault로 1년이다. 인증서를 update하기 위해서는 bosh 설치 후 인증기간 이내에 bosh를 redeploy해야 한다.
+
+```
+$ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
+$ rm {iaas}/creds.yml
+$ ./deploy-{iaas}.sh  (인증서를 새로 생성 하고 bosh를 다시 deploy한다.)
+```
+
 
 
 
