@@ -29,7 +29,6 @@
         *  [credhub](#27)
 			*  [credhub cli install](#28)
 
-
 ## Executive Summary
 
 본 문서는 BOSH2의 설명 및 설치하는 가이드 문서로 BOSH를 실행할 수 있는 환경을 구성하여 실행하고 사용하는 방법에 대해서 설명하였다.
@@ -556,19 +555,6 @@ $ credhub find
 ex) uaa 인증정보 조회
 $ credhub get -n /{director}/{deployment}/uaa_ca
 ```
-
-## <div id='28'/>4. BOSH 인증서 UPDATE
-
-## <div id='29'/>4.1. BOSH 인증서 UPDATE
-BOSH는 설치시 인증서(certificate)는 deault로 1년이다. 인증서를 update하기 위해서는 bosh 설치 후 인증기간 이내에 bosh를 redeploy해야 한다.
-
-```
-$ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
-$ rm {iaas}/creds.yml
-$ ./deploy-{iaas}.sh  (인증서를 새로 생성 하고 bosh를 다시 deploy한다.)
-```
-
-
 
 
 [PaaSTa_BOSH_Use_Guide_Image1]:../images/Bosh2/bosh1.png
