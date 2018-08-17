@@ -356,7 +356,7 @@ bosh create-env bosh.yml \
     -v default_key_name=openpaas \               # openstack key name
     -v default_security_groups=[openpaas] \      # openstack security group
     -v net_id=51b96a68-aded-4e73-aa44-f44a812b9b30 \  # network id
-    -v ceph_enable=true \                        # ceph 사용 여부
+    -v multizone=true \                          # Compute Node Multizone 설정 여부
     -v openstack_password=xxxx \                 # openstack user password
     -v openstack_username=xxxx\                  # openstack user name
     -v openstack_domain=default \                # bosh 설치될 openstack domain name
