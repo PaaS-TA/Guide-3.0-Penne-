@@ -3,8 +3,8 @@
 ## 플랫폼 설치 가이드
 - [설치 파일 다운로드 받기](./Download_Page.md)
 - 운영 환경 설치
-  - [BOSH 설치](AWS, OpenStack, vSphere, Google, Azure)](./Use-Guide/Bosh/PaaS-TA_BOSH2_사용자_가이드v1.0.md)
-  - [CF-DEPLOYMENT 설치](AWS, OpenStack, vSphere, Google, Azure)](./Install-Guide/Platform%20Install%20System/PaaS_TA_플랫폼_설치_가이드v3.5.md)
+  - [BOSH 설치(AWS, OpenStack, vSphere, Google, Azure)](./Use-Guide/Bosh/PaaS-TA_BOSH2_사용자_가이드v1.0.md)
+  - [CF-DEPLOYMENT 설치(AWS, OpenStack, vSphere, Google, Azure)](./Install-Guide/Platform%20Install%20System/PaaS_TA_플랫폼_설치_가이드v3.5.md)
 ##  가이드
 - [CF Migration 가이드](./Install-Guide/Platform%20Install%20System/PaaS_TA_3.5_migration.md)
 
