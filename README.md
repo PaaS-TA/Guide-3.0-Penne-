@@ -1,12 +1,15 @@
-# PaaS-TA3.5 가이드 문서
+# PaaS-TA3.1 가이드 문서
 
 ## 플랫폼 설치 가이드
 - [설치 파일 다운로드 받기](./Download_Page.md)
 - 운영 환경 설치
-  - [BOSH 설치(AWS, OpenStack, vSphere, Google, Azure)](./Use-Guide/Bosh/PaaS-TA_BOSH2_사용자_가이드v1.0.md)
-  - [CF-DEPLOYMENT 설치(AWS, OpenStack, vSphere, Google, Azure)](./Install-Guide/Platform%20Install%20System/PaaS_TA_플랫폼_설치_가이드v3.5.md)
-##  가이드
-- [CF Migration 가이드](./Install-Guide/Platform%20Install%20System/PaaS_TA_3.5_migration.md)
+  - [BOSH 설치(AWS, OpenStack, vSphere, Google)](./Use-Guide/Bosh/PaaS-TA_BOSH_사용자_가이드v1.0.md)
+- 플랫폼 설치
+  - [플랫폼 설치 자동화](./Install-Guide/Platform%20Install%20System/PaaS-TA_플랫폼%20설치%20자동화%20설치%20가이드%20v2.0.md)  
+- 인프라 관리 대시보드 사용가이드
+  - [인프라 관리 대시보드 사용가이드](./Use-Guide/infra/PaaS-TA_인프라_관리_대시보드_사용_가이드_v3.1.md)  
+- 플랫폼 설치 자동화 사용가이드  
+  - [플랫폼 설치 자동화 사용가이드](./Use-Guide/platform/PaaS_TA_플랫폼_설치_자동화_사용_가이드v3.1.md)
 
 ## 서비스 설치 가이드
 - DBMS 설치
@@ -32,8 +35,12 @@
 ## 포털 설치 가이드
 - [PaaS-TA 포털](./Use-Guide/portal/PaaS-TA%20Portal%20배포%20가이드_v1.1.md)
 
+## 모니터링 설치 가이드
+- [PaaS-TA 모니터링](Install-Guide/monitoring/PaaS-TA%20모니터링%20시스템%20설치가이드.md)
+- [IaaS 모니터링](https://github.com/PaaS-TA/IaaS-Monitoring)
 
 ## 활용 가이드
+- [BOSH CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaaS_PaaSTA_BOSH_CLI_guide.md)
 - [BOSH CLI V2(Command Line Interface) 사용](./Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_사용자_가이드v1.0.md)
 - [CF CLI(Command Line Interface) 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/OpenPaas%20CLi%20가이드.md)
 - [Eclipse plugin 개발도구 사용](../../../Guide-1.0-Spaghetti-/blob/master/Use-Guide/Open%20PaaS%20개발환경%20사용%20가이드.md)
