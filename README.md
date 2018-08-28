@@ -6,7 +6,7 @@
   - [BOSH 설치(AWS, OpenStack, vSphere, Google, Azure)](./Use-Guide/Bosh/PaaS-TA_BOSH2_사용자_가이드v1.0.md)
   - [CF-DEPLOYMENT 설치(AWS, OpenStack, vSphere, Google, Azure)](./Install-Guide/Platform%20Install%20System/PaaS_TA_플랫폼_설치_가이드v3.5.md)
 ##  가이드
-- [CF Migration 가이드](./Install-Guide/Platform%20Install%20System/PaaS_TA_3.5_migration.md)
+- [CF Migration 가이드 (3.1 to 3.5)](./Install-Guide/Platform%20Install%20System/PaaS_TA_3.5_migration.md)
 
 ## 서비스 설치 가이드
 - DBMS 설치
