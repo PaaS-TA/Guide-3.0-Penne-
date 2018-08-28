@@ -10,27 +10,24 @@
 
 ## 서비스 설치 가이드
 - DBMS 설치
-  - [Cubrid](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/DBMS/PaaS-TA%20Cubrid%20서비스팩%20설치%20가이드.md)
-  - [MySQL](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/DBMS/PaaS-TA%20MySQL%20서비스팩%20설치%20가이드.md)
+  - [Cubrid](./Service-Guide/DBMS/PaaS-TA%20Cubrid%20서비스팩%20설치%20가이드.md)
+  - [MySQL](./Service-Guide/DBMS/PaaS-TA%20MySQL%20서비스팩%20설치%20가이드.md)
 - NOSQL 설치
-  - [MongoDB](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/NoSQL/PaaS-TA%20Mongodb%20서비스팩%20설치%20가이드.md)
-  - [Redis](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/NoSQL/PaaS-TA%20Redis%20서비스팩%20설치%20가이드.md)
+  - [MongoDB](./Service-Guide/NoSQL/PaaS-TA%20Mongodb%20서비스팩%20설치%20가이드.md)
+  - [Redis](./Service-Guide/NoSQL/PaaS-TA%20Redis%20서비스팩%20설치%20가이드.md)
 - Storage 설치
-  - [GlusterFS](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/Storage/PaaS-TA%20GlusterFS%20서비스팩%20설치%20가이드.md)
+  - [GlusterFS](./Service-Guide/Storage/PaaS-TA%20GlusterFS%20서비스팩%20설치%20가이드.md)
 - MessageQueue 설치
-  - [RabbitMQ](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/MessageQueue/PaaS-TA%20RabbitMQ%20서비스팩%20설치%20가이드.md)
+  - [RabbitMQ](./Service-Guide/MessageQueue/PaaS-TA%20RabbitMQ%20서비스팩%20설치%20가이드.md)
 - API 플랫폼 설치
-  - [API 플랫폼](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/ETC/PaaS-TA%20API%20플랫폼%20서비스팩%20설치%20가이드.md)
+  - [API 플랫폼](./Service-Guide/ETC/PaaS-TA%20API%20플랫폼%20서비스팩%20설치%20가이드.md)
 - Web IDE 설치
-  - [Web IDE](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/WEBIDE/PaaS-TA%20WEB%20IDE%20설치%20가이드.md)
+  - [Web IDE](./Service-Guide/WEBIDE/PaaS-TA%20WEB%20IDE%20설치%20가이드.md)
 - Pinpoint APM 설치
-  - [Pinpoint APM](../../../Guide-2.0-Linguine-/blob/master/Service-Guide/ETC/PaaS-TA%20Pinpoint%20서비스팩%20설치%20가이드.md)  
+  - [Pinpoint APM](./Service-Guide/ETC/PaaS-TA%20Pinpoint%20서비스팩%20설치%20가이드.md)  
 - 통합 개발 도구 설치
   - [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드_v1.0.md)
   - [형상관리](./Service-Guide/Tools/PaaS-TA%20형상관리%20서비스팩%20설치%20가이드_v1.0.md)
-  
-## 포털 설치 가이드
-- [PaaS-TA 포털](./Use-Guide/portal/PaaS-TA%20Portal%20배포%20가이드_v1.1.md)
 
 
 ## 활용 가이드
