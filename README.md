@@ -5,6 +5,7 @@
 - 운영 환경 설치
   - [BOSH 설치(AWS, OpenStack, vSphere, Google, Azure)](./Use-Guide/Bosh/PaaS-TA_BOSH2_사용자_가이드v1.0.md)
   - [CF-DEPLOYMENT 설치(AWS, OpenStack, vSphere, Google, Azure)](./Install-Guide/Platform%20Install%20System/PaaS_TA_플랫폼_설치_가이드v3.5.md)
+
 ##  가이드
 - [CF Migration 가이드 (3.1 to 3.5)](./Install-Guide/Platform%20Install%20System/PaaS_TA_3.5_migration.md)
 
@@ -28,7 +29,9 @@
 - 통합 개발 도구 설치
   - [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드_v1.0.md)
   - [형상관리](./Service-Guide/Tools/PaaS-TA%20형상관리%20서비스팩%20설치%20가이드_v1.0.md)
-
+  
+## 포털 설치 가이드
+- [PaaS-TA 포털](./Use-Guide/portal/PaaS-TA%20Portal%20배포%20가이드_v1.1.md)
 
 ## 활용 가이드
 - [BOSH CLI V2(Command Line Interface) 사용](./Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_사용자_가이드v1.0.md)
