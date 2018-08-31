@@ -193,7 +193,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 	    	nats                              24*       30e7a82  
 	    	nodejs-buildpack                  1.6.28*   4cfdb7b  
 	    	paas-ta-portal-release            2.0*      non-git  
-	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+ 
+	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+
 		paasta-mysql                      2.0       85e3f01e+
 	    	paasta-pinpoint                   2.0*      2dbb8bf3+  
 	    	php-buildpack                     4.3.57*   efc48f3  
