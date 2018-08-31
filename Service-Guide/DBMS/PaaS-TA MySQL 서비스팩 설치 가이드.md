@@ -66,10 +66,10 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 - **사용 예시**
 
-    $ bosh -e micro-bosh releases
-    Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-    Name                              Version   Commit Hash  
+		Name                              Version   Commit Hash  
     binary-buildpack                  1.0.21*   d714741  
     bpm                               0.9.0*    c9b7136  
     caas-release                      1.0*      empty+  
