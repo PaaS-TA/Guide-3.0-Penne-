@@ -65,6 +65,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 -	업로드 되어 있는 릴리즈 목록을 확인한다.
 
 - **사용 예시**
+
  $ bosh -e micro-bosh releases
  Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
