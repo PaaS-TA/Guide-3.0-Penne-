@@ -238,6 +238,290 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
+deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 활용하고 해당 가이드는 Bosh2.0 가이드를 참고한다.
+
+-	cloud config 내용 조회
+
+- **사용 예시**
+
+		bosh -e micro-bosh cloud-config
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		azs:
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z1
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z2
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z3
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z4
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z5
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z6
+		compilation:
+		  az: z1
+		  network: default
+		  reuse_compilation_vms: true
+		  vm_type: large
+		  workers: 5
+		disk_types:
+		- disk_size: 1024
+		  name: default
+		- disk_size: 1024
+		  name: 1GB
+		- disk_size: 2048
+		  name: 2GB
+		- disk_size: 4096
+		  name: 4GB
+		- disk_size: 5120
+		  name: 5GB
+		- disk_size: 8192
+		  name: 8GB
+		- disk_size: 10240
+		  name: 10GB
+		- disk_size: 20480
+		  name: 20GB
+		- disk_size: 30720
+		  name: 30GB
+		- disk_size: 51200
+		  name: 50GB
+		- disk_size: 102400
+		  name: 100GB
+		- disk_size: 1048576
+		  name: 1TB
+		networks:
+		- name: default
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.111.40
+		- name: public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.177
+		    range: 115.68.46.176/28
+		    reserved:
+		    - 115.68.46.176 - 115.68.46.188
+		    static:
+		    - 115.68.46.189 - 115.68.46.190
+		  type: manual
+		- name: service_private
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.106.255
+		    static:
+		    - 10.30.107.1 - 10.30.107.255
+		- name: service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.47.161
+		    range: 115.68.47.160/24
+		    reserved:
+		    - 115.68.47.161 - 115.68.47.174
+		    static:
+		    - 115.68.47.175 - 115.68.47.185
+		  type: manual
+		- name: portal_service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.209
+		    range: 115.68.46.208/28
+		    reserved:
+		    - 115.68.46.216 - 115.68.46.222
+		    static:
+		    - 115.68.46.214
+		  type: manual
+		vm_extensions:
+		- cloud_properties:
+		    ports:
+		    - host: 3306
+		  name: mysql-proxy-lb
+		- name: cf-router-network-properties
+		- name: cf-tcp-router-network-properties
+		- name: diego-ssh-proxy-network-properties
+		- name: cf-haproxy-network-properties
+		- cloud_properties:
+		    disk: 51200
+		  name: small-50GB
+		- cloud_properties:
+		    disk: 102400
+		  name: small-highmem-100GB
+		vm_types:
+		- cloud_properties:
+		    cpu: 1
+		    disk: 8192
+		    ram: 1024
+		  name: minimal
+		- cloud_properties:
+		    cpu: 1
+		    disk: 10240
+		    ram: 2048
+		  name: default
+		- cloud_properties:
+		    cpu: 1
+		    disk: 30720
+		    ram: 4096
+		  name: small
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 4096
+		  name: medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 8192
+		  name: medium-memory-8GB
+		- cloud_properties:
+		    cpu: 4
+		    disk: 20480
+		    ram: 8192
+		  name: large
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: xlarge
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-highmem-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: small-highmem-16GB
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 2048
+		  name: caas_small
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 1024
+		  name: caas_small_api
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 4096
+		  name: caas_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 8192
+		    ram: 4096
+		  name: service_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 10240
+		    ram: 2048
+		  name: service_medium_2G
+
+		Succeeded
+
 
 -	Deployment 파일을 서버 환경에 맞게 수정한다.
 
@@ -417,32 +701,520 @@ bosh -e micro-bosh -d paasta-mysql-service deploy paasta_mysql_bosh2.0.yml \
 
 - **사용 예시**
 		$ ./deploy-mysql-bosh2.0.sh
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Using deployment 'paasta-mysql-service'
+
+		+ azs:
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z1
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z2
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z3
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z4
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z5
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z6
+
+		+ vm_types:
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 8192
+		+     ram: 1024
+		+   name: minimal
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 10240
+		+     ram: 2048
+		+   name: default
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 30720
+		+     ram: 4096
+		+   name: small
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 4096
+		+   name: medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 8192
+		+   name: medium-memory-8GB
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 20480
+		+     ram: 8192
+		+   name: large
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: xlarge
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-highmem-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: small-highmem-16GB
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 2048
+		+   name: caas_small
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 1024
+		+   name: caas_small_api
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 4096
+		+   name: caas_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 8192
+		+     ram: 4096
+		+   name: service_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 10240
+		+     ram: 2048
+		+   name: service_medium_2G
+
+		+ vm_extensions:
+		+ - cloud_properties:
+		+     ports:
+		+     - host: 3306
+		+   name: mysql-proxy-lb
+		+ - name: cf-router-network-properties
+		+ - name: cf-tcp-router-network-properties
+		+ - name: diego-ssh-proxy-network-properties
+		+ - name: cf-haproxy-network-properties
+		+ - cloud_properties:
+		+     disk: 51200
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     disk: 102400
+		+   name: small-highmem-100GB
+
+		+ compilation:
+		+   az: z1
+		+   network: default
+		+   reuse_compilation_vms: true
+		+   vm_type: large
+		+   workers: 5
+
+		+ networks:
+		+ - name: default
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.111.40
+		+ - name: public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.177
+		+     range: 115.68.46.176/28
+		+     reserved:
+		+     - 115.68.46.176 - 115.68.46.188
+		+     static:
+		+     - 115.68.46.189 - 115.68.46.190
+		+   type: manual
+		+ - name: service_private
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.106.255
+		+     static:
+		+     - 10.30.107.1 - 10.30.107.255
+		+ - name: service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.47.161
+		+     range: 115.68.47.160/24
+		+     reserved:
+		+     - 115.68.47.161 - 115.68.47.174
+		+     static:
+		+     - 115.68.47.175 - 115.68.47.185
+		+   type: manual
+		+ - name: portal_service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.209
+		+     range: 115.68.46.208/28
+		+     reserved:
+		+     - 115.68.46.216 - 115.68.46.222
+		+     static:
+		+     - 115.68.46.214
+		+   type: manual
+
+		+ disk_types:
+		+ - disk_size: 1024
+		+   name: default
+		+ - disk_size: 1024
+		+   name: 1GB
+		+ - disk_size: 2048
+		+   name: 2GB
+		+ - disk_size: 4096
+		+   name: 4GB
+		+ - disk_size: 5120
+		+   name: 5GB
+		+ - disk_size: 8192
+		+   name: 8GB
+		+ - disk_size: 10240
+		+   name: 10GB
+		+ - disk_size: 20480
+		+   name: 20GB
+		+ - disk_size: 30720
+		+   name: 30GB
+		+ - disk_size: 51200
+		+   name: 50GB
+		+ - disk_size: 102400
+		+   name: 100GB
+		+ - disk_size: 1048576
+		+   name: 1TB
+
+		+ stemcells:
+		+ - alias: default
+		+   os: ubuntu-trusty
+		+   version: '3309'
+
+		+ releases:
+		+ - name: paasta-mysql
+		+   version: '2.0'
+
+		+ update:
+		+   canaries: 1
+		+   canary_watch_time: 30000-600000
+		+   max_in_flight: 1
+		+   update_watch_time: 30000-600000
+
+		+ instance_groups:
+		+ - azs:
+		+   - z5
+		+   instances: 3
+		+   name: mysql
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.166
+		+     - 10.30.107.165
+		+     - 10.30.107.164
+		+   persistent_disk_type: 8GB
+		+   properties:
+		+     admin_password: "<redacted>"
+		+     character_set_server: "<redacted>"
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     collation_server: "<redacted>"
+		+     network_name: "<redacted>"
+		+     seeded_databases: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: mysql
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: proxy
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.168
+		+   properties:
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     external_host: "<redacted>"
+		+     nats:
+		+       machines:
+		+       - "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       user: "<redacted>"
+		+     network_name: "<redacted>"
+		+     proxy:
+		+       api_force_https: "<redacted>"
+		+       api_password: "<redacted>"
+		+       api_username: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: proxy
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: paasta-mysql-java-broker
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.167
+		+   properties:
+		+     jdbc_ip: "<redacted>"
+		+     jdbc_port: "<redacted>"
+		+     jdbc_pwd: "<redacted>"
+		+     log_dir: "<redacted>"
+		+     log_file: "<redacted>"
+		+     log_level: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: op-mysql-java-broker
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-registrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       host: "<redacted>"
+		+       name: "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       protocol: "<redacted>"
+		+       username: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-registrar
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-deregistrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       name: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-deregistrar
+		+   vm_type: minimal
+
+		+ meta:
+		+   apps_domain: 115.68.46.189.xip.io
+		+   environment: 
+		+   external_domain: 115.68.46.189.xip.io
+		+   nats:
+		+     machines:
+		+     - 10.30.112.2
+		+     password: fxaqRErYZ1TD8296u9HdMg8ol8dJ0G
+		+     port: 4222
+		+     user: nats
+		+   syslog_aggregator: 
+
+		+ name: paasta-mysql-service
+
+		Continue? [yN]: y
+
+		Task 4506
+
+		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
+		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
+		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
+		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
+		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
+		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
+		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
+		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
+		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
+		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
+		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
+		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
+		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
+		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
+		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
+		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
+		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
+		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
+		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
+		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
+		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
+		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
+		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
+		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
+		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
+		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
+		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
+		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
+		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
+		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
+		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
+		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
+		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
+		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
+		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
+		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
+		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
+		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
+		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+
+		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
+		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
+		Task 4506 Duration 01:03:56
+		Task 4506 done
+
+		Succeeded
 
 
 -	배포된 MySQL 서비스팩을 확인한다.
 
->$ bosh vms paasta-mysql-service<br>
-> <br>
-> RSA 1024 bit CA certificates are loaded due to old openssl compatibility<br>
-> Acting as user 'admin' on deployment 'paasta-mysql-service' on 'bosh'<br>
-> <br>
-> Director task 1396<br>
-> <br>
-> Task 1396 done<br>
-> <br>
-> +-------------------------------------------------------------------+---------+-----+----------------+--------------+<br>
-> | VM                                                                | State   | AZ  | VM Type        | IPs          |<br>
-> +-------------------------------------------------------------------+---------+-----+----------------+--------------+<br>
-> | mysql_z1/0 (00293380-ab04-4b45-8670-6a3891c30c05)                 | running | n/a | services-small | 10.30.40.191 |<br>
-> | paasta-mysql-java-broker/0 (fb9723c6-1a56-4a39-b4ef-cdf9296696f0) | running | n/a | services-small | 10.30.40.195 |<br>
-> | proxy/0 (481685c7-1c23-4fe6-8f84-b3049878f1b7)                    | running | n/a | services-small | 10.30.40.194 |<br>
-> +-------------------------------------------------------------------+---------+-----+----------------+--------------+<br>
-> <br>
-> VMs total: 3<br>
+- **사용 예시**
 
-<br>
+		bosh -e micro-bosh -d paasta-mysql-service vms
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Task 4525. Done
+
+		Deployment 'paasta-mysql-service'
+
+		Instance                                                       Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		mysql/8a830154-25b6-432a-ad39-9ff09d015760                     running        z5  10.30.107.165  vm-214663a8-fcbc-4ae4-9aae-92027b9725a9  minimal  true  
+		mysql/e8c52bf2-cd48-45d0-9553-f6367942a634                     running        z5  10.30.107.164  vm-81ecdc43-03d2-44f5-9b89-c6cdaa443d8b  minimal  true  
+		mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5                     running        z5  10.30.107.166  vm-bee33ffa-3f65-456c-9250-1e74c7c97f64  minimal  true  
+		paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78  running        z5  10.30.107.167  vm-7c3edc00-3074-4e98-9c89-9e9ba83b47e4  minimal  true  
+		proxy/023edddd-418e-46e4-8d40-db452c694e16                     running        z5  10.30.107.168  vm-e447eb75-1119-451f-adc9-71b0a6ef1a6a  minimal  true  
+
+		5 vms
+
+		Succeeded
 
 ### 2.4. MySQL 서비스 브로커 등록
 Mysql 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 MySQL 서비스 브로커를 등록해 주어야 한다.  
