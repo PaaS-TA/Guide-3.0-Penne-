@@ -215,6 +215,23 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 		
 -	Mysql 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
+-	Deploy시 사용할 Stemcell을 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh stemcells
+		Name                                      Version   OS             CPI  CID  
+		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+		~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
+
+		(*) Currently deployed
+
+		3 stemcells
+
+		Succeeded
+		
+>Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (mysql 은 stemcell 3309 버전을 사용)
 
 ### 2.3. MySQL 서비스 Deployment 파일 및 deploy-mysql-bosh2.0.sh 수정 및 배포
 
@@ -222,17 +239,7 @@ BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
 
-- Deploy시 사용할 Stemcell을 확인한다.
-
->`$ bosh stemcells`
-
-![update_mysql_vsphere_47]
-
->Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다.
-
-<br>
-
--	Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
+-	Deployment 파일을 서버 환경에 맞게 수정한다.
 
 ```yml
 # paasta-mysql 설정 파일 내용
@@ -390,6 +397,21 @@ meta:
     user: nats
   syslog_aggregator: null
 ```
+
+-	deploy-mysql-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
+
+```sh
+#!/bin/bash
+# stemcell 버전은 3309 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+
+bosh -e micro-bosh -d paasta-mysql-service deploy paasta_mysql_bosh2.0.yml \
+   -v default_network_name=service_private \
+   -v stemcell_os=ubuntu-trusty \
+   -v stemcell_version=3309 \
+   -v nats_password=fxaqRErYZ1TD8296u9HdMg8ol8dJ0G \
+   -v vm_type_small=minimal
+```
+
 
 -	MySQL 서비스팩을 배포한다.
 
