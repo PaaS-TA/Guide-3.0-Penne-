@@ -415,12 +415,10 @@ bosh -e micro-bosh -d paasta-mysql-service deploy paasta_mysql_bosh2.0.yml \
 
 -	MySQL 서비스팩을 배포한다.
 
->$ bosh deploy<br>
->※	40분 ~ 1시간 정도 소요된다.
-![update_mysql_vsphere_49]
-![update_mysql_vsphere_50]
+- **사용 예시**
+		$ ./deploy-mysql-bosh2.0.sh
 
-<br>
+
 
 -	배포된 MySQL 서비스팩을 확인한다.
 
