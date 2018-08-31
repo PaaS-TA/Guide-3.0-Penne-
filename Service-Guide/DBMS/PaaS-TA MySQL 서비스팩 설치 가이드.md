@@ -216,37 +216,11 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 -	Mysql 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
 
-### 2.3. MySQL 서비스 Deployment 파일 수정 및 배포
+### 2.3. MySQL 서비스 Deployment 파일 및 deploy-mysql-bosh2.0.sh 수정 및 배포
 
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
--	PaaSTA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 IaaS별 MySQL Deployment 파일을 복사한다.<br>
-    예) vsphere 일 경우 paasta_mysql_vsphere_2.0.yml를 복사<br>
-    다운로드 받은 Deployment Yml 파일을 확인한다.
-
-
->$ ls –all<br>
-><br>
-> total 851588<br>
-> drwxrwxr-x  5 inception inception      4096 Jan  9 10:18 .<br>
-> drwxrwxr-x 11 inception inception      4096 Dec 21 09:28 ..<br>
-><br>
-> -rw-r--r--  1 inception inception      6614 Jan  6 16:14 paasta_cubrid_vsphere_2.0.yml<br>
-> -rw-rw-r--  1 inception inception      6382 Jan  9 10:18 paasta_mysql_vsphere_2.0.yml<br>
-
-
-<br>
-
-- Director UUID를 확인한다.
-
->BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할 수 있다.
-
->`$ bosh status`
-
-![update_mysql_vsphere_46]
-
-<br>
 
 - Deploy시 사용할 Stemcell을 확인한다.
 
@@ -261,13 +235,17 @@ Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (
 -	Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
 
 ```yml
-# paasta-mysql-vsphere 설정 파일 내용
+# paasta-mysql 설정 파일 내용
 name: paasta-mysql-service                              # 서비스 배포이름(필수)
-director_uuid: d363905f-eaa0-4539-a461-8c1318498a32     # bosh status 에서 확인한 Director UUID을 입력(필수)
 
 releases:
 - name: paasta-mysql                                    # 서비스 릴리즈 이름(필수)
-  version: 2.0                                          # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+  version: "2.0"                                        # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+stemcells:
+- alias: default
+  os: ((stemcell_os))
+  version: "((stemcell_version))"
 
 update:
   canaries: 1                            # canary 인스턴스 수(필수)
@@ -275,91 +253,97 @@ update:
   max_in_flight: 1                       # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
   update_watch_time: 30000-600000        # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
 
-compilation:                             # 컴파일시 필요한 가상머신의 속성(필수)
-  cloud_properties:                      # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
-    cpu: 4
-    disk: 20480
-    ram: 4096
-  network: default                       # Networks block에서 선언한 network 이름(필수)
-  reuse_compilation_vms: true            # 컴파일지 VM 재사용 여부(옵션)
-  workers: 4                             # 컴파일 하는 가상머신의 최대수(필수)
-
-jobs:
-- instances: 1                           # job 인스턴스 수(필수)
-  name: mysql_z1
-  networks:                              # 네트워크 구성정보
-  - name: default
-    static_ips:                          # 사용할 IP addresses 정의(필수): MySQL 서버 IP
-    - 10.30.40.191
-    #- 10.30.40.192
-    #- 10.30.40.193
-  persistent_disk: 8192                  # 영구적 디스크 사이즈 정의(옵션): 10G
+instance_groups:
+- name: mysql
+  azs:
+  - z5
+  instances: 3
+  vm_type: ((vm_type_small))
+  stemcell: default
+  persistent_disk_type: 8GB
+  networks:
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.166
+    - 10.30.107.165
+    - 10.30.107.164
   properties:
     admin_password: admin                # MySQL 어드민 패스워드
     cluster_ips:                         # 클러스터 구성시 IPs(필수)
-    - 10.30.40.191
-    #- 10.30.40.192
-    #- 10.30.40.193
-    network_name: default
+    - 10.30.107.166
+    - 10.30.107.165
+    - 10.30.107.164
+    network_name: ((default_network_name))
     seeded_databases: null
     syslog_aggregator: null
     collation_server: utf8_unicode_ci    # Mysql CharSet
     character_set_server: utf8
   release: paasta-mysql
-  resource_pool: services-small
   template: mysql
 
-- instances: 1
-  name: proxy                                # 작업 이름(필수): proxy
+- name: proxy
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
-    static_ips: 10.30.40.194
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.168
   properties:
     cluster_ips:
-    - 10.30.40.191
-    #- 10.30.40.192
-    #- 10.30.40.193
-    external_host: 115.68.46.30.xip.io       # PaaS-TA 설치시 설정한 외부 호스트 정보(필수)
+    - 10.30.107.166
+    - 10.30.107.165
+    - 10.30.107.164
+    external_host: 115.68.46.189.xip.io       # PaaS-TA 설치시 설정한 외부 호스트 정보(필수)
     nats:                                    # PaaS-TA 설치시 설치한 nats 정보 (필수)
       machines:
-      - 10.30.110.31
-      password: nats
+      - 10.30.112.2 
+      password: "((nats_password))"
       port: 4222
       user: nats
-    network_name: default
+    network_name: ((default_network_name))
     proxy:                                   # proxy 정보 (필수)
       api_password: admin
       api_username: api
       api_force_https: false
     syslog_aggregator: null
   release: paasta-mysql
-  resource_pool: services-small
   template: proxy
 
-- instances: 1
-  name: paasta-mysql-java-broker                     # 작업 이름(필수): 서비스 브로커
+- name: paasta-mysql-java-broker
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
-    static_ips: 10.30.40.195
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.167
   properties:                                        # Mysql 정보
-    jdbc_ip: 10.30.40.194
+    jdbc_ip: 10.30.107.168
     jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: paasta-mysql-java-broker
     log_file: paasta-mysql-java-broker
     log_level: INFO
   release: paasta-mysql
-  resource_pool: services-small
   template: op-mysql-java-broker
 
-- instances: 1
+- name: broker-registrar
   lifecycle: errand                                 # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
-  name: broker-registrar                            # 작업 이름: 서비스 브로커 등록
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
+  - name: ((default_network_name))
   properties:
     broker:
-      host: 10.30.40.195
+      host: 10.30.107.167
       name: mysql-service-broker
       password: cloudfoundry
       username: admin
@@ -367,70 +351,45 @@ jobs:
       port: 8080
     cf:
       admin_password: admin
-      admin_username: admin
-      api_url: https://api.115.68.46.30.xip.io
+      admin_username: admin_test
+      api_url: https://api.115.68.46.189.xip.io
       skip_ssl_validation: true
   release: paasta-mysql
-  resource_pool: services-small
   template: broker-registrar
 
-- instances: 1
-  lifecycle: errand
-  name: broker-deregistrar
+- name: broker-deregistrar
+  lifecycle: errand                                 # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
+  - name: ((default_network_name))
   properties:
     broker:
       name: mysql-service-broker
     cf:
       admin_password: admin
-      admin_username: admin
-      api_url: https://api.115.68.46.30.xip.io
+      admin_username: admin_test
+      api_url: https://api.115.68.46.189.xip.io
       skip_ssl_validation: true
   release: paasta-mysql
-  resource_pool: services-small
   template: broker-deregistrar
 
+
 meta:
-  apps_domain: 115.68.46.30.xip.io
+  apps_domain: 115.68.46.189.xip.io
   environment: null
-  external_domain: 115.68.46.30.xip.io
+  external_domain: 115.68.46.189.xip.io
   nats:
     machines:
-    - 10.30.110.31
-    password: nats
+    - 10.30.112.2 
+    password: "((nats_password))"
     port: 4222
     user: nats
   syslog_aggregator: null
-
-networks:
-- name: default
-  subnets:
-  - cloud_properties:
-      name: Internal                          # vsphere 에서 사용하는 network 이름(필수)
-    dns:
-    - 8.8.8.8
-    gateway: 10.30.20.23
-    name: default_unused
-    range: 10.30.0.0/16
-    reserved:
-    - 10.30.0.1 - 10.30.0.10                  # 설치시 제외할 IP 설정
-    static:
-    - 10.30.40.190 - 10.30.40.200             # 사용 가능한 IP 설정
-  type: manual
-properties: {}
-resource_pools:                               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
-- cloud_properties:                           # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
-    cpu: 1
-    disk: 8192
-    ram: 1024
-  name: services-small                        # 고유한 resource pool 이름
-  network: default
-  stemcell:
-    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent     # stemcell 이름(필수)
-    version: "3309"                                  # stemcell 버전(필수)
 ```
-<br>
 
 -	MySQL 서비스팩을 배포한다.
 
