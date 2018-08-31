@@ -64,32 +64,51 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 -	업로드 되어 있는 릴리즈 목록을 확인한다.
 
->$ bosh releases<br>
-><br>
->RSA 1024 bit CA certificates are loaded due to old openssl compatibility<br>
->Acting as user 'admin' on 'bosh'<br>
-><br>
->+--------------------------------------+-----------+-------------+<br>
->| Name                                 | Versions  | Commit Hash |<br>
->+--------------------------------------+-----------+-------------+<br>
->| cf                                   | 247*      | af4efe9f+   |<br>
->| cflinuxfs2-rootfs                    | 1.40.0*   | 19fe09f4+   |<br>
->| diego                                | 1.1.0*    | 2298c8d4    |<br>
->| empty-release                        | 1+dev.1*  | 00000000    |<br>
->| etcd                                 | 86*       | 2dfbef00+   |<br>
->| garden-runc                          | 1.0.3*    | c6c4c73c    |<br>
->| paasta-cubrid                        | 2.0*      | 85e3f01e+   |<br>
->| paasta-eclipse-che                   | 2.0*      | 00000000    |<br>
->| paasta-glusterfs                     | 2.0*      | 85e3f01e+   |<br>
->| paasta-portal-object-storage-release | 0+dev.1*  | 00000000    |<br>
->| paasta-redis                         | 2.0       | 2d766084+   |<br>
->| swift-test-2                         | 0+dev.1*  | 00000000    |<br>
->+--------------------------------------+-----------+-------------+<br>
->(*) Currently deployed<br>
->(+) Uncommitted changes<br>
-><br>
->Releases total: 12<br>
->Mysql 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인<br>
+- **사용 예시**
+ $ bosh -e micro-bosh releases
+ Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+Name                              Version   Commit Hash  
+binary-buildpack                  1.0.21*   d714741  
+bpm                               0.9.0*    c9b7136  
+caas-release                      1.0*      empty+  
+capi                              1.62.0*   22a608c  
+cf-networking                     2.8.0*    479f4a66  
+cf-smoke-tests                    40.0.5*   d6aaf1f  
+cf-syslog-drain                   7.0*      71b995a  
+cflinuxfs2                        1.227.0*  60128e1  
+consul                            195*      67cdbcd  
+diego                             2.13.0*   b5644d9  
+dotnet-core-buildpack             2.1.3*    46a41cd  
+garden-runc                       1.15.1*   75107e7+  
+go-buildpack                      1.8.25*   40c60a0  
+haproxy                           8.8.0*    9292573  
+java-buildpack                    4.13*     c2749d3  
+loggregator                       103.0*    05da4e3d  
+loggregator-agent                 2.0*      2382c90  
+nats                              24*       30e7a82  
+nodejs-buildpack                  1.6.28*   4cfdb7b  
+paas-ta-portal-release            2.0*      non-git  
+paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+paasta-pinpoint                   2.0*      2dbb8bf3+  
+php-buildpack                     4.3.57*   efc48f3  
+postgres                          29*       5de4d63d+  
+python-buildpack                  1.6.18*   bcc4f26  
+routing                           0.179.0*  18155a5  
+ruby-buildpack                    1.7.21*   9d69600  
+silk                              2.9.0*    eebed55  
+staticfile-buildpack              1.4.29*   8a82e63  
+statsd-injector                   1.3.0*    39e5179  
+uaa                               60.2*     ebb5895  
+
+(*) Currently deployed
+(+) Uncommitted changes
+
+31 releases
+
+Succeeded
+
+<br>Mysql 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인<br>
 
 <br>
 -	MySQL 서비스 릴리즈 파일을 업로드한다.
