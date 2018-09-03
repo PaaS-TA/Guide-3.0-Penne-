@@ -64,130 +64,479 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 -	업로드 되어 있는 릴리즈 목록을 확인한다.
 
->$ bosh releases<br>
-><br>
->RSA 1024 bit CA certificates are loaded due to old openssl compatibility<br>
->Acting as user 'admin' on 'bosh'<br>
-><br>
->+--------------------------------------+-----------+-------------+<br>
->| Name                                 | Versions  | Commit Hash |<br>
->+--------------------------------------+-----------+-------------+<br>
->| cf                                   | 247*      | af4efe9f+   |<br>
->| cflinuxfs2-rootfs                    | 1.40.0*   | 19fe09f4+   |<br>
->| diego                                | 1.1.0*    | 2298c8d4    |<br>
->| empty-release                        | 1+dev.1*  | 00000000    |<br>
->| etcd                                 | 86*       | 2dfbef00+   |<br>
->| garden-runc                          | 1.0.3*    | c6c4c73c    |<br>
->| paasta-cubrid                        | 2.0*      | 85e3f01e+   |<br>
->| paasta-eclipse-che                   | 2.0*      | 00000000    |<br>
->| paasta-glusterfs                     | 2.0*      | 85e3f01e+   |<br>
->| paasta-portal-object-storage-release | 0+dev.1*  | 00000000    |<br>
->| paasta-redis                         | 2.0       | 2d766084+   |<br>
->| swift-test-2                         | 0+dev.1*  | 00000000    |<br>
->+--------------------------------------+-----------+-------------+<br>
->(*) Currently deployed<br>
->(+) Uncommitted changes<br>
-><br>
->Releases total: 12<br>
->Mysql 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인<br>
+- **사용 예시**
 
-<br>
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+    		bpm                               0.9.0*    c9b7136  
+    		caas-release                      1.0*      empty+  
+    		capi                              1.62.0*   22a608c  
+	    	cf-networking                     2.8.0*    479f4a66  
+	    	cf-smoke-tests                    40.0.5*   d6aaf1f  
+	    	cf-syslog-drain                   7.0*      71b995a  
+	    	cflinuxfs2                        1.227.0*  60128e1  
+	    	consul                            195*      67cdbcd  
+	    	diego                             2.13.0*   b5644d9  
+	    	dotnet-core-buildpack             2.1.3*    46a41cd  
+	    	garden-runc                       1.15.1*   75107e7+  
+	    	go-buildpack                      1.8.25*   40c60a0  
+	    	haproxy                           8.8.0*    9292573  
+	    	java-buildpack                    4.13*     c2749d3  
+	    	loggregator                       103.0*    05da4e3d  
+	    	loggregator-agent                 2.0*      2382c90  
+	    	nats                              24*       30e7a82  
+	    	nodejs-buildpack                  1.6.28*   4cfdb7b  
+	    	paas-ta-portal-release            2.0*      non-git  
+	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+	    	paasta-pinpoint                   2.0*      2dbb8bf3+  
+	    	php-buildpack                     4.3.57*   efc48f3  
+	    	postgres                          29*       5de4d63d+  
+	    	python-buildpack                  1.6.18*   bcc4f26  
+	    	routing                           0.179.0*  18155a5  
+	    	ruby-buildpack                    1.7.21*   9d69600  
+	    	silk                              2.9.0*    eebed55  
+	    	staticfile-buildpack              1.4.29*   8a82e63  
+	    	statsd-injector                   1.3.0*    39e5179  
+	    	uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	31 releases
+
+	    	Succeeded
+
+-	Mysql 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+
 -	MySQL 서비스 릴리즈 파일을 업로드한다.
 
->$ bosh upload release <br>
->※	본 샘플은 직접 릴리즈 파일을 생성하도록 안내하고 있으므로 'bosh upload release'만 입력한다. 릴리즈 파일을 직접 생성하지 않고 다운로드 받거나 릴리즈 파일 다운로드 URL이 존재하는 경우는 파일 경로 또는 다운로드 URL을 아래와 같이 입력한다.<br>
->$ bosh upload release {서비스 릴리즈 파일 PATH 또는 URL}<br>
+- **사용 예시**
 
-![update_mysql_vsphere_41]
-![update_mysql_vsphere_42]
-![update_mysql_vsphere_43]
-![update_mysql_vsphere_44]
-![update_mysql_vsphere_45]
+		$ bosh -e micro-bosh upload-release paasta-mysql-2.0.tgz
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		######################################################## 100.00% 144.14 MiB/s 2s
+		Task 4460
+
+		Task 4460 | 04:31:41 | Extracting release: Extracting release (00:00:04)
+		Task 4460 | 04:31:45 | Verifying manifest: Verifying manifest (00:00:00)
+		Task 4460 | 04:31:45 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: cf-mysql-broker/250c6466bdaff96677e501ed5219d92ce4e61bd8 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: mysqlclient/ce95f8ac566f76b650992987d5282ee473356e43 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: acceptance-tests/1cb3ce7e20f5a8395b43fc6f0e3f2e92b0dc27bd (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:00:01)
+		Task 4460 | 04:31:46 | Creating new packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: quota-enforcer/e2c4c9e7d7bbbe4bfdc0866962461b00e654cca3 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:00:01)
+		Task 4460 | 04:31:47 | Creating new packages: ruby/ff79c965224b4160c1526bd704b3b21e4ad7c362 (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:00:01)
+		Task 4460 | 04:31:48 | Creating new packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:00:00)
+		Task 4460 | 04:31:48 | Creating new packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:00:01)
+		Task 4460 | 04:31:49 | Creating new packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:00:02)
+		Task 4460 | 04:31:51 | Creating new packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:01)
+		Task 4460 | 04:31:52 | Creating new packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:00:01)
+		Task 4460 | 04:31:53 | Creating new packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:00:01)
+		Task 4460 | 04:31:54 | Creating new packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:00:00)
+		Task 4460 | 04:31:54 | Creating new packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:01)
+		Task 4460 | 04:31:55 | Creating new packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:00:01)
+		Task 4460 | 04:31:56 | Creating new packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:00:01)
+		Task 4460 | 04:31:57 | Creating new jobs: cf-mysql-broker/9828ead15eabdc33b2c27fe275b463735edb115d (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: acceptance-tests/48c00c36ec5210cbdd3b125ae6a72cfdf6eaf4e2 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-deregistrar/b5f6f776d46eb1ac561ab1e8f58d8ddedb97f86e (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: proxy/7907d8759aa11dfcbbe79220dc945c96b5562ac1 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: mysql/078561f02f2516212ed59c48e1dd45360f93871c (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: op-mysql-java-broker/6e47c9ea6fbe0867d4a476af5abf157830c03024 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-registrar/e1f5e30b87e70e916ea74ea8eb63a7b6ff6ff643 (00:00:00)
+		Task 4460 | 04:31:57 | Release has been created: paasta-mysql/2.0 (00:00:00)
+
+		Task 4460 Started  Fri Aug 31 04:31:41 UTC 2018
+		Task 4460 Finished Fri Aug 31 04:31:57 UTC 2018
+		Task 4460 Duration 00:00:16
+		Task 4460 done
+
+		Succeeded
+
 
 -	업로드 된 MySQL 릴리즈를 확인한다.
 
->$ bosh releases<br>
->RSA 1024 bit CA certificates are loaded due to old openssl compatibility<br>
->Acting as user 'admin' on 'bosh'<br>
-><br>
->+--------------------------------------+-----------+-------------+<br>
->| Name                                 | Versions  | Commit Hash |<br>
->+--------------------------------------+-----------+-------------+<br>
->| cf                                   | 247*      | af4efe9f+   |<br>
->| cflinuxfs2-rootfs                    | 1.40.0*   | 19fe09f4+   |<br>
->| diego                                | 1.1.0*    | 2298c8d4    |<br>
->| empty-release                        | 1+dev.1*  | 00000000    |<br>
->| etcd                                 | 86*       | 2dfbef00+   |<br>
->| garden-runc                          | 1.0.3*    | c6c4c73c    |<br>
->| paasta-cubrid                        | 2.0*      | 85e3f01e+   |<br>
->| paasta-eclipse-che                   | 2.0*      | 00000000    |<br>
->| paasta-glusterfs                     | 2.0*      | 85e3f01e+   |<br>
->| paasta-mysql                         | 2.0*      | 85e3f01e+   |<br>
->| paasta-portal-object-storage-release | 0+dev.1*  | 00000000    |<br>
->| paasta-redis                         | 2.0       | 2d766084+   |<br>
->| swift-test-2                         | 0+dev.1*  | 00000000    |<br>
->+--------------------------------------+-----------+-------------+<br>
->(*) Currently deployed<br>
->(+) Uncommitted changes<br>
-><br>
->Releases total: 13<br>
-><br>
->Mysql 서비스 릴리즈가 업로드 되어 있는 것을 확인<br>
+- **사용 예시**
 
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+		bpm                               0.9.0*    c9b7136  
+		caas-release                      1.0*      empty+  
+		capi                              1.62.0*   22a608c  
+		cf-networking                     2.8.0*    479f4a66  
+		cf-smoke-tests                    40.0.5*   d6aaf1f  
+		cf-syslog-drain                   7.0*      71b995a  
+		cflinuxfs2                        1.227.0*  60128e1  
+		consul                            195*      67cdbcd  
+		diego                             2.13.0*   b5644d9  
+		dotnet-core-buildpack             2.1.3*    46a41cd  
+		garden-runc                       1.15.1*   75107e7+  
+		go-buildpack                      1.8.25*   40c60a0  
+		haproxy                           8.8.0*    9292573  
+		java-buildpack                    4.13*     c2749d3  
+		loggregator                       103.0*    05da4e3d  
+		loggregator-agent                 2.0*      2382c90  
+		nats                              24*       30e7a82  
+		nodejs-buildpack                  1.6.28*   4cfdb7b  
+		paas-ta-portal-release            2.0*      non-git  
+		paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+		paasta-mysql                      2.0       85e3f01e+  
+		paasta-pinpoint                   2.0*      2dbb8bf3+  
+		php-buildpack                     4.3.57*   efc48f3  
+		postgres                          29*       5de4d63d+  
+		python-buildpack                  1.6.18*   bcc4f26  
+		routing                           0.179.0*  18155a5  
+		ruby-buildpack                    1.7.21*   9d69600  
+		silk                              2.9.0*    eebed55  
+		staticfile-buildpack              1.4.29*   8a82e63  
+		statsd-injector                   1.3.0*    39e5179  
+		uaa                               60.2*     ebb5895  
 
-### 2.3. MySQL 서비스 Deployment 파일 수정 및 배포
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	32 releases
+
+	    	Succeeded
+		
+-	Mysql 서비스 릴리즈가 업로드 되어 있는 것을 확인
+
+-	Deploy시 사용할 Stemcell을 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh stemcells
+		Name                                      Version   OS             CPI  CID  
+		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+		~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
+
+		(*) Currently deployed
+
+		3 stemcells
+
+		Succeeded
+		
+>Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (mysql 은 stemcell 3309 버전을 사용)
+
+### 2.3. MySQL 서비스 Deployment 파일 및 deploy-mysql-bosh2.0.sh 수정 및 배포
 
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
--	PaaSTA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 IaaS별 MySQL Deployment 파일을 복사한다.<br>
-    예) vsphere 일 경우 paasta_mysql_vsphere_2.0.yml를 복사<br>
-    다운로드 받은 Deployment Yml 파일을 확인한다.
+deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 활용하고 해당 가이드는 Bosh2.0 가이드를 참고한다.
+
+-	cloud config 내용 조회
+
+- **사용 예시**
+
+		bosh -e micro-bosh cloud-config
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		azs:
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z1
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z2
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z3
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z4
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z5
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z6
+		compilation:
+		  az: z1
+		  network: default
+		  reuse_compilation_vms: true
+		  vm_type: large
+		  workers: 5
+		disk_types:
+		- disk_size: 1024
+		  name: default
+		- disk_size: 1024
+		  name: 1GB
+		- disk_size: 2048
+		  name: 2GB
+		- disk_size: 4096
+		  name: 4GB
+		- disk_size: 5120
+		  name: 5GB
+		- disk_size: 8192
+		  name: 8GB
+		- disk_size: 10240
+		  name: 10GB
+		- disk_size: 20480
+		  name: 20GB
+		- disk_size: 30720
+		  name: 30GB
+		- disk_size: 51200
+		  name: 50GB
+		- disk_size: 102400
+		  name: 100GB
+		- disk_size: 1048576
+		  name: 1TB
+		networks:
+		- name: default
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.111.40
+		- name: public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.177
+		    range: 115.68.46.176/28
+		    reserved:
+		    - 115.68.46.176 - 115.68.46.188
+		    static:
+		    - 115.68.46.189 - 115.68.46.190
+		  type: manual
+		- name: service_private
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.106.255
+		    static:
+		    - 10.30.107.1 - 10.30.107.255
+		- name: service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.47.161
+		    range: 115.68.47.160/24
+		    reserved:
+		    - 115.68.47.161 - 115.68.47.174
+		    static:
+		    - 115.68.47.175 - 115.68.47.185
+		  type: manual
+		- name: portal_service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.209
+		    range: 115.68.46.208/28
+		    reserved:
+		    - 115.68.46.216 - 115.68.46.222
+		    static:
+		    - 115.68.46.214
+		  type: manual
+		vm_extensions:
+		- cloud_properties:
+		    ports:
+		    - host: 3306
+		  name: mysql-proxy-lb
+		- name: cf-router-network-properties
+		- name: cf-tcp-router-network-properties
+		- name: diego-ssh-proxy-network-properties
+		- name: cf-haproxy-network-properties
+		- cloud_properties:
+		    disk: 51200
+		  name: small-50GB
+		- cloud_properties:
+		    disk: 102400
+		  name: small-highmem-100GB
+		vm_types:
+		- cloud_properties:
+		    cpu: 1
+		    disk: 8192
+		    ram: 1024
+		  name: minimal
+		- cloud_properties:
+		    cpu: 1
+		    disk: 10240
+		    ram: 2048
+		  name: default
+		- cloud_properties:
+		    cpu: 1
+		    disk: 30720
+		    ram: 4096
+		  name: small
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 4096
+		  name: medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 8192
+		  name: medium-memory-8GB
+		- cloud_properties:
+		    cpu: 4
+		    disk: 20480
+		    ram: 8192
+		  name: large
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: xlarge
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-highmem-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: small-highmem-16GB
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 2048
+		  name: caas_small
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 1024
+		  name: caas_small_api
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 4096
+		  name: caas_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 8192
+		    ram: 4096
+		  name: service_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 10240
+		    ram: 2048
+		  name: service_medium_2G
+
+		Succeeded
 
 
->$ ls –all<br>
-><br>
-> total 851588<br>
-> drwxrwxr-x  5 inception inception      4096 Jan  9 10:18 .<br>
-> drwxrwxr-x 11 inception inception      4096 Dec 21 09:28 ..<br>
-><br>
-> -rw-r--r--  1 inception inception      6614 Jan  6 16:14 paasta_cubrid_vsphere_2.0.yml<br>
-> -rw-rw-r--  1 inception inception      6382 Jan  9 10:18 paasta_mysql_vsphere_2.0.yml<br>
-
-
-<br>
-
-- Director UUID를 확인한다.
-
->BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할 수 있다.
-
->`$ bosh status`
-
-![update_mysql_vsphere_46]
-
-<br>
-
-- Deploy시 사용할 Stemcell을 확인한다.
-
->`$ bosh stemcells`
-
-![update_mysql_vsphere_47]
-
->Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다.
-
-<br>
-
--	Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
+-	Deployment 파일을 서버 환경에 맞게 수정한다.
 
 ```yml
-# paasta-mysql-vsphere 설정 파일 내용
+# paasta-mysql 설정 파일 내용
 name: paasta-mysql-service                              # 서비스 배포이름(필수)
-director_uuid: d363905f-eaa0-4539-a461-8c1318498a32     # bosh status 에서 확인한 Director UUID을 입력(필수)
 
 releases:
 - name: paasta-mysql                                    # 서비스 릴리즈 이름(필수)
-  version: 2.0                                          # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+  version: "2.0"                                        # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+stemcells:
+- alias: default
+  os: ((stemcell_os))
+  version: "((stemcell_version))"
 
 update:
   canaries: 1                            # canary 인스턴스 수(필수)
@@ -195,91 +544,97 @@ update:
   max_in_flight: 1                       # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
   update_watch_time: 30000-600000        # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
 
-compilation:                             # 컴파일시 필요한 가상머신의 속성(필수)
-  cloud_properties:                      # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
-    cpu: 4
-    disk: 20480
-    ram: 4096
-  network: default                       # Networks block에서 선언한 network 이름(필수)
-  reuse_compilation_vms: true            # 컴파일지 VM 재사용 여부(옵션)
-  workers: 4                             # 컴파일 하는 가상머신의 최대수(필수)
-
-jobs:
-- instances: 1                           # job 인스턴스 수(필수)
-  name: mysql_z1
-  networks:                              # 네트워크 구성정보
-  - name: default
-    static_ips:                          # 사용할 IP addresses 정의(필수): MySQL 서버 IP
-    - 10.30.40.191
-    #- 10.30.40.192
-    #- 10.30.40.193
-  persistent_disk: 8192                  # 영구적 디스크 사이즈 정의(옵션): 10G
+instance_groups:
+- name: mysql
+  azs:
+  - z5
+  instances: 3
+  vm_type: ((vm_type_small))
+  stemcell: default
+  persistent_disk_type: 8GB
+  networks:
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.166
+    - 10.30.107.165
+    - 10.30.107.164
   properties:
     admin_password: admin                # MySQL 어드민 패스워드
     cluster_ips:                         # 클러스터 구성시 IPs(필수)
-    - 10.30.40.191
-    #- 10.30.40.192
-    #- 10.30.40.193
-    network_name: default
+    - 10.30.107.166
+    - 10.30.107.165
+    - 10.30.107.164
+    network_name: ((default_network_name))
     seeded_databases: null
     syslog_aggregator: null
     collation_server: utf8_unicode_ci    # Mysql CharSet
     character_set_server: utf8
   release: paasta-mysql
-  resource_pool: services-small
   template: mysql
 
-- instances: 1
-  name: proxy                                # 작업 이름(필수): proxy
+- name: proxy
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
-    static_ips: 10.30.40.194
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.168
   properties:
     cluster_ips:
-    - 10.30.40.191
-    #- 10.30.40.192
-    #- 10.30.40.193
-    external_host: 115.68.46.30.xip.io       # PaaS-TA 설치시 설정한 외부 호스트 정보(필수)
+    - 10.30.107.166
+    - 10.30.107.165
+    - 10.30.107.164
+    external_host: 115.68.46.189.xip.io       # PaaS-TA 설치시 설정한 외부 호스트 정보(필수)
     nats:                                    # PaaS-TA 설치시 설치한 nats 정보 (필수)
       machines:
-      - 10.30.110.31
-      password: nats
+      - 10.30.112.2 
+      password: "((nats_password))"
       port: 4222
       user: nats
-    network_name: default
+    network_name: ((default_network_name))
     proxy:                                   # proxy 정보 (필수)
       api_password: admin
       api_username: api
       api_force_https: false
     syslog_aggregator: null
   release: paasta-mysql
-  resource_pool: services-small
   template: proxy
 
-- instances: 1
-  name: paasta-mysql-java-broker                     # 작업 이름(필수): 서비스 브로커
+- name: paasta-mysql-java-broker
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
-    static_ips: 10.30.40.195
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.167
   properties:                                        # Mysql 정보
-    jdbc_ip: 10.30.40.194
+    jdbc_ip: 10.30.107.168
     jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: paasta-mysql-java-broker
     log_file: paasta-mysql-java-broker
     log_level: INFO
   release: paasta-mysql
-  resource_pool: services-small
   template: op-mysql-java-broker
 
-- instances: 1
+- name: broker-registrar
   lifecycle: errand                                 # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
-  name: broker-registrar                            # 작업 이름: 서비스 브로커 등록
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
+  - name: ((default_network_name))
   properties:
     broker:
-      host: 10.30.40.195
+      host: 10.30.107.167
       name: mysql-service-broker
       password: cloudfoundry
       username: admin
@@ -287,103 +642,579 @@ jobs:
       port: 8080
     cf:
       admin_password: admin
-      admin_username: admin
-      api_url: https://api.115.68.46.30.xip.io
+      admin_username: admin_test
+      api_url: https://api.115.68.46.189.xip.io
       skip_ssl_validation: true
   release: paasta-mysql
-  resource_pool: services-small
   template: broker-registrar
 
-- instances: 1
-  lifecycle: errand
-  name: broker-deregistrar
+- name: broker-deregistrar
+  lifecycle: errand                                 # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
   networks:
-  - name: default
+  - name: ((default_network_name))
   properties:
     broker:
       name: mysql-service-broker
     cf:
       admin_password: admin
-      admin_username: admin
-      api_url: https://api.115.68.46.30.xip.io
+      admin_username: admin_test
+      api_url: https://api.115.68.46.189.xip.io
       skip_ssl_validation: true
   release: paasta-mysql
-  resource_pool: services-small
   template: broker-deregistrar
 
+
 meta:
-  apps_domain: 115.68.46.30.xip.io
+  apps_domain: 115.68.46.189.xip.io
   environment: null
-  external_domain: 115.68.46.30.xip.io
+  external_domain: 115.68.46.189.xip.io
   nats:
     machines:
-    - 10.30.110.31
-    password: nats
+    - 10.30.112.2 
+    password: "((nats_password))"
     port: 4222
     user: nats
   syslog_aggregator: null
-
-networks:
-- name: default
-  subnets:
-  - cloud_properties:
-      name: Internal                          # vsphere 에서 사용하는 network 이름(필수)
-    dns:
-    - 8.8.8.8
-    gateway: 10.30.20.23
-    name: default_unused
-    range: 10.30.0.0/16
-    reserved:
-    - 10.30.0.1 - 10.30.0.10                  # 설치시 제외할 IP 설정
-    static:
-    - 10.30.40.190 - 10.30.40.200             # 사용 가능한 IP 설정
-  type: manual
-properties: {}
-resource_pools:                               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
-- cloud_properties:                           # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
-    cpu: 1
-    disk: 8192
-    ram: 1024
-  name: services-small                        # 고유한 resource pool 이름
-  network: default
-  stemcell:
-    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent     # stemcell 이름(필수)
-    version: "3309"                                  # stemcell 버전(필수)
 ```
-<br>
+
+-	deploy-mysql-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
+
+```sh
+#!/bin/bash
+# stemcell 버전은 3309 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+
+bosh -e micro-bosh -d paasta-mysql-service deploy paasta_mysql_bosh2.0.yml \
+   -v default_network_name=service_private \
+   -v stemcell_os=ubuntu-trusty \
+   -v stemcell_version=3309 \
+   -v nats_password=fxaqRErYZ1TD8296u9HdMg8ol8dJ0G \
+   -v vm_type_small=minimal
+```
+
 
 -	MySQL 서비스팩을 배포한다.
 
->$ bosh deploy<br>
->※	40분 ~ 1시간 정도 소요된다.
-![update_mysql_vsphere_49]
-![update_mysql_vsphere_50]
+- **사용 예시**
+		$ ./deploy-mysql-bosh2.0.sh
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-<br>
+		Using deployment 'paasta-mysql-service'
+
+		+ azs:
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z1
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z2
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z3
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z4
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z5
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z6
+
+		+ vm_types:
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 8192
+		+     ram: 1024
+		+   name: minimal
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 10240
+		+     ram: 2048
+		+   name: default
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 30720
+		+     ram: 4096
+		+   name: small
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 4096
+		+   name: medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 8192
+		+   name: medium-memory-8GB
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 20480
+		+     ram: 8192
+		+   name: large
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: xlarge
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-highmem-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: small-highmem-16GB
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 2048
+		+   name: caas_small
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 1024
+		+   name: caas_small_api
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 4096
+		+   name: caas_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 8192
+		+     ram: 4096
+		+   name: service_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 10240
+		+     ram: 2048
+		+   name: service_medium_2G
+
+		+ vm_extensions:
+		+ - cloud_properties:
+		+     ports:
+		+     - host: 3306
+		+   name: mysql-proxy-lb
+		+ - name: cf-router-network-properties
+		+ - name: cf-tcp-router-network-properties
+		+ - name: diego-ssh-proxy-network-properties
+		+ - name: cf-haproxy-network-properties
+		+ - cloud_properties:
+		+     disk: 51200
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     disk: 102400
+		+   name: small-highmem-100GB
+
+		+ compilation:
+		+   az: z1
+		+   network: default
+		+   reuse_compilation_vms: true
+		+   vm_type: large
+		+   workers: 5
+
+		+ networks:
+		+ - name: default
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.111.40
+		+ - name: public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.177
+		+     range: 115.68.46.176/28
+		+     reserved:
+		+     - 115.68.46.176 - 115.68.46.188
+		+     static:
+		+     - 115.68.46.189 - 115.68.46.190
+		+   type: manual
+		+ - name: service_private
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.106.255
+		+     static:
+		+     - 10.30.107.1 - 10.30.107.255
+		+ - name: service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.47.161
+		+     range: 115.68.47.160/24
+		+     reserved:
+		+     - 115.68.47.161 - 115.68.47.174
+		+     static:
+		+     - 115.68.47.175 - 115.68.47.185
+		+   type: manual
+		+ - name: portal_service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.209
+		+     range: 115.68.46.208/28
+		+     reserved:
+		+     - 115.68.46.216 - 115.68.46.222
+		+     static:
+		+     - 115.68.46.214
+		+   type: manual
+
+		+ disk_types:
+		+ - disk_size: 1024
+		+   name: default
+		+ - disk_size: 1024
+		+   name: 1GB
+		+ - disk_size: 2048
+		+   name: 2GB
+		+ - disk_size: 4096
+		+   name: 4GB
+		+ - disk_size: 5120
+		+   name: 5GB
+		+ - disk_size: 8192
+		+   name: 8GB
+		+ - disk_size: 10240
+		+   name: 10GB
+		+ - disk_size: 20480
+		+   name: 20GB
+		+ - disk_size: 30720
+		+   name: 30GB
+		+ - disk_size: 51200
+		+   name: 50GB
+		+ - disk_size: 102400
+		+   name: 100GB
+		+ - disk_size: 1048576
+		+   name: 1TB
+
+		+ stemcells:
+		+ - alias: default
+		+   os: ubuntu-trusty
+		+   version: '3309'
+
+		+ releases:
+		+ - name: paasta-mysql
+		+   version: '2.0'
+
+		+ update:
+		+   canaries: 1
+		+   canary_watch_time: 30000-600000
+		+   max_in_flight: 1
+		+   update_watch_time: 30000-600000
+
+		+ instance_groups:
+		+ - azs:
+		+   - z5
+		+   instances: 3
+		+   name: mysql
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.166
+		+     - 10.30.107.165
+		+     - 10.30.107.164
+		+   persistent_disk_type: 8GB
+		+   properties:
+		+     admin_password: "<redacted>"
+		+     character_set_server: "<redacted>"
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     collation_server: "<redacted>"
+		+     network_name: "<redacted>"
+		+     seeded_databases: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: mysql
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: proxy
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.168
+		+   properties:
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     external_host: "<redacted>"
+		+     nats:
+		+       machines:
+		+       - "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       user: "<redacted>"
+		+     network_name: "<redacted>"
+		+     proxy:
+		+       api_force_https: "<redacted>"
+		+       api_password: "<redacted>"
+		+       api_username: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: proxy
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: paasta-mysql-java-broker
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.167
+		+   properties:
+		+     jdbc_ip: "<redacted>"
+		+     jdbc_port: "<redacted>"
+		+     jdbc_pwd: "<redacted>"
+		+     log_dir: "<redacted>"
+		+     log_file: "<redacted>"
+		+     log_level: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: op-mysql-java-broker
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-registrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       host: "<redacted>"
+		+       name: "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       protocol: "<redacted>"
+		+       username: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-registrar
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-deregistrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       name: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-deregistrar
+		+   vm_type: minimal
+
+		+ meta:
+		+   apps_domain: 115.68.46.189.xip.io
+		+   environment: 
+		+   external_domain: 115.68.46.189.xip.io
+		+   nats:
+		+     machines:
+		+     - 10.30.112.2
+		+     password: fxaqRErYZ1TD8296u9HdMg8ol8dJ0G
+		+     port: 4222
+		+     user: nats
+		+   syslog_aggregator: 
+
+		+ name: paasta-mysql-service
+
+		Continue? [yN]: y
+
+		Task 4506
+
+		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
+		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
+		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
+		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
+		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
+		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
+		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
+		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
+		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
+		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
+		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
+		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
+		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
+		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
+		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
+		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
+		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
+		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
+		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
+		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
+		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
+		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
+		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
+		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
+		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
+		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
+		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
+		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
+		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
+		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
+		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
+		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
+		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
+		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
+		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
+		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
+		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
+		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
+		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+
+		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
+		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
+		Task 4506 Duration 01:03:56
+		Task 4506 done
+
+		Succeeded
+
 
 -	배포된 MySQL 서비스팩을 확인한다.
 
->$ bosh vms paasta-mysql-service<br>
-> <br>
-> RSA 1024 bit CA certificates are loaded due to old openssl compatibility<br>
-> Acting as user 'admin' on deployment 'paasta-mysql-service' on 'bosh'<br>
-> <br>
-> Director task 1396<br>
-> <br>
-> Task 1396 done<br>
-> <br>
-> +-------------------------------------------------------------------+---------+-----+----------------+--------------+<br>
-> | VM                                                                | State   | AZ  | VM Type        | IPs          |<br>
-> +-------------------------------------------------------------------+---------+-----+----------------+--------------+<br>
-> | mysql_z1/0 (00293380-ab04-4b45-8670-6a3891c30c05)                 | running | n/a | services-small | 10.30.40.191 |<br>
-> | paasta-mysql-java-broker/0 (fb9723c6-1a56-4a39-b4ef-cdf9296696f0) | running | n/a | services-small | 10.30.40.195 |<br>
-> | proxy/0 (481685c7-1c23-4fe6-8f84-b3049878f1b7)                    | running | n/a | services-small | 10.30.40.194 |<br>
-> +-------------------------------------------------------------------+---------+-----+----------------+--------------+<br>
-> <br>
-> VMs total: 3<br>
+- **사용 예시**
 
-<br>
+		bosh -e micro-bosh -d paasta-mysql-service vms
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Task 4525. Done
+
+		Deployment 'paasta-mysql-service'
+
+		Instance                                                       Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		mysql/8a830154-25b6-432a-ad39-9ff09d015760                     running        z5  10.30.107.165  vm-214663a8-fcbc-4ae4-9aae-92027b9725a9  minimal  true  
+		mysql/e8c52bf2-cd48-45d0-9553-f6367942a634                     running        z5  10.30.107.164  vm-81ecdc43-03d2-44f5-9b89-c6cdaa443d8b  minimal  true  
+		mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5                     running        z5  10.30.107.166  vm-bee33ffa-3f65-456c-9250-1e74c7c97f64  minimal  true  
+		paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78  running        z5  10.30.107.167  vm-7c3edc00-3074-4e98-9c89-9e9ba83b47e4  minimal  true  
+		proxy/023edddd-418e-46e4-8d40-db452c694e16                     running        z5  10.30.107.168  vm-e447eb75-1119-451f-adc9-71b0a6ef1a6a  minimal  true  
+
+		5 vms
+
+		Succeeded
 
 ### 2.4. MySQL 서비스 브로커 등록
 Mysql 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 MySQL 서비스 브로커를 등록해 주어야 한다.  
@@ -843,4 +1674,3 @@ HeidiSQL 프로그램은 무료로 사용할 수 있는 오픈소스 소프트�
 [update_mysql_vsphere_48]:/Service-Guide/images/mysql/update_mysql_vsphere_48.png
 [update_mysql_vsphere_49]:/Service-Guide/images/mysql/update_mysql_vsphere_49.png
 [update_mysql_vsphere_50]:/Service-Guide/images/mysql/update_mysql_vsphere_50.png
-
