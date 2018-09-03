@@ -144,29 +144,41 @@ PaaS-TA 포탈의 관리에 필요한 기능을 수행하기 위한 메뉴이다
 ![24]
 
 ※ delivery-pipeline 앱 서비스 등록 방법 예시
-1. 앱 서비스 등록 폼에 이름을 입력한다. 
-2. 분류는 "개발 지원 도구"로 지정한다.
-3. 서비스는 "delivery-pipeline-v2" 로 지정한다.
-4. 썸네일는 사용자가 등록하고자 하는 이미지를 지정하여 선택한다.
-5. 문서 URL을 넣어준다.
-    (예) https://github.com/PaaS-TA/DELIVERY-PIPELINE-UI
-6. 서비스 생성시 필요한 파라미터값을 설정한다.
+1. 앱 서비스 등록 폼 화면에 앱 서비스 등록에 필요한 내용을 입력한다.
+2. 앱 서비스에 등록할 이름을 입력한다. 
+3. 분류는 "개발 지원 도구"로 지정한다.
+4. 서비스는 "delivery-pipeline-v2" 로 지정한다.
+5. 썸네일는 사용자가 등록하고자 하는 이미지를 지정하여 선택한다. 
+    <br>**썸네일 적용 시 'PaaS-TA 사용자'에서 카탈로그 서비스 리스트 및 서비스 등록 시 이미지를 확인 할 수 있다.**<br>
+![pipeline-app-service]
+6. 문서 URL을 넣어준다. 
+    <br>(예) https://github.com/PaaS-TA/DELIVERY-PIPELINE-UI
+    <br>**문서 URL 적용 시 'PaaS-TA 사용자'카탈로그 서비스 등록시 '문서보기' 버튼 활성화 된다.**<br>
+![pipeline-app-service-create]
+7. 서비스 생성시 필요한 파라미터값을 설정한다.
     (예) owner : '자동입력' /  org_name : '자동입력'
-7. 대시보드 사용 시 "Y" 를 필수로 설정한다.
-8. 그 외 앱 바인딩 사용과 공개여부, 요약, 설명을 입력하여 서비스 등록을 완료한다.
+8. 앱 바인드 사용 은 "N"으로 선택한다.
+9. 대시보드 사용 시 "Y" 를 필수 설정한다. 대시보드 "N" 설정시 대시보드 버튼이 비 활성화 된다.
+    <br>**대시보드 적용 시 'PaaS-TA 사용자'에서 카탈로그 앱 서비스 "대시보드" 버튼 활성화 된다.**<br>
+![pipeline-app-dashboard]
+10. 그 외 공개여부, 요약, 설명을 입력하여 "저장" 버튼을 클릭하여 서비스 등록을 완료한다.
 ![pipeline]
      
 ※ p-sourcecontrol 앱 서비스 등록 방법 예시
-1. 앱 서비스 등록 폼에 이름을 입력한다. 
-2. 분류는 "개발 지원 도구"로 지정한다.
-3. 서비스는 "p-paasta-sourcecontrol" 로 지정한다.
-4. 썸네일는 사용자가 등록하고자 하는 이미지를 지정하여 선택한다.
-5. 문서 URL을 넣어준다.
-    (예)https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Service-Guide/Tools/PaaS-TA%20%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC%20%EC%84%9C%EB%B9%84%EC%8A%A4%ED%8C%A9%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md
-6. 서비스 생성시 필요한 파라미터값을 설정한다.
+1. 앱 서비스 등록 폼 화면에 앱 서비스 등록에 필요한 내용을 입력한다.
+2. 앱 서비스에 등록할 이름을 입력한다. 
+3. 분류는 "개발 지원 도구"로 지정한다.
+4. 서비스는 "p-paasta-sourcecontrol" 로 지정한다.
+5. 썸네일는 사용자가 등록하고자 하는 이미지를 지정하여 선택한다.
+6. 문서 URL을 넣어준다.
+    <br>(예) https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/master/Service-Guide/Tools/PaaS-TA%20%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC%20%EC%84%9C%EB%B9%84%EC%8A%A4%ED%8C%A9%20%EC%84%A4%EC%B9%98%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.0.md
+    <br>**문서 URL 적용 시 'PaaS-TA 사용자'카탈로그 서비스 등록시 '문서보기' 버튼 활성화 된다.**<br>
+7. 서비스 생성시 필요한 파라미터값을 설정한다.
     (예) owner : '자동입력' /  org_name : '자동입력'
-7. 대시보드 사용 시"Y" 를 필수로 설정한다.
-8. 그 외 앱 바인딩 사용과 공개여부, 요약, 설명을 입력하여 서비스 등록을 완료한다.
+8. 앱 바인드 사용 은 "N"으로 선택한다.
+9. 대시보드 사용 시 "Y" 를 필수 설정한다. 대시보드 "N" 설정시 대시보드 버튼이 비 활성화 된다.
+    <br>**문서 URL 적용 시 'PaaS-TA 사용자'카탈로그 서비스 등록시 '문서보기' 버튼 활성화 된다.**<br>
+10. 그 외 공개여부, 요약, 설명을 입력하여 "저장" 버튼을 클릭하여 서비스 등록을 완료한다.
 ![sourcecontroller]
 
 ### <a name="4.4"/>  4.4. 사용자 관리
@@ -344,4 +356,7 @@ PaaS-TA 포탈의 서비스 관리를 수행하기 위한 메뉴이다.<br>
 [58]:../images/admin-portal/portal-web-admin-58.png					
 [59]:../images/admin-portal/portal-web-admin-59.png	
 [pipeline]:../images/admin-portal/portal-web-admin-pipeline.png
+[pipeline-app-service]:../images/admin-portal/pipeline-app-service.png
+[pipeline-app-service-create]:../images/admin-portal/pipeline-app-service-create.png
+[pipeline-app-dashboard]:../images/admin-portal/pipeline-app-dashboard.png
 [sourcecontroller]:../images/admin-portal/portal-web-admin-sourcecontroller.png
