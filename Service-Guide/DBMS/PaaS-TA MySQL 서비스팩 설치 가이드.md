@@ -11,7 +11,7 @@
   - 2.4. [MySQL 서비스 브로커 등록](#24-mysql-서비스-브로커-등록)
 3. [MySQL 연동 Sample Web App 설명](#3-mysql-연동-sample-web-app-설명)
   - 3.1. [Sample Web App 구조](#31-sample-web-app-구조)
-  - 3.2. [PaaS-TA에서 서비스 신청](#32-PaaS-TA에서-서비스-신청)
+  - 3.2. [PaaS-TA에서 서비스 신청](#32-paas-ta에서-서비스-신청)
   - 3.3. [Sample Web App에 서비스 바인드 신청 및 App 확인](#33-sample-web-app에-서비스-바인드-신청-및-app-확인)
 4. [MySQL Client 툴 접속](#4-mysql-client-툴-접속)
   - 4.1. [HeidiSQL 설치 및 연결](#41-heidisql-설치-및-연결)
