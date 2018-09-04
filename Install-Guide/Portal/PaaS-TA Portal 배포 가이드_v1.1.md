@@ -32,17 +32,17 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 
 | 구분 | Resource Pool | 스펙 |
 |--------|-------|-------|
-| binary_storage | medium | 2vCPU / 4GB RAM / 20GB Disk 10GB(영구적 Disk) |
-| haproxy | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| mariadb | small | 1vCPU / 4GB RAM / 30GB Disk +10GB(영구적 Disk) |
-| paas-ta-portal-registration | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-gateway | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-api | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-common-api | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-log-api | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-storage-api | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-webadmin | medium | 2vCPU / 4GB RAM / 20GB Disk |
-| paas-ta-portal-webuser | medium | 2vCPU / 4GB RAM / 20GB Disk |
+| binary_storage | portal_large | 1vCPU / 2GB RAM / 4GB Disk 10GB(영구적 Disk) |
+| haproxy | portal_large | 1vCPU / 2GB RAM / 4GB Disk |
+| mariadb | portal_large | 1vCPU / 2GB RAM / 4GB Disk +10GB(영구적 Disk) |
+| paas-ta-portal-registration | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-gateway | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-api | portal_large | 1vCPU / 2GB RAM / 4GB Disk |
+| paas-ta-portal-common-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-log-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-storage-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-webadmin | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-webuser | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
 
 ### 1.4. 참고자료
 [**http://bosh.io/docs**](http://bosh.io/docs)  
@@ -522,10 +522,26 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 		    ram: 4096
 		  name: service_medium
 		- cloud_properties:
-		    cpu: 2
-		    disk: 10240
-		    ram: 2048
-		  name: service_medium_2G
+            cpu: 2
+            disk: 10240
+            ram: 2048
+          name: service_medium_2G
+        - cloud_properties:
+            cpu: 1
+            disk: 4096
+            ram: 512
+          name: portal_small
+        - cloud_properties:
+            cpu: 1
+            disk: 4096
+            ram: 1024
+          name: portal_medium
+        - cloud_properties:
+            cpu: 1
+            disk: 4096
+            ram: 2048
+          name: portal_large
+
 
 		Succeeded
 
@@ -560,7 +576,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: small
+  vm_type: portal_large
   stemcell: "((stemcell_alias))"
   persistent_disk_type: "((mariadb_disk_type))"
   networks:
@@ -577,7 +593,7 @@ instance_groups:
   - z3
   instances: 1
   persistent_disk_type: "((binary_storage_disk_type))"
-  vm_type: medium
+  vm_type: portal_large
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -593,7 +609,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_large
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -613,7 +629,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_medium
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -633,7 +649,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_small
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -644,18 +660,18 @@ instance_groups:
     release: paas-ta-portal-release
   syslog_aggregator: null
   properties:
-    java_opts: "-Xms512m -Xmx1024m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -Dfile.encoding=UTF-8 -XX:+UseConcMarkSweepGC -XX:SoftRefLRUPolicyMSPerMB=50 -Dsun.io.useCanonCaches=false -Djava.net.preferIPv4Stack=true -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Xverify:none -XX:ErrorFile=/var/vcap/sys/log/java_error_in_idea_%p.log -XX:HeapDumpPath=/var/vcap/sys/log/java_error_in_idea.hprof"
+    java_opts: "-Xms256m -Xmx512m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -Dfile.encoding=UTF-8 -XX:+UseConcMarkSweepGC -XX:SoftRefLRUPolicyMSPerMB=50 -Dsun.io.useCanonCaches=false -Djava.net.preferIPv4Stack=true -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Xverify:none -XX:ErrorFile=/var/vcap/sys/log/java_error_in_idea_%p.log -XX:HeapDumpPath=/var/vcap/sys/log/java_error_in_idea.hprof"
     infra:
       admin:
-        enable: false                 #infra-admin 활성시엔 true
+        enable: false
     server:
       port: 2221
 
-#- name: paas-ta-portal-infra-admin   #
+#- name: paas-ta-portal-infra-admin
 #  azs :
 #  - z3
 #  instances: 1
-#  vm_type: medium
+#  vm_type: portal_medium
 #  stemcell: "((stemcell_alias))"
 #  networks:
 #  - name: ((internal_networks_name))
@@ -676,7 +692,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_large
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -725,7 +741,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_medium
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -769,7 +785,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_medium
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -829,7 +845,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_medium
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -858,7 +874,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_medium
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -883,7 +899,7 @@ instance_groups:
   azs:
   - z3
   instances: 1
-  vm_type: medium
+  vm_type: portal_medium
   stemcell: "((stemcell_alias))"
   networks:
   - name: ((internal_networks_name))
@@ -1331,7 +1347,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: mariadb
         +     release: paas-ta-portal-release
-        +   vm_type: small
+        +   vm_type: portal_large
         + - azs:
         +   - z3
         +   instances: 1
@@ -1346,7 +1362,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: binary_storage
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_large
         + - azs:
         +   - z3
         +   instances: 1
@@ -1365,7 +1381,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: haproxy
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_large
         + - azs:
         +   - z3
         +   instances: 1
@@ -1384,7 +1400,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-gateway
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_medium
         + - azs:
         +   - z3
         +   instances: 1
@@ -1405,7 +1421,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-registration
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_small
         + - azs:
         +   - z3
         +   instances: 1
@@ -1453,7 +1469,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-api
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_large
         + - azs:
         +   - z3
         +   instances: 1
@@ -1496,7 +1512,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-log-api
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_medium
         + - azs:
         +   - z3
         +   instances: 1
@@ -1555,7 +1571,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-common-api
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_medium
         + - azs:
         +   - z3
         +   instances: 1
@@ -1583,7 +1599,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-storage-api
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_medium
         + - azs:
         +   - z3
         +   instances: 1
@@ -1607,7 +1623,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-webadmin
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_medium
         + - azs:
         +   - z3
         +   instances: 1
@@ -1632,7 +1648,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +   templates:
         +   - name: paas-ta-portal-webuser
         +     release: paas-ta-portal-release
-        +   vm_type: medium
+        +   vm_type: portal_medium
           
         + name: paas-ta-portal-v2
           
@@ -1773,19 +1789,19 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         
         Deployment 'paas-ta-portal-v2'
         
-        Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type  Active  
-        binary_storage/b405f486-e29b-48f1-9595-e624a92aa90f               running        z3  10.30.107.212  vm-9c9056a1-89a1-4092-8e1e-c638a96f775e  medium   true  
-        haproxy/d579d961-90bc-437c-96b8-6c23db2884ca                      running        z3  10.30.107.213  vm-e91fccbe-ef83-4d93-ac39-9ae089aa708e  medium   true  
-                                                                                             115.68.46.214                                                      
-        mariadb/ecb93167-602a-45d7-bcbc-502a3802c1f1                      running        z3  10.30.107.211  vm-a3bb10e4-1846-436f-b097-3b154156794a  small    true  
-        paas-ta-portal-api/3ece24a3-6355-4a8d-8ef6-5ae0c1fa13ef           running        z3  10.30.107.217  vm-849725e7-212a-4228-a9a5-60fc0ed26478  medium   true  
-        paas-ta-portal-common-api/8be2c6ae-b9f3-4759-82aa-4b3e677bd421    running        z3  10.30.107.219  vm-650f5f0e-22c4-4501-b3d9-c0d705a6d871  medium   true  
-        paas-ta-portal-gateway/50671fc0-0e63-4a8a-a3ae-9180da92708f       running        z3  10.30.107.214  vm-77b910eb-848a-4e07-b305-5ac1d09ede0f  medium   true  
-        paas-ta-portal-log-api/3df3861e-5652-4939-956c-019a7895611a       running        z3  10.30.107.218  vm-b586d35b-299d-4291-abbb-6c8306dd9314  medium   true  
-        paas-ta-portal-registration/31137bcb-551c-4261-b03c-e9a12da030c9  running        z3  10.30.107.215  vm-f8ea1db2-5360-459e-abf6-0f86a0c75ddc  medium   true  
-        paas-ta-portal-storage-api/6b5fc5a9-9066-42e1-839f-e441af45e622   running        z3  10.30.107.220  vm-b9e9ca8d-0777-40c8-8efe-85b9af344d3e  medium   true  
-        paas-ta-portal-webadmin/969fcecc-943a-4f50-a00d-3d5f1bc65609      running        z3  10.30.107.221  vm-29bcd352-1953-42b1-9deb-bc9c8375d438  medium   true  
-        paas-ta-portal-webuser/07db9f77-faa8-4490-afdf-3287a82a497d       running        z3  10.30.107.222  vm-019fe7a9-c5cd-485d-b9f8-e9977eaa4cf9  medium   true  
+        Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type        Active  
+        binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z3  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
+        haproxy/8cc2d633-2b43-4f3d-a2e8-72f5279c11d5                      running        z3  10.30.107.213  vm-315bfa1b-9829-46de-a19d-3bd65e9f9ad4  portal_large   true  
+                                                                                             115.68.46.214                                                            
+        mariadb/117cbf05-b223-4133-bf61-e15f16494e21                      running        z3  10.30.107.211  vm-bc5ae334-12d4-41d4-8411-d9315a96a305  portal_large   true  
+        paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c           running        z3  10.30.107.217  vm-9d2a1929-0157-4c77-af5e-707ec496ed87  portal_medium  true  
+        paas-ta-portal-common-api/060320fa-7f26-4032-a1d9-6a7a41a044a8    running        z3  10.30.107.219  vm-f35e9838-74cf-40e0-9f97-894b53a68d1f  portal_medium  true  
+        paas-ta-portal-gateway/6baba810-9a4a-479d-98b2-97e5ba651784       running        z3  10.30.107.214  vm-7ec75160-bf34-442e-b755-778ae7dd3fec  portal_medium  true  
+        paas-ta-portal-log-api/a4460008-42b5-4ba0-84ee-fff49fe6c1bd       running        z3  10.30.107.218  vm-9ec0a1b0-09f6-415b-8e23-53af91fd94b8  portal_medium  true  
+        paas-ta-portal-registration/3728ed73-451e-4b93-ab9b-c610826c3135  running        z3  10.30.107.215  vm-c4020514-c458-41c6-bcbc-7e0ee1bc6f42  portal_small   true  
+        paas-ta-portal-storage-api/2940366a-8294-4509-a9c0-811c8140663a   running        z3  10.30.107.220  vm-79ad6ee1-1bb5-4308-8b71-9ed30418e2c1  portal_medium  true  
+        paas-ta-portal-webadmin/8047fcbd-9a98-4b61-b161-0cbb277fa643      running        z3  10.30.107.221  vm-188250fd-e918-4aab-9cbe-7d368852ea8a  portal_medium  true  
+        paas-ta-portal-webuser/cb206717-81c9-49ed-a0a8-e6c3b957cb66       running        z3  10.30.107.222  vm-822f68a5-91c8-453a-b9b3-c1bbb388e377  portal_medium  true
         
         11 vms
         
@@ -1817,415 +1833,47 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
     
         [실제 URL]
         URL 입력 방법
-        예) User_Portal 클라이언트 등록시에 --redirect_uri "http://portal-web-user.115.68.46.214.xip.io/callback" 같이 /callback까지 입력
+        예) User_Portal 클라이언트 등록시에 --redirect_uri "http://portal-web-user.115.68.46.214.xip.io , http://portal-web-user.115.68.46.214.xip.io/callback" 같이 /callback추가 입력
         예) http://10.10.10.1:8080 까지 입력 포트번호가 없을 경우 http://10.10.10.1 까지만 입력
     
         클라이언트를 등록시 다중 URL 입력 가능
         예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력        
 
-# 3. MySQL 연동 Sample Web App 설명
-본 Sample Web App은 PaaS-TA에 배포되며 MySQL의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
+# 3. PaaS-TA Portal Release 테스트
+본 PaaS-TA Portal Release 테스트는 배포가 완료된 후 모든 Instance가 running일 경우 진행한다.
 
-### 3.1. Sample Web App 구조
+### 3.1. Mariadb
+#####1. Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
+  
+>![paas-ta-portal-02] 
+>> User Name: root , Port, Password : deploy-vsphere.sh의 mariadb_port, mariadb_user_password 값
 
-Sample Web App은 PaaS-TA에 App으로 배포가 된다. App을 배포하여 구동시 Bind 된 MySQL 서비스 연결정보로 접속하여 초기 데이터를 생성하게 된다. 배포 완료 후 정상적으로 App 이 구동되면 브라우져나 curl로 해당 App에 접속 하여 MySQL 환경정보(서비스 연결 정보)와 초기 적재된 데이터를 보여준다.
+#####2. portaldb의 테이블을 열어 정상적으로 테이블이 생성되었는지 확인한다.
+>![paas-ta-portal-03]
 
-Sample Web App 구조는 다음과 같다.
+#####3. haproxy에 오류가 있을경우 포트포워딩을 통해 접근이 가능하다.
+>![paas-ta-portal-04]
+>>대상 호스트 : deploy-vsphere.sh의 mariadb_ips값
 
-| 이름 | 설명
-| ---- | ------------
-| src | Sample 소스 디렉토리
-| manifest | PaaS-TA에 app 배포시 필요한 설정을 저장하는 파일
-| pom.xml | 메이븐 project 설정 파일
-| target | 메이븐 빌드시 생성되는 디렉토리(war 파일, classes 폴더 등)
+>![paas-ta-portal-05]
 
-##### PaaSTA-Sample-Apps을 다운로드 받고 Service 폴더안에 있는 MySQL Sample Web App인 hello-spring-mysql를복사한다.
 
->`$ ls -all`
 
->![update_mysql_vsphere_21]
+### 3.2. API
+#####1. Eureka 연결 확인 
+웹 브라우저에서 유레카에 접속해 webuser를 제외한 웹 서비스가 연결되어 있는지 확인한다.
+* 접근방법 : http://portal-registration.[portal_registration_ips].xip.io/
+>![paas-ta-portal-06]
 
-<br>
-
-### 3.2. PaaS-TA에서 서비스 신청
-Sample Web App에서 MySQL 서비스를 사용하기 위해서는 서비스 신청(Provision)을 해야 한다.
-
-*참고: 서비스 신청시 PaaS-TA에서 서비스를 신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
-
-<br>
-
-##### 먼저 PaaS-TA Marketplace에서 서비스가 있는지 확인을 한다.
-
->`$ cf marketplace`
-
->![update_mysql_vsphere_22]
-
-<br>
-
-##### Marketplace에서 원하는 서비스가 있으면 서비스 신청(Provision)을 한다.
-
->`$ cf create-service {서비스명} {서비스플랜} {내서비스명}`
-
->서비스명 : p-mysql로 Marketplace에서 보여지는 서비스 명칭이다.
->서비스플랜 : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. MySQL 서비스는 10 connection, 100 connection 를 지원한다.
->내 서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.
-
->`$ cf create-service 'Mysql-DB' Mysql-Plan2-100con mysql-service-instance
-
->![update_mysql_vsphere_23]
-<br>
-
-##### 생성된 MySQL 서비스 인스턴스를 확인한다.
-
->`$ cf services`
-
->![update_mysql_vsphere_24]
-
-<br>
-
-### 3.3. Sample Web App에 서비스 바인드 신청 및 App 확인
-서비스 신청이 완료되었으면 Sample Web App 에서는 생성된 서비스 인스턴스를 Bind 하여 App에서 MySQL 서비스를 이용한다. 
-*참고: 서비스 Bind 신청시 PaaS-TA에서 서비스 Bind신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
-
-<br>
-
-##### Sample Web App 디렉토리로 이동하여 manifest 파일을 확인한다.
-
->`$ cd hello-spring-mysql`
-
->`$ vi manifest.yml`
-
-```yml
----
-applications:
-- name: hello-spring-mysql       #배포할 App 이름
-  memory: 512M                # 배포시 메모리 사이즈
-  instances: 1                    # 배포 인스턴스 수
-path: target/hello-spring-mysql-1.0.0-BUILD-SNAPSHOT.war      #배포하는 App 파일 PATH
-```
-
->참고: target/hello-spring-mysql-1.0.0-BUILD-SNAPSHOT.war파일이 존재 하지 않을 경우 mvn 빌드를 수행 하면 파일이 생성된다.
-
-<br>
-
-##### --no-start 옵션으로 App을 배포한다.  
-
->--no-start: App 배포시 구동은 하지 않는다.
-
->`$ cf push --no-start`
-
->![update_mysql_vsphere_25]
-
-<br>
-
-##### 배포된 Sample App을 확인하고 로그를 수행한다.
->`$ cf apps`
-
->![update_mysql_vsphere_26]
-
->`$ cf logs {배포된 App명}`
-
->`$ cf logs hello-spring-mysql`
-
->![update_mysql_vsphere_27]
-
-<br>
-
-##### Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다.
-
->`$ cf bind-service hello-spring-mysql mysql-service-instance`
-
->![update_mysql_vsphere_28]
-
-<br>
-
-##### 바인드가 적용되기 위해서 App을 재기동한다.
-
->`$ cf restart hello-spring-mysql`
-
->![update_mysql_vsphere_29]
-
->(참고) 바인드 후 App구동시 Mysql 서비스 접속 에러로 App 구동이 안될 경우 보안 그룹을 추가한다.  
-
-<br>
-
-##### rule.json 화일을 만들고 아래와 같이 내용을 넣는다.
->`$ vi rule.json`
-
-```json
-[
-  {
-    "protocol": "tcp",
-    "destination": "10.0.0.63",
-    "ports": "3306"
-  }
-]
-```
-<br>
-
-##### 보안 그룹을 생성한다.
-
->`$ cf create-security-group p-mysql rule.json`
-
->![update_mysql_vsphere_30]
-
-<br>
-
-##### 모든 App에 Mysql 서비스를 사용할수 있도록 생성한 보안 그룹을 적용한다.
-
->`$ cf bind-running-security-group p-mysql`
-
->![update_mysql_vsphere_31]
-
-<br>
-
-##### App을 리부팅 한다.
-
->`$ cf restart hello-spring-mysql`
-
->![update_mysql_vsphere_32]
-
-<br>
-
-##### App이 정상적으로 MySQL 서비스를 사용하는지 확인한다.
-
->curl 로 확인
-
->`$ curl hello-spring-mysql.52.71.64.39.xip.io`
-
->![update_mysql_vsphere_33]
-
-> 브라우져에서 확인
->![update_mysql_vsphere_34]
-
-# 4. MySQL Client 툴 접속
-
-Application에 바인딩 된 MySQL 서비스 연결정보는 Private IP로 구성되어 있기 때문에 MySQL Client 툴에서 직접 연결할수 없다. 따라서 MySQL Client 툴에서 SSH 터널, Proxy 터널 등을 제공하는 툴을 사용해서 연결하여야 한다. 본 가이드는 SSH 터널을 이용하여 연결 하는 방법을 제공하며 MySQL Client 툴로써는 오픈 소스인 HeidiSQL로 가이드한다. HeidiSQL 에서 접속하기 위해서 먼저 SSH 터널링 할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 Open PaaS 에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 vSphere관리자 및 OpenPaaS 운영자에게 문의하여 구성한다.
-
-### 4.1. HeidiSQL 설치 및 연결
-
-HeidiSQL 프로그램은 무료로 사용할 수 있는 오픈소스 소프트웨어이다.
-
-##### HeidiSQL을 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다.
-
->[http://www.heidisql.com/download.php](http://www.heidisql.com/download.php)
-
->![mysql_vsphere_4.1.01]
-
-<br>
-
-##### 다운로드한 설치파일을 실행한다.
-
->![mysql_vsphere_4.1.02]
-
-<br>
-
-##### HeidSQL 설치를 위한 안내사항이다. Next 버튼을 클릭한다.
-
->![mysql_vsphere_4.1.03]
-
-<br>
-
-##### 프로그램 라이선스에 관련된 내용이다. 동의(I accept the agreement)에 체크 후 Next 버튼을 클릭한다.
-
->![mysql_vsphere_4.1.04]
-
-<br>
-
-##### HeidiSQL을 설치할 경로를 설정 후 Next 버튼을 클릭한다.
-
->별도의 경로 설정이 필요 없을 경우 default로 C드라이브 Program Files 폴더에 설치가 된다.
-
->![mysql_vsphere_4.1.05]
-
-<br>
-
-##### 설치 완료 후 시작메뉴에 HeidiSQL 바로가기 아이콘의 이름을 설정하는 과정이다.  
->Next 버튼을 클릭하여 다음 과정을 진행한다.
-
->![mysql_vsphere_4.1.06]
-
-<br>
-
-##### 체크박스가 4개가 있다. 아래의 경우를 고려하여 체크 및 해제를 한다.
-> 
-  바탕화면에 바로가기 아이콘을 생성할 경우  
-  sql확장자를 HeidiSQL 프로그램으로 실행할 경우  
-  heidisql 공식 홈페이지를 통해 자동으로 update check를 할 경우  
-  heidisql 공식 홈페이지로 자동으로 버전을 전송할 경우
-
-> 체크박스에 체크 설정/해제를 완료했다면 Next 버튼을 클릭한다.
-
->![mysql_vsphere_4.1.07]
-
-<br>
-
-##### 설치를 위한 모든 설정이 한번에 출력된다. 확인 후 Install 버튼을 클릭하여 설치를 진행한다.
-
->![mysql_vsphere_4.1.08]
-
-<br>
-
-##### Finish 버튼 클릭으로 설치를 완료한다.
-
->![mysql_vsphere_4.1.09]
-
-<br>
-
-##### HeidiSQL을 실행했을 때 처음 뜨는 화면이다. 이 화면에서 Server에 접속하기 위한 profile을 설정/저장하여 접속할 수 있다. 신규 버튼을 클릭한다.
-
->![mysql_vsphere_4.1.10]
-
-<br>
-
-##### 어떤 Server에 접속하기 위한 Connection 정보인지 별칭을 입력한다.
-
->![mysql_vsphere_4.1.11]
-
-<br>
-
-##### 네트워크 유형의 목록에서 MySQL(SSH tunel)을 선택한다.
-
->![mysql_vsphere_4.1.12]
-
-<br>
-
-##### 아래 붉은색 영역에 접속하려는 서버 정보를 모두 입력한다.
-
->![mysql_vsphere_4.1.13]
-
->서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env <app_name> 명령어로 이용하여 확인한다.
-
->**예)** $cf env hello-spring-mysql
-
->![mysql_vsphere_4.1.14]
-
-<br>
-
-##### - SSH 터널 탭을 클릭하고 OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다. plink.exe 위치 입력은 Putty에서 제공하는 plink.exe 실행 위치를 넣어주고 만일 해당 파일이 없을 경우 plink.exe 내려받기 링크를 클릭하여 다운받는다. 로컬 포트 정보는 임의로 넣고 열기 버튼을 클릭하면 Mysql 데이터베이스에 접속한다.
-
->(참고) 만일 개인 키로 접속이 가능한 경우에는 openstack용 Open PaaS Mysql 서비스팩 설치 가이드를 참고한다.
-
->![mysql_vsphere_4.1.15]
-
-<br>
-
-##### 접속이 완료되면 좌측에 스키마 정보가 나타난다. 하지만 초기설정은 테이블, 뷰, 프로시져, 함수, 트리거, 이벤트 등 모두 섞여 있어서 한눈에 구분하기가 힘들어서 접속한 DB 별칭에 마우스 오른쪽 클릭 후 "트리 방식 옵션" - "객체를 유형별로 묶기"를 클릭하면 아래 화면과 같이 각 유형별로 구분이된다.
-
->![mysql_vsphere_4.1.16]
-
-<br>
-
-##### 우측 화면에 쿼리 탭을 클릭하여 Query문을 작성한 후 실행 버튼(삼각형)을 클릭한다.  
-
->쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다.
-
->![mysql_vsphere_4.1.17]
 
 
 [paas-ta-portal-01]:../../Install-Guide/Portal/images/Paas-TA-Portal_01.png
-[mysql_vsphere_2.2.01]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.01.png
-[mysql_vsphere_2.2.02]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.02.png
-[mysql_vsphere_2.2.03]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.03.png
-[mysql_vsphere_2.2.04]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.04.png
-[mysql_vsphere_2.2.05]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.05.png
-[mysql_vsphere_2.2.06]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.06.png
-[mysql_vsphere_2.2.07]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.07.png
-[mysql_vsphere_2.2.08]:../../Service-Guide/images/mysql/mysql_vsphere_2.2.08.png
-[mysql_vsphere_2.3.01]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.01.png
-[mysql_vsphere_2.3.02]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.02.png
-[mysql_vsphere_2.3.03]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.03.png
-[mysql_vsphere_2.3.04]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.04.png
-[mysql_vsphere_2.3.05]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.05.png
-[mysql_vsphere_2.3.06]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.06.png
-[mysql_vsphere_2.3.07]:../../Service-Guide/images/mysql/mysql_vsphere_2.3.07.png
-
-[mysql_vsphere_2.4.01]:../../Service-Guide/images/mysql/mysql_vsphere_2.4.01.png
-[mysql_vsphere_2.4.02]:../../Service-Guide/images/mysql/mysql_vsphere_2.4.02.png
-[mysql_vsphere_2.4.03]:../../Service-Guide/images/mysql/mysql_vsphere_2.4.03.png
-[mysql_vsphere_2.4.04]:../../Service-Guide/images/mysql/mysql_vsphere_2.4.04.png
-[mysql_vsphere_2.4.05]:../../Service-Guide/images/mysql/mysql_vsphere_2.4.05.png
-[mysql_vsphere_3.1.01]:../../Service-Guide/images/mysql/mysql_vsphere_3.1.01.png
-[mysql_vsphere_3.2.01]:../../Service-Guide/images/mysql/mysql_vsphere_3.2.01.png
-[mysql_vsphere_3.2.02]:../../Service-Guide/images/mysql/mysql_vsphere_3.2.02.png
-[mysql_vsphere_3.2.03]:../../Service-Guide/images/mysql/mysql_vsphere_3.2.03.png
-[mysql_vsphere_3.3.01]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.01.png
-[mysql_vsphere_3.3.02]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.02.png
-[mysql_vsphere_3.3.03]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.03.png
-[mysql_vsphere_3.3.04]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.04.png
-[mysql_vsphere_3.3.05]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.05.png
-[mysql_vsphere_3.3.06]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.06.png
-[mysql_vsphere_3.3.07]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.07.png
-[mysql_vsphere_3.3.08]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.08.png
-[mysql_vsphere_3.3.09]:../../Service-Guide/images/mysql/mysql_vsphere_3.3.09.png
-[mysql_vsphere_4.1.01]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.01.png
-[mysql_vsphere_4.1.02]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.02.png
-[mysql_vsphere_4.1.03]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.03.png
-[mysql_vsphere_4.1.04]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.04.png
-[mysql_vsphere_4.1.05]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.05.png
-[mysql_vsphere_4.1.06]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.06.png
-[mysql_vsphere_4.1.07]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.07.png
-[mysql_vsphere_4.1.08]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.08.png
-[mysql_vsphere_4.1.09]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.09.png
-[mysql_vsphere_4.1.10]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.10.png
-[mysql_vsphere_4.1.11]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.11.png
-[mysql_vsphere_4.1.12]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.12.png
-[mysql_vsphere_4.1.13]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.13.png
-[mysql_vsphere_4.1.14]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.14.png
-[mysql_vsphere_4.1.15]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.15.png
-[mysql_vsphere_4.1.16]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.16.png
-[mysql_vsphere_4.1.17]:../../Service-Guide/images/mysql/mysql_vsphere_4.1.17.png
-
-
-
-[update_mysql_vsphere_01]:../../Service-Guide/images/mysql/update_mysql_vsphere_01.png
-[update_mysql_vsphere_02]:../../Service-Guide/images/mysql/update_mysql_vsphere_02.png
-[update_mysql_vsphere_03]:../../Service-Guide/images/mysql/update_mysql_vsphere_03.png
-[update_mysql_vsphere_04]:../../Service-Guide/images/mysql/update_mysql_vsphere_04.png
-[update_mysql_vsphere_05]:../../Service-Guide/images/mysql/update_mysql_vsphere_05.png
-[update_mysql_vsphere_06]:../../Service-Guide/images/mysql/update_mysql_vsphere_06.png
-[update_mysql_vsphere_07]:../../Service-Guide/images/mysql/update_mysql_vsphere_07.png
-[update_mysql_vsphere_08]:../../Service-Guide/images/mysql/update_mysql_vsphere_08.png
-[update_mysql_vsphere_09]:../../Service-Guide/images/mysql/update_mysql_vsphere_09.png
-[update_mysql_vsphere_10]:../../Service-Guide/images/mysql/update_mysql_vsphere_10.png
-[update_mysql_vsphere_11]:../../Service-Guide/images/mysql/update_mysql_vsphere_11.png
-[update_mysql_vsphere_12]:../../Service-Guide/images/mysql/update_mysql_vsphere_12.png
-[update_mysql_vsphere_13]:../../Service-Guide/images/mysql/update_mysql_vsphere_13.png
-[update_mysql_vsphere_14]:../../Service-Guide/images/mysql/update_mysql_vsphere_14.png
-[update_mysql_vsphere_15]:../../Service-Guide/images/mysql/update_mysql_vsphere_15.png
-[update_mysql_vsphere_16]:../../Service-Guide/images/mysql/update_mysql_vsphere_16.png
-[update_mysql_vsphere_17]:../../Service-Guide/images/mysql/update_mysql_vsphere_17.png
-[update_mysql_vsphere_18]:../../Service-Guide/images/mysql/update_mysql_vsphere_18.png
-[update_mysql_vsphere_19]:../../Service-Guide/images/mysql/update_mysql_vsphere_19.png
-[update_mysql_vsphere_20]:../../Service-Guide/images/mysql/update_mysql_vsphere_20.png
-[update_mysql_vsphere_21]:../../Service-Guide/images/mysql/update_mysql_vsphere_21.png
-[update_mysql_vsphere_22]:../../Service-Guide/images/mysql/update_mysql_vsphere_22.png
-[update_mysql_vsphere_23]:../../Service-Guide/images/mysql/update_mysql_vsphere_23.png
-[update_mysql_vsphere_24]:../../Service-Guide/images/mysql/update_mysql_vsphere_24.png
-[update_mysql_vsphere_25]:../../Service-Guide/images/mysql/update_mysql_vsphere_25.png
-[update_mysql_vsphere_26]:../../Service-Guide/images/mysql/update_mysql_vsphere_26.png
-[update_mysql_vsphere_27]:../../Service-Guide/images/mysql/update_mysql_vsphere_27.png
-[update_mysql_vsphere_28]:../../Service-Guide/images/mysql/update_mysql_vsphere_28.png
-[update_mysql_vsphere_29]:../../Service-Guide/images/mysql/update_mysql_vsphere_29.png
-[update_mysql_vsphere_30]:../../Service-Guide/images/mysql/update_mysql_vsphere_30.png
-[update_mysql_vsphere_31]:../../Service-Guide/images/mysql/update_mysql_vsphere_31.png
-[update_mysql_vsphere_32]:../../Service-Guide/images/mysql/update_mysql_vsphere_32.png
-[update_mysql_vsphere_33]:../../Service-Guide/images/mysql/update_mysql_vsphere_33.png
-[update_mysql_vsphere_34]:../../Service-Guide/images/mysql/update_mysql_vsphere_34.png
-
-[update_mysql_vsphere_35]:../../Service-Guide/images/mysql/update_mysql_vsphere_35.png
-[update_mysql_vsphere_36]:../../Service-Guide/images/mysql/update_mysql_vsphere_36.png
-[update_mysql_vsphere_37]:../../Service-Guide/images/mysql/update_mysql_vsphere_37.png
-[update_mysql_vsphere_38]:../../Service-Guide/images/mysql/update_mysql_vsphere_38.png
-[update_mysql_vsphere_39]:../../Service-Guide/images/mysql/update_mysql_vsphere_39.png
-[update_mysql_vsphere_40]:../../Service-Guide/images/mysql/update_mysql_vsphere_40.png
-[update_mysql_vsphere_41]:../../Service-Guide/images/mysql/update_mysql_vsphere_41.png
-[update_mysql_vsphere_42]:../../Service-Guide/images/mysql/update_mysql_vsphere_42.png
-[update_mysql_vsphere_43]:../../Service-Guide/images/mysql/update_mysql_vsphere_43.png
-[update_mysql_vsphere_44]:../../Service-Guide/images/mysql/update_mysql_vsphere_44.png
-[update_mysql_vsphere_45]:../../Service-Guide/images/mysql/update_mysql_vsphere_45.png
-[update_mysql_vsphere_46]:../../Service-Guide/images/mysql/update_mysql_vsphere_46.png
-[update_mysql_vsphere_47]:../../Service-Guide/images/mysql/update_mysql_vsphere_47.png
-[update_mysql_vsphere_48]:../../Service-Guide/images/mysql/update_mysql_vsphere_48.png
-[update_mysql_vsphere_49]:../../Service-Guide/images/mysql/update_mysql_vsphere_49.png
-[update_mysql_vsphere_50]:../../Service-Guide/images/mysql/update_mysql_vsphere_01.png
+[paas-ta-portal-02]:../../Install-Guide/Portal/images/Paas-TA-Portal_02.png
+[paas-ta-portal-03]:../../Install-Guide/Portal/images/Paas-TA-Portal_03.png
+[paas-ta-portal-04]:../../Install-Guide/Portal/images/Paas-TA-Portal_04.png
+[paas-ta-portal-05]:../../Install-Guide/Portal/images/Paas-TA-Portal_05.png
+[paas-ta-portal-06]:../../Install-Guide/Portal/images/Paas-TA-Portal_06.png
+[paas-ta-portal-07]:../../Install-Guide/Portal/images/Paas-TA-Portal_07.png
+[paas-ta-portal-08]:../../Install-Guide/Portal/images/Paas-TA-Portal_08.png
+[paas-ta-portal-09]:../../Install-Guide/Portal/images/Paas-TA-Portal_09.png
+[paas-ta-portal-10]:../../Install-Guide/Portal/images/Paas-TA-Portal_10.png
