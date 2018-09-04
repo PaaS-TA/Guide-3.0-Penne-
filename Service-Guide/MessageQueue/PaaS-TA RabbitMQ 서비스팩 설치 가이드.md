@@ -10,10 +10,9 @@
   - 2.3. [2.3. RabbitMQ 서비스 Deployment 파일 수정 및 배포](#23-rabbitMQ-서비스-deployment-파일-수정-및-배포)
   - 2.4. [RabbitMQ 서비스 브로커 등록](#24-rabbitMQ-서비스-브로커-등록)
 3. [RabbitMQ 연동 Sample App 설명](#3-rabbitMQ-연동-sample-web-app-설명)
-     * [3.1. Sample App 구조](#31-sample-app-구조)
-     * [3.2. PaaS-TA에서 서비스 신청](#32-paas-ta에서-서비스-신청)
-     * [3.3. Sample App에 서비스 바인드 신청 및 App 확인](#33-sample-app에-서비스-바인드-신청-및-app-확인)
-     
+  - 3.1. [Sample App 구조](#31-sample-app-구조)
+  - 3.2. [PaaS-TA에서 서비스 신청](#32-paas-ta에서-서비스-신청)
+  - 3.3. [Sample App에 서비스 바인드 신청 및 App 확인](#33-sample-app에-서비스-바인드-신청-및-app-확인)
      
 # 1. 문서 개요
 ### 1.1. 목적
