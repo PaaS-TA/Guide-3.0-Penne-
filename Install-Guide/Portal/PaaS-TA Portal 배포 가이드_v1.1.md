@@ -9,12 +9,9 @@
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
     *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
     *  [2.4 UAA 포탈 클라이언트 계정 등록](#24-uaa-포탈-클라이언트-계정-등록)
-3. [MySQL 연동 Sample Web App 설명](#3-mysql-연동-sample-web-app-설명)
-    * [Sample Web App 구조](#31-sample-web-app-구조)
-    * [PaaS-TA에서 서비스 신청](#32-개방형-클라우드-플랫폼에서-서비스-신청)
-    * [Sample Web App에 서비스 바인드 신청 및 App 확인](#33-sample-web-app에-서비스-바인드-신청-및-app-확인)
-4. [MySQL Client 툴 접속](#4-mysql-client-툴-접속)
-    * [HeidiSQL 설치 및 연결](#41-heidisql-설치-및-연결)
+3. [PaaS-TA Portal Release 테스트](#3-paas-ta-portal-release-테스트)
+    * [Mariadb](#31-mariadb)
+    * [API](#32-api)
 
 # 1. 문서 개요
 ### 1.1. 목적
@@ -546,7 +543,7 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 		Succeeded
 
 
--	Deployment 파일을 서버 환경에 맞게 수정한다.
+-	Deployment 파일을 서버 환경에 맞게 수정한다. //(바꿔야할 변수 및 설명 추가해야함)
 >"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-vsphere.sh 참고 예) os : ((stemcell_os))
  
 ```yml
@@ -967,11 +964,11 @@ properties:
 ```
 >현재 기본으로 제공된 release는 infra-admin은 비활성화 상태다. 활성화 하려면 instance_group의 infra-admin 설정부분앞의 #을 제거하고 paas-ta-portal-registration의 infra admin enable을 true로 바꿔야한다.
 
--	deploy-vsphere.sh 파일을 서버 환경에 맞게 수정한다. //내용 추가작업
-
+-	deploy-vsphere.sh 파일을 서버 환경에 맞게 수정한다.
+        - bosh 명령문 후에 주석(#)을 사용할경우 오류가 발생한다. 
 ```sh
 기본 명령어 : bosh -e micro-bosh -d [deployment name] [deploy.yml]
-deploy-vsphere.sh은 주석처리가 되지 않기 때문에 실제 deploy-vsphere.sh엔 설명부분은 빠져있습니다. 
+
 #!/bin/bash
 # stemcell 버전은 3445.2 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
 
@@ -1027,9 +1024,127 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
    -v mail_smtp_properties_starttls_required="true"\                        Mail_smtp starttls required
    -v mail_smtp_properties_subject="PaaS-TA User Potal"                     Mail_smtp subject(메일 제목)
 ```
-> paas_ta_web_user_url 설정시 ip는 proxy static ip로 등록해야 한다. 
+> release_version : 릴리즈 버전을 입력한다. $bosh releases 명령문으로 확인가능
+ 
+    - $ bosh releases
+      Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+      Name                              Version   Commit Hash  
+      paas-ta-portal-release             2.0*      00000000  
 
--	PaaS-TA Portal을 배포한다.
+> stemcell_os : 스템셀 OS를 입력한다. $bosh stemcells 명령문으로 확인가능\
+> stemcell_version : 스템셀 버전을 입력한다. $bosh stemcells 명령문으로 확인가능(3445.2 verion 사용)\
+> stemcell_alias : bosh deploy시 사용할 스템셀 명칭을 정한다.
+
+    - $ bosh stemcells
+      Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+      Name                                      Version   OS             CPI  CID  
+      bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+      ~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+      ~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
+      (*) Currently deployed
+      3 stemcells
+      
+> internal_networks_name : 내부 ip 할당할 network name $ bosh -e micro-bosh cloud-config로 확인가능\
+> external_networks_name : 외부 ip 할당할 network name $ bosh -e micro-bosh cloud-config로 확인가능
+      
+      $ bosh -e micro-bosh cloud-config
+      - name: service_private
+        subnets:
+        - azs:
+          - z1
+          - z2
+          - z3
+          - z4
+          - z5
+          - z6
+          cloud_properties:
+            name: Internal
+          dns:
+          - 8.8.8.8
+          gateway: 10.30.20.23
+          range: 10.30.0.0/16
+          reserved:
+          - 10.30.0.0 - 10.30.106.255
+          static:
+          - 10.30.107.1 - 10.30.107.255
+      - name: service_public
+        subnets:
+        - azs:
+          - z1
+          - z2
+          - z3
+          - z4
+          - z5
+          - z6
+          cloud_properties:
+            name: External
+          dns:
+          - 8.8.8.8
+          gateway: 115.68.47.161
+          range: 115.68.47.160/24
+          reserved:
+          - 115.68.47.161 - 115.68.47.174
+          static:
+          - 115.68.47.175 - 115.68.47.185
+        type: manual
+
+> mariadb_ips: Mariadb의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  mariadb_disk_type: Mariadb의 persistent_disk용량을 정한다.\
+  mariadb_port: Mariadb의 port를 정한다.\
+  mariadb_user_password: Mariadb의 비밀번호를 정한다. id: root\
+  binary_storage_ips: Binary Storage의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  binary_storage_disk_type: Binary Storage의 persistent_disk용량을 정한다.\
+  binary_storage_username: Binary Storage의 접속 유저 계정을 정한다.\
+  binary_storage_password: Binary Storage의 접속 유저의 비밀번호를 정한다.\
+  binary_storage_tenantname: Binary Storage의 접속 테넌트 계정을 정한다.\
+  binary_storage_email: Binary Storage 생성되는 유저의 이메일을 정한다.\
+  haproxy_ips: Haproxy의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  haproxy_static_ips: Haproxy의 ip 할당, external_networks_name에 할당된 ip를 사용해야한다.\
+  portal_gateway_ips: Gateway Api의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_registration_ips: Registration Api의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_infra_admin_ips: Infra Admin의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_api_ips: Portal Api의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_log_ips: Haproxy의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_common_ips: Haproxy의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_storage_api_ips: Haproxy의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_webadmin_ips: Haproxy의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+  portal_webuser_ips: Haproxy의 ip 할당, internal_networks_name에 할당된 ip를 사용해야한다.\
+
+
+>cf_db_ips: CF Database의 ip를 입력한다.\
+ cf_db_port: CF Database의 port를 입력한다.\
+ cc_db_id: CF Database의 계정을 입력한다.\
+ cc_db_password: CF Database의 비밀번호를 입력한다.\
+ uaa_db_id: UAA Database의 계정을 입력한다.\
+ uaa_db_password: UAA Database의 비밀번호를 입력한다.
+![paas-ta-portal-09]
+>>cf_db_ips: api, uaa가 포함된 deployment내의 database ip주소
+ 
+> cf_uaa_url: "https://uaa.[uaa가 포함된 public ip].xip.io"\
+  cf_api_url: "https://api.[api가 포함된 public ip].xip.io"
+![paas-ta-portal-07]
+>>예) cf_uaa_url="https://uaa.115.68.46.189.xip.io"
+
+> cf_admin_password: CF 관리자 계정 비밀번호를 입력한다.
+
+>cf_uaa_admin_client_secret: uaac admin client의 secret를 입력한다.\
+ portal_client_secret: uaac portalclient의 secret를 입력한다.\
+ 
+>paas_ta_web_user_url: Portal Webuser의 Url을 입력한다.
+ abacus_url= Abacus Url을 입력한다.
+ monitoring_api_url: Monitoring Api의 Url을 입력한다.
+ 
+>mail_smtp_host: smtp의 host를 설정한다.\
+ mail_smtp_port: smtp의 port를 설정한다.\
+ mail_smtp_username: smtp의 계정을 설정한다.\
+ mail_smtp_password: smtp의 비밀번호을 설정한다.\
+ mail_smtp_useremail: smtp의 email을 설정한다.\
+ mail_smtp_properties_auth=: smtp의 auth값을 설정한다.\
+ mail_smtp_properties_starttls_enable: smtp의 starttls_enable값을 설정한다.\
+ mail_smtp_properties_starttls_required: smtp의 starttls_required값을 설정한다.\
+ mail_smtp_properties_subject: 메일제목을 설정한다.
+ 
+ -	PaaS-TA Portal을 배포한다.
 
 - **사용 예시**
 
@@ -1778,7 +1893,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 
 
--	배포된 PaaS-TA Portal을 확인한다.(Process State running)
+-	배포된 PaaS-TA Portal을 확인한다.
 
 - **사용 예시**
 
@@ -1843,15 +1958,15 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 본 PaaS-TA Portal Release 테스트는 배포가 완료된 후 모든 Instance가 running일 경우 진행한다.
 
 ### 3.1. Mariadb
-#####1. Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
+##### 1. Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
   
 >![paas-ta-portal-02] 
 >> User Name: root , Port, Password : deploy-vsphere.sh의 mariadb_port, mariadb_user_password 값
 
-#####2. portaldb의 테이블을 열어 정상적으로 테이블이 생성되었는지 확인한다.
+##### 2. portaldb의 테이블을 열어 정상적으로 테이블이 생성되었는지 확인한다.
 >![paas-ta-portal-03]
 
-#####3. haproxy에 오류가 있을경우 포트포워딩을 통해 접근이 가능하다.
+##### 3. haproxy에 오류가 있을경우 포트포워딩을 통해 접근이 가능하다.
 >![paas-ta-portal-04]
 >>대상 호스트 : deploy-vsphere.sh의 mariadb_ips값
 
@@ -1860,11 +1975,104 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 
 ### 3.2. API
-#####1. Eureka 연결 확인 
+##### 1. Eureka 연결 확인 
 웹 브라우저에서 유레카에 접속해 webuser를 제외한 웹 서비스가 연결되어 있는지 확인한다.
 * 접근방법 : http://portal-registration.[portal_registration_ips].xip.io/
 >![paas-ta-portal-06]
 
+##### 2. Sys log 확인
+1. 로그를 확인할 Instance에 접근한다.
+    > bosh ssh -d [deployment name] [instance name]
+       
+       Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type        Active  
+       binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z3  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
+       haproxy/8cc2d633-2b43-4f3d-a2e8-72f5279c11d5                      running        z3  10.30.107.213  vm-315bfa1b-9829-46de-a19d-3bd65e9f9ad4  portal_large   true  
+                                                                                            115.68.46.214                                                            
+       mariadb/117cbf05-b223-4133-bf61-e15f16494e21                      running        z3  10.30.107.211  vm-bc5ae334-12d4-41d4-8411-d9315a96a305  portal_large   true  
+       paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c           running        z3  10.30.107.217  vm-9d2a1929-0157-4c77-af5e-707ec496ed87  portal_medium  true  
+       paas-ta-portal-common-api/060320fa-7f26-4032-a1d9-6a7a41a044a8    running        z3  10.30.107.219  vm-f35e9838-74cf-40e0-9f97-894b53a68d1f  portal_medium  true  
+       paas-ta-portal-gateway/6baba810-9a4a-479d-98b2-97e5ba651784       running        z3  10.30.107.214  vm-7ec75160-bf34-442e-b755-778ae7dd3fec  portal_medium  true  
+       paas-ta-portal-log-api/a4460008-42b5-4ba0-84ee-fff49fe6c1bd       running        z3  10.30.107.218  vm-9ec0a1b0-09f6-415b-8e23-53af91fd94b8  portal_medium  true  
+       paas-ta-portal-registration/3728ed73-451e-4b93-ab9b-c610826c3135  running        z3  10.30.107.215  vm-c4020514-c458-41c6-bcbc-7e0ee1bc6f42  portal_small   true  
+       paas-ta-portal-storage-api/2940366a-8294-4509-a9c0-811c8140663a   running        z3  10.30.107.220  vm-79ad6ee1-1bb5-4308-8b71-9ed30418e2c1  portal_medium  true  
+       paas-ta-portal-webadmin/8047fcbd-9a98-4b61-b161-0cbb277fa643      running        z3  10.30.107.221  vm-188250fd-e918-4aab-9cbe-7d368852ea8a  portal_medium  true  
+       paas-ta-portal-webuser/cb206717-81c9-49ed-a0a8-e6c3b957cb66       running        z3  10.30.107.222  vm-822f68a5-91c8-453a-b9b3-c1bbb388e377  portal_medium  true  
+       
+       11 vms
+       
+       Succeeded
+       inception@inception:~$ bosh ssh -d paas-ta-portal-v2 paas-ta-portal-api  << instance 접근(bosh ssh) 명령어 입력
+       Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+       
+       Using deployment 'paas-ta-portal-v2'
+       
+       Task 5195. Done
+       Unauthorized use is strictly prohibited. All access and activity
+       is subject to logging and monitoring.
+       Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-92-generic x86_64)
+       
+        * Documentation:  https://help.ubuntu.com/
+       
+       The programs included with the Ubuntu system are free software;
+       the exact distribution terms for each program are described in the
+       individual files in /usr/share/doc/*/copyright.
+       
+       Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+       applicable law.
+       
+       Last login: Tue Sep  4 07:11:42 2018 from 10.30.20.28
+       To run a command as administrator (user "root"), use "sudo <command>".
+       See "man sudo_root" for details.
+       
+       paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c:~$ 
+
+2. 로그파일이 있는 폴더로 이동한다.
+    > 위치 : /var/vcap/sys/log/[job name]/
+    
+         paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c:~$ cd /var/vcap/sys/log/paas-ta-portal-api/
+         paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c:/var/vcap/sys/log/paas-ta-portal-api$ ls
+         paas-ta-portal-api.stderr.log  paas-ta-portal-api.stdout.log
+
+3. 로그를 확인, 오류가 생길경우 원인을 파악한다.
+    > vim [job name].stdout.log
+        
+        예)
+        vim paas-ta-portal-api.stdout.log
+        2018-09-04 02:08:42.447 ERROR 7268 --- [nio-2222-exec-1] p.p.a.e.GlobalControllerExceptionHandler : Error message : Response : org.springframework.security.web.firewall.FirewalledResponse@298a1dc2
+        Occured an exception : 403 Access token denied.
+        Caused by...
+        org.cloudfoundry.client.lib.CloudFoundryException: 403 Access token denied. (error="access_denied", error_description="Access token denied.")
+                at org.cloudfoundry.client.lib.oauth2.OauthClient.createToken(OauthClient.java:114)
+                at org.cloudfoundry.client.lib.oauth2.OauthClient.init(OauthClient.java:70)
+                at org.cloudfoundry.client.lib.rest.CloudControllerClientImpl.initialize(CloudControllerClientImpl.java:187)
+                at org.cloudfoundry.client.lib.rest.CloudControllerClientImpl.<init>(CloudControllerClientImpl.java:163)
+                at org.cloudfoundry.client.lib.rest.CloudControllerClientFactory.newCloudController(CloudControllerClientFactory.java:69)
+                at org.cloudfoundry.client.lib.CloudFoundryClient.<init>(CloudFoundryClient.java:138)
+                at org.cloudfoundry.client.lib.CloudFoundryClient.<init>(CloudFoundryClient.java:102)
+                at org.openpaas.paasta.portal.api.service.LoginService.login(LoginService.java:47)
+                at org.openpaas.paasta.portal.api.controller.LoginController.login(LoginController.java:51)
+                at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+                at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                at java.lang.reflect.Method.invoke(Method.java:498)
+                at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+                at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133)
+                at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97)
+                at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827)
+                at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738)
+                at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+                at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967)
+                at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901)
+                at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)
+                at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872)
+                at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+                at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)
+                at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+                at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+                at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+                at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+                at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+                at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
 
 
 [paas-ta-portal-01]:../../Install-Guide/Portal/images/Paas-TA-Portal_01.png
