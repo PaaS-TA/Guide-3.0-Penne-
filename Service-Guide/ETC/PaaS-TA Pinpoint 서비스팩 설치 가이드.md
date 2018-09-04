@@ -276,7 +276,7 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 
 - **사용 예시**
 
-		bosh -e micro-bosh cloud-config
+		$ bosh -e micro-bosh cloud-config
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 		azs:
@@ -1106,7 +1106,7 @@ bosh -e micro-bosh -d paasta-pinpoint-service deploy paasta_pinpoint_bosh2.0.yml
 
 - **사용 예시**
 
-		bosh -e micro-bosh -d paasta-pinpoint-service vms
+		$ bosh -e micro-bosh -d paasta-pinpoint-service vms
         Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
         Task 5006. Done
@@ -1137,7 +1137,7 @@ h_master 서버에 ssh 로 접속 하여 hbase table 생성 스크립트를 구�
 
 - **사용 예시**
 
-		bosh -e micro-bosh -d paasta-pinpoint-service ssh h_master
+		$ bosh -e micro-bosh -d paasta-pinpoint-service ssh h_master
 		
 		h_master/fbd4ed1f-92ce-4244-a0bc-ebc089cebe12:/var/vcap/packages/hbase/bin$ sudo mount -o remount, exec /tmp && /var/vcap/packages/hbase/bin/hbase shell /var/vcap/packages/hbase/bin/hbase-create.hbase
 		2018-08-28 02:21:54,165 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
