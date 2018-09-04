@@ -755,6 +755,7 @@ bosh -e micro-bosh -d paasta-pinpoint-service deploy paasta_pinpoint_bosh2.0.yml
 -	Pinpoint 서비스팩을 배포한다.
 
 - **사용 예시**
+
 		$ ./deploy-pinpoint-bosh2.0.sh
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
@@ -1135,6 +1136,7 @@ bosh -e micro-bosh -d paasta-pinpoint-service deploy paasta_pinpoint_bosh2.0.yml
 h_master 서버에 ssh 로 접속 하여 hbase table 생성 스크립트를 구동한다.
 
 - **사용 예시**
+
 		bosh -e micro-bosh -d paasta-pinpoint-service ssh h_master
 		
 		h_master/fbd4ed1f-92ce-4244-a0bc-ebc089cebe12:/var/vcap/packages/hbase/bin$ sudo mount -o remount, exec /tmp && /var/vcap/packages/hbase/bin/hbase shell /var/vcap/packages/hbase/bin/hbase-create.hbase
