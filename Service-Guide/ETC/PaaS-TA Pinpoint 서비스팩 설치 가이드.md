@@ -12,7 +12,7 @@
   - 2.5. [Pinpoint 서비스 브로커 등록](#25-pinpoint-서비스-브로커-등록)
 3. [Sample Web App 연동 Pinpoint 연동](#3-sample-web-app-연동-pinpoint-연동)
   - 3.1. [Sample Web App 구조](#31-sample-web-app-구조)
-  - 3.2. [PaaS-TA에서 서비스 신청](#32-PaaS-TA에서-서비스-신청)
+  - 3.2. [PaaS-TA에서 서비스 신청](#32-paas-ta에서-서비스-신청)
   - 3.3. [Sample Web App에 서비스 바인드 신청 및 App 확인](#33-sample-web-app에-서비스-바인드-신청-및-app-확인)
 
 # 1. 문서 개요
@@ -1278,7 +1278,7 @@ Pinpoint Pinpoint\_standard all
 
 본 Sample Web App은 개방형 클라우드 플랫폼에 배포되며 Pinpoint의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
 
-### 3.1. Sample App 구조
+### 3.1. Sample Web App 구조
 
 Sample Web App은 PaaS-TA에 App으로 배포가 된다. 배포된
 App에 Pinpoint 서비스 Bind 를 통하여 초기 데이터를 생성하게 된다. 바인드
@@ -1385,7 +1385,7 @@ PS1              Pinpoint        Pinpoint_standard                            cr
 syslog_service   user-provided                       php-demo, spring-music 
 ```
 
-### 3.3. Sample App에 서비스 바인드 신청 및 App 확인
+### 3.3. Sample Web App에 서비스 바인드 신청 및 App 확인
 -------------------------------------------------
 
 서비스 신청이 완료되었으면 Sample Web App 에서는 생성된 서비스
