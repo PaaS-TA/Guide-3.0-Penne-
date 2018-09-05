@@ -25,13 +25,10 @@
 
 ### <div id='2'/>1.1. 목적
 
-본 문서(WEB-IDE 설치 가이드)는 PaaS-TA에서 사용할 수 있는 WEB-IDE의
-설치를 Bosh를 이용하여 설치 하는 방법과 PaaS-TA 포털에서 WEB-IDE 서비스를
-사용하는 방법을 기술하였다.
+본 문서(WEB-IDE 설치 가이드)는 PaaS-TA에서 사용할 수 있는 WEB-IDE의 설치를 Bosh를 이용하여 설치 하는 방법과 PaaS-TA 포털에서 WEB-IDE 서비스를 사용하는 방법을 기술하였다.
 
 ### <div id='3'/> 1.2. 범위
-설치 범위는 WEB-IDE 사용을 검증하기 위한 기본 설치를 기준으로
-작성하였다.
+설치 범위는 WEB-IDE 사용을 검증하기 위한 기본 설치를 기준으로 작성하였다.
 
 ### <div id='4'/> 1.3. 시스템 구성도
 본 문서의 설치된 시스템 구성도입니다. Browser(paasta Portal), WEB IDE
@@ -52,9 +49,9 @@ Server, Workspace, Desktop IDE로 최소사항을 구성하였다.
 > [**https://www.eclipse.org/che/technology/**](https://www.eclipse.org/che/technology/) <br>
 
 
-#2. <div id='6'/>WEB IDE 설치
+# <div id='6'/> 2.WEB IDE 설치
 
-###<div id='7'/>2.1. 설치전 준비사항
+### <div id='7'/> 2.1. 설치전 준비사항
 
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
 서비스팩 설치를 위해서는 먼저 BOSH CLI v2 가 설치 되어 있어야 하고 BOSH 에 로그인이 되어 있어야 한다.<br>
@@ -68,7 +65,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 >PaaSTA-Sample-Apps : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Sample-Apps.zip>**
 
 
-###<div id='8'/>2.2. WEB-IDE 릴리즈 업로드
+###<div id='8'/> 2.2. WEB-IDE 릴리즈 업로드
 
 - PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 WEB-IDE 서비스 릴리즈 paasta-web-ide-2.0.tgz 파일을 복사한다.
 
@@ -126,7 +123,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
           Releases total: 24
 		 
 
-###<div id='9'/> 2.3.WEB-IDE Deployment 파일 수정 및 배포
+### <div id='9'/> 2.3.WEB-IDE Deployment 파일 수정 및 배포
 
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 
@@ -185,7 +182,6 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
             Stemcells total: 3
 
 - Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
-
 
 - Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
 
@@ -453,7 +449,7 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
          VMs total: 2
 
 
-#3. <div id='10'/> WEB-IDE의 PaaS-TA 포털사이트 연동
+# <div id='10'/> 3. WEB-IDE의 PaaS-TA 포털사이트 연동
 
 ### <div id='11'/> 3.1. WEB-IDE 신청
 
@@ -463,16 +459,13 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
 
 <br>
 
-
-###<div id='12'/> 3.2. WEB-IDE 신청 취소
+### <div id='12'/> 3.2. WEB-IDE 신청 취소
 
 - WEB IDE 신청 후 사용을 원하지 않을 경우 신청 취소를 할 수 도 있다.
 
 - 신청 취소가 완료되면 다시 신청 아이콘이 나타난다.
 
 ![](/Service-Guide/images/webide/web-ide-03.png)
-
-<br>
 
 
 ### <div id='13'/> 3.3. WEB-IDE 신청 리스트 조회
@@ -481,7 +474,6 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
 
 ![](/Service-Guide/images/webide/web-ide-04.png)
 
-<br>
 
 ### <div id='14'/> 3.4. WEB-IDE 신청 사용 승인
 
@@ -491,7 +483,6 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
 
 ![](/Service-Guide/images/webide/web-ide-05.png)
 
-<br>
 
 ### <div id='15'/> 3.5. WEB-IDE 신청 완료
 
@@ -511,8 +502,7 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
 
 <br>
 
-
-#4. <div id='17'/> WEB-IDE 에서 CF CLI 사용법
+# <div id='17'/> 4. WEB-IDE 에서 CF CLI 사용법
 
 ### <div id='18'/> 4.1. WEB-IDE New Project 화면
 
@@ -528,7 +518,6 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
 
 <br>
 
-
 ### <div id='19'/> 4.2. WEB-IDE Workspace 화면
 
 - Open Project를 누르면 Workspace 화면이 열린다.
@@ -540,7 +529,6 @@ packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params�
 ![](/Service-Guide/images/webide/web-ide-11.png)
 
 <br>
-
 
 ### <div id='20'/> 4.3. WEB-IDE Teminal에서의 CF CLI 실행
 
