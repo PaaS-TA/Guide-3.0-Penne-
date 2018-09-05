@@ -901,7 +901,7 @@ Sample App에서 RabbitMQ 서비스를 사용하기 위해서는 서비스 신�
 
 #### 바인드가 적용되기 위해서 App을 재기동한다.
 
->`ccf restart lab-rat`
+>`cf restart lab-rat`
 
 >![rabbitmq_image_15]
 
