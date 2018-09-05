@@ -31,7 +31,7 @@
   - [형상관리](./Service-Guide/Tools/PaaS-TA%20형상관리%20서비스팩%20설치%20가이드_v1.0.md)
   
 ## 포털 설치 가이드
-- [PaaS-TA 포털](./Use-Guide/portal/PaaS-TA%20Portal%20배포%20가이드_v1.1.md)
+- [PaaS-TA 포털](./Install-Guide/Portal/PaaS-TA%20Portal%20배포%20가이드_v1.1.md)
 
 ## 활용 가이드
 - [BOSH CLI V2(Command Line Interface) 사용](./Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_사용자_가이드v1.0.md)

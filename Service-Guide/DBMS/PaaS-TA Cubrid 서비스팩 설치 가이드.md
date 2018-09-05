@@ -1,28 +1,24 @@
-
 ## Table of Contents
 1. [문서 개요](#1)
-     * [1.1. 목적](#2)
-     * [1.2. 범위](#3)
-     * [1.3. 시스템 구성도](#4)
-     * [1.4. 참고자료](#5)
+  -  [1.1. 목적](#2)
+  -  [1.2. 범위](#3)
+  -  [1.3. 시스템 구성도](#4)
+  -  [1.4. 참고자료](#5)
 2. [Cubrid 서비스팩 설치](#6)
-     * [2.1. 설치전 준비사항](#7)
-     * [2.2. Cubrid 서비스 릴리즈 업로드](#8)
-     * [2.3. Cubrid 서비스 Deployment 파일 수정 및 배포](#9)
-     * [2.4. Cubrid 서비스 브로커 등록](#10)
+  -  [2.1. 설치전 준비사항](#7)
+  -  [2.2. Cubrid 서비스 릴리즈 업로드](#8)
+  -  [2.3. Cubrid 서비스 Deployment 파일 수정 및 배포](#9)
+  -  [2.4. Cubrid 서비스 브로커 등록](#10)
 3. [Cubrid 연동 Sample App 설명](#11)
-     * [3.1. Sample App 구조](#12)
-     * [3.2. PaaS-TA에서 서비스 신청](#13)
-     * [3.3. Sample App에 서비스 바인드 신청 및 App 확인](#14)
+  -  [3.1. Sample App 구조](#12)
+  -  [3.2. PaaS-TA에서 서비스 신청](#13)
+  -  [3.3. Sample App에 서비스 바인드 신청 및 App 확인](#14)
 4. [Cubrid Client 툴 접속](#15)
-     * [4.1. Putty 다운로드 및 터널링](#16)
-     * [4.2. Cubrid Manager 설치 및 연결](#17)
-
-     
+  -  [4.1. Putty 다운로드 및 터널링](#16)
+  -  [4.2. Cubrid Manager 설치 및 연결](#17)
 
 
 # <div id='1'> 1. 문서 개요
-
 
 ### <div id='2'> 1.1. 목적
       
@@ -91,33 +87,48 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 - **사용 예시**
 
-		$ bosh releases
-		   >RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-           >Acting as user 'admin' on 'bosh'<br>
-           
-           >+--------------------------------------+-----------+-------------+<br>
-           >| Name                                 | Versions  | Commit Hash |<br>                
-           >+--------------------------------------+-----------+-------------+<br>         
-           >| cf                                   | 247*      | af4efe9f+   |<br>
-           >| cflinuxfs2-rootfs                    | 1.40.0*   | 19fe09f4+   |<br>
-           >| diego                                | 1.1.0*    | 2298c8d4    |<br>
-           >| empty-release                        | 1+dev.1*  | 00000000    |<br>
-           >| etcd                                 | 86*       | 2dfbef00+   |<br>
-           >| garden-runc                          | 1.0.3*    | c6c4c73c    |<br>
-           >| openpaas-paasta-pinpoint             | 2.0*      | 34e02d07+   |<br>
-           >| openpaas-redis                       | 1.0*      | af975e0f    |<br>
-           >| paasta-eclipse-che                   | 2.0*      | 00000000    |<br>
-           >| paasta-glusterfs                     | 2.0*      | 85e3f01e+   |<br>
-           >| paasta-mysql                         | 2.0*      | 85e3f01e+   |<br>
-           >| paasta-portal-object-storage-release | 0+dev.1*  | 00000000    |<br>
-           >| paasta-redis                         | 2.0       | 2d766084+   |<br>
-           >+--------------------------------------+-----------+-------------+<br>
-           (*) Currently deployed
-           (+) Uncommitted changes
-           
-           13 releases
-           
-           Succeeded
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+    		bpm                               0.9.0*    c9b7136  
+    		caas-release                      1.0*      empty+  
+    		capi                              1.62.0*   22a608c  
+	    	cf-networking                     2.8.0*    479f4a66  
+	    	cf-smoke-tests                    40.0.5*   d6aaf1f  
+	    	cf-syslog-drain                   7.0*      71b995a  
+	    	cflinuxfs2                        1.227.0*  60128e1  
+	    	consul                            195*      67cdbcd  
+	    	diego                             2.13.0*   b5644d9  
+	    	dotnet-core-buildpack             2.1.3*    46a41cd  
+	    	garden-runc                       1.15.1*   75107e7+  
+	    	go-buildpack                      1.8.25*   40c60a0  
+	    	haproxy                           8.8.0*    9292573  
+	    	java-buildpack                    4.13*     c2749d3  
+	    	loggregator                       103.0*    05da4e3d  
+	    	loggregator-agent                 2.0*      2382c90  
+	    	nats                              24*       30e7a82  
+	    	nodejs-buildpack                  1.6.28*   4cfdb7b  
+	    	paas-ta-portal-release            2.0*      non-git  
+	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+	    	paasta-pinpoint                   2.0*      2dbb8bf3+  
+	    	php-buildpack                     4.3.57*   efc48f3  
+	    	postgres                          29*       5de4d63d+  
+	    	python-buildpack                  1.6.18*   bcc4f26  
+	    	routing                           0.179.0*  18155a5  
+	    	ruby-buildpack                    1.7.21*   9d69600  
+	    	silk                              2.9.0*    eebed55  
+	    	staticfile-buildpack              1.4.29*   8a82e63  
+	    	statsd-injector                   1.3.0*    39e5179  
+	    	uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	31 releases
+
+	    	Succeeded
 
 -	Cubrid 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
 
@@ -125,174 +136,103 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 - **사용 예시**
 
-		$ bosh upload release {서비스 릴리즈 파일 PATH}
-		$ bosh upload release paasta-cubrid-2.0.tgz
-		
-    		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-		Acting as user 'admin' on 'bosh
-		
-		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on 'bosh'
-        
-        Verifying manifest...
-        Extract manifest OK
-        Manifest exists OK
-        Release name/version OK
-        
-        File exists and readable OK
-        Read package 'cubrid' (1 of 4) OK
-        Package 'cubrid' checksum OK
-        Read package 'java7' (2 of 4) OK
-        Package 'java7' checksum OK
-        Read package 'cli' (3 of 4) OK
-        Package 'cli' checksum OK
-        Read package 'cubrid_broker' (4 of 4) OK
-        Package 'cubrid_broker' checksum OK
-        Package dependencies OK
-        Checking jobs format OK
-        Read job 'cubrid' (1 of 4), version 45427cb5f3b6c86df80bb2de38c12e98aec7b95f OK
-        Job 'cubrid' checksum OK
-        Extract job 'cubrid' OK
-        Read job 'cubrid' manifest OK
-        Check template 'cubrid_ctl.erb' for 'cubrid' OK
-        Check template 'cubrid.conf.erb' for 'cubrid' OK
-        Check template 'cubrid_broker.conf.erb' for 'cubrid' OK
-        Check template 'cubrid_broker_init.sql.erb' for 'cubrid' OK
-        Check template '.cubrid.sh.erb' for 'cubrid' OK
-        Job 'cubrid' needs 'cubrid' package OK
-        Monit file for 'cubrid' OK
-        Read job 'cubrid_broker_deregistrar' (2 of 4), version 49602e528fa68a557ece12688b6b278a1134ed27 OK
-        Job 'cubrid_broker_deregistrar' checksum OK
-        Extract job 'cubrid_broker_deregistrar' OK
-        Read job 'cubrid_broker_deregistrar' manifest OK
-        Check template 'errand.sh.erb' for 'cubrid_broker_deregistrar' OK
-        Job 'cubrid_broker_deregistrar' needs 'cli' package OK
-        Monit file for 'cubrid_broker_deregistrar' OK
-        Read job 'cubrid_broker' (3 of 4), version c73852bd8115be216e32b69bc6ee5f0bb5444b06 OK
-        Job 'cubrid_broker' checksum OK
-        Extract job 'cubrid_broker' OK
-        Read job 'cubrid_broker' manifest OK
-        Check template 'bin/cubrid_broker_ctl' for 'cubrid_broker' OK
-        Check template 'bin/monit_debugger' for 'cubrid_broker' OK
-        Check template 'data/properties.sh.erb' for 'cubrid_broker' OK
-        Check template 'helpers/ctl_setup.sh' for 'cubrid_broker' OK
-        Check template 'helpers/ctl_utils.sh' for 'cubrid_broker' OK
-        Check template 'config/cubrid_broker.yml.erb' for 'cubrid_broker' OK
-        Check template 'config/application-mvc.properties.erb' for 'cubrid_broker' OK
-        Check template 'config/datasource.properties.erb' for 'cubrid_broker' OK
-        Check template 'config/logback.xml.erb' for 'cubrid_broker' OK
-        Check template 'config/bosh.pem.erb' for 'cubrid_broker' OK
-        Job 'cubrid_broker' needs 'cubrid_broker' package OK
-        Job 'cubrid_broker' needs 'java7' package OK
-        Monit file for 'cubrid_broker' OK
-        Read job 'cubrid_broker_registrar' (4 of 4), version 8a89128e95a9707a30697bda7a9d7a678a2fd109 OK
-        Job 'cubrid_broker_registrar' checksum OK
-        Extract job 'cubrid_broker_registrar' OK
-        Read job 'cubrid_broker_registrar' manifest OK
-        Check template 'errand.sh.erb' for 'cubrid_broker_registrar' OK
-        Job 'cubrid_broker_registrar' needs 'cli' package OK
-        Monit file for 'cubrid_broker_registrar' OK
-        
-        Release info
-        ------------
-        Name: paasta-cubrid
-        Version: 2.0
-        
-        Packages
-        
-        cubrid (36065bb22d1e816657d176c902246231347361e2)
-        java7 (cb28502f6e89870255182ea76e9029c7e9ec1862)
-        cli (24305e50a638ece2cace4ef4803746c0c9fe4bb0)
-        cubrid_broker (25717cfb95347c7ca5ed1e6cbdda701315789cfc)
-        
-        Jobs
-        - cubrid (45427cb5f3b6c86df80bb2de38c12e98aec7b95f)
-        - cubrid_broker_deregistrar (49602e528fa68a557ece12688b6b278a1134ed27)
-        - cubrid_broker (c73852bd8115be216e32b69bc6ee5f0bb5444b06)
-        - cubrid_broker_registrar (8a89128e95a9707a30697bda7a9d7a678a2fd109)
-        
-        License
-        - none
-        
-        Checking if can repack release for faster upload...
-        cubrid (36065bb22d1e816657d176c902246231347361e2) UPLOAD
-        java7 (cb28502f6e89870255182ea76e9029c7e9ec1862) SKIP
-        cli (24305e50a638ece2cace4ef4803746c0c9fe4bb0) SKIP
-        cubrid_broker (25717cfb95347c7ca5ed1e6cbdda701315789cfc) UPLOAD
-        cubrid (45427cb5f3b6c86df80bb2de38c12e98aec7b95f) UPLOAD
-        cubrid_broker_deregistrar (49602e528fa68a557ece12688b6b278a1134ed27) UPLOAD
-        cubrid_broker (c73852bd8115be216e32b69bc6ee5f0bb5444b06) UPLOAD
-        cubrid_broker_registrar (8a89128e95a9707a30697bda7a9d7a678a2fd109) UPLOAD
-        Release repacked (new size is 181.8M)
-        
-        Uploading release
-        release-repac: 96%
-        |ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo | 174.5MB 26.1MB/s ETA: 00:00:00
-        Director task 1285
-        Started extracting release > Extracting release. Done (00:00:02)
-        
-        Started verifying manifest > Verifying manifest. Done (00:00:00)
-        
-        Started resolving package dependencies > Resolving package dependencies. Done (00:00:00)
-        
-        Started creating new packages
-        Started creating new packages > cubrid/36065bb22d1e816657d176c902246231347361e2. Done (00:00:03)
-        Started creating new packages > java7/cb28502f6e89870255182ea76e9029c7e9ec1862. Done (00:00:03)
-        Started creating new packages > cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0. Done (00:00:00)
-        Started creating new packages > cubrid_broker/25717cfb95347c7ca5ed1e6cbdda701315789cfc. Done (00:00:01)
-        Done creating new packages (00:00:07)
-        
-        Started creating new jobs
-        Started creating new jobs > cubrid/45427cb5f3b6c86df80bb2de38c12e98aec7b95f. Done (00:00:00)
-        Started creating new jobs > cubrid_broker_deregistrar/49602e528fa68a557ece12688b6b278a1134ed27. Done (00:00:00)
-        Started creating new jobs > cubrid_broker/c73852bd8115be216e32b69bc6ee5f0bb5444b06. Done (00:00:00)
-        Started creating new jobs > cubrid_broker_registrar/8a89128e95a9707a30697bda7a9d7a678a2fd109. Done (00:00:00)
-        Done creating new jobs (00:00:00)
-        
-        Started release has been created > paasta-cubrid/2.0. Done (00:00:00)
-        
-        Task 1285 done
-        
-        Started	2017-01-06 06:52:33 UTC
-        Finished	2017-01-06 06:52:42 UTC
-        Duration	00:00:09
-        release-repac: 96%
-        |ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo | 174.9MB 10.9MB/s Time: 00:00:16
-        
-        Release uploaded
+		$ bosh -e micro-bosh upload-release paasta-cubrid-2.0.tgz
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		######################################################## 100.00% 144.14 MiB/s 2s
+		Task 4460
+
+		Task 4460 | 04:31:41 | Extracting release: Extracting release (00:00:04)
+		Task 4460 | 04:31:45 | Verifying manifest: Verifying manifest (00:00:00)
+		Task 4460 | 04:31:45 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: cf-mysql-broker/250c6466bdaff96677e501ed5219d92ce4e61bd8 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: mysqlclient/ce95f8ac566f76b650992987d5282ee473356e43 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: acceptance-tests/1cb3ce7e20f5a8395b43fc6f0e3f2e92b0dc27bd (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:00:01)
+		Task 4460 | 04:31:46 | Creating new packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: quota-enforcer/e2c4c9e7d7bbbe4bfdc0866962461b00e654cca3 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:00:01)
+		Task 4460 | 04:31:47 | Creating new packages: ruby/ff79c965224b4160c1526bd704b3b21e4ad7c362 (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:00:01)
+		Task 4460 | 04:31:48 | Creating new packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:00:00)
+		Task 4460 | 04:31:48 | Creating new packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:00:01)
+		Task 4460 | 04:31:49 | Creating new packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:00:02)
+		Task 4460 | 04:31:51 | Creating new packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:01)
+		Task 4460 | 04:31:52 | Creating new packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:00:01)
+		Task 4460 | 04:31:53 | Creating new packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:00:01)
+		Task 4460 | 04:31:54 | Creating new packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:00:00)
+		Task 4460 | 04:31:54 | Creating new packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:01)
+		Task 4460 | 04:31:55 | Creating new packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:00:01)
+		Task 4460 | 04:31:56 | Creating new packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:00:01)
+		Task 4460 | 04:31:57 | Creating new jobs: cf-mysql-broker/9828ead15eabdc33b2c27fe275b463735edb115d (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: acceptance-tests/48c00c36ec5210cbdd3b125ae6a72cfdf6eaf4e2 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-deregistrar/b5f6f776d46eb1ac561ab1e8f58d8ddedb97f86e (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: proxy/7907d8759aa11dfcbbe79220dc945c96b5562ac1 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: mysql/078561f02f2516212ed59c48e1dd45360f93871c (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: op-mysql-java-broker/6e47c9ea6fbe0867d4a476af5abf157830c03024 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-registrar/e1f5e30b87e70e916ea74ea8eb63a7b6ff6ff643 (00:00:00)
+		Task 4460 | 04:31:57 | Release has been created: paasta-mysql/2.0 (00:00:00)
+
+		Task 4460 Started  Fri Aug 31 04:31:41 UTC 2018
+		Task 4460 Finished Fri Aug 31 04:31:57 UTC 2018
+		Task 4460 Duration 00:00:16
+		Task 4460 done
+
+		Succeeded
 
 
 - 업로드 된 Cubrid 릴리즈를 확인한다. 
 
 - **사용 예시**
 
-		$ bosh releases
-           
-           +--------------------------------------+-----------+-------------+
-           | Name | Versions | Commit Hash |
-           +--------------------------------------+-----------+-------------+
-           | cf | 247* | af4efe9f+ |
-           | cflinuxfs2-rootfs | 1.40.0* | 19fe09f4+ |
-           | diego | 1.1.0* | 2298c8d4 |
-           | empty-release | 1+dev.1* | 00000000 |
-           | etcd | 86* | 2dfbef00+ |
-           | garden-runc | 1.0.3* | c6c4c73c |
-           | openpaas-paasta-pinpoint | 2.0* | 34e02d07+ |
-           | openpaas-redis | 1.0* | af975e0f |
-           | paasta-cubrid | 2.0 | 85e3f01e+ |
-           | paasta-eclipse-che | 2.0* | 00000000 |
-           | paasta-glusterfs | 2.0* | 85e3f01e+ |
-           | paasta-mysql | 2.0* | 85e3f01e+ |
-           | paasta-portal-object-storage-release | 0+dev.1* | 00000000 |
-           | paasta-redis | 2.0 | 2d766084+ |
-           +--------------------------------------+-----------+-------------+
-           (*) Currently deployed
-           (+) Uncommitted changes
-           
-           13 releases
-           
-           Succeeded
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+		bpm                               0.9.0*    c9b7136  
+		caas-release                      1.0*      empty+  
+		capi                              1.62.0*   22a608c  
+		cf-networking                     2.8.0*    479f4a66  
+		cf-smoke-tests                    40.0.5*   d6aaf1f  
+		cf-syslog-drain                   7.0*      71b995a  
+		cflinuxfs2                        1.227.0*  60128e1  
+		consul                            195*      67cdbcd  
+		diego                             2.13.0*   b5644d9  
+		dotnet-core-buildpack             2.1.3*    46a41cd  
+		garden-runc                       1.15.1*   75107e7+  
+		go-buildpack                      1.8.25*   40c60a0  
+		haproxy                           8.8.0*    9292573  
+		java-buildpack                    4.13*     c2749d3  
+		loggregator                       103.0*    05da4e3d  
+		loggregator-agent                 2.0*      2382c90  
+		nats                              24*       30e7a82  
+		nodejs-buildpack                  1.6.28*   4cfdb7b  
+		paas-ta-portal-release            2.0*      non-git  
+		paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+		paasta-mysql                      2.0       85e3f01e+  
+		paasta-pinpoint                   2.0*      2dbb8bf3+  
+		php-buildpack                     4.3.57*   efc48f3  
+		postgres                          29*       5de4d63d+  
+		python-buildpack                  1.6.18*   bcc4f26  
+		routing                           0.179.0*  18155a5  
+		ruby-buildpack                    1.7.21*   9d69600  
+		silk                              2.9.0*    eebed55  
+		staticfile-buildpack              1.4.29*   8a82e63  
+		statsd-injector                   1.3.0*    39e5179  
+		uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	32 releases
+
+	    	Succeeded
 
 ### <div id='9'> 2.3.  Cubrid 서비스 Deployment 파일 수정 및 배포
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
@@ -569,38 +509,51 @@ Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (
 Cubrid 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Cubrid 서비스 브로커를 등록해 주어야 한다.  
 서비스 브로커 등록시 PaaS-TA에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
 
-- 서비스 브로커 목록을 확인한다.
+##### 서비스 브로커 목록을 확인한다.
 
-><div>$ cf service-brokers
-![2-4-0-0]
+>`cf service-brokers`
 
-- Cubrid 서비스 브로커를 등록한다.
+> ![2-4-0-0]
 
->$ cf create-service-broker {서비스팩 이름} {서비스팩 사용자ID} {서비스팩 사용자비밀번호} http://{서비스팩 URL}  
-- 서비스팩 이름 : 서비스 팩 관리를 위해 PaaS-TA에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다.  
-- 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.  
-- 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.  
->
->$ cf create-service-broker cubrid-service-broker admin cloudfoundry http://10.30.60.22:8080  
->![2-4-1-0]
+<br>
 
-- 등록된 Cubrid 서비스 브로커를 확인한다.
+##### Cubrid 서비스 브로커를 등록한다.
 
-><div>$ cf service-brokers
->![2-4-2-0]
+>`$ cf create-service {서비스명} {서비스 플랜} {내 서비스명}`
+- **서비스명** : p-rabbitmq로 Marketplace에서 보여지는 서비스 명칭이다.
+- **서비스플랜** : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. RabbitMQ 서비스는 standard plan만 지원한다.
+- **내 서비스명** : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경 설정 정보를 가져온다.
+ 
+>`cf create-service-broker cubrid-service-broker admin cloudfoundry http://10.30.60.22:8080`
+
+> ![2-4-1-0]
+
+<br>
+
+##### 등록된 Cubrid 서비스 브로커를 확인한다.
+
+>`$ cf service-brokers`
+
+> ![2-4-2-0]
+
+<br>
 
 - 접근 가능한 서비스 목록을 확인한다.
 
-><div>$ cf service-access
->![2-4-3-0]
-><div>서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
+>`$ cf service-access`
 
-- 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. (전체 조직)
+> ![2-4-3-0]
 
->$ cf enable-service-access CubridDB  
->$ cf service-access  
+##### 서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
+
+##### 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. (전체 조직)
+
+>`$ cf enable-service-access CubridDB `<br>
+>`$ cf service-access `
+
 >![2-4-4-0]
 
+<br>
 
 #  <div id='11'> 3. Cubrid연동 Sample App 설명
 본 Sample Web App은 PaaS-TA에 배포되며 Cubrid의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
@@ -632,85 +585,108 @@ Sample Web App 구조는 다음과 같다.
   </tr>
 </table>
 
-- PaaS-TA-Sample-Apps을 다운로드 받고 Service 폴더안에 있는 Cubrid Sample Web App인 hello-spring-cubrid를 복사한다.
+##### PaaS-TA-Sample-Apps을 다운로드 받고 Service 폴더안에 있는 Cubrid Sample Web App인 hello-spring-cubrid를 복사한다.
 
-><div>$ ls -all
+>`$ ls -all `
+
 >![3-1-0-0]
 
+<br>
 
 ### <div id='13'> 3.2. PaaS-TA에서 서비스 신청
 Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신청(Provision)을 해야 한다.
 *참고: 서비스 신청시 PaaS-TA에서 서비스를신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
 
+##### 먼저 PaaS-TA Marketplace에서 서비스가 있는지 확인을 한다.
 
-- 먼저 PaaS-TA Marketplace에서 서비스가 있는지 확인을 한다.
+>`$ cf marketplace `
 
-><div>$ cf marketplace
 >![3-2-0-0]
 
-- Marketplace에서 원하는 서비스가 있으면 서비스 신청(Provision)을 한다.
+<br>
 
->$ cf create-service {서비스명} {서비스플랜} {내서비스명}  
-- 서비스명 : CubridDB로 Marketplace에서 보여지는 서비스 명칭이다.  
-- 서비스플랜 : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. Cubrid 서비스는 100mb, 1gb를 지원한다.  
-- 내서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
->
->$ cf create-service CubridDB utf8 cubrid-service-instance  
+##### Marketplace에서 원하는 서비스가 있으면 서비스 신청(Provision)을 한다.
+
+>`$ cf create-service {서비스명} {서비스플랜} {내서비스명}  `
+
+**서비스명** CubridDB로 Marketplace에서 보여지는 서비스 명칭이다.  
+**서비스플랜** 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. Cubrid 서비스는 100mb, 1gb를 지원한다.  
+**내서비스명**내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
+
+>`$ cf create-service CubridDB utf8 cubrid-service-instance `
+
 >![3-2-1-0]
 
-- 생성된 Cubrid 서비스 인스턴스를 확인한다.
+<br>
 
-><div>$ cf services
->![3-2-2-0]
+##### 생성된 Cubrid 서비스 인스턴스를 확인한다.
 
+>`$ cf services`
+
+> ![3-2-2-0]
+
+<br>
 
 ### <div id='14'> 3.3. Sample App에 서비스 바인드 신청 및 App 확인
 서비스 신청이 완료되었으면 Sample Web App 에서는 생성된 서비스 인스턴스를 Bind 하여 App에서 Cubrid 서비스를 이용한다.  
 *참고: 서비스 Bind 신청시 PaaS-TA에서 서비스 Bind신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
 
-- Sample Web App 디렉토리로 이동하여 manifest 파일을 확인한다.
+##### Sample Web App 디렉토리로 이동하여 manifest 파일을 확인한다.
 
->$ cd hello-spring-cubrid  
->$ vi manifest.yml  
-```yaml
----
+>`$ cd hello-spring-cubrid` <br>
+>`$ vi manifest.yml`
+```
 applications:
 - name: hello-spring-cubrid # 배포할 App 이름
   memory: 512M # 배포시 메모리 사이즈
   instances: 1 # 배포 인스턴스 수
   path: target/hello-spring-cubrid-1.0.0-BUILD-SNAPSHOT.war #배포하는 App 파일 PATH
 ```
->참고: ./build/libs/hello-spring-cubrid.war 파일이 존재 하지 않을 경우 gradle 빌드를 수행 하면 파일이 생성된다.
 
-- --no-start 옵션으로 App을 배포한다.  
---no-start: App 배포시 구동은 하지 않는다.
+- 참고: ./build/libs/hello-spring-cubrid.war 파일이 존재 하지 않을 경우 gradle 빌드를 수행 하면 파일이 생성된다.
 
-><div>$ cf push --no-start<br>
+##### --no-start 옵션으로 App을 배포한다.  
+
+#####--no-start: App 배포시 구동은 하지 않는다.
+
+>`$ cf push --no-start`
+
 >![3-3-0-0]
 
-- 배포된 Sample App을 확인하고 로그를 수행한다.
+##### 배포된 Sample App을 확인하고 로그를 수행한다.
 
-><div>$ cf apps<br>
+>`$ cf apps`
+
 >![3-3-1-0]
-><div>$ cf logs {배포된 App명}<br>
->$ cf logs hello-spring-cubrid
+
+>`$ cf logs {배포된 App명}` <br>
+>`$ cf logs hello-spring-cubrid`
+
 >![3-3-2-0]
 
-- Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다. 
 
-><div>$ cf bind-service hello-spring-cubrid cubrid-service-instance
+###### Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다. 
+
+>`$ cf bind-service hello-spring-cubrid cubrid-service-instance` 
+
+
 >![3-3-3-0]
 
-- 바인드가 적용되기 위해서 App을 재기동한다.
+<br>
 
-><div>$ cf restart hello-spring-cubrid
+>`$ cf push --no-start`
+
+##### 바인드가 적용되기 위해서 App을 재기동한다.
+>`$ cf restart hello-spring-cubrid`
+
 >![3-3-4-0]  
+
 >![3-3-4-1]  
 
 - (참고) 바인드 후 App구동시 Cubrid 서비스 접속 에러로 App 구동이 안될 경우 보안 그룹을 추가한다.
 
-><div>-  rule.json 화일을 만들고 아래와 같이 내용을 넣는다.<br>
-><div>$ vi rule.json
+##### rule.json 화일을 만들고 아래와 같이 내용을 넣는다.
+>`$ vi rule.json`
 ```json
 [
   {
@@ -720,26 +696,43 @@ applications:
   }
 ]
 ```
-><div>- 보안 그룹을 생성한다.<br>
-><div>$ cf create-security-group CubridDB rule.json
+##### 보안 그룹을 생성한다.
+>`$ cf create-security-group CubridDB rule.json`
+
 >![3-3-5-0]
-><div>- 모든 App에 Cubrid 서비스를 사용할수 있도록 생성한 보안 그룹을 적용한다.<br>
-><div>$ cf bind-running-security-group CubridDB
+
+<br>
+
+##### 모든 App에 Cubrid 서비스를 사용할수 있도록 생성한 보안 그룹을 적용한다.
+
+>`$ cf bind-running-security-group CubridDB`
+
 >![3-3-6-0]
-><div>- App을 리부팅 한다.<br>
-><div>$ cf restart hello-spring-cubrid
+
+<br>
+
+##### App을 리부팅 한다.
+
+>`$ cf restart hello-spring-cubrid`
+
 >![3-3-7-0]
 
-- App이 정상적으로 Cubrid 서비스를 사용하는지 확인한다.
+<br>
 
-><div>- curl 로 확인 <br>
-$ curl hello-spring-cubrid.115.68.46.30.xip.io
->
+##### App이 정상적으로 Cubrid 서비스를 사용하는지 확인한다.
+
+##### curl 로 확인
+>`$ curl hello-spring-cubrid.115.68.46.30.xip.io`
+
 >![3-3-8-0]
-><div>- 브라우져에서 확인<br>
->
+
+<br>
+
+##### 브라우져에서 확인
+
 >![3-3-8-1]
 
+<br>
 
 # <div id='15'> 4. Cubrid Client 툴 접속
 Application에 바인딩된 Cubrid 서비스 연결정보는 Private IP로 구성되어 있기 때문에 Cubrid Client 툴에서 직접 연결할수 없다. 따라서 Cubrid Client 툴에서 SSH 터널, Proxy 터널 등을 제공하는 툴을 사용해서 연결하여야 한다. 본 가이드는 무료 SSH 및 텔넷 접속 툴인 Putty를 이용하여 SSH 터널을 통해 연결 하는 방법을 제공하며 Cubrid Client 툴로써는 Cubrid에서 제공하는 Cubrid Manager로 가이드한다. Cubrid Manager 에서 접속하기 위해서 먼저 SSH 터널링 할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 Open PaaS 에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 vSphere관리자 및 OpenPaaS 운영자에게 문의하여 구성한다.
@@ -752,26 +745,26 @@ Putty 프로그램은 SSH 및 텔넷 접속을 할 수 있는 무료 소프트�
 **<http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html>**  
 ![4-1-0-0]
 
-- 다운받은 putty.exe.파일을 더블클릭하여 실행한다.  
-![4-1-1-0]
+##### 다운받은 putty.exe.파일을 더블클릭하여 실행한다.  
+> ![4-1-1-0]
 
-- Session 탭의 Host name과 Port란에. OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다.  
-![4-1-2-0]
+##### Session 탭의 Host name과 Port란에. OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다.  
+> ![4-1-2-0]
 
-- Connection->SSH->Tunnels 탭에서 Source port(내 로컬에서 접근할 포트), Destination(터널링으로 연결할 서버정보)를 입력하고 Local, Auto를 선택 후 Add를 클릭한다.   
+##### Connection->SSH->Tunnels 탭에서 Source port(내 로컬에서 접근할 포트), Destination(터널링으로 연결할 서버정보)를 입력하고 Local, Auto를 선택 후 Add를 클릭한다.   
 ![4-1-3-0]  
 ![4-1-3-1]  
 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env <app_name> 명령어로 이용하여 확인한다.  
 예) $ cf env hello-spring-cubrid  
-![4-1-4-0]
+> ![4-1-4-0]
 
-- Session 탭에서 Saved Sessions에 저장할 이름을 입력하고 Save를 눌러 저장한 후 Open버튼을 누른다.  
-![4-1-5-0]
+##### Session 탭에서 Saved Sessions에 저장할 이름을 입력하고 Save를 눌러 저장한 후 Open버튼을 누른다.  
+> ![4-1-5-0]
 
-- 서버 접속정보를 입력하여 접속하여 터널링을 완료한다.  
+##### 서버 접속정보를 입력하여 접속하여 터널링을 완료한다.  
 만약 ssh 인증이 Password방식이 아닌 Key인증 방식일 경우, Connection->SSH->인증탭의 '인증 개인키 파일'에 key 파일을 등록하여 인증한다.  
 Key파일의 확장자가 .pem이라면 putty설치시 같이 설치된 puttygen을 사용하여 ppk파일로 변환한뒤 사용한다.  
-![4-1-6-0]
+> ![4-1-6-0]
 
 
 ### <div id='17'> 4.2.  Cubrid Manager 설치 & 연결
@@ -781,64 +774,70 @@ Cubrid Manager 프로그램은 Cubrid에서 제공하는 무료로 사용할 수
 **<http://ftp.cubrid.org/CUBRID_Tools/CUBRID_Manager/>**  
 ![4-2-0-0]
 
-- 다운받은 파일을 더블클릭하여 실행한다.  
-![4-2-1-0]
+##### 다운받은 파일을 더블클릭하여 실행한다.  
+> ![4-2-1-0]
 
-- 한국어를 선택하고 OK를 누른다.  
-![4-2-2-0]
+##### 한국어를 선택하고 OK를 누른다.  
+> ![4-2-2-0]
 
-- 다음을 눌러 계속 진행한다.  
-![4-2-3-0]
+##### 다음을 눌러 계속 진행한다.  
+> ![4-2-3-0]
 
-- 동의함을 눌러 계속 진행한다.  
-![4-2-4-0]
+##### 동의함을 눌러 계속 진행한다.  
+> ![4-2-4-0]
 
-- 바로가기 옵션을 선택 후 다음을 눌러 계속 진행한다.  
-![4-2-5-0]
+##### 바로가기 옵션을 선택 후 다음을 눌러 계속 진행한다.  
+> ![4-2-5-0]
 
-- 설치 경로를 입력하고 설치를 눌러 설치를 시작한다.  
-![4-2-6-0]
+##### 설치 경로를 입력하고 설치를 눌러 설치를 시작한다.  
+> ![4-2-6-0]
 
-- 설치가 완료되면 다음을 눌러 계속 진행한다.  
-![4-2-7-0]
+##### 설치가 완료되면 다음을 눌러 계속 진행한다.  
+> ![4-2-7-0]
 
-- 마침을 눌러 설치를 완료한다.  
-![4-2-8-0]
+##### 마침을 눌러 설치를 완료한다.  
+> ![4-2-8-0]
 
-- 설치된 Cubrid Manager를 실행하면 처음 나오는 화면이다. Workspace를 선택 후 OK를 눌러 실행한다. 만약 이 창을 다시보기를 원치않는다면 '기본적으로 이것을 사용하고 다시 물어 보지 않기' 옵션을 선택한다.  
-![4-2-9-0]
+##### 설치된 Cubrid Manager를 실행하면 처음 나오는 화면이다. Workspace를 선택 후 OK를 눌러 실행한다. 만약 이 창을 다시보기를 원치않는다면 '기본적으로 이것을 사용하고 다시 물어 보지 않기' 옵션을 선택한다.  
+> ![4-2-9-0]
 
-- 관리 모드, 질의 모드 둘중 목적에 맞게 선택 후 확인을 눌러 실행한다.  
-여기서는 질의 모드로 실행한다.  
-![4-2-10-0]
+##### 관리 모드, 질의 모드 둘중 목적에 맞게 선택 후 확인을 눌러 실행한다. 여기서는 질의 모드로 실행한다.  
+> ![4-2-10-0]
 
-- 연결정보를 입력하기 위해서 연결 정보 등록을 누른다.  
-![4-2-11-0]
+##### 연결정보를 입력하기 위해서 연결 정보 등록을 누른다.  
+> ![4-2-11-0]
 
-- Server에 접속하기 위한 Connection 정보를 입력한다.  
-![4-2-12-0]  
-서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env <app_name> 명령어로 이용하여 확인한다.  
-예) $ cf env hello-spring-cubrid  
-![4-2-13-0]
+##### Server에 접속하기 위한 Connection 정보를 입력한다.  
+> ![4-2-12-0]
+  
+##### 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env <app_name> 명령어로 이용하여 확인한다.  
 
-- 연결 테스트 버튼을 클릭하여 접속 테스트를 한다.  
-![4-2-14-0]  
-정보가 정상적으로 입력되었다면 '연결이 성공하였습니다.'라는 메시지가 나온다.  
+>`cf env hello-spring-cubrid `
+
+> ![4-2-13-0]
+
+<br>
+
+##### 연결 테스트 버튼을 클릭하여 접속 테스트를 한다. 
+ 
+> ![4-2-14-0]  
+
+##### 정보가 정상적으로 입력되었다면 '연결이 성공하였습니다.'라는 메시지가 나온다.  
 확인 버튼을 눌러 창을 닫는다.  
-![4-2-15-0]
 
-- 연결 버튼을 클릭하여 접속한다  
-![4-2-16-0]
+> ![4-2-15-0]
 
-- 접속이 완료되면 좌측에 스키마 정보가 나타난다.  
-![4-2-17-0]
+##### 연결 버튼을 클릭하여 접속한다  
+> ![4-2-16-0]
 
-- 질의 편집기 버튼을 클릭하면 오른쪽 창에 query를 입력할 수 있는 창이 열린다.  
-![4-2-18-0]
+##### 접속이 완료되면 좌측에 스키마 정보가 나타난다.  
+> ![4-2-17-0]
 
-- 우측 화면에 쿼리 항목에 Query문을 작성한 후 실행 버튼(삼각형)을 클릭한다.  
-쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다.  
-![4-2-19-0]
+##### 질의 편집기 버튼을 클릭하면 오른쪽 창에 query를 입력할 수 있는 창이 열린다.  
+> ![4-2-18-0]
+
+##### 우측 화면에 쿼리 항목에 Query문을 작성한 후 실행 버튼(삼각형)을 클릭한다. 쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다.  
+> ![4-2-19-0]
 
 
 [1-3-0-0]:/Service-Guide/images/cubrid/1-3-0-0.png
