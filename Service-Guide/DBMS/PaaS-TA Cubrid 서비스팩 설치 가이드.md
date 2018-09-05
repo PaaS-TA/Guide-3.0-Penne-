@@ -91,33 +91,48 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 - **사용 예시**
 
-		$ bosh releases
-		   >RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-           >Acting as user 'admin' on 'bosh'<br>
-           
-           >+--------------------------------------+-----------+-------------+<br>
-           >| Name                                 | Versions  | Commit Hash |<br>                
-           >+--------------------------------------+-----------+-------------+<br>         
-           >| cf                                   | 247*      | af4efe9f+   |<br>
-           >| cflinuxfs2-rootfs                    | 1.40.0*   | 19fe09f4+   |<br>
-           >| diego                                | 1.1.0*    | 2298c8d4    |<br>
-           >| empty-release                        | 1+dev.1*  | 00000000    |<br>
-           >| etcd                                 | 86*       | 2dfbef00+   |<br>
-           >| garden-runc                          | 1.0.3*    | c6c4c73c    |<br>
-           >| openpaas-paasta-pinpoint             | 2.0*      | 34e02d07+   |<br>
-           >| openpaas-redis                       | 1.0*      | af975e0f    |<br>
-           >| paasta-eclipse-che                   | 2.0*      | 00000000    |<br>
-           >| paasta-glusterfs                     | 2.0*      | 85e3f01e+   |<br>
-           >| paasta-mysql                         | 2.0*      | 85e3f01e+   |<br>
-           >| paasta-portal-object-storage-release | 0+dev.1*  | 00000000    |<br>
-           >| paasta-redis                         | 2.0       | 2d766084+   |<br>
-           >+--------------------------------------+-----------+-------------+<br>
-           (*) Currently deployed
-           (+) Uncommitted changes
-           
-           13 releases
-           
-           Succeeded
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+    		bpm                               0.9.0*    c9b7136  
+    		caas-release                      1.0*      empty+  
+    		capi                              1.62.0*   22a608c  
+	    	cf-networking                     2.8.0*    479f4a66  
+	    	cf-smoke-tests                    40.0.5*   d6aaf1f  
+	    	cf-syslog-drain                   7.0*      71b995a  
+	    	cflinuxfs2                        1.227.0*  60128e1  
+	    	consul                            195*      67cdbcd  
+	    	diego                             2.13.0*   b5644d9  
+	    	dotnet-core-buildpack             2.1.3*    46a41cd  
+	    	garden-runc                       1.15.1*   75107e7+  
+	    	go-buildpack                      1.8.25*   40c60a0  
+	    	haproxy                           8.8.0*    9292573  
+	    	java-buildpack                    4.13*     c2749d3  
+	    	loggregator                       103.0*    05da4e3d  
+	    	loggregator-agent                 2.0*      2382c90  
+	    	nats                              24*       30e7a82  
+	    	nodejs-buildpack                  1.6.28*   4cfdb7b  
+	    	paas-ta-portal-release            2.0*      non-git  
+	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+	    	paasta-pinpoint                   2.0*      2dbb8bf3+  
+	    	php-buildpack                     4.3.57*   efc48f3  
+	    	postgres                          29*       5de4d63d+  
+	    	python-buildpack                  1.6.18*   bcc4f26  
+	    	routing                           0.179.0*  18155a5  
+	    	ruby-buildpack                    1.7.21*   9d69600  
+	    	silk                              2.9.0*    eebed55  
+	    	staticfile-buildpack              1.4.29*   8a82e63  
+	    	statsd-injector                   1.3.0*    39e5179  
+	    	uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	31 releases
+
+	    	Succeeded
 
 -	Cubrid 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
 
@@ -125,174 +140,103 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 - **사용 예시**
 
-		$ bosh upload release {서비스 릴리즈 파일 PATH}
-		$ bosh upload release paasta-cubrid-2.0.tgz
-		
-    		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-		Acting as user 'admin' on 'bosh
-		
-		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on 'bosh'
-        
-        Verifying manifest...
-        Extract manifest OK
-        Manifest exists OK
-        Release name/version OK
-        
-        File exists and readable OK
-        Read package 'cubrid' (1 of 4) OK
-        Package 'cubrid' checksum OK
-        Read package 'java7' (2 of 4) OK
-        Package 'java7' checksum OK
-        Read package 'cli' (3 of 4) OK
-        Package 'cli' checksum OK
-        Read package 'cubrid_broker' (4 of 4) OK
-        Package 'cubrid_broker' checksum OK
-        Package dependencies OK
-        Checking jobs format OK
-        Read job 'cubrid' (1 of 4), version 45427cb5f3b6c86df80bb2de38c12e98aec7b95f OK
-        Job 'cubrid' checksum OK
-        Extract job 'cubrid' OK
-        Read job 'cubrid' manifest OK
-        Check template 'cubrid_ctl.erb' for 'cubrid' OK
-        Check template 'cubrid.conf.erb' for 'cubrid' OK
-        Check template 'cubrid_broker.conf.erb' for 'cubrid' OK
-        Check template 'cubrid_broker_init.sql.erb' for 'cubrid' OK
-        Check template '.cubrid.sh.erb' for 'cubrid' OK
-        Job 'cubrid' needs 'cubrid' package OK
-        Monit file for 'cubrid' OK
-        Read job 'cubrid_broker_deregistrar' (2 of 4), version 49602e528fa68a557ece12688b6b278a1134ed27 OK
-        Job 'cubrid_broker_deregistrar' checksum OK
-        Extract job 'cubrid_broker_deregistrar' OK
-        Read job 'cubrid_broker_deregistrar' manifest OK
-        Check template 'errand.sh.erb' for 'cubrid_broker_deregistrar' OK
-        Job 'cubrid_broker_deregistrar' needs 'cli' package OK
-        Monit file for 'cubrid_broker_deregistrar' OK
-        Read job 'cubrid_broker' (3 of 4), version c73852bd8115be216e32b69bc6ee5f0bb5444b06 OK
-        Job 'cubrid_broker' checksum OK
-        Extract job 'cubrid_broker' OK
-        Read job 'cubrid_broker' manifest OK
-        Check template 'bin/cubrid_broker_ctl' for 'cubrid_broker' OK
-        Check template 'bin/monit_debugger' for 'cubrid_broker' OK
-        Check template 'data/properties.sh.erb' for 'cubrid_broker' OK
-        Check template 'helpers/ctl_setup.sh' for 'cubrid_broker' OK
-        Check template 'helpers/ctl_utils.sh' for 'cubrid_broker' OK
-        Check template 'config/cubrid_broker.yml.erb' for 'cubrid_broker' OK
-        Check template 'config/application-mvc.properties.erb' for 'cubrid_broker' OK
-        Check template 'config/datasource.properties.erb' for 'cubrid_broker' OK
-        Check template 'config/logback.xml.erb' for 'cubrid_broker' OK
-        Check template 'config/bosh.pem.erb' for 'cubrid_broker' OK
-        Job 'cubrid_broker' needs 'cubrid_broker' package OK
-        Job 'cubrid_broker' needs 'java7' package OK
-        Monit file for 'cubrid_broker' OK
-        Read job 'cubrid_broker_registrar' (4 of 4), version 8a89128e95a9707a30697bda7a9d7a678a2fd109 OK
-        Job 'cubrid_broker_registrar' checksum OK
-        Extract job 'cubrid_broker_registrar' OK
-        Read job 'cubrid_broker_registrar' manifest OK
-        Check template 'errand.sh.erb' for 'cubrid_broker_registrar' OK
-        Job 'cubrid_broker_registrar' needs 'cli' package OK
-        Monit file for 'cubrid_broker_registrar' OK
-        
-        Release info
-        ------------
-        Name: paasta-cubrid
-        Version: 2.0
-        
-        Packages
-        
-        cubrid (36065bb22d1e816657d176c902246231347361e2)
-        java7 (cb28502f6e89870255182ea76e9029c7e9ec1862)
-        cli (24305e50a638ece2cace4ef4803746c0c9fe4bb0)
-        cubrid_broker (25717cfb95347c7ca5ed1e6cbdda701315789cfc)
-        
-        Jobs
-        - cubrid (45427cb5f3b6c86df80bb2de38c12e98aec7b95f)
-        - cubrid_broker_deregistrar (49602e528fa68a557ece12688b6b278a1134ed27)
-        - cubrid_broker (c73852bd8115be216e32b69bc6ee5f0bb5444b06)
-        - cubrid_broker_registrar (8a89128e95a9707a30697bda7a9d7a678a2fd109)
-        
-        License
-        - none
-        
-        Checking if can repack release for faster upload...
-        cubrid (36065bb22d1e816657d176c902246231347361e2) UPLOAD
-        java7 (cb28502f6e89870255182ea76e9029c7e9ec1862) SKIP
-        cli (24305e50a638ece2cace4ef4803746c0c9fe4bb0) SKIP
-        cubrid_broker (25717cfb95347c7ca5ed1e6cbdda701315789cfc) UPLOAD
-        cubrid (45427cb5f3b6c86df80bb2de38c12e98aec7b95f) UPLOAD
-        cubrid_broker_deregistrar (49602e528fa68a557ece12688b6b278a1134ed27) UPLOAD
-        cubrid_broker (c73852bd8115be216e32b69bc6ee5f0bb5444b06) UPLOAD
-        cubrid_broker_registrar (8a89128e95a9707a30697bda7a9d7a678a2fd109) UPLOAD
-        Release repacked (new size is 181.8M)
-        
-        Uploading release
-        release-repac: 96%
-        |ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo | 174.5MB 26.1MB/s ETA: 00:00:00
-        Director task 1285
-        Started extracting release > Extracting release. Done (00:00:02)
-        
-        Started verifying manifest > Verifying manifest. Done (00:00:00)
-        
-        Started resolving package dependencies > Resolving package dependencies. Done (00:00:00)
-        
-        Started creating new packages
-        Started creating new packages > cubrid/36065bb22d1e816657d176c902246231347361e2. Done (00:00:03)
-        Started creating new packages > java7/cb28502f6e89870255182ea76e9029c7e9ec1862. Done (00:00:03)
-        Started creating new packages > cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0. Done (00:00:00)
-        Started creating new packages > cubrid_broker/25717cfb95347c7ca5ed1e6cbdda701315789cfc. Done (00:00:01)
-        Done creating new packages (00:00:07)
-        
-        Started creating new jobs
-        Started creating new jobs > cubrid/45427cb5f3b6c86df80bb2de38c12e98aec7b95f. Done (00:00:00)
-        Started creating new jobs > cubrid_broker_deregistrar/49602e528fa68a557ece12688b6b278a1134ed27. Done (00:00:00)
-        Started creating new jobs > cubrid_broker/c73852bd8115be216e32b69bc6ee5f0bb5444b06. Done (00:00:00)
-        Started creating new jobs > cubrid_broker_registrar/8a89128e95a9707a30697bda7a9d7a678a2fd109. Done (00:00:00)
-        Done creating new jobs (00:00:00)
-        
-        Started release has been created > paasta-cubrid/2.0. Done (00:00:00)
-        
-        Task 1285 done
-        
-        Started	2017-01-06 06:52:33 UTC
-        Finished	2017-01-06 06:52:42 UTC
-        Duration	00:00:09
-        release-repac: 96%
-        |ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo | 174.9MB 10.9MB/s Time: 00:00:16
-        
-        Release uploaded
+		$ bosh -e micro-bosh upload-release paasta-cubrid-2.0.tgz
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		######################################################## 100.00% 144.14 MiB/s 2s
+		Task 4460
+
+		Task 4460 | 04:31:41 | Extracting release: Extracting release (00:00:04)
+		Task 4460 | 04:31:45 | Verifying manifest: Verifying manifest (00:00:00)
+		Task 4460 | 04:31:45 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: cf-mysql-broker/250c6466bdaff96677e501ed5219d92ce4e61bd8 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: mysqlclient/ce95f8ac566f76b650992987d5282ee473356e43 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: acceptance-tests/1cb3ce7e20f5a8395b43fc6f0e3f2e92b0dc27bd (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:00:01)
+		Task 4460 | 04:31:46 | Creating new packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: quota-enforcer/e2c4c9e7d7bbbe4bfdc0866962461b00e654cca3 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:00:01)
+		Task 4460 | 04:31:47 | Creating new packages: ruby/ff79c965224b4160c1526bd704b3b21e4ad7c362 (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:00:01)
+		Task 4460 | 04:31:48 | Creating new packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:00:00)
+		Task 4460 | 04:31:48 | Creating new packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:00:01)
+		Task 4460 | 04:31:49 | Creating new packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:00:02)
+		Task 4460 | 04:31:51 | Creating new packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:01)
+		Task 4460 | 04:31:52 | Creating new packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:00:01)
+		Task 4460 | 04:31:53 | Creating new packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:00:01)
+		Task 4460 | 04:31:54 | Creating new packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:00:00)
+		Task 4460 | 04:31:54 | Creating new packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:01)
+		Task 4460 | 04:31:55 | Creating new packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:00:01)
+		Task 4460 | 04:31:56 | Creating new packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:00:01)
+		Task 4460 | 04:31:57 | Creating new jobs: cf-mysql-broker/9828ead15eabdc33b2c27fe275b463735edb115d (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: acceptance-tests/48c00c36ec5210cbdd3b125ae6a72cfdf6eaf4e2 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-deregistrar/b5f6f776d46eb1ac561ab1e8f58d8ddedb97f86e (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: proxy/7907d8759aa11dfcbbe79220dc945c96b5562ac1 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: mysql/078561f02f2516212ed59c48e1dd45360f93871c (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: op-mysql-java-broker/6e47c9ea6fbe0867d4a476af5abf157830c03024 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-registrar/e1f5e30b87e70e916ea74ea8eb63a7b6ff6ff643 (00:00:00)
+		Task 4460 | 04:31:57 | Release has been created: paasta-mysql/2.0 (00:00:00)
+
+		Task 4460 Started  Fri Aug 31 04:31:41 UTC 2018
+		Task 4460 Finished Fri Aug 31 04:31:57 UTC 2018
+		Task 4460 Duration 00:00:16
+		Task 4460 done
+
+		Succeeded
 
 
 - 업로드 된 Cubrid 릴리즈를 확인한다. 
 
 - **사용 예시**
 
-		$ bosh releases
-           
-           +--------------------------------------+-----------+-------------+
-           | Name | Versions | Commit Hash |
-           +--------------------------------------+-----------+-------------+
-           | cf | 247* | af4efe9f+ |
-           | cflinuxfs2-rootfs | 1.40.0* | 19fe09f4+ |
-           | diego | 1.1.0* | 2298c8d4 |
-           | empty-release | 1+dev.1* | 00000000 |
-           | etcd | 86* | 2dfbef00+ |
-           | garden-runc | 1.0.3* | c6c4c73c |
-           | openpaas-paasta-pinpoint | 2.0* | 34e02d07+ |
-           | openpaas-redis | 1.0* | af975e0f |
-           | paasta-cubrid | 2.0 | 85e3f01e+ |
-           | paasta-eclipse-che | 2.0* | 00000000 |
-           | paasta-glusterfs | 2.0* | 85e3f01e+ |
-           | paasta-mysql | 2.0* | 85e3f01e+ |
-           | paasta-portal-object-storage-release | 0+dev.1* | 00000000 |
-           | paasta-redis | 2.0 | 2d766084+ |
-           +--------------------------------------+-----------+-------------+
-           (*) Currently deployed
-           (+) Uncommitted changes
-           
-           13 releases
-           
-           Succeeded
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+		bpm                               0.9.0*    c9b7136  
+		caas-release                      1.0*      empty+  
+		capi                              1.62.0*   22a608c  
+		cf-networking                     2.8.0*    479f4a66  
+		cf-smoke-tests                    40.0.5*   d6aaf1f  
+		cf-syslog-drain                   7.0*      71b995a  
+		cflinuxfs2                        1.227.0*  60128e1  
+		consul                            195*      67cdbcd  
+		diego                             2.13.0*   b5644d9  
+		dotnet-core-buildpack             2.1.3*    46a41cd  
+		garden-runc                       1.15.1*   75107e7+  
+		go-buildpack                      1.8.25*   40c60a0  
+		haproxy                           8.8.0*    9292573  
+		java-buildpack                    4.13*     c2749d3  
+		loggregator                       103.0*    05da4e3d  
+		loggregator-agent                 2.0*      2382c90  
+		nats                              24*       30e7a82  
+		nodejs-buildpack                  1.6.28*   4cfdb7b  
+		paas-ta-portal-release            2.0*      non-git  
+		paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+		paasta-mysql                      2.0       85e3f01e+  
+		paasta-pinpoint                   2.0*      2dbb8bf3+  
+		php-buildpack                     4.3.57*   efc48f3  
+		postgres                          29*       5de4d63d+  
+		python-buildpack                  1.6.18*   bcc4f26  
+		routing                           0.179.0*  18155a5  
+		ruby-buildpack                    1.7.21*   9d69600  
+		silk                              2.9.0*    eebed55  
+		staticfile-buildpack              1.4.29*   8a82e63  
+		statsd-injector                   1.3.0*    39e5179  
+		uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	32 releases
+
+	    	Succeeded
 
 ### <div id='9'> 2.3.  Cubrid 서비스 Deployment 파일 수정 및 배포
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
