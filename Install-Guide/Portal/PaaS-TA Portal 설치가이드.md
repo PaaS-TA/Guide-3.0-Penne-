@@ -9,7 +9,9 @@
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
     *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
     *  [2.4 UAA 포탈 클라이언트 계정 등록](#24-uaa-포탈-클라이언트-계정-등록)
-3. [PaaS-TA Portal Release 테스트](#3-paas-ta-portal-release-테스트)
+    *  [2.5 UAA White-List 등록](#25-uaa-white-list-등록)
+    *  [2.6 계정 생성 및 패스워드 변경 페이지 등록](#26-계정-생성-및-패스워드-변경-페이지-등록)
+3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
     * [Mariadb](#31-mariadb)
     * [API](#32-api)
 
@@ -1953,9 +1955,58 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
     
         클라이언트를 등록시 다중 URL 입력 가능
         예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력        
+#### 2.5 UAA White-List 등록 
+1. Bosh vms로 uaa의 위치를 확인후 이동한다.
+   >![paas-ta-portal-10]
+   >bosh ssh -d [deployment name] [instance name]\
+   *예) $ bosh ssh -d paasta uaa
 
-# 3. PaaS-TA Portal Release 테스트
-본 PaaS-TA Portal Release 테스트는 배포가 완료된 후 모든 Instance가 running일 경우 진행한다.
+   
+1. sudo su를 입력해 root로 전환한다.
+   
+1. uaa.yml 파일 위치로 이동한다(/var/vcap/jobs/uaa/config) 디렉토리 안의 uaa.yml 을 수정한다.
+   >![paas-ta-portal-11]
+   
+1. uaa.yml에 whitelist: 에 
+   [파스타포털주소]/login,  [파스타포털주소]/callback을 입력하여 저장한다.(Port를 사용시, Port번호까지 입력한다.)
+   >![paas-ta-portal-12]
+   
+1. monit stop all입력 후 monit start all을 실행해 서비스를 재시작한다.
+   
+       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit stop all
+       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit start all
+
+#### 2.6 계정 생성 및 패스워드 변경 페이지 등록
+1. Bosh vms로 uaa의 위치를 확인후 이동한다.
+    >![paas-ta-portal-10]
+    >bosh ssh -d [deployment name] [instance name]\
+    *예) $ bosh ssh -d paasta uaa
+ 
+    
+1. sudo su를 입력해 root로 전환한다.
+ 
+1. uaa.yml 파일 위치로 이동한다(/var/vcap/jobs/uaa/config) 디렉토리 안의 uaa.yml 을 수정한다.
+    >![paas-ta-portal-11]
+1. Paas-TA-Portal은 웹페이지를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공한다.
+- uaa.yml에 links: 에 Passwd 에 패스워드 변경 페이지 URL을 입력한다. 예) http://xxx.xxx.xxx.xxx /user/resetPassword (xxx는 사용자 포털 주소)
+- Signup 에 신규생성 페이지 URL을 입력한다. 예)http://xxx.xxx.xxx.xxx/user/addUser (xxx는 사용자 포털 주소)
+**(단 사용자 포털이 SMTP설정이 되어 있어야한다.)**
+>![paas-ta-portal-13]
+         
+2. UAA를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공
+- Links는 디폴트 설정값으로 유지한다.
+- uaa.yml에 smtp: 에 이메일 서버 정보를 입력한다.
+>![paas-ta-portal-14]
+
+1. monit stop all입력 후 monit start all을 실행해 서비스를 재시작한다.
+   
+       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit stop all
+       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit start all
+         
+         
+
+# 3. PaaS-TA Portal 운영
+본 PaaS-TA Portal 운영은 배포가 완료된 후 모든 Instance가 running일 경우 진행한다.
 
 ### 3.1. Mariadb
 ##### 1. Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
@@ -2033,7 +2084,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
          paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c:/var/vcap/sys/log/paas-ta-portal-api$ ls
          paas-ta-portal-api.stderr.log  paas-ta-portal-api.stdout.log
 
-3. 로그를 확인, 오류가 생길경우 원인을 파악한다.
+3. 로그파일을 열어 내용을 확인한다.
     > vim [job name].stdout.log
         
         예)
@@ -2085,3 +2136,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 [paas-ta-portal-08]:../../Install-Guide/Portal/images/Paas-TA-Portal_08.png
 [paas-ta-portal-09]:../../Install-Guide/Portal/images/Paas-TA-Portal_09.png
 [paas-ta-portal-10]:../../Install-Guide/Portal/images/Paas-TA-Portal_10.png
+[paas-ta-portal-11]:../../Install-Guide/Portal/images/Paas-TA-Portal_11.png
+[paas-ta-portal-12]:../../Install-Guide/Portal/images/Paas-TA-Portal_12.png
+[paas-ta-portal-13]:../../Install-Guide/Portal/images/Paas-TA-Portal_13.png
+[paas-ta-portal-14]:../../Install-Guide/Portal/images/Paas-TA-Portal_14.png
