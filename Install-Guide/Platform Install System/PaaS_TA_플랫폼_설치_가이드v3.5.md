@@ -59,7 +59,7 @@ Pasta-3.1까지는 bosh-init을 통하여 Bosh를 생성하고, bosh1 cli를 통
 
 ## <div id='6'/>2.1.	paasta-3.1
 
-BBosh1은 bosh-init을 통하여 Bosh를 생성하고, bosh1 cli를 통하여 PaaS-TA Controller, Container를 생성하였다.
+Bosh1은 bosh-init을 통하여 Bosh를 생성하고, bosh1 cli를 통하여 PaaS-TA Controller, Container를 생성하였다.
 
 ![PaaSTa_BOSH_Use_Guide_Image1]
 
@@ -73,6 +73,9 @@ paasta-3.5는 bosh2를 기반으로 설치된다. Bosh2를 사용하여 Bosh생�
 ## <div id='9'/>3.1.	pre-requsite
 
 1.	PaaS-ta 3.5를 설치 하기 위해서는 bosh 설치과정에서 언급한 것 처럼 관련 deployment, release , stemcell을 파스타 사이트에서 다운로드 받아 정해진 경로에 복사 해야 한다.
+ 
+   - [설치 파일 다운로드 받기](../Download_Page.md)
+
 2.	Bosh를 bosh2 기반으로 설치 되어 있어야 한다.
 3.	Paasta-3.5설치하는 환경은 bosh를 deploy한 inception(설치 환경)에서 작업 해야 한다.
 
