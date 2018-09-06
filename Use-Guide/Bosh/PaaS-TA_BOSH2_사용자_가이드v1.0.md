@@ -127,7 +127,7 @@ BOSH 및 PaaS-TA 설치를 위해 Inception 서버에 구성해야 할 컴포넌
 $ sudo apt-get update
 $ mkdir workspace
 $ cd workspace
-$ curl -Lo ./bosh https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.0.1-linux-amd64
+$ curl -Lo ./bosh https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.1.2-linux-amd64
 $ chmod +x ./bosh
 $ sudo mv ./bosh /usr/local/bin/bosh
 $ bosh -v
@@ -159,7 +159,7 @@ $ export PATH=$GOPATH/bin:$PATH
 
 $ go get -d github.com/cloudfoundry/bosh-cli
 $ cd $GOPATH/src/github.com/cloudfoundry/bosh-cli
-$ git checkout v3.0.1
+$ git checkout v5.1.2
 $ vi ./vendor/github.com/cloudfoundry/config-server/types/certificate_generator.go
 
 func generateCertTemplate 함수에 아래 내용중 365(일)을 원하는 기간 만큼 수정한다.
