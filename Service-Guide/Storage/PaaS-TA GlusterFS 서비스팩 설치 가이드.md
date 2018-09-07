@@ -649,6 +649,7 @@ bosh -e micro-bosh -d paasta-swift-object-service deploy paasta_swift_object_bos
 -	Swift Object 서비스팩을 배포한다.
 
 - **사용 예시**
+
 		$ ./deploy-swift-object-bosh2.0.sh
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
