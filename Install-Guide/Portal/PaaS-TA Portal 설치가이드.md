@@ -9,11 +9,9 @@
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
     *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
     *  [2.4 UAA 포탈 클라이언트 계정 등록](#24-uaa-포탈-클라이언트-계정-등록)
-    *  [2.5 UAA White-List 등록](#25-uaa-white-list-등록)
-    *  [2.6 계정 생성 및 패스워드 변경 페이지 등록](#26-계정-생성-및-패스워드-변경-페이지-등록)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
-    * [Mariadb](#31-mariadb)
-    * [API](#32-api)
+    *  [3.1 Mariadb](#31-mariadb)
+    *  [3.2 API](#32-api)
 
 # 1. 문서 개요
 ### 1.1. 목적
@@ -27,7 +25,17 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 ### 1.3. 시스템 구성도
 본 문서의 설치된 시스템 구성도이다. Binary Storage, Mariadb, Proxy, Gateway Api, Registration Api, Portal Api, Common Api, Log Api, Storage Api, Webadmin, Webuser로 최소사항을 구성하였다.
 
-![시스템구성도][paas-ta-portal-01] 
+![시스템구성도][paas-ta-portal-01]
+* Paas-TA Portal 설치할때 cloud config에 추가적으로 정의한 VM_Tpye명과 스펙 
+
+| VM_Type | 스펙 |
+|--------|-------|
+|portal_large| 1vCPU / 2GB RAM / 4GB Disk|
+|portal_medium| 1vCPU / 1GB RAM / 4GB Disk|
+|portal_small| 1vCPU / 512MB RAM / 4GB Disk|
+
+
+* Paas-TA Portal각 Instance의 Resource Pool과 스펙
 
 | 구분 | Resource Pool | 스펙 |
 |--------|-------|-------|
@@ -237,9 +245,9 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 		Succeeded
 		
->Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (mysql 은 stemcell 3309 버전을 사용)
+>Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (Paas-TA Portal 은 stemcell 3468.51 버전을 사용)
 
-### 2.3. PaaS-TA Portal Deployment 파일 및 deploy-mysql-bosh2.0.sh 수정 및 배포
+### 2.3. PaaS-TA Portal Deployment 파일 및 deploy-portal-bosh2.0.sh 수정 및 배포
 
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
@@ -545,7 +553,8 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 		Succeeded
 
 
--	Deployment 파일을 서버 환경에 맞게 수정한다. //(바꿔야할 변수 및 설명 추가해야함)
+-	Deployment 파일을 서버 환경에 맞게 수정한다.
+-  azs의 경우 z5 ~ z6 로 설정한다.
 >"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-vsphere.sh 참고 예) os : ((stemcell_os))
  
 ```yml
@@ -573,7 +582,7 @@ instance_groups:
 ########## INFRA ##########
 - name: mariadb
   azs:
-  - z3
+  - z6
   instances: 1
   vm_type: portal_large
   stemcell: "((stemcell_alias))"
@@ -589,7 +598,7 @@ instance_groups:
 
 - name: binary_storage
   azs:
-  - z3
+  - z5
   instances: 1
   persistent_disk_type: "((binary_storage_disk_type))"
   vm_type: portal_large
@@ -606,7 +615,7 @@ instance_groups:
 
 - name: haproxy
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_large
   stemcell: "((stemcell_alias))"
@@ -646,7 +655,7 @@ instance_groups:
 
 - name: paas-ta-portal-registration
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_small
   stemcell: "((stemcell_alias))"
@@ -668,7 +677,7 @@ instance_groups:
 
 #- name: paas-ta-portal-infra-admin
 #  azs :
-#  - z3
+#  - z5
 #  instances: 1
 #  vm_type: portal_medium
 #  stemcell: "((stemcell_alias))"
@@ -689,7 +698,7 @@ instance_groups:
 
 - name: paas-ta-portal-api
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_large
   stemcell: "((stemcell_alias))"
@@ -738,7 +747,7 @@ instance_groups:
 
 - name: paas-ta-portal-log-api
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_medium
   stemcell: "((stemcell_alias))"
@@ -782,7 +791,7 @@ instance_groups:
 
 - name: paas-ta-portal-common-api
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_medium
   stemcell: "((stemcell_alias))"
@@ -842,7 +851,7 @@ instance_groups:
 
 - name: paas-ta-portal-storage-api
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_medium
   stemcell: "((stemcell_alias))"
@@ -871,7 +880,7 @@ instance_groups:
 
 - name: paas-ta-portal-webadmin
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_medium
   stemcell: "((stemcell_alias))"
@@ -896,7 +905,7 @@ instance_groups:
 
 - name: paas-ta-portal-webuser
   azs:
-  - z3
+  - z5
   instances: 1
   vm_type: portal_medium
   stemcell: "((stemcell_alias))"
@@ -1466,7 +1475,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_large
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: binary_storage
         +   networks:
@@ -1481,7 +1490,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_large
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: haproxy
         +   networks:
@@ -1500,7 +1509,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_large
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-gateway
         +   networks:
@@ -1519,7 +1528,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_medium
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-registration
         +   networks:
@@ -1540,7 +1549,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_small
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-api
         +   networks:
@@ -1588,7 +1597,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_large
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-log-api
         +   networks:
@@ -1631,7 +1640,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_medium
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-common-api
         +   networks:
@@ -1690,7 +1699,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_medium
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-storage-api
         +   networks:
@@ -1718,7 +1727,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_medium
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-webadmin
         +   networks:
@@ -1742,7 +1751,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         +     release: paas-ta-portal-release
         +   vm_type: portal_medium
         + - azs:
-        +   - z3
+        +   - z5
         +   instances: 1
         +   name: paas-ta-portal-webuser
         +   networks:
@@ -1907,18 +1916,18 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         Deployment 'paas-ta-portal-v2'
         
         Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type        Active  
-        binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z3  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
-        haproxy/8cc2d633-2b43-4f3d-a2e8-72f5279c11d5                      running        z3  10.30.107.213  vm-315bfa1b-9829-46de-a19d-3bd65e9f9ad4  portal_large   true  
+        binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z5  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
+        haproxy/8cc2d633-2b43-4f3d-a2e8-72f5279c11d5                      running        z5  10.30.107.213  vm-315bfa1b-9829-46de-a19d-3bd65e9f9ad4  portal_large   true  
                                                                                              115.68.46.214                                                            
-        mariadb/117cbf05-b223-4133-bf61-e15f16494e21                      running        z3  10.30.107.211  vm-bc5ae334-12d4-41d4-8411-d9315a96a305  portal_large   true  
-        paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c           running        z3  10.30.107.217  vm-9d2a1929-0157-4c77-af5e-707ec496ed87  portal_medium  true  
-        paas-ta-portal-common-api/060320fa-7f26-4032-a1d9-6a7a41a044a8    running        z3  10.30.107.219  vm-f35e9838-74cf-40e0-9f97-894b53a68d1f  portal_medium  true  
-        paas-ta-portal-gateway/6baba810-9a4a-479d-98b2-97e5ba651784       running        z3  10.30.107.214  vm-7ec75160-bf34-442e-b755-778ae7dd3fec  portal_medium  true  
-        paas-ta-portal-log-api/a4460008-42b5-4ba0-84ee-fff49fe6c1bd       running        z3  10.30.107.218  vm-9ec0a1b0-09f6-415b-8e23-53af91fd94b8  portal_medium  true  
-        paas-ta-portal-registration/3728ed73-451e-4b93-ab9b-c610826c3135  running        z3  10.30.107.215  vm-c4020514-c458-41c6-bcbc-7e0ee1bc6f42  portal_small   true  
-        paas-ta-portal-storage-api/2940366a-8294-4509-a9c0-811c8140663a   running        z3  10.30.107.220  vm-79ad6ee1-1bb5-4308-8b71-9ed30418e2c1  portal_medium  true  
-        paas-ta-portal-webadmin/8047fcbd-9a98-4b61-b161-0cbb277fa643      running        z3  10.30.107.221  vm-188250fd-e918-4aab-9cbe-7d368852ea8a  portal_medium  true  
-        paas-ta-portal-webuser/cb206717-81c9-49ed-a0a8-e6c3b957cb66       running        z3  10.30.107.222  vm-822f68a5-91c8-453a-b9b3-c1bbb388e377  portal_medium  true
+        mariadb/117cbf05-b223-4133-bf61-e15f16494e21                      running        z5  10.30.107.211  vm-bc5ae334-12d4-41d4-8411-d9315a96a305  portal_large   true  
+        paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c           running        z5  10.30.107.217  vm-9d2a1929-0157-4c77-af5e-707ec496ed87  portal_medium  true  
+        paas-ta-portal-common-api/060320fa-7f26-4032-a1d9-6a7a41a044a8    running        z5  10.30.107.219  vm-f35e9838-74cf-40e0-9f97-894b53a68d1f  portal_medium  true  
+        paas-ta-portal-gateway/6baba810-9a4a-479d-98b2-97e5ba651784       running        z5  10.30.107.214  vm-7ec75160-bf34-442e-b755-778ae7dd3fec  portal_medium  true  
+        paas-ta-portal-log-api/a4460008-42b5-4ba0-84ee-fff49fe6c1bd       running        z5  10.30.107.218  vm-9ec0a1b0-09f6-415b-8e23-53af91fd94b8  portal_medium  true  
+        paas-ta-portal-registration/3728ed73-451e-4b93-ab9b-c610826c3135  running        z5  10.30.107.215  vm-c4020514-c458-41c6-bcbc-7e0ee1bc6f42  portal_small   true  
+        paas-ta-portal-storage-api/2940366a-8294-4509-a9c0-811c8140663a   running        z5  10.30.107.220  vm-79ad6ee1-1bb5-4308-8b71-9ed30418e2c1  portal_medium  true  
+        paas-ta-portal-webadmin/8047fcbd-9a98-4b61-b161-0cbb277fa643      running        z5  10.30.107.221  vm-188250fd-e918-4aab-9cbe-7d368852ea8a  portal_medium  true  
+        paas-ta-portal-webuser/cb206717-81c9-49ed-a0a8-e6c3b957cb66       running        z5  10.30.107.222  vm-822f68a5-91c8-453a-b9b3-c1bbb388e377  portal_medium  true
         
         11 vms
         
@@ -1927,18 +1936,18 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 ### 2.4. UAA 포탈 클라이언트 계정 등록
 1. 현재 사용하고 있는 uaa 주소를 설정한다.
-- $ uaac target [uaa_url]
+    - $ uaac target [uaa_url]
 2. uaac 관리자 권한을 얻는다.
-- $ uaac token client get
+    - $ uaac token client get
 
-      Client ID:  admin
-      Client secret:  ************
+          Client ID:  admin
+          Client secret:  ************
 
-      Successfully fetched token via client credentials grant.
-      Target: https://uaa.115.68.46.189.xip.io
-      Context: admin, from client admin
+          Successfully fetched token via client credentials grant.
+          Target: https://uaa.115.68.46.189.xip.io
+          Context: admin, from client admin
 
-> 기본 계정정보 Client ID : admin, Client secret : admin-secret
+        > 기본 계정정보 Client ID : admin, Client secret : admin-secret
 
 3. uaac 클라이언트를 등록한다.
 
@@ -1954,56 +1963,9 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         예) http://10.10.10.1:8080 까지 입력 포트번호가 없을 경우 http://10.10.10.1 까지만 입력
     
         클라이언트를 등록시 다중 URL 입력 가능
-        예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력        
-#### 2.5 UAA White-List 등록 
-1. Bosh vms로 uaa의 위치를 확인후 이동한다.
-   >![paas-ta-portal-10]
-   >bosh ssh -d [deployment name] [instance name]\
-   *예) $ bosh ssh -d paasta uaa
-
-   
-1. sudo su를 입력해 root로 전환한다.
-   
-1. uaa.yml 파일 위치로 이동한다(/var/vcap/jobs/uaa/config) 디렉토리 안의 uaa.yml 을 수정한다.
-   >![paas-ta-portal-11]
-   
-1. uaa.yml에 whitelist: 에 
-   [파스타포털주소]/login,  [파스타포털주소]/callback을 입력하여 저장한다.(Port를 사용시, Port번호까지 입력한다.)
-   >![paas-ta-portal-12]
-   
-1. monit stop all입력 후 monit start all을 실행해 서비스를 재시작한다.
-   
-       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit stop all
-       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit start all
-
-#### 2.6 계정 생성 및 패스워드 변경 페이지 등록
-1. Bosh vms로 uaa의 위치를 확인후 이동한다.
-    >![paas-ta-portal-10]
-    >bosh ssh -d [deployment name] [instance name]\
-    *예) $ bosh ssh -d paasta uaa
- 
-    
-1. sudo su를 입력해 root로 전환한다.
- 
-1. uaa.yml 파일 위치로 이동한다(/var/vcap/jobs/uaa/config) 디렉토리 안의 uaa.yml 을 수정한다.
-    >![paas-ta-portal-11]
-1. Paas-TA-Portal은 웹페이지를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공한다.
-- uaa.yml에 links: 에 Passwd 에 패스워드 변경 페이지 URL을 입력한다. 예) http://xxx.xxx.xxx.xxx /user/resetPassword (xxx는 사용자 포털 주소)
-- Signup 에 신규생성 페이지 URL을 입력한다. 예)http://xxx.xxx.xxx.xxx/user/addUser (xxx는 사용자 포털 주소)
-**(단 사용자 포털이 SMTP설정이 되어 있어야한다.)**
->![paas-ta-portal-13]
-         
-2. UAA를 이용하여, 사용자 생성 및 패스워드 변경 기능 제공
-- Links는 디폴트 설정값으로 유지한다.
-- uaa.yml에 smtp: 에 이메일 서버 정보를 입력한다.
->![paas-ta-portal-14]
-
-1. monit stop all입력 후 monit start all을 실행해 서비스를 재시작한다.
-   
-       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit stop all
-       uaa/a220c566-03ce-4df6-a1b3-b23d2a2e8e1b:/var/vcap/jobs/uaa/config# monit start all
-         
-         
+        예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력
+    > uaac 클라이언트 등록 안했을시에 나오는 오류\
+    ![paas-ta-portal-08]           
 
 # 3. PaaS-TA Portal 운영
 본 PaaS-TA Portal 운영은 배포가 완료된 후 모든 Instance가 running일 경우 진행한다.
@@ -2036,18 +1998,18 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
     > bosh ssh -d [deployment name] [instance name]
        
        Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type        Active  
-       binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z3  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
-       haproxy/8cc2d633-2b43-4f3d-a2e8-72f5279c11d5                      running        z3  10.30.107.213  vm-315bfa1b-9829-46de-a19d-3bd65e9f9ad4  portal_large   true  
+       binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z5  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
+       haproxy/8cc2d633-2b43-4f3d-a2e8-72f5279c11d5                      running        z5  10.30.107.213  vm-315bfa1b-9829-46de-a19d-3bd65e9f9ad4  portal_large   true  
                                                                                             115.68.46.214                                                            
-       mariadb/117cbf05-b223-4133-bf61-e15f16494e21                      running        z3  10.30.107.211  vm-bc5ae334-12d4-41d4-8411-d9315a96a305  portal_large   true  
-       paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c           running        z3  10.30.107.217  vm-9d2a1929-0157-4c77-af5e-707ec496ed87  portal_medium  true  
-       paas-ta-portal-common-api/060320fa-7f26-4032-a1d9-6a7a41a044a8    running        z3  10.30.107.219  vm-f35e9838-74cf-40e0-9f97-894b53a68d1f  portal_medium  true  
-       paas-ta-portal-gateway/6baba810-9a4a-479d-98b2-97e5ba651784       running        z3  10.30.107.214  vm-7ec75160-bf34-442e-b755-778ae7dd3fec  portal_medium  true  
-       paas-ta-portal-log-api/a4460008-42b5-4ba0-84ee-fff49fe6c1bd       running        z3  10.30.107.218  vm-9ec0a1b0-09f6-415b-8e23-53af91fd94b8  portal_medium  true  
-       paas-ta-portal-registration/3728ed73-451e-4b93-ab9b-c610826c3135  running        z3  10.30.107.215  vm-c4020514-c458-41c6-bcbc-7e0ee1bc6f42  portal_small   true  
-       paas-ta-portal-storage-api/2940366a-8294-4509-a9c0-811c8140663a   running        z3  10.30.107.220  vm-79ad6ee1-1bb5-4308-8b71-9ed30418e2c1  portal_medium  true  
-       paas-ta-portal-webadmin/8047fcbd-9a98-4b61-b161-0cbb277fa643      running        z3  10.30.107.221  vm-188250fd-e918-4aab-9cbe-7d368852ea8a  portal_medium  true  
-       paas-ta-portal-webuser/cb206717-81c9-49ed-a0a8-e6c3b957cb66       running        z3  10.30.107.222  vm-822f68a5-91c8-453a-b9b3-c1bbb388e377  portal_medium  true  
+       mariadb/117cbf05-b223-4133-bf61-e15f16494e21                      running        z5  10.30.107.211  vm-bc5ae334-12d4-41d4-8411-d9315a96a305  portal_large   true  
+       paas-ta-portal-api/48fa0c5a-52eb-4ae8-a7b9-91275615318c           running        z5  10.30.107.217  vm-9d2a1929-0157-4c77-af5e-707ec496ed87  portal_medium  true  
+       paas-ta-portal-common-api/060320fa-7f26-4032-a1d9-6a7a41a044a8    running        z5  10.30.107.219  vm-f35e9838-74cf-40e0-9f97-894b53a68d1f  portal_medium  true  
+       paas-ta-portal-gateway/6baba810-9a4a-479d-98b2-97e5ba651784       running        z5  10.30.107.214  vm-7ec75160-bf34-442e-b755-778ae7dd3fec  portal_medium  true  
+       paas-ta-portal-log-api/a4460008-42b5-4ba0-84ee-fff49fe6c1bd       running        z5  10.30.107.218  vm-9ec0a1b0-09f6-415b-8e23-53af91fd94b8  portal_medium  true  
+       paas-ta-portal-registration/3728ed73-451e-4b93-ab9b-c610826c3135  running        z5  10.30.107.215  vm-c4020514-c458-41c6-bcbc-7e0ee1bc6f42  portal_small   true  
+       paas-ta-portal-storage-api/2940366a-8294-4509-a9c0-811c8140663a   running        z5  10.30.107.220  vm-79ad6ee1-1bb5-4308-8b71-9ed30418e2c1  portal_medium  true  
+       paas-ta-portal-webadmin/8047fcbd-9a98-4b61-b161-0cbb277fa643      running        z5  10.30.107.221  vm-188250fd-e918-4aab-9cbe-7d368852ea8a  portal_medium  true  
+       paas-ta-portal-webuser/cb206717-81c9-49ed-a0a8-e6c3b957cb66       running        z5  10.30.107.222  vm-822f68a5-91c8-453a-b9b3-c1bbb388e377  portal_medium  true  
        
        11 vms
        
@@ -2124,7 +2086,6 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
                 at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
                 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
                 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-
 
 [paas-ta-portal-01]:../../Install-Guide/Portal/images/Paas-TA-Portal_01.png
 [paas-ta-portal-02]:../../Install-Guide/Portal/images/Paas-TA-Portal_02.png
