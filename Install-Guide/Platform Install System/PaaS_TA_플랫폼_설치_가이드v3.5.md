@@ -166,6 +166,21 @@ vm_types:
 - name: small-highmem-16GB
   cloud_properties:
     instance_type: m1.large-memory
+- name: service_medium
+  cloud_properties:
+    instance_type: m1.medium
+- name: service_medium_2G
+  cloud_properties:
+    instance_type: m1.medium
+- name: portal_small
+  cloud_properties:
+    instance_type: m1.tiny
+- name: portal_medium
+  cloud_properties:
+    instance_type: m1.small_1GM
+- name: portal_large
+  cloud_properties:
+    instance_type: m1.small
 
 ## compilation 은 PaaS-TA 설치 시 Compile VM이 생성될 zone 및 vm type을 설정한다.
 compilation:
@@ -181,10 +196,18 @@ disk_types:
   name: default
 - disk_size: 1024
   name: 1GB
+- disk_size: 2048
+  name: 2GB
+- disk_size: 4096
+  name: 4GB
 - disk_size: 5120
   name: 5GB
+- disk_size: 8192
+  name: 8GB
 - disk_size: 10240
   name: 10GB
+- disk_size: 20480
+  name: 20GB
 - disk_size: 30720
   name: 30GB
 - disk_size: 51200
@@ -192,7 +215,7 @@ disk_types:
 - disk_size: 102400
   name: 100GB
 - disk_size: 1048576
-  name: 1TB
+  name: 1TBB
 
 - cloud_properties:
     type: SSD1 
@@ -271,6 +294,12 @@ networks:
     - 10.20.40.2 - 10.20.40.10
     static:
     - 10.20.40.11 - 10.20.40.30
+  
+- name: vip 
+  type: vip
+
+- name: service_private
+  subnets:
   - az: z5
     cloud_properties:
       name: random
@@ -299,7 +328,8 @@ networks:
     - 10.20.60.2 - 10.20.60.10
     static:
     - 10.20.60.11 - 10.20.60.30
-- name: vip 
+
+- name: service_public
   type: vip
 
 ## vm_extentions는 관련 보안 그룹 및 로드 밸런서와 같은 임의의 IaaS 특정 구성을 지정할 수있는 클라우드 구성의 가상 컴퓨터 구성이다.
