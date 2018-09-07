@@ -1134,62 +1134,28 @@ bosh -e micro-bosh -d paasta-cubrid-service deploy paasta_cubrid_bosh2.0.yml \
 
 		Continue? [yN]: y
 
-		Task 4506
+		Task 6372
 
-		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
-		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
-		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
-		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
-		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
-		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
-		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
-		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
-		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
-		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
-		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
-		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
-		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
-		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
-		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
-		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
-		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
-		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
-		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
-		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
-		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
-		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
-		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
-		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
-		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
-		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
-		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
-		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
-		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
-		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
-		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
-		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
-		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
-		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
-		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
-		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
-		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
-		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
-		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
-		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
-		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
-		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
-		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+		Task 6372 | 06:54:35 | Preparing deployment: Preparing deployment (00:00:02)
+		Task 6372 | 06:54:37 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 6372 | 06:54:37 | Compiling packages: java7/a6b0fd78eadc51bfbf305a5571a710128fae6fe5
+		Task 6372 | 06:54:37 | Compiling packages: cli/668cd93a9dc828726341909df08f74dce57478fe
+		Task 6372 | 06:54:37 | Compiling packages: cubrid/36065bb22d1e816657d176c902246231347361e2
+		Task 6372 | 06:56:33 | Compiling packages: cli/668cd93a9dc828726341909df08f74dce57478fe (00:01:56)
+		Task 6372 | 06:56:41 | Compiling packages: java7/a6b0fd78eadc51bfbf305a5571a710128fae6fe5 (00:02:04)
+		Task 6372 | 06:56:41 | Compiling packages: cubrid_broker/28f303051cb42e388cb16ce53ea9e9770f66a8bc (00:00:26)
+		Task 6372 | 06:57:42 | Compiling packages: cubrid/36065bb22d1e816657d176c902246231347361e2 (00:03:05)
+		Task 6372 | 06:58:16 | Creating missing vms: cubrid_broker/0471dc1e-8e02-4a7e-bb56-4e3e8587cbc8 (0)
+		Task 6372 | 06:58:16 | Creating missing vms: cubrid/eafaf5a8-7b50-4f38-8a8a-67ecafc926d5 (0)
+		Task 6372 | 06:59:30 | Creating missing vms: cubrid_broker/0471dc1e-8e02-4a7e-bb56-4e3e8587cbc8 (0) (00:01:14)
+		Task 6372 | 06:59:31 | Creating missing vms: cubrid/eafaf5a8-7b50-4f38-8a8a-67ecafc926d5 (0) (00:01:15)
+		Task 6372 | 06:59:32 | Updating instance cubrid: cubrid/eafaf5a8-7b50-4f38-8a8a-67ecafc926d5 (0) (canary) (00:01:06)
+		Task 6372 | 07:00:38 | Updating instance cubrid_broker: cubrid_broker/0471dc1e-8e02-4a7e-bb56-4e3e8587cbc8 (0) (canary) (00:00:53)
 
-		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
-		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
-		Task 4506 Duration 01:03:56
-		Task 4506 done
+		Task 6372 Started  Fri Sep  7 06:54:35 UTC 2018
+		Task 6372 Finished Fri Sep  7 07:01:31 UTC 2018
+		Task 6372 Duration 00:06:56
+		Task 6372 done
 
 		Succeeded
 
@@ -1198,21 +1164,18 @@ bosh -e micro-bosh -d paasta-cubrid-service deploy paasta_cubrid_bosh2.0.yml \
 
 - **사용 예시**
 
-		bosh -e micro-bosh -d paasta-cubrid-service vms
+		$ bosh -e micro-bosh -d paasta-cubrid-service vms
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-		Task 4525. Done
+		Task 6424. Done
 
 		Deployment 'paasta-cubrid-service'
 
-		Instance                                                       Process State  AZ  IPs            VM CID                                   VM Type  Active  
-		mysql/8a830154-25b6-432a-ad39-9ff09d015760                     running        z5  10.30.107.165  vm-214663a8-fcbc-4ae4-9aae-92027b9725a9  minimal  true  
-		mysql/e8c52bf2-cd48-45d0-9553-f6367942a634                     running        z5  10.30.107.164  vm-81ecdc43-03d2-44f5-9b89-c6cdaa443d8b  minimal  true  
-		mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5                     running        z5  10.30.107.166  vm-bee33ffa-3f65-456c-9250-1e74c7c97f64  minimal  true  
-		paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78  running        z5  10.30.107.167  vm-7c3edc00-3074-4e98-9c89-9e9ba83b47e4  minimal  true  
-		proxy/023edddd-418e-46e4-8d40-db452c694e16                     running        z5  10.30.107.168  vm-e447eb75-1119-451f-adc9-71b0a6ef1a6a  minimal  true  
+		Instance                                            Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		cubrid/eafaf5a8-7b50-4f38-8a8a-67ecafc926d5         running        z5  10.30.107.123  vm-c67fc36b-75d9-4a4a-92f6-3b8745a5245d  default  true  
+		cubrid_broker/0471dc1e-8e02-4a7e-bb56-4e3e8587cbc8  running        z5  10.30.107.122  vm-72a6f156-7fe3-49dd-b290-3f586ab43bf1  minimal  true  
 
-		5 vms
+		2 vms
 
 		Succeeded
 
