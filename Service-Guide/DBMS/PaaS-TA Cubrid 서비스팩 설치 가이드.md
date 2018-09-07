@@ -34,33 +34,25 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 본 문서의 설치된 시스템 구성도입니다. Cubrid Server, Cubrid 서비스 브로커로 최소사항을 구성하였다.  
 ![시스템 구성도][1-3-0-0]
 
-<table>
-  <tr>
-    <td>구분</td>
-    <td>스펙</td>
-  </tr>
-   <tr>
-    <td>(cubrid_resource_pools)</td>
-    <td>1vCPU / 1GB RAM / 8GB Disk</td>
-  </tr>
-  <tr>
-    <td>paasta-cubrid-broker</td>
-    <td>(cubrid_resource_pools)</td>
-  </tr>
-  <tr>
-    <td>Cubrid</td>
-    <td>(cubrid_resource_pools)</td>
-  </tr>
-</table>
+* 설치할때 cloud config에서 사용하는 VM_Tpye명과 스펙 
 
+| VM_Type | 스펙 |
+|--------|-------|
+|minimal| 1vCPU / 1GB RAM / 8GB Disk|
+|default| 1vCPU / 2GB RAM / 10GB Disk|
+
+* 각 Instance의 Resource Pool과 스펙
+
+| 구분 | Resource Pool | 스펙 |
+|--------|-------|-------|
+| cubrid | default | 1vCPU / 1GB RAM / 8GB Disk |
+| cubrid_broker | minimal | 1vCPU / 2GB RAM / 10GB Disk |
 
 ### <div id='5'> 1.4. 참고자료
 **<http://bosh.io/docs>**  
 **<http://docs.cloudfoundry.org/>**
 
-
 # <div id='6'>  2. Cubrid 서비스팩 설치
-
 
 ### <div id='7'> 2.1. 설치전 준비사항
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다. 서비스팩 설치를 위해서는 먼저 BOSH CLI v2 가 설치 되어 있어야 하고 BOSH 에 로그인이 되어 있어야 한다.
@@ -79,7 +71,6 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 >PaaSTA-Sample-Apps : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Sample-Apps.zip>**
 
 <br>
-
 
 ### <div id='8'>  2.2. Cubrid 서비스 릴리즈 업로드
 
@@ -215,7 +206,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 		nodejs-buildpack                  1.6.28*   4cfdb7b  
 		paas-ta-portal-release            2.0*      non-git  
 		paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
-		paasta-mysql                      2.0       85e3f01e+  
+		paasta-cubrid                     2.0       85e3f01e+  
 		paasta-pinpoint                   2.0*      2dbb8bf3+  
 		php-buildpack                     4.3.57*   efc48f3  
 		postgres                          29*       5de4d63d+  
@@ -234,278 +225,997 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 	    	Succeeded
 
-### <div id='9'> 2.3.  Cubrid 서비스 Deployment 파일 수정 및 배포
-BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
+
+-	Deploy시 사용할 Stemcell을 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh stemcells
+		Name                                      Version   OS             CPI  CID  
+		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+		~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
+
+		(*) Currently deployed
+
+		3 stemcells
+
+		Succeeded
+		
+>Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (cubrid 는 stemcell 3215.4 버전을 사용)
+
+### 2.3. MySQL 서비스 Deployment 파일 및 deploy-mysql-bosh2.0.sh 수정 및 배포
+
+BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
-- PaaSTA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 IaaS별 Cubrid Deployment 파일을 복사한다.
-  예) vsphere 일 경우 paasta_cubrid_vsphere_2.0.yml를 복사
-  다운로드 받은 Deployment Yml 파일을 확인한다. (pasta_cubrid_vsphere_2.0.yml)
-  
-- **사용 예시**
+deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 활용하고 해당 가이드는 Bosh2.0 가이드를 참고한다.
 
-		$ ls –all
-		total 851588
-        drwxrwxr-x 5 inception inception 4096 Jan 9 10:18 .
-        drwxrwxr-x 11 inception inception 4096 Dec 21 09:28 ..
-        
-        -rw-r--r-- 1 inception inception 6614 Jan 6 16:14 paasta_cubrid_vsphere_2.0.yml
-        -rw-rw-r-- 1 inception inception 6382 Jan 9 10:18 paasta_mysql_vsphere_2.0.yml
-		
-
-- Director UUID를 확인한다.
-
-- BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다.
-
->`$ bosh status`
-
->![2-1-0-9]
-
-<br>
-- Deploy시 사용할 Stemcell을 확인한다.
-
->`$ bosh stemcells`
-
->![2-1-0-10]
-
-<br>
-
--  Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3215.4 버전을 업로드를 해야 한다.
-
-- Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
+-	cloud config 내용 조회
 
 - **사용 예시**
 
-		$ vi paasta-cubrid-vsphere-1.0.yml 
-		total 851588
-        drwxrwxr-x 5 inception inception 4096 Jan 9 10:18 .
-        drwxrwxr-x 11 inception inception 4096 Dec 21 09:28 ..
-        
-        -rw-r--r-- 1 inception inception 6614 Jan 6 16:14 paasta_cubrid_vsphere_2.0.yml
-        -rw-rw-r-- 1 inception inception 6382 Jan 9 10:18 paasta_mysql_vsphere_2.0.yml
-		
-		
-- Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
+		bosh -e micro-bosh cloud-config
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		azs:
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z1
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z2
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z3
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z4
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z5
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z6
+		compilation:
+		  az: z1
+		  network: default
+		  reuse_compilation_vms: true
+		  vm_type: large
+		  workers: 5
+		disk_types:
+		- disk_size: 1024
+		  name: default
+		- disk_size: 1024
+		  name: 1GB
+		- disk_size: 2048
+		  name: 2GB
+		- disk_size: 4096
+		  name: 4GB
+		- disk_size: 5120
+		  name: 5GB
+		- disk_size: 8192
+		  name: 8GB
+		- disk_size: 10240
+		  name: 10GB
+		- disk_size: 20480
+		  name: 20GB
+		- disk_size: 30720
+		  name: 30GB
+		- disk_size: 51200
+		  name: 50GB
+		- disk_size: 102400
+		  name: 100GB
+		- disk_size: 1048576
+		  name: 1TB
+		networks:
+		- name: default
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.111.40
+		- name: public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.177
+		    range: 115.68.46.176/28
+		    reserved:
+		    - 115.68.46.176 - 115.68.46.188
+		    static:
+		    - 115.68.46.189 - 115.68.46.190
+		  type: manual
+		- name: service_private
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.106.255
+		    static:
+		    - 10.30.107.1 - 10.30.107.255
+		- name: service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.47.161
+		    range: 115.68.47.160/24
+		    reserved:
+		    - 115.68.47.161 - 115.68.47.174
+		    static:
+		    - 115.68.47.175 - 115.68.47.185
+		  type: manual
+		- name: portal_service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.209
+		    range: 115.68.46.208/28
+		    reserved:
+		    - 115.68.46.216 - 115.68.46.222
+		    static:
+		    - 115.68.46.214
+		  type: manual
+		vm_extensions:
+		- cloud_properties:
+		    ports:
+		    - host: 3306
+		  name: mysql-proxy-lb
+		- name: cf-router-network-properties
+		- name: cf-tcp-router-network-properties
+		- name: diego-ssh-proxy-network-properties
+		- name: cf-haproxy-network-properties
+		- cloud_properties:
+		    disk: 51200
+		  name: small-50GB
+		- cloud_properties:
+		    disk: 102400
+		  name: small-highmem-100GB
+		vm_types:
+		- cloud_properties:
+		    cpu: 1
+		    disk: 8192
+		    ram: 1024
+		  name: minimal
+		- cloud_properties:
+		    cpu: 1
+		    disk: 10240
+		    ram: 2048
+		  name: default
+		- cloud_properties:
+		    cpu: 1
+		    disk: 30720
+		    ram: 4096
+		  name: small
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 4096
+		  name: medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 8192
+		  name: medium-memory-8GB
+		- cloud_properties:
+		    cpu: 4
+		    disk: 20480
+		    ram: 8192
+		  name: large
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: xlarge
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-highmem-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: small-highmem-16GB
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 2048
+		  name: caas_small
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 1024
+		  name: caas_small_api
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 4096
+		  name: caas_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 8192
+		    ram: 4096
+		  name: service_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 10240
+		    ram: 2048
+		  name: service_medium_2G
+
+		Succeeded
+
+
+-	Deployment 파일을 서버 환경에 맞게 수정한다.
+
+```yml
+# paasta-cubrid 설정 파일 내용
+---
+name: paasta-cubrid-service  # 서비스 배포이름(필수)
+
+releases:
+- name: paasta-cubrid  #서비스 릴리즈 이름(필수)
+  version: "2.0"   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+stemcells:
+- alias: default
+  os: ((stemcell_os))
+  version: "((stemcell_version))"
+
+update:
+  canaries: 1                                          # canary 인스턴스 수(필수)
+  canary_watch_time: 30000-180000                      # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 6                                     # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  update_watch_time: 30000-180000                      # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+
+instance_groups:
+- name: cubrid  #작업 이름(필수): Cubrid 서버
+  azs:
+  - z5
+  instances: 1                               # job 인스턴스 수(필수)
+  vm_type: ((vm_type_default))                 # cloud config 에 정의한 vm_type
+  stemcell: default
+  networks:
+  - name: ((default_network_name))           # cloud config 에 정의한 network 이름
+    static_ips:
+    - 10.30.107.123                          # 사용할 IP addresses 정의(필수): Cubrid 서버 IP
+  templates:
+  - name: cubrid
+    release: paasta-cubrid
+  env:
+    bosh: 
+      password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+
+- name: cubrid_broker   #작업 이름(필수): Cubrid 서비스 브로커
+  azs:
+  - z5
+  instances: 1                               # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))                 # cloud config 에 정의한 vm_type
+  stemcell: default
+  networks:
+  - name: ((default_network_name))           # cloud config 에 정의한 network 이름
+    static_ips:
+    - 10.30.107.122                          # 사용할 IP addresses 정의(필수): broker IP
+  templates:
+  - name: cubrid_broker  # job template 이름(필수)
+    release: paasta-cubrid
+
+- name: cubrid_broker_registrar
+  azs:
+  - z5
+  instances: 1
+  lifecycle: errand
+  vm_type: ((vm_type_small))
+  stemcell: default
+  networks:
+  - name: ((default_network_name))
+  properties:
+      broker: # 서비스 브로커 설정 정보
+        host: 10.30.107.122 # 서비스 브로커 IP 
+        name: CubridDB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
+        password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
+        username: admin   # 브로커 접근 아이디(필수)
+        protocol: http
+        port: 8088  # 브로커 포트
+      cf:
+        admin_password: admin   # CF 사용자의 패스워드
+        admin_username: admin_test   # CF 사용자 이름
+        api_url: https://api.115.68.46.189.xip.io   # CF 설치시 설정한 api uri 정보(필수)
+  templates:
+  - name: cubrid_broker_registrar  # job template 이름(필수)
+    release: paasta-cubrid
+
+- name: cubrid_broker_deregistrar
+  azs:
+  - z5
+  instances: 1 
+  lifecycle: errand
+  vm_type: ((vm_type_small))
+  stemcell: default
+  networks:
+  - name: ((default_network_name))
+  properties:
+      broker: # 서비스 브로커 설정 정보
+        host: 10.30.107.122 # 서비스 브로커 IP 
+        name: CubridDB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
+        password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
+        username: admin   # 브로커 접근 아이디(필수)
+      cf:
+        admin_password: admin   # CF 사용자의 패스워드
+        admin_username: admin_test   # CF 사용자 이름
+        api_url: https://api.115.68.46.189.xip.io   # CF 설치시 설정한 api uri 정보(필수)
+  templates:
+  - name: cubrid_broker_deregistrar  # job template 이름(필수)
+    release: paasta-cubrid
+
+properties:
+  cubrid:   # Cubrid 설정 정보
+    max_clients: 200
+  cubrid_broker:  # Cubrid Servcice Broker 설정 정보
+    cubrid_ip: 10.30.107.123 # Cubrid IP
+    cubrid_db_port: 30000 # Cubrid Port
+    cubrid_db_name: cubrid_broker   # Cubrid service 관리를 위한 데이터베이스 이름
+    cubrid_db_user: dba   # 브로커 관리용 데이터베이스 접근 사용자이름
+    cubrid_db_passwd: paasta  # 브로커 관리용 데이터베이스 접근 사용자 비밀번호
+    cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
+    cubrid_ssh_user: vcap # Cubrid가 설치된 서버 SSH 접속 사용자 이름
+    cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호cubrid job의 bosh password 값
+    cubrid_ssh_sudo_passwd: c1oudc0w # Cubrid가 설치된 서버 sudo 비밀번호cubrid job의 bosh password 값
+    cubrid_ssh_identity: "" # Cubrid가 설치된 서버 SSH 접속 인증 키/var/vcap/jobs/cubrid_broker/config/bosh.pem 인증키 사용시
+    #cubrid_ssh_identity: /var/vcap/jobs/cubrid_broker/config/bosh.pem # Cubrid가 설치된 서버 SSH 접속 >인증 키/var/vcap/jobs/cubrid_broker/config/bosh.pem
+    cubrid_ssh_key: ""
+#    cubrid_ssh_key: |
+#      -----BEGIN RSA PRIVATE KEY-----
+#      MIIEpAIBAAKCAQEA6Bf5unjJSccNlQk3jXqz4TNdpZkleKc92P69d1w//3moCyHz
+#      RxZ9+FKaYgoJEmm7ydP4uEBA7Zpb6+SUyHGp3yv57PaeSgccyoci1tcgHg9XtVAH
+#      c9wguyWwg8NDHNdX10Gsk8HRBtdK5CJLpIn3Wq0aiDndaCD2rrtRCqtCOHeTJy7q
+#      N5bvnCBmaFeTKfZ7lIcasDwh8ynfDdmI6T38hXUAW50SF1A8JVfeq5xx0zt4Amgx
+#      XeYduXFo7an6oYsJdqTOeYSuf+nswvgbSz1pKgnc0taxP9DLQRB+gJ1N/6xNjqhJ
+#      4zNWRG4Dn2W84XDwwhZFMwXMXm5uqI16UxZZCwIDAQABAoIBAQDVKF/lENXdeoFQ
+#      5Zwtxgm6xNA3LMYrX33/80XTf9gPLI5XWyDxowiirkq3y/u0+4LKxHFj1y9KiT/v
+#      EIpM5YdcPilVptKNrqaUozQuGHmY4gJttUiC8iLlfqH1Abp7nJNCUUDMm278V3Ki
+#      v5S1UzjoAJ+jiXF9Fvk4VTUDFXLGI9weF4wuxrF/d9f95TEEJ81U152lJY71M0km
+#      v4cvc+G9IkeeBSCj0pwgUi/fMMXJaJuS93k/10QrISYiAo7ZoI6labE6+TCBag17
+#      yFhm077Jms0suQ9tJjJMECcUQPefn3UtR/iBN/ar5pP1ADCR1u2HDA67u++QFLpr
+#      FdSVjCuBAoGBAPjgUT9UOjPWAE3mXwb2pqjeumbaLGm/D0ihx+VvmmVxfG+7hz3h
+#      Odkeq0Bo/u/k6XI99ai7T6GXY5eINcL+XMxEn/NNkgnfRcIiGyx2pwdRvlQv7Wao
+#      znSgyB71tPG4yjwZjkAQG5suoRoHEngSWqbwjwYlMrFbupZ0SNlfdYgrAoGBAO68
+#      rk+uYXQQdy+/j4hF9FA+rAktd8/W7qi4IVVJ57RNOjj9vM6ENqBT5N7EUWwTxbsZ
+#      m+ZAPBQxEhdfnZsVvSDaKdkER9zEZCtIuHCQo0EHrWwKNkPecoxx6ZTibgWg0zrJ
+#      cBCBa7kyg0GWRB7ngKevyQKbwm+bSf0jxes5QiKhAoGBALVq5y7v2gGBRPWEMc8k
+#      qzY8LcrdzTREdwKuE8Y3BWhfQqM8IwjDjmSsC4/HOddrmZSSf+nAqPqVHZ8PRole
+#      3Ax3FdXIvOT/YZ1zOTW/RGB8gO5jhX2pHd48ecS/vWfbGWiYBG7Ejyse4YbUkuz+
+#      DCDXCJslMH/C6w/TsmrqQAXDAoGAT34oFIQeEwWAijeg1WFlrmqP4iZvpJcOtMNK
+#      5hlLu6+TWXKzsZg4kD4fEUYRTolu55PpY0u0NYz5VysRUZh1d0DtekOAojQKnpcC
+#      QwkGMxsZVcY4t3SUc8tiWZ7jv6ADdampVPWjJvF43xfn6tpu7mcL6YBvx7XPdyi4
+#      OFDCgsECgYAYN2AZymeW9s4Noo8rM7KfMO00AupN5VgrJjFKKqRHT+trSjbhreQF
+#      TXMm7JczHYurUaNuSxh14T1Wno5ybrKyRWKhuF9Og1B/ciUEUijifg6Vz+GFfR92
+#      dvXLLjmsTzJ0dGO3vlEKwja9kyy2rN72gS/jLp1OeFReyf29cUD+Yw==
+#      -----END RSA PRIVATE KEY-----
+```
+
+-	deploy-cubrid-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
+
+```sh
+#!/bin/bash
+# stemcell 버전은vsphere 및 openstack은  3215.4 버전으로aws은 3263.28  사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+
+bosh -e micro-bosh -d paasta-cubrid-service deploy paasta_cubrid_bosh2.0.yml \
+   -v default_network_name=service_private \
+   -v stemcell_os=ubuntu-trusty \
+   -v stemcell_version=3215.4 \
+   -v vm_type_small=minimal \
+   -v vm_type_default=default
+```
+
+-	Cubrid 서비스팩을 배포한다.
+
+- **사용 예시**
+		$ ./deploy-cubrid-bosh2.0.sh
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Using deployment 'paasta-cubrid-service'
+
+		+ azs:
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z1
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z2
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z3
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z4
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z5
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z6
+
+		+ vm_types:
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 8192
+		+     ram: 1024
+		+   name: minimal
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 10240
+		+     ram: 2048
+		+   name: default
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 30720
+		+     ram: 4096
+		+   name: small
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 4096
+		+   name: medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 8192
+		+   name: medium-memory-8GB
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 20480
+		+     ram: 8192
+		+   name: large
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: xlarge
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-highmem-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: small-highmem-16GB
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 2048
+		+   name: caas_small
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 1024
+		+   name: caas_small_api
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 4096
+		+   name: caas_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 8192
+		+     ram: 4096
+		+   name: service_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 10240
+		+     ram: 2048
+		+   name: service_medium_2G
+
+		+ vm_extensions:
+		+ - cloud_properties:
+		+     ports:
+		+     - host: 3306
+		+   name: mysql-proxy-lb
+		+ - name: cf-router-network-properties
+		+ - name: cf-tcp-router-network-properties
+		+ - name: diego-ssh-proxy-network-properties
+		+ - name: cf-haproxy-network-properties
+		+ - cloud_properties:
+		+     disk: 51200
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     disk: 102400
+		+   name: small-highmem-100GB
+
+		+ compilation:
+		+   az: z1
+		+   network: default
+		+   reuse_compilation_vms: true
+		+   vm_type: large
+		+   workers: 5
+
+		+ networks:
+		+ - name: default
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.111.40
+		+ - name: public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.177
+		+     range: 115.68.46.176/28
+		+     reserved:
+		+     - 115.68.46.176 - 115.68.46.188
+		+     static:
+		+     - 115.68.46.189 - 115.68.46.190
+		+   type: manual
+		+ - name: service_private
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.106.255
+		+     static:
+		+     - 10.30.107.1 - 10.30.107.255
+		+ - name: service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.47.161
+		+     range: 115.68.47.160/24
+		+     reserved:
+		+     - 115.68.47.161 - 115.68.47.174
+		+     static:
+		+     - 115.68.47.175 - 115.68.47.185
+		+   type: manual
+		+ - name: portal_service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.209
+		+     range: 115.68.46.208/28
+		+     reserved:
+		+     - 115.68.46.216 - 115.68.46.222
+		+     static:
+		+     - 115.68.46.214
+		+   type: manual
+
+		+ disk_types:
+		+ - disk_size: 1024
+		+   name: default
+		+ - disk_size: 1024
+		+   name: 1GB
+		+ - disk_size: 2048
+		+   name: 2GB
+		+ - disk_size: 4096
+		+   name: 4GB
+		+ - disk_size: 5120
+		+   name: 5GB
+		+ - disk_size: 8192
+		+   name: 8GB
+		+ - disk_size: 10240
+		+   name: 10GB
+		+ - disk_size: 20480
+		+   name: 20GB
+		+ - disk_size: 30720
+		+   name: 30GB
+		+ - disk_size: 51200
+		+   name: 50GB
+		+ - disk_size: 102400
+		+   name: 100GB
+		+ - disk_size: 1048576
+		+   name: 1TB
+
+		+ stemcells:
+		+ - alias: default
+		+   os: ubuntu-trusty
+		+   version: '3309'
+
+		+ releases:
+		+ - name: paasta-mysql
+		+   version: '2.0'
+
+		+ update:
+		+   canaries: 1
+		+   canary_watch_time: 30000-600000
+		+   max_in_flight: 1
+		+   update_watch_time: 30000-600000
+
+		+ instance_groups:
+		+ - azs:
+		+   - z5
+		+   instances: 3
+		+   name: mysql
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.166
+		+     - 10.30.107.165
+		+     - 10.30.107.164
+		+   persistent_disk_type: 8GB
+		+   properties:
+		+     admin_password: "<redacted>"
+		+     character_set_server: "<redacted>"
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     collation_server: "<redacted>"
+		+     network_name: "<redacted>"
+		+     seeded_databases: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: mysql
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: proxy
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.168
+		+   properties:
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     external_host: "<redacted>"
+		+     nats:
+		+       machines:
+		+       - "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       user: "<redacted>"
+		+     network_name: "<redacted>"
+		+     proxy:
+		+       api_force_https: "<redacted>"
+		+       api_password: "<redacted>"
+		+       api_username: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: proxy
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: paasta-mysql-java-broker
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.167
+		+   properties:
+		+     jdbc_ip: "<redacted>"
+		+     jdbc_port: "<redacted>"
+		+     jdbc_pwd: "<redacted>"
+		+     log_dir: "<redacted>"
+		+     log_file: "<redacted>"
+		+     log_level: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: op-mysql-java-broker
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-registrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       host: "<redacted>"
+		+       name: "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       protocol: "<redacted>"
+		+       username: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-registrar
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-deregistrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       name: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-deregistrar
+		+   vm_type: minimal
+
+		+ meta:
+		+   apps_domain: 115.68.46.189.xip.io
+		+   environment: 
+		+   external_domain: 115.68.46.189.xip.io
+		+   nats:
+		+     machines:
+		+     - 10.30.112.2
+		+     password: fxaqRErYZ1TD8296u9HdMg8ol8dJ0G
+		+     port: 4222
+		+     user: nats
+		+   syslog_aggregator: 
+
+		+ name: paasta-cubrid-service
+
+		Continue? [yN]: y
+
+		Task 4506
+
+		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
+		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
+		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
+		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
+		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
+		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
+		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
+		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
+		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
+		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
+		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
+		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
+		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
+		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
+		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
+		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
+		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
+		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
+		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
+		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
+		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
+		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
+		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
+		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
+		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
+		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
+		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
+		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
+		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
+		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
+		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
+		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
+		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
+		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
+		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
+		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
+		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
+		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
+		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+
+		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
+		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
+		Task 4506 Duration 01:03:56
+		Task 4506 done
+
+		Succeeded
+
+
+-	배포된 Cubrid 서비스팩을 확인한다.
 
 - **사용 예시**
 
-		$ bosh deployment paasta_cubrid_vsphere_2.0.yml # bosh deployment {Deployment manifest 파일 PATH}
-		$ inception@inception:~/bosh-space/deployment$ bosh deployment paasta_cubrid_vsphere_2.0.yml
-		   RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-		   Deployment set to '/mnt/bosh-space/deployment/paasta_cubrid_vsphere_2.0.yml'
+		bosh -e micro-bosh -d paasta-cubrid-service vms
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Task 4525. Done
 
-- Cubrid 서비스팩을 배포한다.
+		Deployment 'paasta-cubrid-service'
 
-- **사용 예시**
+		Instance                                                       Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		mysql/8a830154-25b6-432a-ad39-9ff09d015760                     running        z5  10.30.107.165  vm-214663a8-fcbc-4ae4-9aae-92027b9725a9  minimal  true  
+		mysql/e8c52bf2-cd48-45d0-9553-f6367942a634                     running        z5  10.30.107.164  vm-81ecdc43-03d2-44f5-9b89-c6cdaa443d8b  minimal  true  
+		mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5                     running        z5  10.30.107.166  vm-bee33ffa-3f65-456c-9250-1e74c7c97f64  minimal  true  
+		paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78  running        z5  10.30.107.167  vm-7c3edc00-3074-4e98-9c89-9e9ba83b47e4  minimal  true  
+		proxy/023edddd-418e-46e4-8d40-db452c694e16                     running        z5  10.30.107.168  vm-e447eb75-1119-451f-adc9-71b0a6ef1a6a  minimal  true  
 
-		$  bosh deploy
-		   RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-		   Acting as user 'admin' on deployment 'paasta-cubrid-service' on 'bosh'
-		   Getting deployment properties from director..
-		   Unable to get properties list from director, trying without it...
-		   
-		   Detecting deployment changes
-		   
-		   ----------------------------
-           resource_pools:
-           
-           name: cubrid_resource_pools
-           network: default
-           stemcell:
-           name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
-           version: '3263.8'
-           cloud_properties:
-           cpu: 1
-           disk: 8192
-           ram: 2048
-           
-           compilation:
-           workers: 4
-           network: default
-           cloud_properties:
-           ram: 2048
-           disk: 8096
-           cpu: 2
-           
-           networks:
-           - name: default
-           subnets:
-           - cloud_properties:
-           name: Internal
-           dns:
-           - 8.8.8.8
-           gateway: 10.30.20.23
-           name: default_unused
-           range: 10.30.0.0/16
-           reserved:
-           - 10.30.0.1 - 10.30.20.22
-           - 10.30.20.24 - 10.30.40.255
-           static:
-           - 10.30.60.11 - 10.30.60.70
-           
-           releases:
-           - name: paasta-cubrid
-           version: '2.0'
-           
-           update:
-           canaries: 1
-           canary_watch_time: 120000
-           update_watch_time: 120000
-           max_in_flight: 4
-           
-           jobs:
-           - name: cubrid
-           template: cubrid
-           instances: 1
-           resource_pool: cubrid_resource_pools
-           networks:
-           - name: default
-           static_ips:
-           - 10.30.60.23
-           - name: cubrid_broker
-           template: cubrid_broker
-           instances: 1
-           resource_pool: cubrid_resource_pools
-           networks:
-           - name: default
-           static_ips:
-           - 10.30.60.22
-           - name: cubrid_broker_registrar
-           template: cubrid_broker_registrar
-           instances: 1
-           lifecycle: errand
-           resource_pool: cubrid_resource_pools
-           networks:
-           - name: default
-           properties:
-           broker:
-           host: ""
-           name: ""
-           password: ""
-           username: ""
-           protocol: ""
-           port: ""
-           cf:
-           admin_password: ""
-           admin_username: ""
-           api_url: ""
-           release: paasta-cubrid
-           - name: cubrid_broker_deregistrar
-           template: cubrid_broker_deregistrar
-           instances: 1
-           lifecycle: errand
-           resource_pool: cubrid_resource_pools
-           networks:
-           - name: default
-           properties:
-           broker:
-           host: ""
-           name: ""
-           password: ""
-           username: ""
-           protocol: ""
-           port: ""
-           cf:
-           admin_password: ""
-           admin_username: ""
-           api_url: ""
-           release: paasta-cubrid
-           
-           name: paasta-cubrid-service
-           
-           director_uuid: d363905f-eaa0-4539-a461-8c1318498a32
-           
-           meta:
-           apps_domain: 115.68.46.30.xip.io
-           environment: 
-           external_domain: 115.68.46.30.xip.io
-           nats:
-           machines:
-           - 10.30.110.31
-           password: nats
-           port: 4222
-           user: nats
-           syslog_aggregator: 
-           
-           properties:
-           cubrid:
-           max_clients: ""
-           cubrid_broker:
-           cubrid_ip: ""
-           cubrid_db_port: ""
-           cubrid_db_name: ""
-           cubrid_db_user: ""
-           cubrid_db_passwd: ""
-           cubrid_ssh_port: ""
-           cubrid_ssh_user: ""
-           cubrid_ssh_passwd: ""
-           cubrid_ssh_sudo_passwd: ""
-           Please review all changes carefully
-           
-           Deploying
-           ---------
-           Are you sure you want to deploy? (type 'yes' to continue): yes
-           
-           Director task 1303
-           Deprecation: Ignoring cloud config. Manifest contains 'networks' section.
-           
-           
-           Started preparing deployment > Preparing deployment. Done (00:00:00)
-           
-           Started preparing package compilation > Finding packages to compile. Done (00:00:00)
-           
-           Started compiling packages
-           Started compiling packages > cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
-           Started compiling packages > java7/cb28502f6e89870255182ea76e9029c7e9ec1862
-           Started compiling packages > cubrid/36065bb22d1e816657d176c902246231347361e2
-           Done compiling packages > cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:01:18)
-           Done compiling packages > java7/cb28502f6e89870255182ea76e9029c7e9ec1862 (00:01:28)
-           Started compiling packages > cubrid_broker/25717cfb95347c7ca5ed1e6cbdda701315789cfc
-           Done compiling packages > cubrid/36065bb22d1e816657d176c902246231347361e2 (00:02:20)
-           Done compiling packages > cubrid_broker/25717cfb95347c7ca5ed1e6cbdda701315789cfc (00:01:16)
-           Done compiling packages (00:02:44)
-           
-           Started creating missing vms
-           Started creating missing vms > cubrid/a6bf1096-1c12-4d7e-bbc8-03ba517ff5f6 (0)
-           Started creating missing vms > cubrid_broker/be5bcafa-3b09-4300-a85d-c7935c3e05a7 (0)
-           Done creating missing vms > cubrid/a6bf1096-1c12-4d7e-bbc8-03ba517ff5f6 (0) (00:00:53)
-           Done creating missing vms > cubrid_broker/be5bcafa-3b09-4300-a85d-c7935c3e05a7 (0) (00:00:53)
-           Done creating missing vms (00:00:53)
-           
-           Started updating instance cubrid > cubrid/a6bf1096-1c12-4d7e-bbc8-03ba517ff5f6 (0) (canary). Done (00:02:33)
-           Started updating instance cubrid_broker > cubrid_broker/be5bcafa-3b09-4300-a85d-c7935c3e05a7 (0) (canary). Done (00:02:22)
-           
-           Task 1303 done
-           
-           Started	2017-01-06 07:15:20 UTC
-           Finished	2017-01-06 07:23:52 UTC
-           Duration	00:08:32
-           
-           Deployed 'paasta-cubrid-service' to 'bosh'
+		5 vms
 
+		Succeeded
 
-- 배포된 Cubrid 서비스팩을 확인한다.
-
-- **사용 예시**
-
-		$ bosh vms paasta-cubrid-service
-		
-		    RSA 1024 bit CA certificates are loaded due to old openssl compatibility<br>
-		    Acting as user 'admin' on deployment 'paasta-cubrid-service' on 'bosh'
-		    
-		    Director task 1312
-		    Task 1312 done
-		    
-		    +--------------------------------------------------------+---------+-----+-----------------------+-------------+
-		    | VM | State | AZ | VM Type | IPs |
-		    +--------------------------------------------------------+---------+-----+-----------------------+-------------+
-		    | cubrid/0 (a6bf1096-1c12-4d7e-bbc8-03ba517ff5f6) | running | n/a | cubrid_resource_pools | 10.30.60.23 |
-		    | cubrid_broker/0 (be5bcafa-3b09-4300-a85d-c7935c3e05a7) | running | n/a | cubrid_resource_pools | 10.30.60.22 |
-		    +--------------------------------------------------------+---------+-----+-----------------------+-------------+
-
-
-### <div id='10'> 2.4. Cubrid 서비스 브로커 등록
+### 2.4. Cubrid 서비스 브로커 등록
 Cubrid 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Cubrid 서비스 브로커를 등록해 주어야 한다.  
 서비스 브로커 등록시 PaaS-TA에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
 
