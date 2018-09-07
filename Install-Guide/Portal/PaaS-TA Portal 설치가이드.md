@@ -675,27 +675,6 @@ instance_groups:
     server:
       port: 2221
 
-#- name: paas-ta-portal-infra-admin
-#  azs :
-#  - z5
-#  instances: 1
-#  vm_type: portal_medium
-#  stemcell: "((stemcell_alias))"
-#  networks:
-#  - name: ((internal_networks_name))
-#    static_ips:
-#    - "((portal_infra_admin_ips))"
-#  templates:
-#  - name: paas-ta-portal-infra-admin
-#    release: paas-ta-portal-release
-#  syslog_aggregator: null
-#  properties:
-#    eureka:
-#      client:
-#        serviceUrl:
-#          defaultZone: http://((portal_registration_ips))
-
-
 - name: paas-ta-portal-api
   azs:
   - z5
