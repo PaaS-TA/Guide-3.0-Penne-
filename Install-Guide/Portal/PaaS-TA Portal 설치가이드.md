@@ -8,10 +8,10 @@
     *  [2.1 설치전 준비사항](#21-설치전-준비사항)
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
     *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
-    *  [2.4 UAA 포탈 클라이언트 계정 등록](#24-uaa-포탈-클라이언트-계정-등록)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
-    *  [3.1 Mariadb](#31-mariadb)
-    *  [3.2 API](#32-api)
+    *  [3.1 DB migration](#31-db-migration)
+    *  [3.2 Log](#32-Log)
+    *  [3.3 카탈로그 적용](#33-catalog)
 
 # 1. 문서 개요
 ### 1.1. 목적
@@ -1912,45 +1912,11 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         
         Succeeded
 
-
-### 2.4. UAA 포탈 클라이언트 계정 등록
-1. 현재 사용하고 있는 uaa 주소를 설정한다.
-    - $ uaac target [uaa_url]
-2. uaac 관리자 권한을 얻는다.
-    - $ uaac token client get
-
-          Client ID:  admin
-          Client secret:  ************
-
-          Successfully fetched token via client credentials grant.
-          Target: https://uaa.115.68.46.189.xip.io
-          Context: admin, from client admin
-
-        > 기본 계정정보 Client ID : admin, Client secret : admin-secret
-
-3. uaac 클라이언트를 등록한다.
-
-        uaac client add portalclient -s [클라이언트 비밀번호] --redirect_uri "[실제URL]" \
-        --scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
-        --authorized_grant_types "authorization_code , client_credentials , refresh_token" \
-        --authorities="uaa.resource" \
-        --autoapprove="openid , cloud_controller_service_permissions.read"
-    
-        [실제 URL]
-        URL 입력 방법
-        예) User_Portal 클라이언트 등록시에 --redirect_uri "http://portal-web-user.115.68.46.214.xip.io , http://portal-web-user.115.68.46.214.xip.io/callback" 같이 /callback추가 입력
-        예) http://10.10.10.1:8080 까지 입력 포트번호가 없을 경우 http://10.10.10.1 까지만 입력
-    
-        클라이언트를 등록시 다중 URL 입력 가능
-        예) "http://10.10.10.1 , http://10.10.10.2" 와 같이 입력
-    > uaac 클라이언트 등록 안했을시에 나오는 오류\
-    ![paas-ta-portal-08]           
-
 # 3. PaaS-TA Portal 운영
-본 PaaS-TA Portal 운영은 배포가 완료된 후 모든 Instance가 running일 경우 진행한다.
+이전버전에서 사용한 Portal DB를 PaasTA 3.5 Portal DB에 마이그레이션 하는 방법을 설명한다.
+### 3.1. DB migration
 
-### 3.1. Mariadb
-##### 1. Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
+##### 1. Portal DB의 Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
   
 >![paas-ta-portal-02] 
 >> User Name: root , Port, Password : deploy-vsphere.sh의 mariadb_port, mariadb_user_password 값
@@ -1966,13 +1932,8 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 
 
-### 3.2. API
-##### 1. Eureka 연결 확인 
-웹 브라우저에서 유레카에 접속해 webuser를 제외한 웹 서비스가 연결되어 있는지 확인한다.
-* 접근방법 : http://portal-registration.[portal_registration_ips].xip.io/
->![paas-ta-portal-06]
-
-##### 2. Sys log 확인
+### 3.2. Log
+Paas-TA Portal 각각 Instance의 log를 확인 할 수 있다.
 1. 로그를 확인할 Instance에 접근한다.
     > bosh ssh -d [deployment name] [instance name]
        
@@ -2066,6 +2027,21 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
                 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
                 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
 
+### 3.3. 카탈로그 적용
+##### 1. Catalog 빌드팩, 서비스팩 추가
+Paas-TA Portal 설치 후에 관리자 포탈에서 빌드팩, 서비스팩을 등록해야 사용자 포탈에서 사용이 가능하다.
+ 
+ 1. 관리자 포탈에 접속한다.(portal-web-admin.[public ip].xip.io)
+    >![paas-ta-portal-15]
+ 2. 운영관리를 누른다.
+    >![paas-ta-portal-16]
+ 2. 카탈로그 페이지에 들어간다.
+    >![paas-ta-portal-17]
+ 3. 빌드팩, 서비스팩 상세화면에 들어가서 각 항목란에 값을 입력후에 저장을 누른다.
+    >![paas-ta-portal-18]
+ 4. 사용자포탈에서 변경된값이 적용되어있는지 확인한다.
+    >![paas-ta-portal-19]    
+    
 [paas-ta-portal-01]:../../Install-Guide/Portal/images/Paas-TA-Portal_01.png
 [paas-ta-portal-02]:../../Install-Guide/Portal/images/Paas-TA-Portal_02.png
 [paas-ta-portal-03]:../../Install-Guide/Portal/images/Paas-TA-Portal_03.png
@@ -2080,3 +2056,8 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 [paas-ta-portal-12]:../../Install-Guide/Portal/images/Paas-TA-Portal_12.png
 [paas-ta-portal-13]:../../Install-Guide/Portal/images/Paas-TA-Portal_13.png
 [paas-ta-portal-14]:../../Install-Guide/Portal/images/Paas-TA-Portal_14.png
+[paas-ta-portal-15]:../../Install-Guide/Portal/images/Paas-TA-Portal_15.png
+[paas-ta-portal-16]:../../Install-Guide/Portal/images/Paas-TA-Portal_16.png
+[paas-ta-portal-17]:../../Install-Guide/Portal/images/Paas-TA-Portal_17.png
+[paas-ta-portal-18]:../../Install-Guide/Portal/images/Paas-TA-Portal_18.png
+[paas-ta-portal-19]:../../Install-Guide/Portal/images/Paas-TA-Portal_19.png
