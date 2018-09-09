@@ -9,7 +9,7 @@
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
     *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
-    *  [3.1 DB migration](#31-db-migration)
+    *  [3.1 DB Migration](#31-db-migration)
     *  [3.2 Log](#32-Log)
     *  [3.3 카탈로그 적용](#33-catalog)
 
@@ -1914,24 +1914,26 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 # 3. PaaS-TA Portal 운영
 이전버전에서 사용한 Portal DB를 PaasTA 3.5 Portal DB에 마이그레이션 하는 방법을 설명한다.
-### 3.1. DB migration
+### 3.1. DB Migration
 
-##### 1. Portal DB의 Mariadb는 Haproxy의 Public ip로 접근이 가능하다.
+##### 1. DB tool을 이용해 기존에 사용한 DB와 Paas-TA 3.5 Portal DB를 연결한다. 
+ * 가이드의 DB tool을 이용한 마이그레이션 설명은 navicat을 기준으로 한다.
+##### 2. 마이그레이션할 table의 레코드 데이터를 전부 삭제한다.
+>![paas-ta-portal-25]
+##### 3. Tools - Data Transfer를 클릭해서 마이그레이션 설정창을 띄운다.
+>![paas-ta-portal-21]
+##### 4. 마이그레이션할 source DB(기존 DB), target DB(Paas-TA 3.5 Portal DB)를 설정한다.
+>![paas-ta-portal-20]
+##### 5. Option에 들어가 Table Options의 Create tables 옵션에 체크를 해제, Orther Options의 Contiune on error를 체크한 후 next를 누른다.
+>![paas-ta-portal-24]
+##### 6. 데이터를 이동할 테이블을 설정 후 next를 누른다.
+>![paas-ta-portal-22]
+##### 7-1. 마이그레이션이 정상적으로 완료된 모습
+>![paas-ta-portal-23]
+##### 7-2. 마이그레이션 오류난 모습
+>![paas-ta-portal-26]
+##### 7-3. 기존 DB에 오류난 Paas-TA Portal table의 Design에 맞춰 수정후에 다시 마이그레이션을 진행한다.
   
->![paas-ta-portal-02] 
->> User Name: root , Port, Password : deploy-vsphere.sh의 mariadb_port, mariadb_user_password 값
-
-##### 2. portaldb의 테이블을 열어 정상적으로 테이블이 생성되었는지 확인한다.
->![paas-ta-portal-03]
-
-##### 3. haproxy에 오류가 있을경우 포트포워딩을 통해 접근이 가능하다.
->![paas-ta-portal-04]
->>대상 호스트 : deploy-vsphere.sh의 mariadb_ips값
-
->![paas-ta-portal-05]
-
-
-
 ### 3.2. Log
 Paas-TA Portal 각각 Instance의 log를 확인 할 수 있다.
 1. 로그를 확인할 Instance에 접근한다.
@@ -2061,3 +2063,10 @@ Paas-TA Portal 설치 후에 관리자 포탈에서 빌드팩, 서비스팩을 �
 [paas-ta-portal-17]:../../Install-Guide/Portal/images/Paas-TA-Portal_17.png
 [paas-ta-portal-18]:../../Install-Guide/Portal/images/Paas-TA-Portal_18.png
 [paas-ta-portal-19]:../../Install-Guide/Portal/images/Paas-TA-Portal_19.png
+[paas-ta-portal-20]:../../Install-Guide/Portal/images/Paas-TA-Portal_20.png
+[paas-ta-portal-21]:../../Install-Guide/Portal/images/Paas-TA-Portal_21.png
+[paas-ta-portal-22]:../../Install-Guide/Portal/images/Paas-TA-Portal_22.png
+[paas-ta-portal-23]:../../Install-Guide/Portal/images/Paas-TA-Portal_23.png
+[paas-ta-portal-24]:../../Install-Guide/Portal/images/Paas-TA-Portal_24.png
+[paas-ta-portal-25]:../../Install-Guide/Portal/images/Paas-TA-Portal_25.png
+[paas-ta-portal-26]:../../Install-Guide/Portal/images/Paas-TA-Portal_26.png
