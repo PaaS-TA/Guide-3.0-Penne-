@@ -7,7 +7,8 @@
 2. [PaaS-TA Portal 설치](#2-paas-ta-portal-설치)
     *  [2.1 설치전 준비사항](#21-설치전-준비사항)
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
-    *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
+    *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-portal-bosh2.0.sh-수정-및-배포)
+    *  [2.4 사용자의 조직 생성 Flag 활성화](#24-사용자의-조직-생성-Flag-활성화)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
     *  [3.1 DB Migration](#31-db-migration)
     *  [3.2 Log](#32-Log)
@@ -1911,6 +1912,19 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         11 vms
         
         Succeeded
+
+### 2.4. 사용자의 조직 생성 Flag 활성화
+PaaS-TA는 기본적으로 일반 사용자는 조직을 생성할 수 없도록 설정되어 있다. 포털 배포를 위해 조직 및 공간을 생성해야 하고 또 테스트를 구동하기 위해서도 필요하므로 사용자가 조직을 생성할 수 있도록 user_org_creation FLAG를 활성화 한다. FLAG 활성화를 위해서는 PaaS-TA 운영자 계정으로 로그인이 필요하다.
+
+```
+$ cf enable-feature-flag user_org_creation
+```
+```
+Setting status of user_org_creation as admin...
+OK
+
+Feature user_org_creation Enabled.
+```
 
 # 3. PaaS-TA Portal 운영
 이전버전에서 사용한 Portal DB를 PaasTA 3.5 Portal DB에 마이그레이션 하는 방법을 설명한다.
