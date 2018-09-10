@@ -908,6 +908,7 @@ instance_groups:
       uaa:
         url: ((cf_uaa_url))
         clientsecret: ((portal_client_secret))
+        logouturl: ((cf_uaa_logouturl))
 
 ######### COMMON PROPERTIES ##########
 properties:
@@ -964,10 +965,12 @@ properties:
 # stemcell 버전은 3445.2 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
 
 bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \ 
-   -v release_version="2.0" \                                               릴리즈 버전
    -v stemcell_os="ubuntu-trusty"\                                          Stemcell_os
-   -v stemcell_version="3445.2"\                                            Stemcell version
+   -v stemcell_version="3468.51"\                                           Stemcell version
    -v stemcell_alias="default"\                                             Stemcell_alias
+   -v vm_type_small="portal_small"\                                         small vm type (512MB)
+   -v vm_type_medium="portal_medium"\                                       medium vm type (1GB)
+   -v vm_type_large="portal_large"\                                         large vm type (2GB)
    -v internal_networks_name="service_private"\                             Private ip 네트워크 이름(cloud config 참고) 
    -v external_networks_name="portal_service_public"\                       Public ip 네트워크 이름(cloud config 참고)
    -v mariadb_ips="10.30.107.211"\                                          Mariadb ip
@@ -998,13 +1001,16 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
    -v uaa_db_id="uaa"\                                                      UAA_database id
    -v uaa_db_password="uaa_admin"\                                          UAA_database password
    -v cf_uaa_url="https://uaa.115.68.46.189.xip.io"\                        UAA_페이지 URL
+   -v cf_uaa_logouturl="logout.do"\                                         UAA logout URL
    -v cf_api_url="https://api.115.68.46.189.xip.io"\                        CF_api url
    -v cf_admin_password="admin_test"\                                       CF_admin password, id는 admin으로 통일
    -v cf_uaa_admin_client_secret="admin-secret"\                            UAA admin client secret
-   -v portal_client_secret="clientsecret"\                                  Portal client secret
+   -v portal_client_secret="portalclient"\                                  Portal client secret
    -v paas_ta_web_user_url="http://portal-web-user.115.68.46.214.xip.io"\   User_portal url 설정
    -v abacus_url="http://monitoring.115.68.46.214"\                         Abacus_url
+   -v portal_webuser_quantity=false\                                        사용량 조회 사용 여부
    -v monitoring_api_url="http://abacus.115.68.46.214"\                     Monitoring_api url
+   -v portal_webuser_monitoring=false\                                      Monitoring 사용 여부
    -v mail_smtp_host="smtp.gmail.com"\                                      Mail_smtp host
    -v mail_smtp_port="465"\                                                 Mail_smtp port
    -v mail_smtp_username="PaaS-TA"\                                         Mail_smtp username
@@ -1013,7 +1019,8 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
    -v mail_smtp_properties_auth="true"\                                     Mail_smtp auth
    -v mail_smtp_properties_starttls_enable="true"\                          Mail_smtp host enable
    -v mail_smtp_properties_starttls_required="true"\                        Mail_smtp starttls required
-   -v mail_smtp_properties_subject="PaaS-TA User Potal"                     Mail_smtp subject(메일 제목)
+   -v mail_smtp_properties_subject="PaaS-TA User Potal"\                    Mail_smtp subject(메일 제목)
+   -v portal_webuser_automaticapproval=false                                자동 가입 승인 여부
 ```
 > release_version : 릴리즈 버전을 입력한다. $bosh releases 명령문으로 확인가능
  
