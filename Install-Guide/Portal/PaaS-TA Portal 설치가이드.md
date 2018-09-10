@@ -11,7 +11,7 @@
     *  [2.4 사용자의 조직 생성 Flag 활성화](#24-사용자의-조직-생성-flag-활성화)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
     *  [3.1 DB Migration](#31-db-migration)
-    *  [3.2 Log](#32-Log)
+    *  [3.2 Log](#32-log)
     *  [3.3 카탈로그 적용](#33-catalog)
 
 # 1. 문서 개요
