@@ -8,7 +8,7 @@
     *  [2.1 설치전 준비사항](#21-설치전-준비사항)
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
     *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-portal-bosh2.0.sh-수정-및-배포)
-    *  [2.4 사용자의 조직 생성 Flag 활성화](#24-사용자의-조직-생성-Flag-활성화)
+    *  [2.4 사용자의 조직 생성 Flag 활성화](#24-사용자의-조직-생성-flag-활성화)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
     *  [3.1 DB Migration](#31-db-migration)
     *  [3.2 Log](#32-Log)
