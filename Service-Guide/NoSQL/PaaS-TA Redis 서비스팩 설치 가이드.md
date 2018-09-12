@@ -1,35 +1,35 @@
 ## Table of Contents
 1. [문서 개요](#1)
-  - [1.1. 목적](#2)
-  - [1.2. 범위](#3)
-  - [1.3. 시스템 구성도](#4)
-  - [1.4. 참고자료](#5)
-2. [Redis 서비스팩 설치](#6)
-  - [2.1. 설치 전 준비 사항](#7)
-  - [2.2. Redis 서비스 릴리즈 업로드](#8)
-  - [2.3. Redis 서비스 Deployment 파일 수정 및 배포](#9)
-  - [2.4. Redis 서비스 브로커 등록](#10)
-3. [Redis 연동 Sample App 설명](#11)
-  - [3.1. Sample App 구조](#12)
-  - [3.2. PaaS-TA에서 서비스 신청](#13)
-  - [3.3. Sample App에 서비스 바인드 신청 및 App 확인](#14)
-4. [Redis Client 툴 접속](#15)
-  - [4.1. Redis Desktop Manager 설치 및 연결](#16)
+  - [1.1. 목적](#11)
+  - [1.2. 범위](#12)
+  - [1.3. 시스템 구성도](#13)
+  - [1.4. 참고자료](#14)
+2. [Redis 서비스팩 설치](#2)
+  - [2.1. 설치 전 준비 사항](#21)
+  - [2.2. Redis 서비스 릴리즈 업로드](#22)
+  - [2.3. Redis 서비스 Deployment 파일 수정 및 배포](#23)
+  - [2.4. Redis 서비스 브로커 등록](#24)
+3. [Redis 연동 Sample App 설명](#3)
+  - [3.1. Sample App 구조](#31)
+  - [3.2. PaaS-TA에서 서비스 신청](#32)
+  - [3.3. Sample App에 서비스 바인드 신청 및 App 확인](#33)
+4. [Redis Client 툴 접속](#4)
+  - [4.1. Redis Desktop Manager 설치 및 연결](#41)
 
 
 
 
 # <div id='1'> 1. 문서 개요
 
-### <div id='2'> 1.1. 목적
+### <div id='11'> 1.1. 목적
 본 문서(Redis 서비스팩 설치 가이드)는 전자정부표준프레임워크 기반의 PaaS-TA에서 제공되는 서비스팩인 Redis 서비스팩을 Bosh를 이용하여 설치하는 방법과 PaaS-TA의 SaaS 형태로 제공하는 Application에서 Redis 서비스를 사용하는 방법을 기술하였다.
 
-### <div id='3'> 1.2. 범위
+### <div id='12'> 1.2. 범위
 설치 범위는 Redis서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
 
 
 
-### <div id='4'> 1.3. 시스템 구성도
+### <div id='13'> 1.3. 시스템 구성도
 본 문서의 설치된 시스템 구성도입니다. Redis dedicated-node(2대), Redis 서비스 브로커로 최소사항을 구성하였다.
 ![시스템 구성도][redis_image_01]
 
@@ -50,14 +50,14 @@
 
 
 
-### <div id='5'> 1.4. 참고자료
+### <div id='14'> 1.4. 참고자료
 [**http://bosh.io/docs**](http://bosh.io/docs) <br>
 [**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
 
 
-# <div id='6'>  2. Redis 서비스팩 설치
+# <div id='2'>  2. Redis 서비스팩 설치
 
-### <div id='7'> 2.1. 설치 전 준비 사항
+### <div id='21'> 2.1. 설치 전 준비 사항
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
 서비스팩 설치를 위해서는 먼저 BOSH CLI v2 가 설치 되어 있어야 하고 BOSH 에 로그인이 되어 있어야 한다.<br>
 BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이드 문서를 참고 하여 BOSH CLI v2를 설치를 하고 사용법을 숙지 해야 한다.<br>
@@ -70,7 +70,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 >PaaSTA-Sample-Apps : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Sample-Apps.zip>**
 
 
-###  <div id='8'> 2.2. Redis 서비스 릴리즈 업로드
+###  <div id='22'> 2.2. Redis 서비스 릴리즈 업로드
 - PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 Redis 서비스 릴리즈 paasta-redis-2.0.tgz 파일을 확인한다.
 
 - **사용 예시**
@@ -352,7 +352,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
         Releases total: 10
 		
 		
-### <div id='9'>  2.3. Redis 서비스 Deployment 파일 수정 및 배포
+### <div id='23'>  2.3. Redis 서비스 Deployment 파일 수정 및 배포
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용 할 것인지와 Release (Software packages, Config templates, Scripts)의 이름과 버전, VMs 용량, Jobs params 등이 정의 되어 있다.
 
@@ -733,7 +733,7 @@ BOSH CLI가 배포에 대한 모든 작업을 허용하기 위한 현재 대상 
          VMs total: 4
 
 
-### <div id='10'> 2.4. Redis 서비스 브로커 등록
+### <div id='24'> 2.4. Redis 서비스 브로커 등록
 Redis 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Redis 서비스 브로커를 등록해 주어야 한다.
 서비스 브로커 등록시에는 PaaS-TA에서 서비스 브로커를 등록할 수 있는 사용자로 로그인하여야 한다
 
@@ -808,10 +808,10 @@ broker: paasta-pinpoint-broker
   Pinpoint   Pinpoint_standard   none
 ```
 
-# <div id='11'>  3. Redis연동 Sample App 설명
+# <div id='3'>  3. Redis연동 Sample App 설명
 본 Sample App은 PaaS-TA에 배포되며 Redis의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
 
-###<div id='12'> 3.1. Sample App 구조
+###<div id='31'> 3.1. Sample App 구조
 Sample App은 PaaS-TA에 App으로 배포가 된다. 배포 완료 후 정상적으로 App이 구동되면 curl 명령어로 배포된 도메인 정보를 이용하여 Redis에 특정 key 에 값을 저장/조회/삭제를 한다.
 
 Sample App 구조는 다음과 같다.
@@ -847,7 +847,7 @@ Sample App 구조는 다음과 같다.
 
 <br>
 
-### <div id='13'> 3.2. PaaS-TA에서 서비스 신청
+### <div id='32'> 3.2. PaaS-TA에서 서비스 신청
 Sample App에서 Redis 서비스를 사용하기 위해서는 서비스 신청(Provision)을 해야 한다.
 *참고: 서비스 신청시 PaaS-TA에서 서비스를 신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
 
@@ -881,7 +881,7 @@ Sample App에서 Redis 서비스를 사용하기 위해서는 서비스 신청(P
 
 <br>
 
-### <div id='14'> 3.3. Sample App에 서비스 바인드 신청 및 App 확인
+### <div id='33'> 3.3. Sample App에 서비스 바인드 신청 및 App 확인
 서비스 신청이 완료되었으면 Sample App 에서는 생성된 서비스 인스턴스를 Bind 하여 App에서 Redis 서비스를 이용한다.
 *참고: 서비스 Bind 신청시 PaaS-TA에서 서비스 Bind신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
 
@@ -968,11 +968,11 @@ path: target/hello-spring-glusterfs.war # 배포하는 App 파일 PATH
 <br>
 
 
-# <div id='15'> 4. Redis Client 툴 접속
+# <div id='4'> 4. Redis Client 툴 접속
 Application에 바인딩 된 Redis 서비스 연결정보는 Private IP로 구성되어 있기 때문에 Redis Client 툴에서 직접 연결할 수 없다. 따라서 Redis Client 툴에서 SSH 터널, Proxy 터널 등을 제공하는 툴을 사용해서 연결하여야 한다. 본 가이드는 SSH 터널을 이용하여 연결 하는 방법을 제공하며 Redis Client 툴로써는 오픈 소스인 Redis Desktop Manager로 가이드한다. Redis Desktop Manager 에서 접속하기 위해서 먼저 SSH 터널링할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 PaaS-TA에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 OpenStack 관리자 및 PaaS-TA 운영자에게 문의하여 구성한다. vsphere 에서 구성한 인스턴스는 공개키(.pem) 로 접속을 해야 하므로 공개키는 운영 담당자에게 문의하여 제공받는다. 참고) 개인키(.ppk)로는 접속이 되지 않는다.
 
 
-### <div id='16'> 4.1. Redis Desktop Manager 설치 및 연결
+### <div id='41'> 4.1. Redis Desktop Manager 설치 및 연결
 Redis Desktop Manager 프로그램은 무료로 사용할 수 있는 오픈소스 소프트웨어이다.
 
 ##### Redis Desktop Manager를 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다.
