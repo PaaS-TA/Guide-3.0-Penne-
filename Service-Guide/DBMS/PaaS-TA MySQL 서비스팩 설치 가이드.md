@@ -7,7 +7,7 @@
 2. [MySQL 서비스팩 설치](#2-mysql-서비스팩-설치)
   - 2.1. [설치전 준비사항](#21-설치전-준비사항)
   - 2.2. [MySQL 서비스 릴리즈 업로드](#22-mysql-서비스-릴리즈-업로드)
-  - 2.3. [MySQL 서비스 Deployment 파일 수정 및 배포](#23-mysql-서비스-deployment-파일-수정-및-배포)
+  - 2.3. [MySQL 서비스 Deployment 파일 수정 및 배포](#23-mysql-서비스-Deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
   - 2.4. [MySQL 서비스 브로커 등록](#24-mysql-서비스-브로커-등록)
 3. [MySQL 연동 Sample Web App 설명](#3-mysql-연동-sample-web-app-설명)
   - 3.1. [Sample Web App 구조](#31-sample-web-app-구조)
