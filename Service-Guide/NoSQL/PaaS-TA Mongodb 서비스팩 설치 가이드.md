@@ -1,32 +1,32 @@
 ## Table of Contents
-1. [문서 개요](#1-문서-개요)
-  - 1.1. [목적](#11-목적)
-  - 1.2. [범위](#12-범위)
-  - 1.3. [시스템 구성도](#13-시스템-구성도)
-  - 1.4. [참고자료](#14-참고자료)
-2. [Mongodb 서비스팩 설치](#2-Mongodb-서비스팩-설치)
-  - 2.1. [설치전 준비사항](#21-설치전-준비사항)
-  - 2.2. [Mongodb 서비스 릴리즈 업로드](#22-Mongodb-서비스-릴리즈-업로드)
-  - 2.3. [Mongodb 서비스 Deployment 파일 수정 및 배포](#23-Mongodb-서비스-deployment-파일-수정-및-배포)
-  - 2.4. [Mongodb 서비스 브로커 등록](#24-Mongodb-서비스-브로커-등록)
-3. [Mongodb 연동 Sample Web App 설명](#3-mysql-연동-sample-web-app-설명)
-  - 3.1. [Sample App 구조](#31-sample-app-구조)
-  - 3.2. [PaaS-TA에서 서비스 신청](#32-paas-ta에서-서비스-신청)
-  - 3.3. [Sample App에 서비스 바인드 신청 및 App 확인](#33-sample-app에-서비스-바인드-신청-및-app-확인)
-4. [Mongodb Client 툴 접속](#4-Mongodb-client-툴-접속)
-  - 4.1. [MongoChef 설치 및 연결](#41-MongoChef-설치-및-연결)
+1. [문서 개요](#1)
+  - 1.1. [목적](#11)
+  - 1.2. [범위](#12)
+  - 1.3. [시스템 구성도](#13)
+  - 1.4. [참고자료](#14)
+2. [Mongodb 서비스팩 설치](#2)
+  - 2.1. [설치전 준비사항](#21)
+  - 2.2. [Mongodb 서비스 릴리즈 업로드](#22)
+  - 2.3. [Mongodb 서비스 Deployment 파일 수정 및 배포](#23)
+  - 2.4. [Mongodb 서비스 브로커 등록](#24)
+3. [Mongodb 연동 Sample Web App 설명](#3)
+  - 3.1. [Sample App 구조](#31)
+  - 3.2. [PaaS-TA에서 서비스 신청](#32)
+  - 3.3. [Sample App에 서비스 바인드 신청 및 App 확인](#33)
+4. [Mongodb Client 툴 접속](#4)
+  - 4.1. [MongoChef 설치 및 연결](#41)
 
 
-# 1. 문서 개요
-### 1.1. 목적
+# <div id='1'> 1. 문서 개요
+### <div id='11'> 1.1. 목적
 
 본 문서(Mongodb 서비스팩 설치 가이드)는 전자정부표준프레임워크 기반의 PaaS-TA에서 제공되는 서비스팩인 Mongodb 서비스팩을 Bosh를 이용하여 설치 하는 방법과 PaaS-TA의 SaaS 형태로 제공하는 Application 에서 Mongodb 서비스를 사용하는 방법을 기술하였다.
 PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 Bosh1.0 기반으로 설치를 원할경우에는 PaaS-TA 3.1 이하 버전의 문서를 참고한다.
 
-### 1.2. 범위
+### <div id='12'> 1.2. 범위
 설치 범위는 Mongodb 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
 
-### 1.3. 시스템 구성도
+### <div id='13'> 1.3. 시스템 구성도
 본 문서의 설치된 시스템 구성도입니다. Mongodb Server, Mongodb 서비스 브로커로 최소사항을 구성하였다.
 
 ![시스템구성도][mongodb_image_02]
@@ -55,15 +55,15 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 </table>
 
 
-### 1.4. 참고자료
+### <div id='14'> 1.4. 참고자료
 [**http://bosh.io/docs**](http://bosh.io/docs)
 [**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
 
 
 
-# 2.  Mongodb 서비스팩 설치
+# <div id='2'> 2.  Mongodb 서비스팩 설치
 
-### 2.1.  설치전 준비사항
+### <div id='21'> 2.1.  설치전 준비사항
 본 서비스팩 설치를 위해서는 먼저 BOSH CLI가 설치 되어 있어야 하고 BOSH 에 로그인 및 target 설정이 되어 있어야 한다.
 BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여 BOSH CLI를 설치 해야 한다.
 PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaS-TA-Services.zip, PaaS-TA-Deployment.zip, PaaS-TA-Sample-Apps.zip)
@@ -75,7 +75,7 @@ PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (Pa
 
 
 
-### 2.2. Mongodb 서비스 릴리즈 업로드
+### <div id='22'> 2.2. Mongodb 서비스 릴리즈 업로드
 
 - PaaS-TA-Services.zip 파일 압축을 풀고 폴더안에 있는 Mongodb 서비스 릴리즈 pasta-mongodb-shard-2.0.tgz 파일을 확인한다.
 
@@ -178,7 +178,7 @@ PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (Pa
 -   Mongodb 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
 
-### 2.3. Mongodb 서비스 Deployment 파일 수정 및 배포
+### <div id='23'> 2.3. Mongodb 서비스 Deployment 파일 수정 및 배포
 
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용 할 것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
@@ -513,7 +513,7 @@ Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 �
 		VMs total: 5
 
 
-### 2.4. Mongodb 서비스 브로커 등록
+### <div id='24'> 2.4. Mongodb 서비스 브로커 등록
 
 Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Mongodb 서비스 브로커를 등록해 주어야 한다.
 
@@ -565,12 +565,12 @@ Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 �
 > ![mongodb_image_10]
 
 
-# 3. Mongodb 연동 Sample Web App 설명
+# <div id='3'> 3. Mongodb 연동 Sample Web App 설명
 
 본 Sample Web App은 PaaS-TA에 배포되며 Mongodb의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
 
 
-### 3.1. Sample App 구조
+### <div id='31'> 3.1. Sample App 구조
 
 Sample Web App은 PaaS-TA에 App으로 배포가 된다. App을 배포하여 구동시 Bind 된 Mongodb 서비스 연결정보로 접속하여 초기 데이터를 생성하게 된다. 배포 완료 후 정상적으로 App 이 구동되면 브라우저나 curl로 해당 App에 접속 하여 Mongodb 환경정보(서비스 연결 정보)와 초기 적재된 데이터를 보여준다.
 
@@ -608,7 +608,7 @@ Sample Web App 구조는 다음과 같다.
 
 <br>
 
-### <div id='13'> 3.2. PaaS-TA에서 서비스 신청
+### <div id='32'> 3.2. PaaS-TA에서 서비스 신청
 
 Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 신청(Provision)을 해야 한다.
 *참고: 서비스 신청시 개방형 클라우드 플랫폼에서 서비스를 신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
@@ -645,7 +645,7 @@ Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 �
 <br>
 
 
-3.3. Sample App에 서비스 바인드 신청 및 App 확인
+3.3. <div id='33'> Sample App에 서비스 바인드 신청 및 App 확인
 -------------------------------------------------
 서비스 신청이 완료되었으면 Sample Web App 에서는 생성된 서비스 인스턴스를 Bind 하여 App에서 Mongodb 서비스를 이용한다.
 *참고: 서비스 Bind 신청시 개방형 클라우드 플랫폼에서 서비스 Bind신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
@@ -764,12 +764,12 @@ $ cf restart hello-spring-Mongodb
 > ![mongodb_image_23]
 
 
-# 4.  Mongodb Client 툴 접속
+# <div id='4'> 4.  Mongodb Client 툴 접속
 
 Application에 바인딩된 Mongodb 서비스 연결정보는 Private IP로 구성되어 있기 때문에 Mongodb Client 툴에서 직접 연결할수 없다. 따라서 SSH 터널, Proxy 터널 등을 제공하는 Mongodb Client 툴을 사용해서 연결하여야 한다. 본 가이드는 SSH 터널을 이용하여 연결 하는 방법을 제공하며 Mongodb Client 툴로써는 MongoChef 로 가이드한다. MongoChef 에서 접속하기 위해서 먼저 SSH 터널링 할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 PaaS-TA에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 OpenStack관리자 및 PaaS-TA 운영자에게 문의하여 구성한다.
 
 
-# 4.1.  MongoChef 설치 & 연결
+# <div id='41'> 4.1.  MongoChef 설치 & 연결
 MongoChef 프로그램은 무료로 사용할 수 있는 소프트웨어이다.
 
 
