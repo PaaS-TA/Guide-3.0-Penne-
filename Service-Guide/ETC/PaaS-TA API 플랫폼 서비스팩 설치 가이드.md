@@ -1435,7 +1435,7 @@ $ cf create-service-broker {서비스 브로커 이름} {서비스 브로커 사
 ```
 
 ```
-$ cf create-service-broker apiplatform-service-broker admin cloudfoundry http://10.30.60.200:8080
+$ cf create-service-broker apiplatform-service-broker admin cloudfoundry http://10.30.107.200:8080
 ```
 ![apiplatform_image_21]
 

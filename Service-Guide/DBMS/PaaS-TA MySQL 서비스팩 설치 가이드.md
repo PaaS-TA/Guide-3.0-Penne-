@@ -1243,7 +1243,7 @@ Mysql 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩
   서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.
   서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.
 
->`$ cf create-service-broker mysql-service-broker admin cloudfoundry http://10.0.0.95:8080`
+>`$ cf create-service-broker mysql-service-broker admin cloudfoundry http://10.30.107.167:8080`
 
 >![update_mysql_vsphere_17]
 

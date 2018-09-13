@@ -1219,7 +1219,7 @@ $ cf create-service-broker {서비스브로커 이름} {서비스브로커 사�
 ```
 
 ```
-$ cf create-service-broker pinpoint-service-broker admin cloudfoundry http:// 10.30.70.82:8080
+$ cf create-service-broker pinpoint-service-broker admin cloudfoundry http://10.30.107.182:8080
 ```
 ```
 Creating service broker pinpoint-service-broker as admin...
