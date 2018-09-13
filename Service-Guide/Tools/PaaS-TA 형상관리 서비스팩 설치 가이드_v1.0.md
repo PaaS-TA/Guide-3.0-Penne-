@@ -1028,7 +1028,7 @@ p-paasta-sourcecontrol          Default           all
 ### <div id='11'/> 2.5. 형상관리 UAA Client Id 등록
 UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 
-**haproxy IPs (실제 대시보드 URL)**:8080 입력 후 루트 도메인을 입력한다. URL 정보 다중 입력 시 ","(comma)를 사용하여 추가한다.
+**haproxy IPs**:8080 입력 후 루트 도메인을 입력한다.**haproxy IPs**의 주소는 **실제 대시보드 URL**이다. URL 정보 다중 입력 시 ","(comma)를 사용하여 추가한다.
 >`$ http://115.68.47.179:8080/repositories/user/323900a4-8333-4122-91c3-00d384466ed9` 
 
 ##### *haproxy IPs 확인*
