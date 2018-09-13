@@ -1206,7 +1206,7 @@ bosh -e micro-bosh -d paasta-mysql-service deploy paasta_mysql_bosh2.0.yml \
 
 - **사용 예시**
 
-		bosh -e micro-bosh -d paasta-mysql-service vms
+		$bosh -e micro-bosh -d paasta-mysql-service vms
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 		Task 4525. Done
