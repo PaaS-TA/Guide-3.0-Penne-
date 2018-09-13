@@ -894,62 +894,49 @@ bosh -e micro-bosh -d paasta-sourcecontrol-service deploy paasta_sourcecontrol_b
 
 		Continue? [yN]: y
 
-		Task 7838
+		ask 7838
 
-		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
-		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
-		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
-		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
-		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
-		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
-		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
-		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
-		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
-		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
-		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
-		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
-		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
-		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
-		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
-		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
-		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
-		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
-		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
-		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
-		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
-		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
-		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
-		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
-		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
-		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
-		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
-		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
-		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
-		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
-		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
-		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
-		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
-		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
-		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
-		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
-		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
-		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
-		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
-		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
-		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
-		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
-		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+		Task 7838 | 00:18:22 | Preparing deployment: Preparing deployment (00:00:02)
+		Task 7838 | 00:18:25 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 7838 | 00:18:25 | Compiling packages: sourcecontrol-broker/c5394441a91bddd526e232a7e7a466e8c3d90e51
+		Task 7838 | 00:18:25 | Compiling packages: sourcecontrol-api/37c3b7f8c53787e1f536a68543828bb76263ef50
+		Task 7838 | 00:18:25 | Compiling packages: sourcecontrol-webui/70b5fb8f8fb97d196fa48d400f3c8f87bf3a36ea
+		Task 7838 | 00:18:25 | Compiling packages: tomcat/1ff8747498f45f21b2d43d6bc50d8e53a0ddfca7
+		Task 7838 | 00:18:25 | Compiling packages: haproxy/14b0441f6d68c89612f53ce4334a65c80d601e51
+		Task 7838 | 00:21:13 | Compiling packages: tomcat/1ff8747498f45f21b2d43d6bc50d8e53a0ddfca7 (00:02:48)
+		Task 7838 | 00:21:13 | Compiling packages: mariadb/59a218308c6c7dcf8795b531b53aa4a1c666ce00
+		Task 7838 | 00:21:21 | Compiling packages: sourcecontrol-broker/c5394441a91bddd526e232a7e7a466e8c3d90e51 (00:02:56)
+		Task 7838 | 00:21:21 | Compiling packages: java8/88ff03b20ad2f59840fbb5f74a074ca8fdc68213
+		Task 7838 | 00:21:21 | Compiling packages: sourcecontrol-webui/70b5fb8f8fb97d196fa48d400f3c8f87bf3a36ea (00:02:56)
+		Task 7838 | 00:21:21 | Compiling packages: scm-server/8f9a9d9259ff144dc71e1131c25420d1b3fa056d
+		Task 7838 | 00:21:30 | Compiling packages: sourcecontrol-api/37c3b7f8c53787e1f536a68543828bb76263ef50 (00:03:05)
+		Task 7838 | 00:21:59 | Compiling packages: scm-server/8f9a9d9259ff144dc71e1131c25420d1b3fa056d (00:00:38)
+		Task 7838 | 00:22:05 | Compiling packages: haproxy/14b0441f6d68c89612f53ce4334a65c80d601e51 (00:03:40)
+		Task 7838 | 00:22:12 | Compiling packages: java8/88ff03b20ad2f59840fbb5f74a074ca8fdc68213 (00:00:51)
+		Task 7838 | 00:22:32 | Compiling packages: mariadb/59a218308c6c7dcf8795b531b53aa4a1c666ce00 (00:01:19)
+		Task 7838 | 00:23:33 | Creating missing vms: scm-server/6e23addc-33c7-4bb0-af95-d66420f15c06 (0)
+		Task 7838 | 00:23:33 | Creating missing vms: mariadb/90ea7861-57ed-43f7-853d-25712a67ba2a (0)
+		Task 7838 | 00:23:33 | Creating missing vms: haproxy/878b393c-d817-4e71-8fe5-553ddf87d362 (0)
+		Task 7838 | 00:23:33 | Creating missing vms: sourcecontrol-webui/840278e2-e1a2-4a30-b904-68538c7cd06f (0)
+		Task 7838 | 00:23:33 | Creating missing vms: sourcecontrol-broker/ec83edb5-130f-4a91-9ac1-20fb622ed0a2 (0)
+		Task 7838 | 00:23:33 | Creating missing vms: sourcecontrol-api/3ecb90fa-2211-4df6-82bb-5c91ed9a4310 (0)
+		Task 7838 | 00:25:38 | Creating missing vms: haproxy/878b393c-d817-4e71-8fe5-553ddf87d362 (0) (00:02:05)
+		Task 7838 | 00:25:40 | Creating missing vms: mariadb/90ea7861-57ed-43f7-853d-25712a67ba2a (0) (00:02:07)
+		Task 7838 | 00:25:49 | Creating missing vms: sourcecontrol-api/3ecb90fa-2211-4df6-82bb-5c91ed9a4310 (0) (00:02:16)
+		Task 7838 | 00:25:52 | Creating missing vms: scm-server/6e23addc-33c7-4bb0-af95-d66420f15c06 (0) (00:02:19)
+		Task 7838 | 00:25:52 | Creating missing vms: sourcecontrol-webui/840278e2-e1a2-4a30-b904-68538c7cd06f (0) (00:02:19)
+		Task 7838 | 00:25:52 | Creating missing vms: sourcecontrol-broker/ec83edb5-130f-4a91-9ac1-20fb622ed0a2 (0) (00:02:19)
+		Task 7838 | 00:25:53 | Updating instance scm-server: scm-server/6e23addc-33c7-4bb0-af95-d66420f15c06 (0) (canary) (00:02:39)
+		Task 7838 | 00:28:32 | Updating instance mariadb: mariadb/90ea7861-57ed-43f7-853d-25712a67ba2a (0) (canary) (00:02:53)
+		Task 7838 | 00:31:25 | Updating instance haproxy: haproxy/878b393c-d817-4e71-8fe5-553ddf87d362 (0) (canary) (00:02:06)
+		Task 7838 | 00:33:31 | Updating instance sourcecontrol-webui: sourcecontrol-webui/840278e2-e1a2-4a30-b904-68538c7cd06f (0) (canary) (00:02:08)
+		Task 7838 | 00:35:39 | Updating instance sourcecontrol-api: sourcecontrol-api/3ecb90fa-2211-4df6-82bb-5c91ed9a4310 (0) (canary) (00:02:08)
+		Task 7838 | 00:37:47 | Updating instance sourcecontrol-broker: sourcecontrol-broker/ec83edb5-130f-4a91-9ac1-20fb622ed0a2 (0) (canary) (00:02:10)
 
-		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
-		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
-		Task 4506 Duration 01:03:56
-		Task 4506 done
+		Task 7838 Started  Thu Sep 13 00:18:22 UTC 2018
+		Task 7838 Finished Thu Sep 13 00:39:57 UTC 2018
+		Task 7838 Duration 00:21:35
+		Task 7838 done
 
 		Succeeded
 
@@ -961,18 +948,20 @@ bosh -e micro-bosh -d paasta-sourcecontrol-service deploy paasta_sourcecontrol_b
 		$bosh -e micro-bosh -d paasta-sourcecontrol-service vms
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-		Task 4525. Done
+		Task 7847. Done
 
-		Deployment 'paasta-mysql-service'
+		Deployment 'paasta-sourcecontrol-service'
 
-		Instance                                                       Process State  AZ  IPs            VM CID                                   VM Type  Active  
-		mysql/8a830154-25b6-432a-ad39-9ff09d015760                     running        z5  10.30.107.165  vm-214663a8-fcbc-4ae4-9aae-92027b9725a9  minimal  true  
-		mysql/e8c52bf2-cd48-45d0-9553-f6367942a634                     running        z5  10.30.107.164  vm-81ecdc43-03d2-44f5-9b89-c6cdaa443d8b  minimal  true  
-		mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5                     running        z5  10.30.107.166  vm-bee33ffa-3f65-456c-9250-1e74c7c97f64  minimal  true  
-		paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78  running        z5  10.30.107.167  vm-7c3edc00-3074-4e98-9c89-9e9ba83b47e4  minimal  true  
-		proxy/023edddd-418e-46e4-8d40-db452c694e16                     running        z5  10.30.107.168  vm-e447eb75-1119-451f-adc9-71b0a6ef1a6a  minimal  true  
+		Instance                                                   Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		haproxy/878b393c-d817-4e71-8fe5-553ddf87d362               running        z5  115.68.47.179  vm-cc4c774d-9857-4b3a-9ffc-5f836098eb4e  minimal  true  
+											      10.30.107.123                                                      
+		mariadb/90ea7861-57ed-43f7-853d-25712a67ba2a               running        z5  10.30.107.122  vm-6952fb76-b4d6-4f53-86cb-b0517a76f0d0  minimal  true  
+		scm-server/6e23addc-33c7-4bb0-af95-d66420f15c06            running        z5  10.30.107.121  vm-08eb6dd3-04ae-435c-9558-9b78286b730c  minimal  true  
+		sourcecontrol-api/3ecb90fa-2211-4df6-82bb-5c91ed9a4310     running        z5  10.30.107.125  vm-ee4daa28-3e10-4409-9d6f-ce566d54e8a5  minimal  true  
+		sourcecontrol-broker/ec83edb5-130f-4a91-9ac1-20fb622ed0a2  running        z5  10.30.107.126  vm-23d1a9fc-30d2-4a0f-8631-df8807fc8612  minimal  true  
+		sourcecontrol-webui/840278e2-e1a2-4a30-b904-68538c7cd06f   running        z5  10.30.107.124  vm-0f7300dd-63b5-4399-b1fd-35aeccffac5c  minimal  true  
 
-		5 vms
+		6 vms
 
 		Succeeded
 
