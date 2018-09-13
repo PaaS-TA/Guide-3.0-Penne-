@@ -137,8 +137,10 @@
 1.  사용자 계정과 비밀번호를 입력한 후 “SIGN IN” 버튼을 클릭하여 사용자 포탈에 로그인한다.
 ![2-3-0]
 
-2.  계정 생성 후, 첫 로그인 시 대시보드 페이지로 이동된다. <br>
-① "조직관리" 링크 클릭 또는 우측 메뉴의 ②"조직관리"를 클릭한다. 이동한 조직대시보드 페이지에서 조직 생성을 한다. 본 문서의 3.2.1.1 를 통해 자세히 알아 볼 수 있다.
+2.  계정 생성 후, 첫 로그인 시 대시보드 페이지로 이동된다.
+![dashboard]
+
+3.  대시보드 페이지 ① "조직관리" 링크 클릭 또는 우측 메뉴의 ②"조직관리"를 클릭한다. 이동한 조직 대시보드 페이지에서 조직 생성을 한다. 본 문서의 3.2.1.1 를 통해 자세히 알아 볼 수 있다.
 ![2-3-1]
 
 
@@ -710,3 +712,4 @@ PaaS-TA 사용자 포탈은 조직, 공간, 애플리케이션을 관리하는 �
 [web-ide-create]:../images/user-portal/web-ide-create.png
 [email]:../images/user-portal/email.png
 [passwordemail]:../images/user-portal/passwordemail.png
+[dashboard]:../images/user-portal/dashboard.png
