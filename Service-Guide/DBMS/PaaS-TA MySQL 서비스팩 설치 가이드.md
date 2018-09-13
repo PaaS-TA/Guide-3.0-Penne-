@@ -124,8 +124,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 		$ bosh -e micro-bosh upload-release paasta-mysql-2.0.tgz
     		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
-		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
-
+		
 		######################################################## 100.00% 144.14 MiB/s 2s
 		Task 4460
 

@@ -62,675 +62,1222 @@
 서비스팩 설치를 위해서는 먼저 BOSH CLI v2 가 설치 되어 있어야 하고 BOSH 에 로그인이 되어 있어야 한다.<br>
 BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이드 문서를 참고 하여 BOSH CLI v2를 설치를 하고 사용법을 숙지 해야 한다.<br>
 
+- BOSH2.0 사용자 가이드
+>BOSH2 사용자 가이드 : **<https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH2_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md>**
+
+>BOSH CLI V2 사용자 가이드 : **<https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md>**
+
 - PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
 
 - 다운로드 위치
->PaaSTA-Services : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Services.zip>**  
->PaaSTA-Deployment : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Deployment.zip>**  
+>PaaSTA-Deployment : **<https://paas-ta.kr/data/packages/3.5/deployment.zip>**  
 >PaaSTA-Sample-Apps : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Sample-Apps.zip>**
 
 
 ###  <div id='22'> 2.2. Redis 서비스 릴리즈 업로드
-- PaaSTA-Services.zip 파일 압축을 풀고 폴더안에 있는 Redis 서비스 릴리즈 paasta-redis-2.0.tgz 파일을 확인한다.
+-	업로드 되어 있는 릴리즈 목록을 확인한다.
 
 - **사용 예시**
 
-		$ ls --all
-		.  cf236      paasta-cubrid-2.0.tgz    paasta-mysql-2.0.tgz    paasta-portal-object-storage-2.0.tgz paasta-redis-2.0.tgz
-		.. cf-release paasta-glusterfs-2.0.tgz paasta-pinpoint-2.0.tgz paasta-rabbitmq-2.0.tgz              paasta-web-ide-2.0.tgz
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
--    업로드 되어 있는 릴리즈 목록을 확인한다.
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+    		bpm                               0.9.0*    c9b7136  
+    		caas-release                      1.0*      empty+  
+    		capi                              1.62.0*   22a608c  
+	    	cf-networking                     2.8.0*    479f4a66  
+	    	cf-smoke-tests                    40.0.5*   d6aaf1f  
+	    	cf-syslog-drain                   7.0*      71b995a  
+	    	cflinuxfs2                        1.227.0*  60128e1  
+	    	consul                            195*      67cdbcd  
+	    	diego                             2.13.0*   b5644d9  
+	    	dotnet-core-buildpack             2.1.3*    46a41cd  
+	    	garden-runc                       1.15.1*   75107e7+  
+	    	go-buildpack                      1.8.25*   40c60a0  
+	    	haproxy                           8.8.0*    9292573  
+	    	java-buildpack                    4.13*     c2749d3  
+	    	loggregator                       103.0*    05da4e3d  
+	    	loggregator-agent                 2.0*      2382c90  
+	    	nats                              24*       30e7a82  
+	    	nodejs-buildpack                  1.6.28*   4cfdb7b  
+	    	paas-ta-portal-release            2.0*      non-git  
+	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+	    	paasta-pinpoint                   2.0*      2dbb8bf3+  
+	    	php-buildpack                     4.3.57*   efc48f3  
+	    	postgres                          29*       5de4d63d+  
+	    	python-buildpack                  1.6.18*   bcc4f26  
+	    	routing                           0.179.0*  18155a5  
+	    	ruby-buildpack                    1.7.21*   9d69600  
+	    	silk                              2.9.0*    eebed55  
+	    	staticfile-buildpack              1.4.29*   8a82e63  
+	    	statsd-injector                   1.3.0*    39e5179  
+	    	uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	31 releases
+
+	    	Succeeded
+
+-	Redis 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+
+-	Redis 서비스 릴리즈 파일을 업로드한다.
 
 - **사용 예시**
 
-		$ bosh releases
+		$ bosh -e micro-bosh upload-release paasta-redis-2.0.tgz
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 		
-		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on 'bosh'
+		######################################################## 100.00% 144.14 MiB/s 2s
+		Task 4460
+
+		Task 4460 | 04:31:41 | Extracting release: Extracting release (00:00:04)
+		Task 4460 | 04:31:45 | Verifying manifest: Verifying manifest (00:00:00)
+		Task 4460 | 04:31:45 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: cf-mysql-broker/250c6466bdaff96677e501ed5219d92ce4e61bd8 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: mysqlclient/ce95f8ac566f76b650992987d5282ee473356e43 (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: acceptance-tests/1cb3ce7e20f5a8395b43fc6f0e3f2e92b0dc27bd (00:00:00)
+		Task 4460 | 04:31:45 | Creating new packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:00:01)
+		Task 4460 | 04:31:46 | Creating new packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: quota-enforcer/e2c4c9e7d7bbbe4bfdc0866962461b00e654cca3 (00:00:00)
+		Task 4460 | 04:31:46 | Creating new packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:00:01)
+		Task 4460 | 04:31:47 | Creating new packages: ruby/ff79c965224b4160c1526bd704b3b21e4ad7c362 (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:00)
+		Task 4460 | 04:31:47 | Creating new packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:00:01)
+		Task 4460 | 04:31:48 | Creating new packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:00:00)
+		Task 4460 | 04:31:48 | Creating new packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:00:01)
+		Task 4460 | 04:31:49 | Creating new packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:00:02)
+		Task 4460 | 04:31:51 | Creating new packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:01)
+		Task 4460 | 04:31:52 | Creating new packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:00:00)
+		Task 4460 | 04:31:52 | Creating new packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:00:01)
+		Task 4460 | 04:31:53 | Creating new packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:00:01)
+		Task 4460 | 04:31:54 | Creating new packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:00:00)
+		Task 4460 | 04:31:54 | Creating new packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:01)
+		Task 4460 | 04:31:55 | Creating new packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:00:01)
+		Task 4460 | 04:31:56 | Creating new packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:00:01)
+		Task 4460 | 04:31:57 | Creating new jobs: cf-mysql-broker/9828ead15eabdc33b2c27fe275b463735edb115d (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: acceptance-tests/48c00c36ec5210cbdd3b125ae6a72cfdf6eaf4e2 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-deregistrar/b5f6f776d46eb1ac561ab1e8f58d8ddedb97f86e (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: proxy/7907d8759aa11dfcbbe79220dc945c96b5562ac1 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: mysql/078561f02f2516212ed59c48e1dd45360f93871c (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: op-mysql-java-broker/6e47c9ea6fbe0867d4a476af5abf157830c03024 (00:00:00)
+		Task 4460 | 04:31:57 | Creating new jobs: broker-registrar/e1f5e30b87e70e916ea74ea8eb63a7b6ff6ff643 (00:00:00)
+		Task 4460 | 04:31:57 | Release has been created: paasta-mysql/2.0 (00:00:00)
+
+		Task 4460 Started  Fri Aug 31 04:31:41 UTC 2018
+		Task 4460 Finished Fri Aug 31 04:31:57 UTC 2018
+		Task 4460 Duration 00:00:16
+		Task 4460 done
+
+		Succeeded
+
+
+-	업로드 된 Redis 릴리즈를 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+		bpm                               0.9.0*    c9b7136  
+		caas-release                      1.0*      empty+  
+		capi                              1.62.0*   22a608c  
+		cf-networking                     2.8.0*    479f4a66  
+		cf-smoke-tests                    40.0.5*   d6aaf1f  
+		cf-syslog-drain                   7.0*      71b995a  
+		cflinuxfs2                        1.227.0*  60128e1  
+		consul                            195*      67cdbcd  
+		diego                             2.13.0*   b5644d9  
+		dotnet-core-buildpack             2.1.3*    46a41cd  
+		garden-runc                       1.15.1*   75107e7+  
+		go-buildpack                      1.8.25*   40c60a0  
+		haproxy                           8.8.0*    9292573  
+		java-buildpack                    4.13*     c2749d3  
+		loggregator                       103.0*    05da4e3d  
+		loggregator-agent                 2.0*      2382c90  
+		nats                              24*       30e7a82  
+		nodejs-buildpack                  1.6.28*   4cfdb7b  
+		paas-ta-portal-release            2.0*      non-git  
+		paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+		paasta-redis                      2.0       85e3f01e+  
+		paasta-pinpoint                   2.0*      2dbb8bf3+  
+		php-buildpack                     4.3.57*   efc48f3  
+		postgres                          29*       5de4d63d+  
+		python-buildpack                  1.6.18*   bcc4f26  
+		routing                           0.179.0*  18155a5  
+		ruby-buildpack                    1.7.21*   9d69600  
+		silk                              2.9.0*    eebed55  
+		staticfile-buildpack              1.4.29*   8a82e63  
+		statsd-injector                   1.3.0*    39e5179  
+		uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	32 releases
+
+	    	Succeeded
 		
-		+--------------------------+----------+-------------+
-		| Name                     | Versions | Commit Hash |
-		+--------------------------+----------+-------------+
-		| cflinuxfs2-rootfs        | 1.40.0*  | 19fe09f4+   |
-		| empty-release            | 1+dev.1* | 00000000    |
-		| etcd                     | 86*      | 2dfbef00+   |
-		| paasta-container         | 2.0*     | b857e171    |
-		| paasta-controller        | 2.0*     | 0f315314    |
-		| paasta-garden-runc       | 2.0*     | ea5f5d4d+   |
-		| paasta-influxdb-grafana  | 2.0*     | 00000000    |
-		| paasta-logsearch         | 2.0*     | 00000000    |
-		| paasta-metrics-collector | 2.0*     | 00000000    |
-		+--------------------------+----------+-------------+
- 
-         
+-	Redis 서비스 릴리즈가 업로드 되어 있는 것을 확인
+
+-	Deploy시 사용할 Stemcell을 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh stemcells
+		Name                                      Version   OS             CPI  CID  
+		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+		~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
+
 		(*) Currently deployed
-		(+) Uncommitted changes
-		 
-		Releases total: 9
 
+		3 stemcells
 
-- Redis 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
-
-- Redis 서비스 릴리즈 파일을 업로드한다.
-
-- **사용 예시**
-
-		$ bosh upload release paasta-redis-2.0.tgz
-				
-		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-		Acting as user 'admin' on 'my-bosh'
+		Succeeded
 		
-		+--------------------------+----------+-------------+
-		| Name                     | Versions | Commit Hash |
-		+--------------------------+----------+-------------+
-		| cflinuxfs2-rootfs        | 1.40.0*  | 19fe09f4+   |
-		| empty-release            | 1+dev.1* | 00000000    |
-		| etcd                     | 86*      | 2dfbef00+   |
-		| paasta-container         | 2.0*     | b857e171    |
-		| paasta-controller        | 2.0*     | 0f315314    |
-		| paasta-garden-runc       | 2.0*     | ea5f5d4d+   |
-		| paasta-influxdb-grafana  | 2.0*     | 00000000    |
-		| paasta-logsearch         | 2.0*     | 00000000    |
-		| paasta-metrics-collector | 2.0*     | 00000000    |
-		+--------------------------+----------+-------------+
-		
-		         
-		(*) Currently deployed
-		(+) Uncommitted changes
-		 
-		Releases total: 9
-		 
-		  inception@inception-new:~/bosh-space/kimdojun/redis$ bosh upload release paasta-redis-2.0.tgz
-        RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on 'bosh'
-        
-        Verifying manifest...
-        Extract manifest                                             OK
-        Manifest exists                                              OK
-        Release name/version                                         OK
-        
-        File exists and readable                                     OK
-        Read package 'cf-cli' (1 of 8)                               OK
-        Package 'cf-cli' checksum                                    OK
-        Read package 'cf-redis-broker' (2 of 8)                      OK
-        Package 'cf-redis-broker' checksum                           OK
-        Read package 'cf-redis-nginx' (3 of 8)                       OK
-        Package 'cf-redis-nginx' checksum                            OK
-        Read package 'cf-redis-smoke-tests' (4 of 8)                 OK
-        Package 'cf-redis-smoke-tests' checksum                      OK
-        Read package 'go' (5 of 8)                                   OK
-        Package 'go' checksum                                        OK
-        Read package 'redis-common' (6 of 8)                         OK
-        Package 'redis-common' checksum                              OK
-        Read package 'redis' (7 of 8)                                OK
-        Package 'redis' checksum                                     OK
-        Read package 'ruby' (8 of 8)                                 OK
-        Package 'ruby' checksum                                      OK
-        Package dependencies                                         OK
-        Checking jobs format                                         OK
-        Read job 'broker-deregistrar' (1 of 6), version fd74f060a430d793ed734328638db0a5fee34395 OK
-        Job 'broker-deregistrar' checksum                            OK
-        Extract job 'broker-deregistrar'                             OK
-        Read job 'broker-deregistrar' manifest                       OK
-        Check template 'errand.sh.erb' for 'broker-deregistrar'      OK
-        Job 'broker-deregistrar' needs 'cf-cli' package              OK
-        Monit file for 'broker-deregistrar'                          OK
-        Read job 'broker-registrar' (2 of 6), version 77bba8ba0e8fa8b06cc8be6e8ef373d285fa4daf OK
-        Job 'broker-registrar' checksum                              OK
-        Extract job 'broker-registrar'                               OK
-        Read job 'broker-registrar' manifest                         OK
-        Check template 'errand.sh.erb' for 'broker-registrar'        OK
-        Job 'broker-registrar' needs 'cf-cli' package                OK
-        Monit file for 'broker-registrar'                            OK
-        Read job 'cf-redis-broker' (3 of 6), version a8cc45566d5ebc66dd90bce0737a9833e7f3fcb8 OK
-        Job 'cf-redis-broker' checksum                               OK
-        Extract job 'cf-redis-broker'                                OK
-        Read job 'cf-redis-broker' manifest                          OK
-        Check template 'pre-start.erb' for 'cf-redis-broker'         OK
-        Check template 'cf-redis-broker_ctl.erb' for 'cf-redis-broker' OK
-        Check template 'health_check.sh.erb' for 'cf-redis-broker'   OK
-        Check template 'process-watcher_ctl.erb' for 'cf-redis-broker' OK
-        Check template 'process-destroyer_ctl.erb' for 'cf-redis-broker' OK
-        Check template 'nginx_ctl.erb' for 'cf-redis-broker'         OK
-        Check template 'broker.yml.erb' for 'cf-redis-broker'        OK
-        Check template 'nginx.conf.erb' for 'cf-redis-broker'        OK
-        Check template 'redis.conf.erb' for 'cf-redis-broker'        OK
-        Check template 'drain.sh' for 'cf-redis-broker'              OK
-        Job 'cf-redis-broker' needs 'cf-redis-broker' package        OK
-        Job 'cf-redis-broker' needs 'redis-common' package           OK
-        Job 'cf-redis-broker' needs 'cf-redis-nginx' package         OK
-        Job 'cf-redis-broker' needs 'redis' package                  OK
-        Monit file for 'cf-redis-broker'                             OK
-        Read job 'dedicated-node' (4 of 6), version 660e3ceee60783b8dcbc01fef065371370fe2265 OK
-        Job 'dedicated-node' checksum                                OK
-        Extract job 'dedicated-node'                                 OK
-        Read job 'dedicated-node' manifest                           OK
-        Check template 'agent.yml.erb' for 'dedicated-node'          OK
-        Check template 'redis.conf.erb' for 'dedicated-node'         OK
-        Check template 'nginx.conf.erb' for 'dedicated-node'         OK
-        Check template 'redis_ctl.erb' for 'dedicated-node'          OK
-        Check template 'redis-agent_ctl.erb' for 'dedicated-node'    OK
-        Check template 'nginx_ctl.erb' for 'dedicated-node'          OK
-        Check template 'redis-agent.pem.erb' for 'dedicated-node'    OK
-        Check template 'redis-agent.key.erb' for 'dedicated-node'    OK
-        Check template 'drain-redis.sh' for 'dedicated-node'         OK
-        Job 'dedicated-node' needs 'redis' package                   OK
-        Job 'dedicated-node' needs 'redis-common' package            OK
-        Job 'dedicated-node' needs 'cf-redis-nginx' package          OK
-        Job 'dedicated-node' needs 'cf-redis-broker' package         OK
-        Monit file for 'dedicated-node'                              OK
-        Read job 'smoke-tests' (5 of 6), version e9a839a060cbac2985bc79cfbcabfc2c59ad0c8c OK
-        Job 'smoke-tests' checksum                                   OK
-        Extract job 'smoke-tests'                                    OK
-        Read job 'smoke-tests' manifest                              OK
-        Check template 'config.json.erb' for 'smoke-tests'           OK
-        Check template 'errand.sh.erb' for 'smoke-tests'             OK
-        Job 'smoke-tests' needs 'go' package                         OK
-        Job 'smoke-tests' needs 'cf-redis-smoke-tests' package       OK
-        Job 'smoke-tests' needs 'cf-cli' package                     OK
-        Monit file for 'smoke-tests'                                 OK
-        Read job 'syslog-configurator' (6 of 6), version e74e363f8b9ac570f30b32d024e41ef2c89db03f OK
-        Job 'syslog-configurator' checksum                           OK
-        Extract job 'syslog-configurator'                            OK
-        Read job 'syslog-configurator' manifest                      OK
-        Check template 'syslog-configurator_ctl.erb' for 'syslog-configurator' OK
-        Check template 'syslog_forwarder.conf.erb' for 'syslog-configurator' OK
-        Job 'syslog-configurator' needs 'redis-common' package       OK
-        Monit file for 'syslog-configurator'                         OK
-        
-        Release info
-        ------------
-        Name:    paasta-redis
-        Version: 2.0
-        
-        Packages
-         - cf-cli (33a64fb1b0ca68b3403fe5b0254e86ec7d672dba)
-         - cf-redis-broker (f530f8b2135eac4a888c2da20177082eb081ee65)
-         - cf-redis-nginx (dd15c82027671c74b108c52bcecb64fcaf9c0d38)
-         - cf-redis-smoke-tests (b347f491c873fdd9e878c90defd276a82f980023)
-         - go (32629593cd827ebaf88981b56d205bea6c8b7c18)
-         - redis-common (3747d5011f5405b1f8033653dae31b28e6839451)
-         - redis (c6226fd977b4bcb4693823d32ddeb4c9c2c0c76f)
-         - ruby (9b59d2f2700da81a98c38c73cd27b6ccf26f188c)
-        
-        Jobs
-         - broker-deregistrar (fd74f060a430d793ed734328638db0a5fee34395)
-         - broker-registrar (77bba8ba0e8fa8b06cc8be6e8ef373d285fa4daf)
-         - cf-redis-broker (a8cc45566d5ebc66dd90bce0737a9833e7f3fcb8)
-         - dedicated-node (660e3ceee60783b8dcbc01fef065371370fe2265)
-         - smoke-tests (e9a839a060cbac2985bc79cfbcabfc2c59ad0c8c)
-         - syslog-configurator (e74e363f8b9ac570f30b32d024e41ef2c89db03f)
-        
-        License
-         - license (443041add743bce9c52077d8f3d2e130c08340c5)
-        
-        Checking if can repack release for faster upload...
-        cf-cli (33a64fb1b0ca68b3403fe5b0254e86ec7d672dba) UPLOAD
-        cf-redis-broker (f530f8b2135eac4a888c2da20177082eb081ee65) UPLOAD
-        cf-redis-nginx (dd15c82027671c74b108c52bcecb64fcaf9c0d38) UPLOAD
-        cf-redis-smoke-tests (b347f491c873fdd9e878c90defd276a82f980023) UPLOAD
-        go (32629593cd827ebaf88981b56d205bea6c8b7c18) UPLOAD
-        redis-common (3747d5011f5405b1f8033653dae31b28e6839451) UPLOAD
-        redis (c6226fd977b4bcb4693823d32ddeb4c9c2c0c76f) UPLOAD
-        ruby (9b59d2f2700da81a98c38c73cd27b6ccf26f188c) UPLOAD
-        broker-deregistrar (fd74f060a430d793ed734328638db0a5fee34395) UPLOAD
-        broker-registrar (77bba8ba0e8fa8b06cc8be6e8ef373d285fa4daf) UPLOAD
-        cf-redis-broker (a8cc45566d5ebc66dd90bce0737a9833e7f3fcb8) UPLOAD
-        dedicated-node (660e3ceee60783b8dcbc01fef065371370fe2265) UPLOAD
-        smoke-tests (e9a839a060cbac2985bc79cfbcabfc2c59ad0c8c) UPLOAD
-        syslog-configurator (e74e363f8b9ac570f30b32d024e41ef2c89db03f) UPLOAD
-        Uploading the whole release
-        
-        Uploading release
-        paasta-redis-:  96% |oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo     | 104.3MB  22.8MB/s ETA:  00:00:00
-        Director task
-         Started extracting release > Extracting release. Done (00:00:01)
-        
-         Started verifying manifest > Verifying manifest. Done (00:00:00)
-        
-         Started resolving package dependencies > Resolving package dependencies. Done (00:00:00)
-        
-         Started creating new packages
-         Started creating new packages > cf-cli/33a64fb1b0ca68b3403fe5b0254e86ec7d672dba. Done (00:00:00)
-         Started creating new packages > cf-redis-broker/f530f8b2135eac4a888c2da20177082eb081ee65. Done (00:00:00)
-         Started creating new packages > cf-redis-nginx/dd15c82027671c74b108c52bcecb64fcaf9c0d38. Done (00:00:00)
-         Started creating new packages > cf-redis-smoke-tests/b347f491c873fdd9e878c90defd276a82f980023. Done (00:00:00)
-         Started creating new packages > go/32629593cd827ebaf88981b56d205bea6c8b7c18. Done (00:00:02)
-         Started creating new packages > redis-common/3747d5011f5405b1f8033653dae31b28e6839451. Done (00:00:00)
-         Started creating new packages > redis/c6226fd977b4bcb4693823d32ddeb4c9c2c0c76f. Done (00:00:00)
-         Started creating new packages > ruby/9b59d2f2700da81a98c38c73cd27b6ccf26f188c. Done (00:00:00)
-            Done creating new packages (00:00:02)
-        
-         Started creating new jobs
-         Started creating new jobs > broker-deregistrar/fd74f060a430d793ed734328638db0a5fee34395. Done (00:00:00)
-         Started creating new jobs > broker-registrar/77bba8ba0e8fa8b06cc8be6e8ef373d285fa4daf. Done (00:00:00)
-         Started creating new jobs > cf-redis-broker/a8cc45566d5ebc66dd90bce0737a9833e7f3fcb8. Done (00:00:00)
-         Started creating new jobs > dedicated-node/660e3ceee60783b8dcbc01fef065371370fe2265. Done (00:00:00)
-         Started creating new jobs > smoke-tests/e9a839a060cbac2985bc79cfbcabfc2c59ad0c8c. Done (00:00:00)
-         Started creating new jobs > syslog-configurator/e74e363f8b9ac570f30b32d024e41ef2c89db03f. Done (00:00:00)
-            Done creating new jobs (00:00:00)
-        
-         Started release has been created > paasta-redis/2.0. Done (00:00:00)
-        
-        Task 2337 done
-        
-        Started        2017-01-13 06:03:46 UTC
-        Finished  2017-01-13 06:03:49 UTC
-        Duration  :00:03
-        paasta-redis-:  96% |oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo     | 104.6MB  10.7MB/s Time: 00:00:09
-        
-        Release uploaded
-
-
-
-- 업로드 된 Redis 릴리즈를 확인한다.
-
-- **사용 예시**
-
-		$ bosh releases
-		  
-		  RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on 'bosh'
-        
-        +--------------------------+----------+-------------+
-        | Name                     | Versions | Commit Hash |
-        +--------------------------+----------+-------------+
-        | cflinuxfs2-rootfs        | 1.40.0*  | 19fe09f4+   |
-        | empty-release            | 1+dev.1* | 00000000    |
-        | etcd                     | 86*      | 2dfbef00+   |
-        | paasta-container         | 2.0*     | b857e171    |
-        | paasta-controller        | 2.0*     | 0f315314    |
-        | paasta-garden-runc       | 2.0*     | ea5f5d4d+   |
-        | paasta-influxdb-grafana  | 2.0*     | 00000000    |
-        | paasta-logsearch         | 2.0*     | 00000000    |
-        | paasta-metrics-collector | 2.0*     | 00000000    |
-        | paasta-redis             | 2.0      | 2d766084+   |
-        +--------------------------+----------+-------------+
-        (*) Currently deployed
-        (+) Uncommitted changes
-        
-        Releases total: 10
+>Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (redis는 stemcell 3309 버전을 사용)
 		
 		
 ### <div id='23'>  2.3. Redis 서비스 Deployment 파일 수정 및 배포
-BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
-Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용 할 것인지와 Release (Software packages, Config templates, Scripts)의 이름과 버전, VMs 용량, Jobs params 등이 정의 되어 있다.
+BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
+Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
-- PaaSTA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 IaaS별 Redis Deployment 파일을 복사한다. 
-예) vsphere 일 경우 paasta_redis_vsphere_2.0.yml를 복사
+deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 활용하고 해당 가이드는 Bosh2.0 가이드를 참고한다.
 
-- Director UUID를 확인한다.
-BOSH CLI가 배포에 대한 모든 작업을 허용하기 위한 현재 대상 BOSH Director의 UUID와 일치해야 한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할 수 있다.
-
-- config(/home/inception/.bosh_config) 내용 조회
+-	cloud config 내용 조회
 
 - **사용 예시**
 
-		$ bosh status
-		 
-		  Director
-        RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-         Name       bosh
-         URL        https://10.30.40.105:25555
-         Version    .1.0 (00000000)
-         User       admin
-         UUID       d363905f-eaa0-4539-a461-8c1318498a32
-         CPI        vsphere_cpi
-         dns        disabled
-         compiled_package_cache disabled
-         snapshots  disabled
-        
-        Deployment
-         Manifest   /home/inception/crossent-deploy/paasta-logsearch.yml
-		
+		bosh -e micro-bosh cloud-config
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
--  Deploy시 사용할 Stemcell을 확인한다.
+		azs:
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z1
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z2
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z3
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z4
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z5
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z6
+		compilation:
+		  az: z1
+		  network: default
+		  reuse_compilation_vms: true
+		  vm_type: large
+		  workers: 5
+		disk_types:
+		- disk_size: 1024
+		  name: default
+		- disk_size: 1024
+		  name: 1GB
+		- disk_size: 2048
+		  name: 2GB
+		- disk_size: 4096
+		  name: 4GB
+		- disk_size: 5120
+		  name: 5GB
+		- disk_size: 8192
+		  name: 8GB
+		- disk_size: 10240
+		  name: 10GB
+		- disk_size: 20480
+		  name: 20GB
+		- disk_size: 30720
+		  name: 30GB
+		- disk_size: 51200
+		  name: 50GB
+		- disk_size: 102400
+		  name: 100GB
+		- disk_size: 1048576
+		  name: 1TB
+		networks:
+		- name: default
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.111.40
+		- name: public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.177
+		    range: 115.68.46.176/28
+		    reserved:
+		    - 115.68.46.176 - 115.68.46.188
+		    static:
+		    - 115.68.46.189 - 115.68.46.190
+		  type: manual
+		- name: service_private
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.106.255
+		    static:
+		    - 10.30.107.1 - 10.30.107.255
+		- name: service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.47.161
+		    range: 115.68.47.160/24
+		    reserved:
+		    - 115.68.47.161 - 115.68.47.174
+		    static:
+		    - 115.68.47.175 - 115.68.47.185
+		  type: manual
+		- name: portal_service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.209
+		    range: 115.68.46.208/28
+		    reserved:
+		    - 115.68.46.216 - 115.68.46.222
+		    static:
+		    - 115.68.46.214
+		  type: manual
+		vm_extensions:
+		- cloud_properties:
+		    ports:
+		    - host: 3306
+		  name: mysql-proxy-lb
+		- name: cf-router-network-properties
+		- name: cf-tcp-router-network-properties
+		- name: diego-ssh-proxy-network-properties
+		- name: cf-haproxy-network-properties
+		- cloud_properties:
+		    disk: 51200
+		  name: small-50GB
+		- cloud_properties:
+		    disk: 102400
+		  name: small-highmem-100GB
+		vm_types:
+		- cloud_properties:
+		    cpu: 1
+		    disk: 8192
+		    ram: 1024
+		  name: minimal
+		- cloud_properties:
+		    cpu: 1
+		    disk: 10240
+		    ram: 2048
+		  name: default
+		- cloud_properties:
+		    cpu: 1
+		    disk: 30720
+		    ram: 4096
+		  name: small
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 4096
+		  name: medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 8192
+		  name: medium-memory-8GB
+		- cloud_properties:
+		    cpu: 4
+		    disk: 20480
+		    ram: 8192
+		  name: large
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: xlarge
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-highmem-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: small-highmem-16GB
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 2048
+		  name: caas_small
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 1024
+		  name: caas_small_api
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 4096
+		  name: caas_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 8192
+		    ram: 4096
+		  name: service_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 10240
+		    ram: 2048
+		  name: service_medium_2G
+
+		Succeeded
+
+
+-	Deployment 파일을 서버 환경에 맞게 수정한다.
+
+```yml
+# paasta-redis-service 설정 파일 내용
+
+name: paasta-redis-service                             # 서비스 배포이름(필수)
+
+releases:
+- name: paasta-redis                                   #서비스 릴리즈 이름(필수)
+  version: "2.0"                                         #서비스 릴리즈 버전(필수): latest 시 업로드된 서비스 릴리즈 최신버전
+
+stemcells:
+- alias: default
+  os: ((stemcell_os))
+  version: "((stemcell_version))"
+
+update:
+  canaries: 1                                          # canary 인스턴스 수(필수)
+  canary_watch_time: 30000-180000                      # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 6                                     # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  update_watch_time: 30000-180000                      # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+
+instance_groups:
+- name: paasta-redis-broker
+  azs:
+  - z5
+  instances: 1
+  vm_type: ((vm_type_small))
+  stemcell: default
+  persistent_disk_type: 4GB
+  update:
+    max_in_flight: 1
+    serial: true
+  networks:
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.171
+  properties:
+    nats:                                  # paas-ta nats 정보
+      machines:
+      - 10.30.112.2
+      password: "((nats_password))"
+      port: 4222
+      user: nats
+  templates:
+  - name: cf-redis-broker
+    release: paasta-redis
+  - name: syslog-configurator
+    release: paasta-redis
+
+- name: dedicated-node
+  azs:
+  - z5
+  instances: 3
+  vm_type: ((vm_type_small))
+  stemcell: default
+  persistent_disk_type: 4GB
+  update:
+    max_in_flight: 1
+    serial: true
+  networks:
+  - name: ((default_network_name))
+    static_ips:
+    - 10.30.107.172
+    - 10.30.107.173
+    - 10.30.107.174
+  templates:
+  - name: dedicated-node
+    release: paasta-redis
+  - name: syslog-configurator
+    release: paasta-redis
+
+- name: broker-registrar
+  azs:
+  - z5
+  instances: 1
+  lifecycle: errand
+  vm_type: ((vm_type_small))
+  stemcell: default
+  networks:
+  - name: ((default_network_name))
+  properties:
+    broker:
+      host: 10.30.107.171
+      name: paasta-redis-service
+      password: admin
+      username: admin
+  templates:
+  - name: broker-registrar
+    release: paasta-redis
+
+- name: broker-deregistrar
+  azs:
+  - z5
+  instances: 1
+  lifecycle: errand
+  vm_type: ((vm_type_small))
+  stemcell: default
+  networks:
+  - name: ((default_network_name))
+  properties:
+    broker:
+      host: 10.30.107.171
+      name: paasta-redis-service
+      password: admin
+      username: admin
+  templates:
+  - name: broker-deregistrar
+    release: paasta-redis
+
+- name: smoke-tests
+  azs:
+  - z5
+  instances: 1
+  lifecycle: errand
+  vm_type: ((vm_type_small))
+  stemcell: default
+  networks:
+  - name: ((default_network_name))
+  templates:
+  - name: smoke-tests
+    release: paasta-redis
+
+meta:
+  apps_domain: 115.68.46.189.xip.io
+  broker:                                                      # broker 정보 : 디폴트 포트 12350
+    host: paasta-redis-broker.115.68.46.189.xip.io
+    name: redis
+    password: admin
+    username: admin
+  cf:                                                          # paas-ta 정보
+    admin_password: admin
+    admin_username: admin_test
+    api_url: https://api.115.68.46.189.xip.io
+    apps_domain: 115.68.46.189.xip.io
+    skip_ssl_validation: false
+    system_domain: 115.68.46.189.xip.io
+  deployment_name: paasta-redis-service
+  director_uuid: 484eb672-5b91-4c0d-bb16-bad80f0f3e61          # uuid 정보 bosh status
+  external_domain: 115.68.46.189.xip.io
+  nats:                                                        # nats 정보
+    machines:
+    - 10.30.112.2
+    password: "((nats_password))"
+    port: 4222
+    user: nats
+  redis:
+    bg_save_command: yetanotherrandomstring
+    broker:                                                       # broker 정보
+      dedicated_vm_plan_id: 48b35349-d3de-4e19-bc4a-66996ae07766
+      name: redis
+      service_id: 7aba7e52-f61b-4263-9de1-14e9d11fb67d
+      shared_vm_plan_id: 78bf886c-bc50-4f31-a03c-cb786a158286
+      subdomain: paasta-redis-broker
+    config_command: configalias
+    dedicated_plan:
+      instance_count: 3                                        # 전용노드 수
+    save_command: anotherrandomstring
+    shared_plan:
+      instance_limit: 10                                       # 공유 노드 수
+      max_memory: 262144000
+  release_name: paasta-redis
+  route_name: paasta-redis-broker
+  service_name: redis
+  syslog_aggregator: null
+
+properties:
+  broker:                                                       # broker 정보
+    host: paasta-redis-broker.115.68.46.189.xip.io
+    name: redis
+    password: admin
+    username: admin
+  cf:                                                           # paas-ta 정보 
+    admin_password: admin
+    admin_username: admin_test
+    api_url: https://api.115.68.46.189.xip.io
+    apps_domain: 115.68.46.189.xip.io
+    skip_ssl_validation: false
+    system_domain: 115.68.46.189.xip.io
+  redis:
+    agent:
+      backend_port: 54321
+    bg_save_command: yetanotherrandomstring
+    broker:
+      auth:
+        password: admin
+        username: admin
+      backend_host: 10.30.107.171
+      backend_port: 12345
+      dedicated_nodes:
+      - 10.30.107.172
+      - 10.30.107.173
+      - 10.30.107.174
+      dedicated_vm_plan_id: 48b35349-d3de-4e19-bc4a-66996ae07766
+      enable_service_access: true
+      host: 10.30.107.171
+      name: redis
+      network: default
+      route_name: paasta-redis-broker
+      service_id: 7aba7e52-f61b-4263-9de1-14e9d11fb67d
+      service_instance_limit: 20                                    # 최대 서비스 인스턴스 개수
+      service_name: redis
+      shared_vm_plan_id: 78bf886c-bc50-4f31-a03c-cb786a158286
+      subdomain: redis-broker
+    config_command: configalias
+    host: 10.30.107.171
+    maxmemory: 262144000
+    save_command: anotherrandomstring
+  syslog_aggregator: null
+```
+
+-	deploy-redis-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
+
+```sh
+#!/bin/bash
+# stemcell 버전은 3309 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+
+bosh -e micro-bosh -d paasta-redis-service deploy paasta_redis_bosh2.0.yml \
+   -v default_network_name=service_private \
+   -v stemcell_os=ubuntu-trusty \
+   -v stemcell_version=3309 \
+   -v nats_password=fxaqRErYZ1TD8296u9HdMg8ol8dJ0G \
+   -v vm_type_small=minimal
+```
+
+-	Redis 서비스팩을 배포한다.
 
 - **사용 예시**
 
-		$ bosh stemcells
-		 
-		  RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on 'bosh'
-        
-        +------------------------------------------+---------------+---------+-----------------------------------------+
-        | Name                                     | OS            | Version | CID                                     |
-        +------------------------------------------+---------------+---------+-----------------------------------------+
-        | bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3263.8* | sc-af443b65-9335-43b1-9b64-6d1791a10428 |
-        | bosh-vsphere-esxi-ubuntu-trusty-go_agent | ubuntu-trusty | 3309*   | sc-e00c788b-ac6b-4089-bc43-f56a3ffdb55a |
-        +------------------------------------------+---------------+---------+-----------------------------------------+
-        
-        (*) Currently in-use
-        
-        Stemcells total: 2
+		$ ./deploy-redis-bosh2.0.sh
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-> Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드 해야 한다.
+		Using deployment 'paasta-redis-service'
 
-- Deployment 파일을 서버 환경에 맞게 수정한다. (vsphere 용으로 설명, 다른 IaaS는 해당 Deployment 파일의 주석내용을 참고)
+		+ azs:
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z1
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z2
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z3
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z4
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z5
+		+ - cloud_properties:
+		+     datacenters:
+		+     - clusters:
+		+       - BD-HA:
+		+           resource_pool: CF_BOSH2_Pool
+		+       name: BD-HA
+		+   name: z6
 
-- **yaml**
+		+ vm_types:
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 8192
+		+     ram: 1024
+		+   name: minimal
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 10240
+		+     ram: 2048
+		+   name: default
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 30720
+		+     ram: 4096
+		+   name: small
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 4096
+		+   name: medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 20480
+		+     ram: 8192
+		+   name: medium-memory-8GB
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 20480
+		+     ram: 8192
+		+   name: large
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: xlarge
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 51200
+		+     ram: 4096
+		+   name: small-50GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 4
+		+     disk: 102400
+		+     ram: 8192
+		+   name: small-highmem-100GB-ephemeral-disk
+		+ - cloud_properties:
+		+     cpu: 8
+		+     disk: 20480
+		+     ram: 16384
+		+   name: small-highmem-16GB
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 2048
+		+   name: caas_small
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 1024
+		+   name: caas_small_api
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 4096
+		+   name: caas_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 8192
+		+     ram: 4096
+		+   name: service_medium
+		+ - cloud_properties:
+		+     cpu: 2
+		+     disk: 10240
+		+     ram: 2048
+		+   name: service_medium_2G
 
-		# paasta-redis-service 설정 파일 내용
-		  
-		   name: paasta-redis-service                             # 서비스 배포이름(필수)
-         director_uuid: 873c784d-3e91-4c78-95a3-b492024c389f    # bosh status 에서 확인한 Director UUID을 입력(필수)
-         
-         releases:
-         - name: paasta-redis                                   # 서비스 릴리즈 이름(필수)
-           version: 2.0                                         # 서비스 릴리즈 버전(필수): latest 시 업로드된 서비스 릴리즈 최신버전
-         
-         update:
-           canaries: 1                                          # canary 인스턴스 수(필수)
-           canary_watch_time: 30000-180000                      # canary 인스턴스가 수행하기 위한 대기 시간(필수)
-           max_in_flight: 6                                     # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
-           update_watch_time: 30000-180000                      # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
-         
-         compilation:                                           # 컴파일시 필요한 가상머신의 속성(필수)
-           cloud_properties:            # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
-             cpu: 2
-             disk: 4096
-             ram: 4096
-           network: default                       # Networks block에서 선언한 network 이름(필수)
-           reuse_compilation_vms: true            # 컴파일지 VM 재사용 여부(옵션)
-           workers: 6                             # 컴파일 하는 가상머신의 최대수(필수)
-         
-         jobs:
-         - instances: 1
-           name: paasta-redis-broker                # 작업 이름(필수)
-           networks:
-           - name: default
-             static_ips:
-             - 10.30.60.71                          # 사용할 IP addresses 정의(필수)
-           persistent_disk: 4096                    # 영구적 디스크 사이즈 정의(옵션)
-           properties:
-             nats:                                  # paas-ta nats 정보
-               machines:
-               - 10.30.110.31
-               password: nats
-               port: 4222
-               user: nats
-           resource_pool: services-small
-           templates:
-           - name: cf-redis-broker
-             release: paasta-redis
-           - name: syslog-configurator
-             release: paasta-redis
-         - instances: 3
-           name: dedicated-node                        # 전용 노드
-           networks:
-           - name: default
-             static_ips:                              # 전용 노드 IP 목록(필수)
-             - 10.30.60.72
-             - 10.30.60.73
-             - 10.30.60.74
-           persistent_disk: 4096
-           resource_pool: services-small
-           templates:
-           - name: dedicated-node
-             release: paasta-redis
-           - name: syslog-configurator
-             release: paasta-redis
-         
-         - instances: 1
-           lifecycle: errand                         # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
-           name: broker-registrar
-           networks:
-           - name: default
-           properties:
-             broker:
-               host: 10.30.60.71
-               name: paasta-redis-service
-               password: admin
-               username: admin
-           resource_pool: services-small
-           templates:
-           - name: broker-registrar
-             release: paasta-redis
-         
-         - instances: 1
-           lifecycle: errand
-           name: broker-deregistrar
-           networks:
-           - name: default
-           properties:
-             broker:
-               host: 10.30.60.71
-               name: paasta-redis-service
-               password: admin
-               username: admin
-           resource_pool: services-small
-           templates:
-           - name: broker-deregistrar
-             release: paasta-redis
-         - instances: 1
-           lifecycle: errand
-           name: smoke-tests
-           networks:
-           - name: default
-           resource_pool: services-small
-           templates:
-           - name: smoke-tests
-             release: paasta-redis
-         
-         meta:
-           apps_domain: 115.68.46.186.xip.io
-           broker:                                                      # broker 정보 : 디폴트 포트 12350
-             host: paasta-redis-broker.115.68.46.186.xip.io
-             name: redis
-             password: admin
-             username: admin
-           cf:                                                          # paas-ta 정보
-             admin_password: admin
-             admin_username: admin
-             api_url: https://api.115.68.46.186.xip.io
-             apps_domain: 115.68.46.186.xip.io
-             skip_ssl_validation: false
-             system_domain: 115.68.46.186.xip.io
-           deployment_name: paasta-redis-service
-           director_uuid: d363905f-eaa0-4539-a461-8c1318498a32          # uuid 정보 bosh status
-           external_domain: 115.68.46.186.xip.io
-           nats:                                                        # nats 정보
-             machines:
-             - 10.30.110.31
-             password: nats
-             port: 4222
-             user: nats
-           redis:
-             bg_save_command: yetanotherrandomstring
-             broker:                                                       # broker 정보
-               dedicated_vm_plan_id: 48b35349-d3de-4e19-bc4a-66996ae07766
-               name: redis
-               service_id: 7aba7e52-f61b-4263-9de1-14e9d11fb67d
-               shared_vm_plan_id: 78bf886c-bc50-4f31-a03c-cb786a158286
-               subdomain: paasta-redis-broker
-             config_command: configalias
-             dedicated_plan:
-               instance_count: 3                                        # 전용노드 수
-             save_command: anotherrandomstring
-             shared_plan:
-               instance_limit: 10                                       # 공유 노드 수
-               max_memory: 262144000
-           release_name: paasta-redis
-           route_name: paasta-redis-broker
-           service_name: redis
-           syslog_aggregator: null
-         networks:
-         - name: default
-           subnets:
-           - cloud_properties:
-               name: Internal                                            # vsphere 에서 사용하는 network 이름(필수)
-             dns:                                                        # dns 정보
-             - 8.8.8.8
-             gateway: 10.30.20.23
-             name: default_unused
-             range: 10.30.0.0/16
-             reserved:                                                   # 설치시 제외할 IP 설정
-             - 10.30.0.1 - 10.30.10.254
-             - 10.30.40.1 - 10.30.60.70
-             - 10.30.60.81 - 10.30.254.254
-             static:                                                     # 사용 가능한 IP 설정
-             - 10.30.60.71 - 10.30.60.80
-         properties:
-           broker:                                                       # broker 정보
-             host: paasta-redis-broker.115.68.46.186.xip.io
-             name: redis
-             password: admin
-             username: admin
-           cf:                                                           # paas-ta 정보
-             admin_password: admin
-             admin_username: admin
-             api_url: https://api.115.68.46.186.xip.io
-             apps_domain: 115.68.46.186.xip.io
-             skip_ssl_validation: false
-             system_domain: 115.68.46.186.xip.io
-           redis:
-             agent:
-               backend_port: 54321
-             bg_save_command: yetanotherrandomstring
-             broker:
-               auth:
-                 password: admin
-                 username: admin
-               backend_host: 10.30.60.71
-               backend_port: 12345
-               dedicated_nodes:
-               - 10.30.60.72
-               - 10.30.60.73
-               - 10.30.60.74
-               dedicated_vm_plan_id: 48b35349-d3de-4e19-bc4a-66996ae07766
-               enable_service_access: true
-               host: 10.30.60.71
-               name: redis
-               network: default
-               route_name: paasta-redis-broker
-               service_id: 7aba7e52-f61b-4263-9de1-14e9d11fb67d
-               service_instance_limit: 20                                    # 최대 서비스 인스턴스 개수
-               service_name: redis
-               shared_vm_plan_id: 78bf886c-bc50-4f31-a03c-cb786a158286
-               subdomain: redis-broker
-             config_command: configalias
-             host: 10.30.60.71
-             maxmemory: 262144000
-             save_command: anotherrandomstring
-           syslog_aggregator: null
-         
-         resource_pools:
-         - cloud_properties:
-             cpu: 1
-             disk: 8192
-             ram: 1024
-           name: services-small
-           network: default
-           stemcell:
-             name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
-             version: "3309"
+		+ vm_extensions:
+		+ - cloud_properties:
+		+     ports:
+		+     - host: 3306
+		+   name: mysql-proxy-lb
+		+ - name: cf-router-network-properties
+		+ - name: cf-tcp-router-network-properties
+		+ - name: diego-ssh-proxy-network-properties
+		+ - name: cf-haproxy-network-properties
+		+ - cloud_properties:
+		+     disk: 51200
+		+   name: small-50GB
+		+ - cloud_properties:
+		+     disk: 102400
+		+   name: small-highmem-100GB
+
+		+ compilation:
+		+   az: z1
+		+   network: default
+		+   reuse_compilation_vms: true
+		+   vm_type: large
+		+   workers: 5
+
+		+ networks:
+		+ - name: default
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.111.40
+		+ - name: public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.177
+		+     range: 115.68.46.176/28
+		+     reserved:
+		+     - 115.68.46.176 - 115.68.46.188
+		+     static:
+		+     - 115.68.46.189 - 115.68.46.190
+		+   type: manual
+		+ - name: service_private
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: Internal
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 10.30.20.23
+		+     range: 10.30.0.0/16
+		+     reserved:
+		+     - 10.30.0.0 - 10.30.106.255
+		+     static:
+		+     - 10.30.107.1 - 10.30.107.255
+		+ - name: service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.47.161
+		+     range: 115.68.47.160/24
+		+     reserved:
+		+     - 115.68.47.161 - 115.68.47.174
+		+     static:
+		+     - 115.68.47.175 - 115.68.47.185
+		+   type: manual
+		+ - name: portal_service_public
+		+   subnets:
+		+   - azs:
+		+     - z1
+		+     - z2
+		+     - z3
+		+     - z4
+		+     - z5
+		+     - z6
+		+     cloud_properties:
+		+       name: External
+		+     dns:
+		+     - 8.8.8.8
+		+     gateway: 115.68.46.209
+		+     range: 115.68.46.208/28
+		+     reserved:
+		+     - 115.68.46.216 - 115.68.46.222
+		+     static:
+		+     - 115.68.46.214
+		+   type: manual
+
+		+ disk_types:
+		+ - disk_size: 1024
+		+   name: default
+		+ - disk_size: 1024
+		+   name: 1GB
+		+ - disk_size: 2048
+		+   name: 2GB
+		+ - disk_size: 4096
+		+   name: 4GB
+		+ - disk_size: 5120
+		+   name: 5GB
+		+ - disk_size: 8192
+		+   name: 8GB
+		+ - disk_size: 10240
+		+   name: 10GB
+		+ - disk_size: 20480
+		+   name: 20GB
+		+ - disk_size: 30720
+		+   name: 30GB
+		+ - disk_size: 51200
+		+   name: 50GB
+		+ - disk_size: 102400
+		+   name: 100GB
+		+ - disk_size: 1048576
+		+   name: 1TB
+
+		+ stemcells:
+		+ - alias: default
+		+   os: ubuntu-trusty
+		+   version: '3309'
+
+		+ releases:
+		+ - name: paasta-mysql
+		+   version: '2.0'
+
+		+ update:
+		+   canaries: 1
+		+   canary_watch_time: 30000-600000
+		+   max_in_flight: 1
+		+   update_watch_time: 30000-600000
+
+		+ instance_groups:
+		+ - azs:
+		+   - z5
+		+   instances: 3
+		+   name: mysql
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.166
+		+     - 10.30.107.165
+		+     - 10.30.107.164
+		+   persistent_disk_type: 8GB
+		+   properties:
+		+     admin_password: "<redacted>"
+		+     character_set_server: "<redacted>"
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     collation_server: "<redacted>"
+		+     network_name: "<redacted>"
+		+     seeded_databases: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: mysql
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: proxy
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.168
+		+   properties:
+		+     cluster_ips:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     external_host: "<redacted>"
+		+     nats:
+		+       machines:
+		+       - "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       user: "<redacted>"
+		+     network_name: "<redacted>"
+		+     proxy:
+		+       api_force_https: "<redacted>"
+		+       api_password: "<redacted>"
+		+       api_username: "<redacted>"
+		+     syslog_aggregator: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: proxy
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: paasta-mysql-java-broker
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.167
+		+   properties:
+		+     jdbc_ip: "<redacted>"
+		+     jdbc_port: "<redacted>"
+		+     jdbc_pwd: "<redacted>"
+		+     log_dir: "<redacted>"
+		+     log_file: "<redacted>"
+		+     log_level: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: op-mysql-java-broker
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-registrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       host: "<redacted>"
+		+       name: "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       protocol: "<redacted>"
+		+       username: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-registrar
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: broker-deregistrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       name: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+       skip_ssl_validation: "<redacted>"
+		+   release: paasta-mysql
+		+   stemcell: default
+		+   template: broker-deregistrar
+		+   vm_type: minimal
+
+		+ meta:
+		+   apps_domain: 115.68.46.189.xip.io
+		+   environment: 
+		+   external_domain: 115.68.46.189.xip.io
+		+   nats:
+		+     machines:
+		+     - 10.30.112.2
+		+     password: fxaqRErYZ1TD8296u9HdMg8ol8dJ0G
+		+     port: 4222
+		+     user: nats
+		+   syslog_aggregator: 
+
+		+ name: paasta-mysql-service
+
+		Continue? [yN]: y
+
+		Task 4506
+
+		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
+		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
+		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
+		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
+		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
+		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
+		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
+		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
+		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
+		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
+		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
+		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
+		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
+		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
+		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
+		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
+		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
+		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
+		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
+		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
+		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
+		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
+		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
+		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
+		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
+		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
+		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
+		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
+		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
+		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
+		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
+		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
+		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
+		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
+		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
+		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
+		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
+		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
+		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
+		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
+		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
+		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
+		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+
+		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
+		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
+		Task 4506 Duration 01:03:56
+		Task 4506 done
+
+		Succeeded
 
 
--  Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
+-	배포된 Redis 서비스팩을 확인한다.
 
 - **사용 예시**
 
-		$ bosh deployment paasta_redis_vsphere_2.0.yml
-		
-		RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-		
-		Deployment set to '/home/inception/bosh-space/kimdojun/redis/paasta_redis_vsphere_2.0.yml'
+		$bosh -e micro-bosh -d paasta-redis-service vms
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-- Redis 서비스팩을 배포한다.
+		Task 8105. Done
 
-- **사용 예시**
+		Deployment 'paasta-redis-service'
 
-		$ bosh deploy
-		   
-		  RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-        Acting as user 'admin' on deployment 'paasta-redis-service' on 'bosh'
-        Getting deployment properties from director...
-        
-        Detecting deployment changes
-        ----------------------------
-        
-        ...<manifest 파일 내용 출력// 생략 >...
-        
-        Please review all changes carefully
-        
-        Deploying
-        ---------
-        Are you sure you want to deploy? (type 'yes' to continue): yes
-        
-        Director task
-        Deprecation: Ignoring cloud config. Manifest contains 'networks' section.
-        
-         Started preparing deployment > Preparing deployment. Done (00:00:02)
-        
-         Started preparing package compilation > Finding packages to compile. Done (00:00:00)
-        
-         Started compiling packages
-         Started compiling packages > cf-cli/33a64fb1b0ca68b3403fe5b0254e86ec7d672dba
-         Started compiling packages > cf-redis-smoke-tests/b347f491c873fdd9e878c90defd276a82f980023
-         Started compiling packages > redis/c6226fd977b4bcb4693823d32ddeb4c9c2c0c76f
-         Started compiling packages > cf-redis-nginx/dd15c82027671c74b108c52bcecb64fcaf9c0d38
-         Started compiling packages > redis-common/3747d5011f5405b1f8033653dae31b28e6839451
-         Started compiling packages > go/32629593cd827ebaf88981b56d205bea6c8b7c18
-            Done compiling packages > redis-common/3747d5011f5405b1f8033653dae31b28e6839451(00:01:17)
-            Done compiling packages > cf-redis-smoke-tests/b347f491c873fdd9e878c90defd276a82f980023(00:01:20)
-            Done compiling packages > cf-cli/33a64fb1b0ca68b3403fe5b0254e86ec7d672dba(00:01:22)
-            Done compiling packages > go/32629593cd827ebaf88981b56d205bea6c8b7c18(00:01:57)
-         Started compiling packages > cf-redis-broker/f530f8b2135eac4a888c2da20177082eb081ee65
-            Done compiling packages > redis/c6226fd977b4bcb4693823d32ddeb4c9c2c0c76f(00:02:20)
-            Done compiling packages > cf-redis-nginx/dd15c82027671c74b108c52bcecb64fcaf9c0d38(00:02:21)
-            Done compiling packages > cf-redis-broker/f530f8b2135eac4a888c2da20177082eb081ee65(00:00:26)
-            Done compiling packages (00:02:23)
-        
-         Started creating missing vms
-         Started creating missing vms > paasta-redis-broker/113f1267-9b53-4e1c-94db-2e29abfbd687 (0)
-         Started creating missing vms > dedicated-node/a90f1ed2-d7cd-437d-9671-b49901b1d7b3 (0)
-         Started creating missing vms > dedicated-node/55611f55-db59-4c58-b74e-bf14deaea025 (1)
-         Started creating missing vms > dedicated-node/c74d92c7-2d0f-4d51-9868-d7aad55167ee (2)
-            Done creating missing vms > dedicated-node/a90f1ed2-d7cd-437d-9671-b49901b1d7b3 (0)(00:01:05)
-            Done creating missing vms > dedicated-node/c74d92c7-2d0f-4d51-9868-d7aad55167ee (2)(00:01:06)
-            Done creating missing vms > dedicated-node/55611f55-db59-4c58-b74e-bf14deaea025 (1)(00:01:07)
-            Done creating missing vms > paasta-redis-broker/113f1267-9b53-4e1c-94db-2e29abfbd687 (0)(00:01:09)
-            Done creating missing vms (00:01:09)
-        
-         Started updating instance paasta-redis-broker> paasta-redis-broker/113f1267-9b53-4e1c-94db-2e29abfbd687 (0) (canary). Done (00:01:3)
-         Started updating instance dedicated-node
-         Started updating instance dedicated-node> dedicated-node/a90f1ed2-d7cd-437d-9671-b49901b1d7b3 (0) (canary). Done (00:01:36)
-         Started updating instance dedicated-node> dedicated-node/55611f55-db59-4c58-b74e-bf14deaea025 (1)
-         Started updating instance dedicated-node> dedicated-node/c74d92c7-2d0f-4d51-9868-d7aad55167ee (2). Done (00:01:31)
-            Done updating instance dedicated-node> dedicated-node/55611f55-db59-4c58-b74e-bf14deaea025 (1)(00:01:32)
-            Done updating instance dedicated-node(00:03:08)
-        
-        Task 2551 done
-        
-        Started        2017-01-13 09:15:17 UTC
-        Finished  2017-01-13 09:24:08 UTC
-        Duration  :08:51
-        
-        Deployed 'paasta-redis-service' to 'bosh'
+		Instance                                                  Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		dedicated-node/609c24b3-7a05-4060-b6c3-e6af2c93dd01       running        z5  10.30.107.174  vm-49ab7b30-dcc7-44c7-ba95-3fe450744a61  minimal  true  
+		dedicated-node/7790fa96-7830-4e5a-ad1b-e9f3962b1002       running        z5  10.30.107.173  vm-c0d3ae90-3315-4840-80e5-c671107c5719  minimal  true  
+		dedicated-node/831598c5-48eb-4654-b2cc-df03a0f7a1db       running        z5  10.30.107.172  vm-6cc60d6d-9a3a-41c0-a2eb-ee9919256fe4  minimal  true  
+		paasta-redis-broker/7031a6f9-2f7a-4080-8bad-5753bfce1acf  running        z5  10.30.107.171  vm-c124e2b1-e06a-452b-bd85-a75fc1dee4aa  minimal  true  
 
--    배포된 Redis 서비스팩을 확인한다.
+		4 vms
 
-- **사용 예시**
-
-		$ bosh vms
-		   
-		   RSA 1024 bit CA certificates are loaded due to old openssl compatibility
-         Acting as user 'admin' on deployment 'paasta-redis-service' on 'bosh'
-         
-         Director task
-         
-         Task 2415 done
-         
-         +--------------------------------------------------------------+---------+-----+----------------+-------------+
-         | VM                                                           | State   | AZ  | VM Type        | IPs         |
-         +--------------------------------------------------------------+---------+-----+----------------+-------------+
-         | dedicated-node/0 (a1017de7-dbd9-4eeb-9790-996b69a9f06c)      | running | n/a | services-small | 10.30.60.72 |
-         | dedicated-node/1 (4020a083-6bfa-431e-a047-2f567775cfbb)      | running | n/a | services-small | 10.30.60.73 |
-         | dedicated-node/2 (904bd212-43dc-45ef-876e-37a9cad54d36)      | running | n/a | services-small | 10.30.60.74 |
-         | paasta-redis-broker/0 (b1ed5994-741d-4e7c-9bf9-2406621b10ec) | running | n/a | services-small | 10.30.60.71 |
-         +--------------------------------------------------------------+---------+-----+----------------+-------------+
-         
-         VMs total: 4
+		Succeeded
 
 
 ### <div id='24'> 2.4. Redis 서비스 브로커 등록
