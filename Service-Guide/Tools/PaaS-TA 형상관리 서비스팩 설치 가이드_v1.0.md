@@ -1032,7 +1032,7 @@ UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 >`$ http://115.68.47.179:8080/repositories/user/323900a4-8333-4122-91c3-00d384466ed9` 
 
 ##### *haproxy IPs 확인*
->`$ bosh vms` 
+>`$ bosh -e micro-bosh -d paasta-sourcecontrol-service vms` 
 ```
 Deployment 'paasta-sourcecontrol-service'
  
