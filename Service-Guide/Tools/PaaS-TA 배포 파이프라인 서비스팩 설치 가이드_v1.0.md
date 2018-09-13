@@ -1694,9 +1694,9 @@ UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 >`$ bosh vms` 
 ```
 Deployment 'paasta-delivery-pipeline-service'
- 
+
 Instance                                                                   Process State  AZ  IPs            VM CID                                   VM Type  Active
-binary_storage/4c54c4aㄴ5-9a63-4b7f-acd7-afe2937af04d                        running        z5  10.30.107.39   vm-0ea717f1-8f07-4924-bbc7-6bafbe6fbea3  minimal  true
+binary_storage/4c54c4a5-9a63-4b7f-acd7-afe2937af04d                        running        z5  10.30.107.39   vm-0ea717f1-8f07-4924-bbc7-6bafbe6fbea3  minimal  true
 ci_server/24ed965d-51a0-4477-8c80-fa4e4c2502a7                             running        z5  10.30.107.72   vm-5e8639c8-3a41-4ed9-9eb1-e1e48ff17b6d  minimal  true
 ci_server/fe3e03eb-55f8-4980-9f0b-bbb396bd02cf                             running        z5  10.30.107.71   vm-cc8dd7ed-237a-4c48-b23b-ff9113c64f3d  minimal  true
 delivery-pipeline-api/de15549f-a7e4-4dd8-867d-958c7f6d8e18                 running        z5  10.30.107.65   vm-ab366342-771c-484a-8a4a-be7563f12add  minimal  true
@@ -1711,8 +1711,6 @@ haproxy/65081aeb-50e0-49bc-a6c1-131f74d52a44                               runni
 inspection/a5789621-8615-417a-9a8a-6fccddb38b4b                            running        z5  10.30.107.69   vm-09df943c-704f-4952-b9fe-054d74d271b6  minimal  true
 mariadb/2d876573-1248-48b0-9a00-92463cc33978                               running        z5  10.30.107.68   vm-76ee37ce-e99b-4a59-b0a5-f860f284b924  minimal  true
 postgres/3226e31b-e86f-40bb-b0d8-31755b087699                              running        z5  10.30.107.82   vm-060c3a81-4a89-4370-9777-c06e280a83c6  minimal  true
-
-14 vms
 
 ```
 
@@ -1751,6 +1749,13 @@ Context: admin, from client admin
   --authorized_grant_types "authorization_code , client_credentials , refresh_token" /
   --authorities="uaa.resource" /
   --autoapprove="openid , cloud_controller_service_permissions.read"`
-
+  
+```
+ $ uaac client add pipeclient -s clientsecret --redirect_uri "http://115.68.47.175:8084 http://115.68.47.175:8084/dashboard" \
+   --scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
+   --authorized_grant_types "authorization_code , client_credentials , refresh_token" \
+   --authorities="uaa.resource" \
+   --autoapprove="openid , cloud_controller_service_permissions.read"
+```
 
 [1-1-3]:/Service-Guide/images/pipeline/Delivery_Pipeline_Architecture.jpg
