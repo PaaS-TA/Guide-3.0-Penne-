@@ -1034,6 +1034,8 @@ UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 ##### *haproxy IPs 확인*
 >`$ bosh vms` 
 ```
+Deployment 'paasta-sourcecontrol-service'
+ 
 Instance                                                   Process State  AZ  IPs            VM CID                                   VM Type  Active
 haproxy/878b393c-d817-4e71-8fe5-553ddf87d362               running        z5  115.68.47.179  vm-cc4c774d-9857-4b3a-9ffc-5f836098eb4e  minimal  true
                                                                               10.30.107.123
