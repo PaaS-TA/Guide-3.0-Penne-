@@ -1026,12 +1026,23 @@ p-paasta-sourcecontrol          Default           all
 - 서비스 브로커 등록 시 최초에는 접근을 허용하지 않는다. 따라서 access는 none으로 설정된다.
 
 ### <div id='11'/> 2.5. 형상관리 UAA Client Id 등록
-UAA 포털 계정 등록 절차에 대한 순서입니다.
-아래와 같은 URL 일 경우, http://localhost:8084 까지만 입력 여러 개 입력시 ","를 이용하여 다중 입력 가능하며, 루트 도메인만 입력하면 됩니다.
+**haproxy IPs (실제 대시보드 URL)**:8080 입력 후 루트 도메인을 입력한다.URL 정보 다중 입력 시 ","(comma)를 사용하여 추가합니다.
+>`$ http://115.68.47.179:8080/repositories/user/323900a4-8333-4122-91c3-00d384466ed9` 
 
- - 예시 <br >
-   http://localhost:8084/dashboard/198c1dd4-6eec-4387-bf73-2e968005ccc1
+##### *haproxy IPs 확인*
+>`$ bosh vms` 
+```
+Instance                                                   Process State  AZ  IPs            VM CID                                   VM Type  Active
+haproxy/878b393c-d817-4e71-8fe5-553ddf87d362               running        z5  115.68.47.179  vm-cc4c774d-9857-4b3a-9ffc-5f836098eb4e  minimal  true
+                                                                              10.30.107.123
+mariadb/90ea7861-57ed-43f7-853d-25712a67ba2a               running        z5  10.30.107.122  vm-6952fb76-b4d6-4f53-86cb-b0517a76f0d0  minimal  true
+scm-server/6e23addc-33c7-4bb0-af95-d66420f15c06            running        z5  10.30.107.121  vm-08eb6dd3-04ae-435c-9558-9b78286b730c  minimal  true
+sourcecontrol-api/3ecb90fa-2211-4df6-82bb-5c91ed9a4310     running        z5  10.30.107.125  vm-ee4daa28-3e10-4409-9d6f-ce566d54e8a5  minimal  true
+sourcecontrol-broker/ec83edb5-130f-4a91-9ac1-20fb622ed0a2  running        z5  10.30.107.126  vm-23d1a9fc-30d2-4a0f-8631-df8807fc8612  minimal  true
+sourcecontrol-webui/840278e2-e1a2-4a30-b904-68538c7cd06f   running        z5  10.30.107.124  vm-0f7300dd-63b5-4399-b1fd-35aeccffac5c  minimal  true
 
+6 vms
+```
 
 ##### 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. (전체 조직)
 >`$ uaac target` 
@@ -1059,10 +1070,16 @@ Context : admin, from client admin
 ```
 
 ##### SC포탈 계정 생성을 한다.
->`$ uaac client add scclient -s [클라이언트 비밀번호] --redirect_uri "[실제 사용 할 URL]" \
+>`$ uaac client add pipeclient -s clientsecret --redirect_uri "[URL]" /
+    --scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" /
+    --authorized_grant_types "authorization_code , client_credentials , refresh_token" /
+    --authorities="uaa.resource" /
+    --autoapprove="openid , cloud_controller_service_permissions.read""`
+```
+ $ uaac client add scclient -s clientsecret --redirect_uri "http://115.68.47.179:8080 http://115.68.47.179:8080/repositories http://115.68.47.179:8080/repositories/user" \
     --scope "cloud_controller_service_permissions.read , openid , cloud_controller.read , cloud_controller.write , cloud_controller.admin" \
     --authorized_grant_types "authorization_code , client_credentials , refresh_token" \
     --authorities="uaa.resource" \
-    --autoapprove="openid , cloud_controller_service_permissions.read"` 
-
+    --autoapprove="openid , cloud_controller_service_permissions.read
+```
 [source_controller_Service_Guide01]:/Service-Guide/images/source_control/source_controller_Service_Guide01.PNG
