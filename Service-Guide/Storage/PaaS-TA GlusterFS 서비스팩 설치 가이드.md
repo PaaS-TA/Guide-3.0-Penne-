@@ -1185,7 +1185,7 @@ GlusterFS 서비스팩 배포가 완료 되었으면 Application에서 서비스
 - **서비스플랜** : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. RabbitMQ 서비스는 standard plan만 지원한다.
 - **내 서비스명** : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경 설정 정보를 가져온다.
 
->`$ cf create-service-broker glusterfs-service admin cloudfoundry http://10.30.40.197:8080`
+>`$ cf create-service-broker glusterfs-service admin cloudfoundry http://10.30.107.197:8080`
 
 > ![glusterfs_image_03]
 
