@@ -584,9 +584,67 @@ bosh -e micro-bosh -d paasta-web-ide-service deploy paasta_web_ide_bosh2.0.yml \
 - **사용 예시**
 
 		$ ./deploy-web-ide-bosh2.0.sh
+		# paasta-web-ide-service 설정 파일 내용
+		---
+		name: paasta-web-ide-service  # 서비스 배포이름(필수)
+
+		release:
+		  name: paasta-web-ide  #서비스 릴리즈 이름(필수)
+		  version: "2.0"   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+		stemcells:
+		- alias: default
+		  os: ((stemcell_os))
+		  version: "((stemcell_version))"
+
+		update:
+		  canaries: 1                                          # canary 인스턴스 수(필수)
+		  canary_watch_time: 30000-180000                      # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+		  max_in_flight: 1                                      # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+		  update_watch_time: 30000-180000                      # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+
+		instance_groups:
+		- name: paasta-web-ide1 #작업 이름(필수)
+		  azs:
+		  - z5
+		  instances: 1          # job 인스턴스 수(필수)
+		  vm_type: ((vm_type_medium))            # cloud config 에 정의한 vm_type
+		  stemcell: default
+		  networks:
+		  - name: ((default_network_name))       # cloud config 에 정의한 network 이름
+		  - name: ((public_network_name))
+		    static_ips: 115.68.47.181
+		  properties:
+		    che:
+		      ip: 115.68.47.181
+		      port: 8080
+		  templates:
+		  - name: eclipse-che                # job template 이름(필수)
+		    release: paasta-web-ide
+
+		- name: paasta-web-ide2 #작업 이름(필수)
+		  azs:
+		  - z5
+		  instances: 1          # job 인스턴스 수(필수)
+		  vm_type: ((vm_type_medium))            # cloud config 에 정의한 vm_type
+		  stemcell: default
+		  networks:
+		  - name: ((default_network_name))       # cloud config 에 정의한 network 이름
+		  - name: ((public_network_name))
+		    static_ips: 115.68.47.182
+		  properties:
+		    che:
+		      ip: 115.68.47.182
+		      port: 8080
+		  templates:
+		  - name: eclipse-che                # job template 이름(필수)
+		    release: paasta-web-ide
+		inception@inception:~/workspace/servicepacks/paasta-web-ide-2.0$ 
+		inception@inception:~/workspace/servicepacks/paasta-web-ide-2.0$ 
+		inception@inception:~/workspace/servicepacks/paasta-web-ide-2.0$ ./deploy-web-ide-bosh2.0.sh 
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-		Using deployment 'paasta-mysql-service'
+		Using deployment 'paasta-web-ide-service'
 
 		+ azs:
 		+ - cloud_properties:
@@ -718,6 +776,21 @@ bosh -e micro-bosh -d paasta-web-ide-service deploy paasta_web_ide_bosh2.0.yml \
 		+     disk: 10240
 		+     ram: 2048
 		+   name: service_medium_2G
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 512
+		+   name: portal_small
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 1024
+		+   name: portal_medium
+		+ - cloud_properties:
+		+     cpu: 1
+		+     disk: 4096
+		+     ram: 2048
+		+   name: portal_large
 
 		+ vm_extensions:
 		+ - cloud_properties:
@@ -871,231 +944,104 @@ bosh -e micro-bosh -d paasta-web-ide-service deploy paasta_web_ide_bosh2.0.yml \
 		+   os: ubuntu-trusty
 		+   version: '3309'
 
-		+ releases:
-		+ - name: paasta-mysql
-		+   version: '2.0'
-
 		+ update:
 		+   canaries: 1
-		+   canary_watch_time: 30000-600000
+		+   canary_watch_time: 30000-180000
 		+   max_in_flight: 1
-		+   update_watch_time: 30000-600000
+		+   update_watch_time: 30000-180000
+
+		+ release:
+		+   name: paasta-web-ide
+		+   version: '2.0'
 
 		+ instance_groups:
 		+ - azs:
 		+   - z5
-		+   instances: 3
-		+   name: mysql
-		+   networks:
-		+   - name: service_private
-		+     static_ips:
-		+     - 10.30.107.166
-		+     - 10.30.107.165
-		+     - 10.30.107.164
-		+   persistent_disk_type: 8GB
-		+   properties:
-		+     admin_password: "<redacted>"
-		+     character_set_server: "<redacted>"
-		+     cluster_ips:
-		+     - "<redacted>"
-		+     - "<redacted>"
-		+     - "<redacted>"
-		+     collation_server: "<redacted>"
-		+     network_name: "<redacted>"
-		+     seeded_databases: "<redacted>"
-		+     syslog_aggregator: "<redacted>"
-		+   release: paasta-mysql
-		+   stemcell: default
-		+   template: mysql
-		+   vm_type: minimal
-		+ - azs:
-		+   - z5
 		+   instances: 1
-		+   name: proxy
+		+   name: paasta-web-ide1
 		+   networks:
 		+   - name: service_private
-		+     static_ips:
-		+     - 10.30.107.168
+		+   - default:
+		+     - dns
+		+     - gateway
+		+     name: service_public
+		+     static_ips: 115.68.47.181
 		+   properties:
-		+     cluster_ips:
-		+     - "<redacted>"
-		+     - "<redacted>"
-		+     - "<redacted>"
-		+     external_host: "<redacted>"
-		+     nats:
-		+       machines:
-		+       - "<redacted>"
-		+       password: "<redacted>"
+		+     che:
+		+       ip: "<redacted>"
 		+       port: "<redacted>"
-		+       user: "<redacted>"
-		+     network_name: "<redacted>"
-		+     proxy:
-		+       api_force_https: "<redacted>"
-		+       api_password: "<redacted>"
-		+       api_username: "<redacted>"
-		+     syslog_aggregator: "<redacted>"
-		+   release: paasta-mysql
 		+   stemcell: default
-		+   template: proxy
-		+   vm_type: minimal
+		+   templates:
+		+   - name: eclipse-che
+		+     release: paasta-web-ide
+		+   vm_type: service_medium_2G
 		+ - azs:
 		+   - z5
 		+   instances: 1
-		+   name: paasta-mysql-java-broker
+		+   name: paasta-web-ide2
 		+   networks:
 		+   - name: service_private
-		+     static_ips:
-		+     - 10.30.107.167
+		+   - default:
+		+     - dns
+		+     - gateway
+		+     name: service_public
+		+     static_ips: 115.68.47.182
 		+   properties:
-		+     jdbc_ip: "<redacted>"
-		+     jdbc_port: "<redacted>"
-		+     jdbc_pwd: "<redacted>"
-		+     log_dir: "<redacted>"
-		+     log_file: "<redacted>"
-		+     log_level: "<redacted>"
-		+   release: paasta-mysql
-		+   stemcell: default
-		+   template: op-mysql-java-broker
-		+   vm_type: minimal
-		+ - azs:
-		+   - z5
-		+   instances: 1
-		+   lifecycle: errand
-		+   name: broker-registrar
-		+   networks:
-		+   - name: service_private
-		+   properties:
-		+     broker:
-		+       host: "<redacted>"
-		+       name: "<redacted>"
-		+       password: "<redacted>"
+		+     che:
+		+       ip: "<redacted>"
 		+       port: "<redacted>"
-		+       protocol: "<redacted>"
-		+       username: "<redacted>"
-		+     cf:
-		+       admin_password: "<redacted>"
-		+       admin_username: "<redacted>"
-		+       api_url: "<redacted>"
-		+       skip_ssl_validation: "<redacted>"
-		+   release: paasta-mysql
 		+   stemcell: default
-		+   template: broker-registrar
-		+   vm_type: minimal
-		+ - azs:
-		+   - z5
-		+   instances: 1
-		+   lifecycle: errand
-		+   name: broker-deregistrar
-		+   networks:
-		+   - name: service_private
-		+   properties:
-		+     broker:
-		+       name: "<redacted>"
-		+     cf:
-		+       admin_password: "<redacted>"
-		+       admin_username: "<redacted>"
-		+       api_url: "<redacted>"
-		+       skip_ssl_validation: "<redacted>"
-		+   release: paasta-mysql
-		+   stemcell: default
-		+   template: broker-deregistrar
-		+   vm_type: minimal
+		+   templates:
+		+   - name: eclipse-che
+		+     release: paasta-web-ide
+		+   vm_type: service_medium_2G
 
-		+ meta:
-		+   apps_domain: 115.68.46.189.xip.io
-		+   environment: 
-		+   external_domain: 115.68.46.189.xip.io
-		+   nats:
-		+     machines:
-		+     - 10.30.112.2
-		+     password: fxaqRErYZ1TD8296u9HdMg8ol8dJ0G
-		+     port: 4222
-		+     user: nats
-		+   syslog_aggregator: 
-
-		+ name: paasta-mysql-service
+		+ name: paasta-web-ide-service
 
 		Continue? [yN]: y
 
-		Task 4506
+		Task 7867
 
-		Task 4506 | 06:04:10 | Preparing deployment: Preparing deployment (00:00:01)
-		Task 4506 | 06:04:12 | Preparing package compilation: Finding packages to compile (00:00:00)
-		Task 4506 | 06:04:12 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0
-		Task 4506 | 06:04:12 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a
-		Task 4506 | 06:04:12 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482
-		Task 4506 | 06:04:12 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25
-		Task 4506 | 06:04:12 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f
-		Task 4506 | 06:06:53 | Compiling packages: syslog_aggregator/078da6dcb999c1e6f5398a6eb739182ccb4aba25 (00:02:41)
-		Task 4506 | 06:06:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7
-		Task 4506 | 06:06:55 | Compiling packages: common/ba480a46c4b2aa9484fb24ed01a8649453573e6f (00:02:43)
-		Task 4506 | 06:06:55 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1
-		Task 4506 | 06:06:55 | Compiling packages: cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0 (00:02:43)
-		Task 4506 | 06:06:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc
-		Task 4506 | 06:07:05 | Compiling packages: op-mysql-java-broker/3bf47851b2c0d3bea63a0c58452df58c14a15482 (00:02:53)
-		Task 4506 | 06:07:05 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31
-		Task 4506 | 06:07:10 | Compiling packages: openjdk-1.8.0_45/57e0ee876ea9d90f5470e3784ae1171bccee850a (00:02:58)
-		Task 4506 | 06:07:53 | Compiling packages: golang/f57ddbc8d55d7a0f08775bf76bb6a27dc98c7ea7 (00:01:00)
-		Task 4506 | 06:07:53 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364
-		Task 4506 | 06:07:53 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda
-		Task 4506 | 06:07:55 | Compiling packages: check/d6811f25e9d56428a9b942631c27c9b24f5064dc (00:01:00)
-		Task 4506 | 06:07:55 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6
-		Task 4506 | 06:08:30 | Compiling packages: route-registrar/f3fdfb8c940e7227a96c06e413ae6827aba8eeda (00:00:37)
-		Task 4506 | 06:08:30 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266
-		Task 4506 | 06:08:31 | Compiling packages: gra-log-purger/f02fa5774ab54dbb1b1c3702d03cb929b85d60e6 (00:00:36)
-		Task 4506 | 06:08:31 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc
-		Task 4506 | 06:08:32 | Compiling packages: switchboard/fad565dadbb37470771801952001c7071e55a364 (00:00:39)
-		Task 4506 | 06:08:58 | Compiling packages: galera-healthcheck/3da4dedbcd7d9f404a19e7720e226fd472002266 (00:00:28)
-		Task 4506 | 06:08:59 | Compiling packages: mariadb_ctrl/7658290da98e2cad209456f174d3b9fa143c87fc (00:00:28)
-		Task 4506 | 06:09:42 | Compiling packages: boost/3eb8bdb1abb7eff5b63c4c5bdb41c0a778925c31 (00:02:37)
-		Task 4506 | 06:11:27 | Compiling packages: python/4e255efa754d91b825476b57e111345f200944e1 (00:04:32)
-		Task 4506 | 06:11:27 | Compiling packages: scons/11e7ad3b28b43a96de3df7aa41afddde582fcc38 (00:00:22)
-		Task 4506 | 06:11:49 | Compiling packages: galera/d15a1d2d15e5e7417278d4aa1b908566022b9623 (00:13:18)
-		Task 4506 | 06:25:07 | Compiling packages: mariadb/43aa3547bc5a01dd51f1501e6b93c215dd7255e9 (00:18:49)
-		Task 4506 | 06:43:56 | Compiling packages: xtrabackup/2e701e7a9e4241b28052d984733de36aae152275 (00:10:26)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2)
-		Task 4506 | 06:55:22 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0)
-		Task 4506 | 06:55:22 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1)
-		Task 4506 | 06:55:22 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0)
-		Task 4506 | 06:57:18 | Creating missing vms: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (00:01:56)
-		Task 4506 | 06:57:23 | Creating missing vms: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (00:02:01)
-		Task 4506 | 06:57:23 | Creating missing vms: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:02:01)
-		Task 4506 | 06:57:24 | Updating instance mysql: mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5 (0) (canary) (00:02:32)
-		Task 4506 | 06:59:56 | Updating instance mysql: mysql/8a830154-25b6-432a-ad39-9ff09d015760 (1) (00:03:03)
-		Task 4506 | 07:02:59 | Updating instance mysql: mysql/e8c52bf2-cd48-45d0-9553-f6367942a634 (2) (00:03:04)
-		Task 4506 | 07:06:03 | Updating instance proxy: proxy/023edddd-418e-46e4-8d40-db452c694e16 (0) (canary) (00:01:01)
-		Task 4506 | 07:07:04 | Updating instance paasta-mysql-java-broker: paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78 (0) (canary) (00:01:02)
+		Task 7867 | 02:29:25 | Preparing deployment: Preparing deployment (00:00:02)
+		Task 7867 | 02:29:27 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 7867 | 02:29:27 | Compiling packages: bosh-helpers/2b45cec940a80e582427f61c460269c6ccb031c8
+		Task 7867 | 02:29:27 | Compiling packages: docker/8da016ec9d1b172b779d5ff0a9fbbfc4973ea734
+		Task 7867 | 02:29:27 | Compiling packages: java/b74e140053eddb6a3a958568d66f801686d09e04
+		Task 7867 | 02:31:36 | Compiling packages: bosh-helpers/2b45cec940a80e582427f61c460269c6ccb031c8 (00:02:09)
+		Task 7867 | 02:31:38 | Compiling packages: docker/8da016ec9d1b172b779d5ff0a9fbbfc4973ea734 (00:02:11)
+		Task 7867 | 02:31:59 | Compiling packages: java/b74e140053eddb6a3a958568d66f801686d09e04 (00:02:32)
+		Task 7867 | 02:31:59 | Compiling packages: eclipse-che/eff6040fd5ed2a30190955140bb58f892ff830ec (00:00:55)
+		Task 7867 | 02:33:27 | Creating missing vms: paasta-web-ide1/dfa63633-f846-48a4-9ea8-c23291fe0ea0 (0)
+		Task 7867 | 02:33:27 | Creating missing vms: paasta-web-ide2/9a1e6f85-a8d5-41c0-96f7-56ddb8bce657 (0) (00:01:18)
+		Task 7867 | 02:34:46 | Creating missing vms: paasta-web-ide1/dfa63633-f846-48a4-9ea8-c23291fe0ea0 (0) (00:01:19)
+		Task 7867 | 02:34:47 | Updating instance paasta-web-ide1: paasta-web-ide1/dfa63633-f846-48a4-9ea8-c23291fe0ea0 (0) (canary) (00:01:29)
+		Task 7867 | 02:36:16 | Updating instance paasta-web-ide2: paasta-web-ide2/9a1e6f85-a8d5-41c0-96f7-56ddb8bce657 (0) (canary) (00:01:30)
 
-		Task 4506 Started  Fri Aug 31 06:04:10 UTC 2018
-		Task 4506 Finished Fri Aug 31 07:08:06 UTC 2018
-		Task 4506 Duration 01:03:56
-		Task 4506 done
+		Task 7867 Started  Thu Sep 13 02:29:25 UTC 2018
+		Task 7867 Finished Thu Sep 13 02:37:46 UTC 2018
+		Task 7867 Duration 00:08:21
+		Task 7867 done
 
 		Succeeded
 
-
--	배포된 MySQL 서비스팩을 확인한다.
+-	배포된 WEB-IDE 서비스팩을 확인한다.
 
 - **사용 예시**
 
-		$bosh -e micro-bosh -d paasta-mysql-service vms
+		$bosh -e micro-bosh -d paasta-web-ide-service vms
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-		Task 4525. Done
+		Task 7872. Done
 
-		Deployment 'paasta-mysql-service'
+		Deployment 'paasta-web-ide-service'
 
-		Instance                                                       Process State  AZ  IPs            VM CID                                   VM Type  Active  
-		mysql/8a830154-25b6-432a-ad39-9ff09d015760                     running        z5  10.30.107.165  vm-214663a8-fcbc-4ae4-9aae-92027b9725a9  minimal  true  
-		mysql/e8c52bf2-cd48-45d0-9553-f6367942a634                     running        z5  10.30.107.164  vm-81ecdc43-03d2-44f5-9b89-c6cdaa443d8b  minimal  true  
-		mysql/ea075ae6-6326-478b-a1ba-7fbb0b5b0bf5                     running        z5  10.30.107.166  vm-bee33ffa-3f65-456c-9250-1e74c7c97f64  minimal  true  
-		paasta-mysql-java-broker/bb5676ca-efba-48fc-bc11-f464d0ae9c78  running        z5  10.30.107.167  vm-7c3edc00-3074-4e98-9c89-9e9ba83b47e4  minimal  true  
-		proxy/023edddd-418e-46e4-8d40-db452c694e16                     running        z5  10.30.107.168  vm-e447eb75-1119-451f-adc9-71b0a6ef1a6a  minimal  true  
+		Instance                                              Process State  AZ  IPs            VM CID                                   VM Type            Active  
+		paasta-web-ide1/dfa63633-f846-48a4-9ea8-c23291fe0ea0  running        z5  10.30.107.0    vm-4811a409-e48b-44c1-976c-268fe0af0697  service_medium_2G  true  
+											 115.68.47.181                                                                
+		paasta-web-ide2/9a1e6f85-a8d5-41c0-96f7-56ddb8bce657  running        z5  10.30.108.0    vm-ba125e95-804a-4272-8cda-e3bfa38be98f  service_medium_2G  true  
+											 115.68.47.182                                                                
 
-		5 vms
+		2 vms
 
 		Succeeded
 
