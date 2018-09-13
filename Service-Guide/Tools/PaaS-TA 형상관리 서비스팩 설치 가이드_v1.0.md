@@ -992,7 +992,7 @@ paasta-redis-broker           http://10.30.60.71:12350
   **서비스팩 사용자ID** / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.<br>
   **서비스팩 URL** : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.
 
->`$ cf create-service-broker p-paasta-sourcecontrol admin cloudfoundry http://10.30.130.137`
+>`$ cf create-service-broker p-paasta-sourcecontrol admin cloudfoundry http://10.30.107.126`
 ```
 inception-new:~/bosh-space/paasta-sourcecontrol-releases/deployment$ cf service-brokers
 Getting service brokers as admin...
