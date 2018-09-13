@@ -1687,11 +1687,12 @@ broker: delivery-pipeline
 ### <div id='25'/> 2.5 배포 파이프라인 UAA Client Id 등록
 UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 
-**haproxy IPs (실제 대시보드 URL)**:8084 입력 후 루트 도메인을 입력한다. URL 정보 다중 입력 시 ","(comma)를 사용하여 추가한다.
+**haproxy IPs**:8084 입력 후 루트 도메인을 입력한다. **haproxy IPs**의 주소는 **실제 대시보드 URL**이다. URL 정보 다중 입력 시 ","(comma)를 사용하여 추가한다.
 >`$ http://115.68.47.175:8084/dashboard/c6f57069-dc64-460d-9fa2-d6a431580c22` 
 
 ##### *haproxy IPs 확인*
->`$ bosh vms` 
+>`$ bosh -e micro-bosh -d paasta-delivery-pipeline-service vms` 
+
 ```
 Deployment 'paasta-delivery-pipeline-service'
 
