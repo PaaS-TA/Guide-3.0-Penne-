@@ -1685,10 +1685,36 @@ broker: delivery-pipeline
 ```
 
 ### <div id='25'/> 2.5 배포 파이프라인 UAA Client Id 등록
+UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 
-UAA 포털 계정 등록 절차에 대한 순서입니다.
-아래와 같은 URL 일 경우, http://localhost:8084 까지만 입력 여러 개 입력시 ","를 이용하여 다중 입력 가능하며, 루트 도메인만 입력하면 됩니다.
-예) http://localhost:8084/dashboard/198c1dd4-6eec-4387-bf73-2e968005ccc1
+**haproxy IPs (실제 대시보드 URL)**:8084 입력 후 루트 도메인을 입력한다. URL 정보 다중 입력 시 ","(comma)를 사용하여 추가한다.
+>`$ http://115.68.47.175:8084/dashboard/c6f57069-dc64-460d-9fa2-d6a431580c22` 
+
+##### *haproxy IPs 확인*
+>`$ bosh vms` 
+```
+Deployment 'paasta-delivery-pipeline-service'
+ 
+Instance                                                                   Process State  AZ  IPs            VM CID                                   VM Type  Active
+binary_storage/4c54c4aㄴ5-9a63-4b7f-acd7-afe2937af04d                        running        z5  10.30.107.39   vm-0ea717f1-8f07-4924-bbc7-6bafbe6fbea3  minimal  true
+ci_server/24ed965d-51a0-4477-8c80-fa4e4c2502a7                             running        z5  10.30.107.72   vm-5e8639c8-3a41-4ed9-9eb1-e1e48ff17b6d  minimal  true
+ci_server/fe3e03eb-55f8-4980-9f0b-bbb396bd02cf                             running        z5  10.30.107.71   vm-cc8dd7ed-237a-4c48-b23b-ff9113c64f3d  minimal  true
+delivery-pipeline-api/de15549f-a7e4-4dd8-867d-958c7f6d8e18                 running        z5  10.30.107.65   vm-ab366342-771c-484a-8a4a-be7563f12add  minimal  true
+delivery-pipeline-binary-storage-api/dcfdeca5-8a09-4090-addf-d64f1e910063  running        z5  10.30.107.61   vm-a2042942-01e9-45b5-bc43-52354d02c8d0  minimal  true
+delivery-pipeline-common-api/700424b3-4c81-4c72-88ed-99d2f6d2d368          running        z5  10.30.107.66   vm-f65d3452-7da4-428d-8cb4-7406f20708fe  minimal  true
+delivery-pipeline-inspection-api/46f771f3-dcb6-40de-a727-52bcb4e014e5      running        z5  10.30.107.62   vm-a56941ab-2305-4a9d-96ed-4db17d84aa0b  minimal  true
+delivery-pipeline-scheduler/fd17f7c8-7bd3-4c68-8c22-542d3013a90b           running        z5  10.30.107.63   vm-4dc86c13-ab35-4424-8205-1b461325243e  minimal  true
+delivery-pipeline-service-broker/67243664-06d9-4915-9e8f-534812bd099c      running        z5  10.30.107.64   vm-06a9756a-07df-4f85-a422-fd652f61cb66  minimal  true
+delivery-pipeline-ui/a9229a2a-6d25-4755-954e-fbe97e11c3ea                  running        z5  10.30.107.67   vm-0a095d59-eb00-4a35-b93f-475d5250bca9  minimal  true
+haproxy/65081aeb-50e0-49bc-a6c1-131f74d52a44                               running        z5  10.30.107.70   vm-111c720f-e640-40f3-8c10-d252fca5b4ec  minimal  true
+                                                                                              115.68.47.175
+inspection/a5789621-8615-417a-9a8a-6fccddb38b4b                            running        z5  10.30.107.69   vm-09df943c-704f-4952-b9fe-054d74d271b6  minimal  true
+mariadb/2d876573-1248-48b0-9a00-92463cc33978                               running        z5  10.30.107.68   vm-76ee37ce-e99b-4a59-b0a5-f860f284b924  minimal  true
+postgres/3226e31b-e86f-40bb-b0d8-31755b087699                              running        z5  10.30.107.82   vm-060c3a81-4a89-4370-9777-c06e280a83c6  minimal  true
+
+14 vms
+
+```
 
 ###### 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. (전체 조직)
 >`$ uaac target`
