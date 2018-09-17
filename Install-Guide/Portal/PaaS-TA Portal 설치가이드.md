@@ -976,7 +976,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
    -v mariadb_ips="10.30.107.211"\                                          Mariadb ip
    -v mariadb_disk_type="10GB"\                                             Mariadb disk
    -v mariadb_port="3306"\                                                  Mariadb port
-   -v mariadb_user_password="Paasta@2018"\                                  Mariadb paasword, id는 root로 통일
+   -v mariadb_user_password="xxxxxxxxxxx"\                                  Mariadb paasword, id는 root로 통일
    -v binary_storage_ips="10.30.107.212"\                                   Binary_storage ip
    -v binary_storage_disk_type="10GB"\                                      Binary_storage disk
    -v binary_storage_username="paasta-portal"\                              Binary_storage user name
@@ -1014,8 +1014,8 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
    -v mail_smtp_host="smtp.gmail.com"\                                      Mail_smtp host
    -v mail_smtp_port="465"\                                                 Mail_smtp port
    -v mail_smtp_username="PaaS-TA"\                                         Mail_smtp username
-   -v mail_smtp_password="paas-ta1234"\                                     Mail_smtp password
-   -v mail_smtp_useremail="openpasta@gmail.com"\                            Mail_smtp user email
+   -v mail_smtp_password="xxxxxxxxxxx"\                                     Mail_smtp password
+   -v mail_smtp_useremail="xxxxxxxxx@gmail.com"\                            Mail_smtp user email
    -v mail_smtp_properties_auth="true"\                                     Mail_smtp auth
    -v mail_smtp_properties_starttls_enable="true"\                          Mail_smtp host enable
    -v mail_smtp_properties_starttls_required="true"\                        Mail_smtp starttls required
