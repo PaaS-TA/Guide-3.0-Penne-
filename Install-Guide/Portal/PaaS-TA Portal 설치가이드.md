@@ -556,12 +556,12 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 
 -	Deployment 파일을 서버 환경에 맞게 수정한다.
 -  azs의 경우 z5 ~ z6 로 설정한다.
->"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-vsphere.sh 참고 예) os : ((stemcell_os))
+>"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
  
 ```yml
-# paas-ta-portal-vsphere-2.0.yml 설정 파일 내용
+# paas-ta-portal-bosh2.0.yml 설정 파일 내용
 ---
-name: paas-ta-portal-v2                      # 서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
+name: paasta-portal                      # 서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
 
 stemcells:
 - alias: ((stemcell_alias))
@@ -956,7 +956,7 @@ properties:
 ```
 >현재 기본으로 제공된 release는 infra-admin은 비활성화 상태다. 활성화 하려면 instance_group의 infra-admin 설정부분앞의 #을 제거하고 paas-ta-portal-registration의 infra admin enable을 true로 바꿔야한다.
 
--	deploy-vsphere.sh 파일을 서버 환경에 맞게 수정한다.
+-	deploy-portal-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
         - bosh 명령문 후에 주석(#)을 사용할경우 오류가 발생한다. 
 ```sh
 기본 명령어 : bosh -e micro-bosh -d [deployment name] [deploy.yml]
@@ -965,7 +965,7 @@ properties:
 # stemcell 버전은 3468.51 버전으로 사용하십시요.
 # vsphere 인 경우 에는 use-public-network-vsphere.yml 사용하여 public ip를 설정 하고 그 이외의 IaaS는 use-public-network.yml 사용한다.
 
-bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \ 
+bosh -e micro-bosh -d paas-ta-portal-v2 deploy paasta-portal-bosh2.0.yml \ 
    -v stemcell_os="ubuntu-trusty"\                                          Stemcell_os
    -v stemcell_version="3468.51"\                                           Stemcell version
    -v stemcell_alias="default"\                                             Stemcell_alias
@@ -1896,12 +1896,12 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 - **사용 예시**
 
-		bosh -e micro-bosh -d paas-ta-portal-v2 vms
+		bosh -e micro-bosh -d paasta-portal vms
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 		Task 4823. Done
         
-        Deployment 'paas-ta-portal-v2'
+        Deployment 'paasta-portal'
         
         Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type        Active  
         binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z5  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
