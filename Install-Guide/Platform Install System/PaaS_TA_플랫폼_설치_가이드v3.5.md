@@ -81,7 +81,7 @@ paasta-3.5는 bosh2를 기반으로 설치된다. Bosh2를 사용하여 Bosh생�
 
 ### <div id='10'/>3.2.	Stemcell upload
 
-Paasta-3.5는 stemcell 3586.26을 기반으로 한다. Bosh login 후 stemcell을 upload 한다. Stemcell은 Deploy될 때 생성되는 PaaS-TA VM Image이다.
+Paasta-3.5는 stemcell 3586.26을 기반으로 한다. Bosh login 후 stemcell을 upload 한다. Stemcell은 Deploy될 때 생성되는 PaaS-TA VM Base OS Image이다.
 Bosh Login 후 다음 명령어를 수행하여 stemcel을 upload 한다.
 director_name은 bosh를 설치할때 사용한 director_name을 입력한다.
 ```
@@ -423,7 +423,7 @@ $ bosh –e {director_name} –d paasta deploy {deploy.yml}
 
 <table>
 <tr>
-<td>-e</td>
+<td> -e </td>
 <td>BOSH Director anme</td>
 </tr>
 <tr>
@@ -432,8 +432,7 @@ $ bosh –e {director_name} –d paasta deploy {deploy.yml}
 </tr>   
 <tr>
 <td>-o</td>
-<td>Paasta 설치시 사용하는 option 파일로 아래 기능을 기본으로 제공한다.(iaas별속성, 	haproxy 사용여부
-,	database 선정 )
+<td>Paasta 설치시 사용하는 option 파일로 아래 기능을 기본으로 제공한다.(iaas별속성, 	haproxy 사용여부 ,	database 선정 )
 </td>
 </tr>
 <tr>

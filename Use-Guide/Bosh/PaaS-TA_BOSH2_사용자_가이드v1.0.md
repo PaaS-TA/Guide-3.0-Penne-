@@ -139,7 +139,7 @@ $ sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl
 ```
 
 ※  bosh2 cli 
-bosh2 cli는 bosh deploy, paasta deploy시 certificate 정보를 생성해 주는 기능이 있다. 
+bosh2 cli는 bosh deploy시 bosh certificate 정보를 생성해 주는 기능이 있다. 
 bosh site에서 기본으로 받는 bosh cli는 인증서가 1년으로 제한되어 있다. 
 
 만약 인증서 기간을 늘리고 싶다면 bosh-cli 소스를 받아 compile해서 사용 해야 한다.
@@ -279,7 +279,7 @@ $ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
 $ chmod 755 *.sh  
 ```
 
-~/workspace/paasta-3.5/deployment/bosh-deployment 이하 디렉토리에는 iaas별 bosh를 설 치 하는 shell이 존재한다. Shell 파일을 이용하여 bosh를 설치 한다.
+~/workspace/paasta-3.5/deployment/bosh-deployment 이하 디렉토리에는 iaas별 bosh를 설치 하는 shell이 존재한다. Shell 파일을 이용하여 bosh를 설치 한다.
 파일명은 deploy-{iaaS-name}.sh 로 만들어 졌다. 
 
 
@@ -319,7 +319,7 @@ $ chmod 755 *.sh
 </tr>
 <tr>
 <td>--vars-store</td>
-<td>Bosh 설치 명령어를 실행할 때 생성되는 file로 bosh가 설치 될 때 Bosh Cli는 Bosh 내부 컴포넌트가 사용하는 인증서를 생성한다. (중요, backup 필요)</td>
+<td>Bosh 설치 명령어를 실행할 때 생성되는 file로 bosh가 설치 될 때 Bosh Cli는 Bosh 내부 컴포넌트가 사용하는 인증서 및 인증정보를 생성 저장한다. (중요, backup 필요)</td>
 </tr>   
 <tr>
 <td>-o</td>
