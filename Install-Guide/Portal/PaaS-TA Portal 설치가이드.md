@@ -189,7 +189,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
     		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 		Name                              Version   Commit Hash  
-    	binary-buildpack                  1.0.21*   d714741  
+    		binary-buildpack                  1.0.21*   d714741  
 		bpm                               0.9.0*    c9b7136  
 		caas-release                      1.0*      empty+  
 		capi                              1.62.0*   22a608c  
@@ -962,7 +962,8 @@ properties:
 기본 명령어 : bosh -e micro-bosh -d [deployment name] [deploy.yml]
 
 #!/bin/bash
-# stemcell 버전은 3445.2 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+# stemcell 버전은 3468.51 버전으로 사용하십시요.
+# vsphere 인 경우 에는 use-public-network-vsphere.yml 사용하여 public ip를 설정 하고 그 이외의 IaaS는 use-public-network.yml 사용한다.
 
 bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \ 
    -v stemcell_os="ubuntu-trusty"\                                          Stemcell_os
@@ -1030,7 +1031,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
       paas-ta-portal-release             2.0*      00000000  
 
 > stemcell_os : 스템셀 OS를 입력한다. $bosh stemcells 명령문으로 확인가능\
-> stemcell_version : 스템셀 버전을 입력한다. $bosh stemcells 명령문으로 확인가능(3445.2 verion 사용)\
+> stemcell_version : 스템셀 버전을 입력한다. $bosh stemcells 명령문으로 확인가능(3468.51 verion 사용)\
 > stemcell_alias : bosh deploy시 사용할 스템셀 명칭을 정한다.
 
     - $ bosh stemcells
@@ -1432,7 +1433,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         + stemcells:
         + - alias: default
         +   os: ubuntu-trusty
-        +   version: '3445.2'
+        +   version: '3468.51'
           
         + releases:
         + - name: paas-ta-portal-release
