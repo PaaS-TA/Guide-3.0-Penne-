@@ -31,7 +31,7 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 
 | VM_Type | 스펙 |
 |--------|-------|
-|portal_large| 1vCPU / 2GB RAM / 4GB Disk|
+|portal_tiny| 1vCPU / 256MB RAM / 4GB Disk|
 |portal_medium| 1vCPU / 1GB RAM / 4GB Disk|
 |portal_small| 1vCPU / 512MB RAM / 4GB Disk|
 
@@ -40,17 +40,17 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 
 | 구분 | Resource Pool | 스펙 |
 |--------|-------|-------|
-| binary_storage | portal_large | 1vCPU / 2GB RAM / 4GB Disk 10GB(영구적 Disk) |
-| haproxy | portal_large | 1vCPU / 2GB RAM / 4GB Disk |
-| mariadb | portal_large | 1vCPU / 2GB RAM / 4GB Disk +10GB(영구적 Disk) |
+| binary_storage | portal_small | 1vCPU / 512MB RAM / 4GB Disk 10GB(영구적 Disk) |
+| haproxy | portal_tiny | 1vCPU / 256MB RAM / 4GB Disk |
+| mariadb | portal_small | 1vCPU / 512MB RAM / 4GB Disk +10GB(영구적 Disk) |
 | paas-ta-portal-registration | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
-| paas-ta-portal-gateway | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-api | portal_large | 1vCPU / 2GB RAM / 4GB Disk |
-| paas-ta-portal-common-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-log-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-storage-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-webadmin | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-webuser | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-gateway | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-common-api | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-log-api | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-storage-api | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-webadmin | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-webuser | portal_tiny | 1vCPU / 256MB RAM / 4GB Disk |
 
 ### 1.4. 참고자료
 [**http://bosh.io/docs**](http://bosh.io/docs)  
