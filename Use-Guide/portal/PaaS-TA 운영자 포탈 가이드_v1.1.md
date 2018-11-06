@@ -440,4 +440,7 @@ PaaS-TA 포탈의 서비스 관리를 수행하기 위한 메뉴이다.<br>
 [isolationSegments05]:../images/admin-portal/isolationSegments05.png	
 [isolationSegments06]:../images/admin-portal/isolationSegments06.png	
 [isolationSegments07]:../images/admin-portal/isolationSegments07.png	
+[isolationSegments08]:../images/admin-portal/isolationSegments08.png	
+[isolationSegments09]:../images/admin-portal/isolationSegments09.png	
+
 
