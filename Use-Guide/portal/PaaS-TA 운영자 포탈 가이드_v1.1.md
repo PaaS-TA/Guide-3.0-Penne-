@@ -283,6 +283,21 @@ PaaS-TA 포탈의 조직 및 공간 할당량 관리를 수행하기 위한 메�
 
 ### <a name="4.9"/>  4.9. 분할 관리
 
+1. PaaS-TA 포탈에서 사용하는 분활 관리 내역을 조회한다.<br>
+![isolationSegments01]
+
+2. Segment Name 입력 칸에 생성할 이름을 입력한다. "Segment 등록" 버튼을 클릭하여 등록한다.<br>
+![isolationSegments02]
+
+3. 분할 관리 리스트 이름을 클릭하면 조직 정보가 조회된다. ① "Add Organization" 리스트에서 추가 할 조직을 클릭하여 추가한다.
+![isolationSegments03]
+
+4. Organization Name 리스트 이름을 클릭하면 조직 상세 정보가 조회된다. ① "Isolation Segments Name" 리스트에서 모든 분할관리에 포한 된 조직을 확인 할 수 있다.
+![isolationSegments04]
+
+5. ①"삭제" 버튼을 클릭하여 분할 관리를 삭제한다.
+![isolationSegments05]
+
 
 ## <a name="5"/>5.  서비스 관리
 
@@ -339,31 +354,31 @@ PaaS-TA 포탈의 보안 관리를 수행하기 위한 메뉴이다.<br>
 ### <a name="6.1"/>  6.1 시큐리티 그룹
 
 1. PaaS-TA 포탈에서 사용하는 시큐리티 그룹 정보들을 조회한다.<br>
-![isolationSegments01]
+![securitygroups01]
 
 2. ①"시큐리티 그룹 등록" 버튼을 클릭하여 시큐리트 그룹을 등록한다. <br>
-![isolationSegments02]
+![securitygroups02]
 
 3. 시큐리티 그룹 등록 팝업에 이름을 입력(필수)하고 staging default설정(필수), running default설정(필수) 체크박스를 선택한다. 팝업의 탭의 내용 입력 부분에 설명, 규칙(필수), 로그, 포트, 프로토콜을 입력한다. ① "+" 를 클릭하여 탭을 증가시킨다. ② "텝 삭제" 버튼을 클릭하여 탭을 삭제한다.<br>
-![isolationSegments03]
+![securitygroups03]
 
 4. 시큐리티 그룹 등록 팝업에서 ①"파일 내보내기" 버튼을 클릭하여 시큐리트 그룹 정보를 ②.txt 파일로 확인 할 수 있다.
-![isolationSegments04]
+![securitygroups04]
 
 5. 시큐리티 그룹 등록 팝업에서 ①"파일 불러오기" 버튼을 클릭하여 시큐리트 그룹 정보를 ②.txt 파일로 확인 할 수 있다. 불러온 파일은 추가 된 새 탭에서 확인 할 수 있다.
-![isolationSegments05]
+![securitygroups05]
 
 6. 시큐리티 그룹 등록 팝업에서 ①"org"를 클릭한다. ②"space"를 클릭한다. ③"등록" 버튼을 클릭하여 org,space 를 등록한다.
-![isolationSegments06]
+![securitygroups06]
 
 7. 시큐리티 그룹 등록 팝업에서 ①"삭제" 버튼을 클릭하여 org,space 를 삭제한다. ②"등록 "버튼을 클릭하여 시큐리티 그룹 정보를 저장한다.
-![isolationSegments07]
+![securitygroups07]
 
 8. 수정 할 시큐리티 그룹을 선택한다. 시큐리티 그룹 상세 팝업에서 ①"수정" 버튼을 클릭하여 시큐리티 그룹을 수정한다.<br>
-![isolationSegments08]
+![securitygroups08]
 
 9. 삭제 할 시큐리티 그룹을 선택한다. 시큐리티 그룹 상세 팝업에서 ①"삭제" 버튼을 클릭하여 시큐리티 그룹을 삭제한다.<br>
-![isolationSegments09] 
+![securitygroups09] 
 
 
 
@@ -440,14 +455,19 @@ PaaS-TA 포탈의 보안 관리를 수행하기 위한 메뉴이다.<br>
 [pipeline-app-service-create]:../images/admin-portal/pipeline-app-service-create.png
 [pipeline-app-dashboard]:../images/admin-portal/pipeline-app-dashboard.png
 [sourcecontroller]:../images/admin-portal/portal-web-admin-sourcecontroller.png
-[isolationSegments01]:../images/admin-portal/isolationSegments01.png			
+[securitygroups01]:../images/admin-portal/securitygroups01.png			
+[securitygroups02]:../images/admin-portal/securitygroups02.png	
+[securitygroups03]:../images/admin-portal/securitygroups03.png	
+[securitygroups04]:../images/admin-portal/securitygroups04.png	
+[securitygroups05]:../images/admin-portal/securitygroups05.png	
+[securitygroups06]:../images/admin-portal/securitygroups06.png	
+[securitygroups07]:../images/admin-portal/securitygroups07.png	
+[securitygroups08]:../images/admin-portal/securitygroups08.png	
+[securitygroups09]:../images/admin-portal/securitygroups09.png	
+[isolationSegments01]:../images/admin-portal/isolationSegments01.png	
 [isolationSegments02]:../images/admin-portal/isolationSegments02.png	
 [isolationSegments03]:../images/admin-portal/isolationSegments03.png	
 [isolationSegments04]:../images/admin-portal/isolationSegments04.png	
 [isolationSegments05]:../images/admin-portal/isolationSegments05.png	
-[isolationSegments06]:../images/admin-portal/isolationSegments06.png	
-[isolationSegments07]:../images/admin-portal/isolationSegments07.png	
-[isolationSegments08]:../images/admin-portal/isolationSegments08.png	
-[isolationSegments09]:../images/admin-portal/isolationSegments09.png	
 
 
