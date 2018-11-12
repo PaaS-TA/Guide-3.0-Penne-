@@ -121,7 +121,7 @@
 ![IMG_017]
 
 
-##### <div id='3-2-1-3'/> 3.2.1.3. Namespaces
+#### <div id='3-2-1-3'/> 3.2.1.3. Namespaces
 ##### <div id='3-2-1-3-1'/> 3.2.1.3.1. Namespace 상세 조회
 
 - Namespace 상세 페이지는 Details, Events 탭으로 구성된다.
@@ -133,7 +133,7 @@
 ![IMG_049]
 
 
-##### <div id='3-2-1-4'/> 3.2.1.4. Nodes
+#### <div id='3-2-1-4'/> 3.2.1.4. Nodes
 ##### <div id='3-2-1-4-1'/> 3.2.1.4.1. Node 상세 조회
 
 - Node 상세 페이지는 Summary, Details, Events 탭으로 구성된다.
