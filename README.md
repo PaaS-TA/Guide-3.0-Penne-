@@ -29,7 +29,7 @@
 - 통합 개발 도구 설치
   - [배포파이프라인](./Service-Guide/Tools/PaaS-TA%20배포%20파이프라인%20서비스팩%20설치%20가이드_v1.0.md)
   - [형상관리](./Service-Guide/Tools/PaaS-TA%20형상관리%20서비스팩%20설치%20가이드_v1.0.md)
-  - [Contanier 서비스](./Service-Guide/Tools/PaaS-TA%20Container%20서비스팩%20설치%20가이드_v1.0.md)
+  - [Container 서비스](./Service-Guide/Tools/PaaS-TA%20Container%20서비스팩%20설치%20가이드_v1.0.md)
   
 ## 포털 설치 가이드
 - [PaaS-TA 포털](./Install-Guide/Portal/PaaS-TA%20Portal%20설치가이드.md)
