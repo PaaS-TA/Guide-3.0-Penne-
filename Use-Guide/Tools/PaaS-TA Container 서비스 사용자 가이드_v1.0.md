@@ -196,7 +196,7 @@
 
 ![IMG_020]
 
-##### <div id='3-2-4-1'/> 3.2.4.1. Deployments
+#### <div id='3-2-4-1'/> 3.2.4.1. Deployments
 
 ##### <div id='3-2-4-1-1'/> 3.2.4.1.1. Deployment 목록 조회
 1. Workloads의 Deployment 탭을 클릭하여 Deployment 목록 페이지로 이동한다.
@@ -214,7 +214,7 @@
 ![IMG_038]
 
 
-##### <div id='3-2-4-2'/> 3.2.4.2. Pods
+#### <div id='3-2-4-2'/> 3.2.4.2. Pods
 
 ##### <div id='3-2-4-2-1'/> 3.2.4.2.1. Pod 목록 조회
 1. Workloads의 Pods 탭을 클릭하여 Pod 목록 페이지로 이동한다.
@@ -231,7 +231,7 @@
 ![IMG_046]
 
 
-##### <div id='3-2-4-3'/> 3.2.4.3. Replica Sets
+#### <div id='3-2-4-3'/> 3.2.4.3. Replica Sets
 
 ##### <div id='3-2-4-3-1'/> 3.2.4.3.1. Replica Set 목록 조회
 1. Workloads의 Replica Sets 탭을 클릭하여 Replica Set 목록 페이지로 이동한다.
