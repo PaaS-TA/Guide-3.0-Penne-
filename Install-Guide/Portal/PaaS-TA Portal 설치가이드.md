@@ -7,10 +7,11 @@
 2. [PaaS-TA Portal 설치](#2-paas-ta-portal-설치)
     *  [2.1 설치전 준비사항](#21-설치전-준비사항)
     *  [2.2 PaaS-TA Portal 릴리즈 업로드](#22-paas-ta-portal-릴리즈-업로드)
-    *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-mysql-bosh2.0.sh-수정-및-배포)
+    *  [2.3 PaaS-TA Portal Deployment 파일 수정 및 배포](#23-paas-ta-portal-deployment-파일-및-deploy-portal-bosh2.0.sh-수정-및-배포)
+    *  [2.4 사용자의 조직 생성 Flag 활성화](#24-사용자의-조직-생성-flag-활성화)
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
     *  [3.1 DB Migration](#31-db-migration)
-    *  [3.2 Log](#32-Log)
+    *  [3.2 Log](#32-log)
     *  [3.3 카탈로그 적용](#33-catalog)
 
 # 1. 문서 개요
@@ -30,7 +31,7 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 
 | VM_Type | 스펙 |
 |--------|-------|
-|portal_large| 1vCPU / 2GB RAM / 4GB Disk|
+|portal_tiny| 1vCPU / 256MB RAM / 4GB Disk|
 |portal_medium| 1vCPU / 1GB RAM / 4GB Disk|
 |portal_small| 1vCPU / 512MB RAM / 4GB Disk|
 
@@ -39,17 +40,17 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 
 | 구분 | Resource Pool | 스펙 |
 |--------|-------|-------|
-| binary_storage | portal_large | 1vCPU / 2GB RAM / 4GB Disk 10GB(영구적 Disk) |
-| haproxy | portal_large | 1vCPU / 2GB RAM / 4GB Disk |
-| mariadb | portal_large | 1vCPU / 2GB RAM / 4GB Disk +10GB(영구적 Disk) |
+| binary_storage | portal_small | 1vCPU / 512MB RAM / 4GB Disk 10GB(영구적 Disk) |
+| haproxy |portal_small| 1vCPU / 512MB RAM / 4GB Disk|
+| mariadb | portal_small | 1vCPU / 512MB RAM / 4GB Disk +10GB(영구적 Disk) |
 | paas-ta-portal-registration | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
-| paas-ta-portal-gateway | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-api | portal_large | 1vCPU / 2GB RAM / 4GB Disk |
-| paas-ta-portal-common-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-log-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-storage-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-webadmin | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
-| paas-ta-portal-webuser | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-gateway | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-api | portal_medium | 1vCPU / 1GB RAM / 4GB Disk |
+| paas-ta-portal-common-api | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-log-api | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-storage-api | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-webadmin | portal_small | 1vCPU / 512MB RAM / 4GB Disk |
+| paas-ta-portal-webuser |portal_small| 1vCPU / 512MB RAM / 4GB Disk|
 
 ### 1.4. 참고자료
 [**http://bosh.io/docs**](http://bosh.io/docs)  
@@ -188,7 +189,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
     		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 		Name                              Version   Commit Hash  
-    	binary-buildpack                  1.0.21*   d714741  
+    		binary-buildpack                  1.0.21*   d714741  
 		bpm                               0.9.0*    c9b7136  
 		caas-release                      1.0*      empty+  
 		capi                              1.62.0*   22a608c  
@@ -555,12 +556,12 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 
 -	Deployment 파일을 서버 환경에 맞게 수정한다.
 -  azs의 경우 z5 ~ z6 로 설정한다.
->"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-vsphere.sh 참고 예) os : ((stemcell_os))
+>"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
  
 ```yml
-# paas-ta-portal-vsphere-2.0.yml 설정 파일 내용
+# paas-ta-portal-bosh2.0.yml 설정 파일 내용
 ---
-name: paas-ta-portal-v2                      # 서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
+name: paasta-portal                      # 서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
 
 stemcells:
 - alias: ((stemcell_alias))
@@ -907,6 +908,7 @@ instance_groups:
       uaa:
         url: ((cf_uaa_url))
         clientsecret: ((portal_client_secret))
+        logouturl: ((cf_uaa_logouturl))
 
 ######### COMMON PROPERTIES ##########
 properties:
@@ -954,25 +956,28 @@ properties:
 ```
 >현재 기본으로 제공된 release는 infra-admin은 비활성화 상태다. 활성화 하려면 instance_group의 infra-admin 설정부분앞의 #을 제거하고 paas-ta-portal-registration의 infra admin enable을 true로 바꿔야한다.
 
--	deploy-vsphere.sh 파일을 서버 환경에 맞게 수정한다.
+-	deploy-portal-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
         - bosh 명령문 후에 주석(#)을 사용할경우 오류가 발생한다. 
 ```sh
 기본 명령어 : bosh -e micro-bosh -d [deployment name] [deploy.yml]
 
 #!/bin/bash
-# stemcell 버전은 3445.2 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+# stemcell 버전은 3468.51 버전으로 사용하십시요.
+# vsphere 인 경우 에는 use-public-network-vsphere.yml 사용하여 public ip를 설정 하고 그 이외의 IaaS는 use-public-network.yml 사용한다.
 
-bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \ 
-   -v release_version="2.0" \                                               릴리즈 버전
+bosh -e micro-bosh -d paas-ta-portal-v2 deploy paasta-portal-bosh2.0.yml \ 
    -v stemcell_os="ubuntu-trusty"\                                          Stemcell_os
-   -v stemcell_version="3445.2"\                                            Stemcell version
+   -v stemcell_version="3468.51"\                                           Stemcell version
    -v stemcell_alias="default"\                                             Stemcell_alias
+   -v vm_type_small="portal_small"\                                         small vm type (512MB)
+   -v vm_type_medium="portal_medium"\                                       medium vm type (1GB)
+   -v vm_type_large="portal_large"\                                         large vm type (2GB)
    -v internal_networks_name="service_private"\                             Private ip 네트워크 이름(cloud config 참고) 
    -v external_networks_name="portal_service_public"\                       Public ip 네트워크 이름(cloud config 참고)
    -v mariadb_ips="10.30.107.211"\                                          Mariadb ip
    -v mariadb_disk_type="10GB"\                                             Mariadb disk
    -v mariadb_port="3306"\                                                  Mariadb port
-   -v mariadb_user_password="Paasta@2018"\                                  Mariadb paasword, id는 root로 통일
+   -v mariadb_user_password="xxxxxxxxxxx"\                                  Mariadb paasword, id는 root로 통일
    -v binary_storage_ips="10.30.107.212"\                                   Binary_storage ip
    -v binary_storage_disk_type="10GB"\                                      Binary_storage disk
    -v binary_storage_username="paasta-portal"\                              Binary_storage user name
@@ -997,22 +1002,26 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
    -v uaa_db_id="uaa"\                                                      UAA_database id
    -v uaa_db_password="uaa_admin"\                                          UAA_database password
    -v cf_uaa_url="https://uaa.115.68.46.189.xip.io"\                        UAA_페이지 URL
+   -v cf_uaa_logouturl="logout.do"\                                         UAA logout URL
    -v cf_api_url="https://api.115.68.46.189.xip.io"\                        CF_api url
    -v cf_admin_password="admin_test"\                                       CF_admin password, id는 admin으로 통일
    -v cf_uaa_admin_client_secret="admin-secret"\                            UAA admin client secret
-   -v portal_client_secret="clientsecret"\                                  Portal client secret
+   -v portal_client_secret="portalclient"\                                  Portal client secret
    -v paas_ta_web_user_url="http://portal-web-user.115.68.46.214.xip.io"\   User_portal url 설정
    -v abacus_url="http://monitoring.115.68.46.214"\                         Abacus_url
+   -v portal_webuser_quantity=false\                                        사용량 조회 사용 여부
    -v monitoring_api_url="http://abacus.115.68.46.214"\                     Monitoring_api url
+   -v portal_webuser_monitoring=false\                                      Monitoring 사용 여부
    -v mail_smtp_host="smtp.gmail.com"\                                      Mail_smtp host
    -v mail_smtp_port="465"\                                                 Mail_smtp port
    -v mail_smtp_username="PaaS-TA"\                                         Mail_smtp username
-   -v mail_smtp_password="paas-ta1234"\                                     Mail_smtp password
-   -v mail_smtp_useremail="openpasta@gmail.com"\                            Mail_smtp user email
+   -v mail_smtp_password="xxxxxxxxxxx"\                                     Mail_smtp password
+   -v mail_smtp_useremail="xxxxxxxxx@gmail.com"\                            Mail_smtp user email
    -v mail_smtp_properties_auth="true"\                                     Mail_smtp auth
    -v mail_smtp_properties_starttls_enable="true"\                          Mail_smtp host enable
    -v mail_smtp_properties_starttls_required="true"\                        Mail_smtp starttls required
-   -v mail_smtp_properties_subject="PaaS-TA User Potal"                     Mail_smtp subject(메일 제목)
+   -v mail_smtp_properties_subject="PaaS-TA User Potal"\                    Mail_smtp subject(메일 제목)
+   -v portal_webuser_automaticapproval=false                                자동 가입 승인 여부
 ```
 > release_version : 릴리즈 버전을 입력한다. $bosh releases 명령문으로 확인가능
  
@@ -1022,7 +1031,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
       paas-ta-portal-release             2.0*      00000000  
 
 > stemcell_os : 스템셀 OS를 입력한다. $bosh stemcells 명령문으로 확인가능\
-> stemcell_version : 스템셀 버전을 입력한다. $bosh stemcells 명령문으로 확인가능(3445.2 verion 사용)\
+> stemcell_version : 스템셀 버전을 입력한다. $bosh stemcells 명령문으로 확인가능(3468.51 verion 사용)\
 > stemcell_alias : bosh deploy시 사용할 스템셀 명칭을 정한다.
 
     - $ bosh stemcells
@@ -1424,7 +1433,7 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         + stemcells:
         + - alias: default
         +   os: ubuntu-trusty
-        +   version: '3445.2'
+        +   version: '3468.51'
           
         + releases:
         + - name: paas-ta-portal-release
@@ -1887,12 +1896,12 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
 
 - **사용 예시**
 
-		bosh -e micro-bosh -d paas-ta-portal-v2 vms
+		bosh -e micro-bosh -d paasta-portal vms
 		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 		Task 4823. Done
         
-        Deployment 'paas-ta-portal-v2'
+        Deployment 'paasta-portal'
         
         Instance                                                          Process State  AZ  IPs            VM CID                                   VM Type        Active  
         binary_storage/9f58a9b7-2a3d-4ee9-8975-7b04b99c0a21               running        z5  10.30.107.212  vm-e65ad396-ce65-4ef0-962d-5c54fa411769  portal_large   true  
@@ -1911,6 +1920,19 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paas-ta-portal-vsphere-2.0.yml \
         11 vms
         
         Succeeded
+
+### 2.4. 사용자의 조직 생성 Flag 활성화
+PaaS-TA는 기본적으로 일반 사용자는 조직을 생성할 수 없도록 설정되어 있다. 포털 배포를 위해 조직 및 공간을 생성해야 하고 또 테스트를 구동하기 위해서도 필요하므로 사용자가 조직을 생성할 수 있도록 user_org_creation FLAG를 활성화 한다. FLAG 활성화를 위해서는 PaaS-TA 운영자 계정으로 로그인이 필요하다.
+
+```
+$ cf enable-feature-flag user_org_creation
+```
+```
+Setting status of user_org_creation as admin...
+OK
+
+Feature user_org_creation Enabled.
+```
 
 # 3. PaaS-TA Portal 운영
 이전버전에서 사용한 Portal DB를 PaasTA 3.5 Portal DB에 마이그레이션 하는 방법을 설명한다.

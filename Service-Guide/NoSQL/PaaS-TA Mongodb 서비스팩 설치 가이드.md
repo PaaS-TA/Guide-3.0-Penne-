@@ -1,32 +1,32 @@
 ## Table of Contents
-1. [문서 개요](#1-문서-개요)
-  - 1.1. [목적](#11-목적)
-  - 1.2. [범위](#12-범위)
-  - 1.3. [시스템 구성도](#13-시스템-구성도)
-  - 1.4. [참고자료](#14-참고자료)
-2. [Mongodb 서비스팩 설치](#2-Mongodb-서비스팩-설치)
-  - 2.1. [설치전 준비사항](#21-설치전-준비사항)
-  - 2.2. [Mongodb 서비스 릴리즈 업로드](#22-Mongodb-서비스-릴리즈-업로드)
-  - 2.3. [Mongodb 서비스 Deployment 파일 수정 및 배포](#23-Mongodb-서비스-deployment-파일-수정-및-배포)
-  - 2.4. [Mongodb 서비스 브로커 등록](#24-Mongodb-서비스-브로커-등록)
-3. [Mongodb 연동 Sample Web App 설명](#3-mysql-연동-sample-web-app-설명)
-  - 3.1. [Sample App 구조](#31-sample-app-구조)
-  - 3.2. [PaaS-TA에서 서비스 신청](#32-paas-ta에서-서비스-신청)
-  - 3.3. [Sample App에 서비스 바인드 신청 및 App 확인](#33-sample-app에-서비스-바인드-신청-및-app-확인)
-4. [Mongodb Client 툴 접속](#4-Mongodb-client-툴-접속)
-  - 4.1. [MongoChef 설치 및 연결](#41-MongoChef-설치-및-연결)
+1. [문서 개요](#1)
+  - 1.1. [목적](#11)
+  - 1.2. [범위](#12)
+  - 1.3. [시스템 구성도](#13)
+  - 1.4. [참고자료](#14)
+2. [Mongodb 서비스팩 설치](#2)
+  - 2.1. [설치전 준비사항](#21)
+  - 2.2. [Mongodb 서비스 릴리즈 업로드](#22)
+  - 2.3. [Mongodb 서비스 Deployment 파일 수정 및 배포](#23)
+  - 2.4. [Mongodb 서비스 브로커 등록](#24)
+3. [Mongodb 연동 Sample Web App 설명](#3)
+  - 3.1. [Sample App 구조](#31)
+  - 3.2. [PaaS-TA에서 서비스 신청](#32)
+  - 3.3. [Sample App에 서비스 바인드 신청 및 App 확인](#33)
+4. [Mongodb Client 툴 접속](#4)
+  - 4.1. [MongoChef 설치 및 연결](#41)
 
 
-# 1. 문서 개요
-### 1.1. 목적
+# <div id='1'> 1. 문서 개요
+### <div id='11'> 1.1. 목적
 
 본 문서(Mongodb 서비스팩 설치 가이드)는 전자정부표준프레임워크 기반의 PaaS-TA에서 제공되는 서비스팩인 Mongodb 서비스팩을 Bosh를 이용하여 설치 하는 방법과 PaaS-TA의 SaaS 형태로 제공하는 Application 에서 Mongodb 서비스를 사용하는 방법을 기술하였다.
 PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 Bosh1.0 기반으로 설치를 원할경우에는 PaaS-TA 3.1 이하 버전의 문서를 참고한다.
 
-### 1.2. 범위
+### <div id='12'> 1.2. 범위
 설치 범위는 Mongodb 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
 
-### 1.3. 시스템 구성도
+### <div id='13'> 1.3. 시스템 구성도
 본 문서의 설치된 시스템 구성도입니다. Mongodb Server, Mongodb 서비스 브로커로 최소사항을 구성하였다.
 
 ![시스템구성도][mongodb_image_02]
@@ -55,465 +55,1103 @@ PaaS-TA 3.5 버전부터는 Bosh2.0 기반으로 deploy를 진행하며 기존 B
 </table>
 
 
-### 1.4. 참고자료
+### <div id='14'> 1.4. 참고자료
 [**http://bosh.io/docs**](http://bosh.io/docs)
 [**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
 
 
 
-# 2.  Mongodb 서비스팩 설치
+# <div id='2'> 2.  Mongodb 서비스팩 설치
 
-### 2.1.  설치전 준비사항
-본 서비스팩 설치를 위해서는 먼저 BOSH CLI가 설치 되어 있어야 하고 BOSH 에 로그인 및 target 설정이 되어 있어야 한다.
-BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여 BOSH CLI를 설치 해야 한다.
-PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaS-TA-Services.zip, PaaS-TA-Deployment.zip, PaaS-TA-Sample-Apps.zip)
+### <div id='21'> 2.1.  설치전 준비사항
+본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
+서비스팩 설치를 위해서는 먼저 BOSH CLI v2 가 설치 되어 있어야 하고 BOSH 에 로그인이 되어 있어야 한다.<br>
+BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이드 문서를 참고 하여 BOSH CLI v2를 설치를 하고 사용법을 숙지 해야 한다.<br>
+
+- BOSH2.0 사용자 가이드
+>BOSH2 사용자 가이드 : **<https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH2_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md>**
+
+>BOSH CLI V2 사용자 가이드 : **<https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md>**
+
+- PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
 
 - 다운로드 위치
->PaaSTA-Services : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Services.zip>**  
->PaaSTA-Deployment : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Deployment.zip>**  
+>PaaSTA-Deployment : **<https://paas-ta.kr/data/packages/3.5/deployment.zip>**  
 >PaaSTA-Sample-Apps : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Sample-Apps.zip>**
 
+### <div id='22'> 2.2. Mongodb 서비스 릴리즈 업로드
 
-
-### 2.2. Mongodb 서비스 릴리즈 업로드
-
-- PaaS-TA-Services.zip 파일 압축을 풀고 폴더안에 있는 Mongodb 서비스 릴리즈 pasta-mongodb-shard-2.0.tgz 파일을 확인한다.
+-	업로드 되어 있는 릴리즈 목록을 확인한다.
 
 - **사용 예시**
 
-		$ ls –all
-    		rw-rw-r-- 1 ubuntu ubuntu 121273779 Jan 16 04:05 paasta-mongodb-shard-2.0.tgz
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+    		bpm                               0.9.0*    c9b7136  
+    		caas-release                      1.0*      empty+  
+    		capi                              1.62.0*   22a608c  
+	    	cf-networking                     2.8.0*    479f4a66  
+	    	cf-smoke-tests                    40.0.5*   d6aaf1f  
+	    	cf-syslog-drain                   7.0*      71b995a  
+	    	cflinuxfs2                        1.227.0*  60128e1  
+	    	consul                            195*      67cdbcd  
+	    	diego                             2.13.0*   b5644d9  
+	    	dotnet-core-buildpack             2.1.3*    46a41cd  
+	    	garden-runc                       1.15.1*   75107e7+  
+	    	go-buildpack                      1.8.25*   40c60a0  
+	    	haproxy                           8.8.0*    9292573  
+	    	java-buildpack                    4.13*     c2749d3  
+	    	loggregator                       103.0*    05da4e3d  
+	    	loggregator-agent                 2.0*      2382c90  
+	    	nats                              24*       30e7a82  
+	    	nodejs-buildpack                  1.6.28*   4cfdb7b  
+	    	paas-ta-portal-release            2.0*      non-git  
+	    	paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+	    	paasta-pinpoint                   2.0*      2dbb8bf3+  
+	    	php-buildpack                     4.3.57*   efc48f3  
+	    	postgres                          29*       5de4d63d+  
+	    	python-buildpack                  1.6.18*   bcc4f26  
+	    	routing                           0.179.0*  18155a5  
+	    	ruby-buildpack                    1.7.21*   9d69600  
+	    	silk                              2.9.0*    eebed55  
+	    	staticfile-buildpack              1.4.29*   8a82e63  
+	    	statsd-injector                   1.3.0*    39e5179  
+	    	uaa                               60.2*     ebb5895  
 
--  업로드 되어 있는 릴리즈 목록을 확인한다.
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	31 releases
+
+	    	Succeeded
+
+-	Mongodb 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+
+-	Mongodb 서비스 릴리즈 파일을 업로드한다.
+
 - **사용 예시**
 
-		$ bosh releases
+		$ bosh -e micro-bosh upload-release paasta-mongodb-shard-2.0.tgz
+    		
+		######################################################### 100.00% 93.67 MiB/s 0s
+		Task 8119
+
+		Task 8119 | 06:47:16 | Extracting release: Extracting release (00:00:01)
+		Task 8119 | 06:47:17 | Verifying manifest: Verifying manifest (00:00:00)
+		Task 8119 | 06:47:17 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+		Task 8119 | 06:47:17 | Creating new packages: cli/668cd93a9dc828726341909df08f74dce57478fe (00:00:00)
+		Task 8119 | 06:47:17 | Creating new packages: java7/a6b0fd78eadc51bfbf305a5571a710128fae6fe5 (00:00:05)
+		Task 8119 | 06:47:22 | Creating new packages: mongodb/f48a8e934cc387162028629a196040c17bfa3401 (00:00:01)
+		Task 8119 | 06:47:23 | Creating new packages: mongodb_broker/25bacb6034e74fc63b592c8bb6ba98cf512afbbc (00:00:00)
+		Task 8119 | 06:47:23 | Creating new jobs: mongodb_broker/9d10fbfc09bb211114058ffd16dce044ff27d75e (00:00:01)
+		Task 8119 | 06:47:24 | Creating new jobs: mongodb_broker_deregistrar/d437a344605d23e639a34373c4b2553841c956a5 (00:00:00)
+		Task 8119 | 06:47:24 | Creating new jobs: mongodb_broker_registrar/1f2b27e672ee49de953cf718de841b3018ab9fb2 (00:00:00)
+		Task 8119 | 06:47:24 | Creating new jobs: mongodb_config/1cf1de67d7ffc4c30a573de973a8573e1098d81c (00:00:00)
+		Task 8119 | 06:47:24 | Creating new jobs: mongodb_master/b58a9c73a51c95a98bda70f9884ffbc995fc0a52 (00:00:00)
+		Task 8119 | 06:47:24 | Creating new jobs: mongodb_shard/9e8f61155d16c2f6eb8012278f7be65c26c0c8b5 (00:00:00)
+		Task 8119 | 06:47:24 | Creating new jobs: mongodb_slave/640d6953cba4ac04d17c0e3aa2af6820e5298b8a (00:00:00)
+		Task 8119 | 06:47:24 | Release has been created: paasta-mongodb-shard/2.0 (00:00:00)
+
+		Task 8119 Started  Thu Sep 13 06:47:16 UTC 2018
+		Task 8119 Finished Thu Sep 13 06:47:24 UTC 2018
+		Task 8119 Duration 00:00:08
+		Task 8119 done
+
+		Succeeded
+
+
+-	업로드 된 Mongodb 릴리즈를 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh releases
+    		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Name                              Version   Commit Hash  
+    		binary-buildpack                  1.0.21*   d714741  
+		bpm                               0.9.0*    c9b7136  
+		caas-release                      1.0*      empty+  
+		capi                              1.62.0*   22a608c  
+		cf-networking                     2.8.0*    479f4a66  
+		cf-smoke-tests                    40.0.5*   d6aaf1f  
+		cf-syslog-drain                   7.0*      71b995a  
+		cflinuxfs2                        1.227.0*  60128e1  
+		consul                            195*      67cdbcd  
+		diego                             2.13.0*   b5644d9  
+		dotnet-core-buildpack             2.1.3*    46a41cd  
+		garden-runc                       1.15.1*   75107e7+  
+		go-buildpack                      1.8.25*   40c60a0  
+		haproxy                           8.8.0*    9292573  
+		java-buildpack                    4.13*     c2749d3  
+		loggregator                       103.0*    05da4e3d  
+		loggregator-agent                 2.0*      2382c90  
+		nats                              24*       30e7a82  
+		nodejs-buildpack                  1.6.28*   4cfdb7b  
+		paas-ta-portal-release            2.0*      non-git  
+		paasta-delivery-pipeline-release  1.0*      b3ee8f48+  
+		paasta-mongodb-shard              2.0       3c41864+  
+		paasta-pinpoint                   2.0*      2dbb8bf3+  
+		php-buildpack                     4.3.57*   efc48f3  
+		postgres                          29*       5de4d63d+  
+		python-buildpack                  1.6.18*   bcc4f26  
+		routing                           0.179.0*  18155a5  
+		ruby-buildpack                    1.7.21*   9d69600  
+		silk                              2.9.0*    eebed55  
+		staticfile-buildpack              1.4.29*   8a82e63  
+		statsd-injector                   1.3.0*    39e5179  
+		uaa                               60.2*     ebb5895  
+
+	    	(*) Currently deployed
+	    	(+) Uncommitted changes
+
+	    	32 releases
+
+	    	Succeeded
 		
-		+--------------------+----------------+-------------+
-		| Name               | Versions       | Commit Hash |
-		+--------------------+----------------+-------------+
-		| cf-monitoring      | 0+dev.1*       | 00000000    |
-		| cflinuxfs2-rootfs  | 1.40.0*        | 19fe09f4+   |
-		| etcd               | 86*            | 2dfbef00+   |
-		| logsearch          | 203.0.0+dev.1* | 00000000    |
-		| metrics-collector  | 0+dev.1*       | 00000000    |
-		| paasta-container   | 0+dev.1*       | b857e171    |
-		| paasta-controller  | 0+dev.1*       | 0f315314    |
-		| paasta-garden-runc | 2.0*           | ea5f5d4d+   |
-		+--------------------+----------------+-------------+
-		
+-	Mongodb 서비스 릴리즈가 업로드 되어 있는 것을 확인
+
+-	Deploy시 사용할 Stemcell을 확인한다.
+
+- **사용 예시**
+
+		$ bosh -e micro-bosh stemcells
+		Name                                      Version   OS             CPI  CID  
+		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+		~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
+
 		(*) Currently deployed
-		(+) Uncommitted changes
 
-- Mongodb 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+		3 stemcells
 
-- Mongodb 서비스 릴리즈를 업로드한다.
-
-- **사용 예시**
-
-		$ bosh upload release paasta-mongodb-shard-2.0.tgz
-		  Uploading release
-        paasta-mongod:  96% |oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo     | 111.0MB  22.9MB/s ETA:  00:00:00
-        Director task 692
-          Started extracting release > Extracting release. Done (00:00:01)
-        
-          Started verifying manifest > Verifying manifest. Done (00:00:00)
-        
-          Started resolving package dependencies > Resolving package dependencies. Done (00:00:00)
-        
-          Started creating new packages
-          Started creating new packages > mongodb_broker/d547d39098e73acb70d58ab2be2c18c2410dfa5b. Done (00:00:01)
-          Started creating new packages > java7/cb28502f6e89870255182ea76e9029c7e9ec1862. Done (00:00:01)
-          Started creating new packages > cli/24305e50a638ece2cace4ef4803746c0c9fe4bb0. Done (00:00:00)
-          Started creating new packages > mongodb/b355ac045b257e6a0cec85874c6fb6e7abe92b6d. Done (00:00:00)
-             Done creating new packages (00:00:02)
-        
-          Started creating new jobs
-          Started creating new jobs > mongodb_slave/cd18c5187f44f8e3d1d2c7937047cc748a851a43. Done (00:00:00)
-          Started creating new jobs > mongodb_broker/10da2f3c0e374b01f818b28ff5ecb8044fd0cd1a. Done (00:00:00)
-          Started creating new jobs > mongodb_config/dcb9c707d4e9757a150f540ee5af39efb8580f04. Done (00:00:01)
-          Started creating new jobs > mongodb_master/adfc199c9d2f3aceaf31fe56e553e15faf605ee7. Done (00:00:00)
-          Started creating new jobs > mongodb_broker_deregistrar/d797f068e89265313436b7c6439d93288d0fafbe. Done (00:00:00)
-          Started creating new jobs > mongodb_shard/a549bee23d326211549a2dce9def42d85b655e4d. Done (00:00:00)
-          Started creating new jobs > mongodb_broker_registrar/a4892a7dfec7acdc7ba0cd2618a79ee3b2f80d9b. Done (00:00:00)
-             Done creating new jobs (00:00:01)
-        
-          Started release has been created > paasta-mongodb-shard/2.0. Done (00:00:00)
-        
-        Task 692 done
-        
-        Started   2017-01-16 04:16:20 UTC
-        Finished  2017-01-16 04:16:24 UTC
-        Duration  00:00:04
-        paasta-mongod:  96% |oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo     | 111.3MB  11.0MB/s Time: 00:00:10
-        
-
--   업로드 되어 있는 릴리즈 목록을 확인한다.
-
-- **사용 예시**
-
-		$ bosh releases
+		Succeeded
 		
-		+--------------------+----------------+---------------+
-		| Name                 | Versions       | Commit Hash |
-		+--------------------+----------------+---------------+
-		| cf-monitoring        | 0+dev.1*       | 00000000    |
-		| cflinuxfs2-rootfs    | 1.40.0*        | 19fe09f4+   |
-		| etcd                 | 86*            | 2dfbef00+   |
-		| logsearch            | 203.0.0+dev.1* | 00000000    |
-		| metrics-collector    | 0+dev.1*       | 00000000    |
-		| paasta-container     | 0+dev.1*       | b857e171    |
-		| paasta-controller    | 0+dev.1*       | 0f315314    |
-		| paasta-garden-runc   | 2.0*           | ea5f5d4d+   |
-		| paasta-mongodb-shard | 2.0*           | 85e3f01e+   |
-		+--------------------+----------------+---------------+
-		
-		(*) Currently deployed
-		(+) Uncommitted changes
-		
-		Releases total: 9
+>Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (Mongodb 는 stemcell 3309 버전을 사용)
 
 
--   Mongodb 서비스 릴리즈가 업로드 되어 있는 것을 확인
+### <div id='23'> 2.3. Mongodb 서비스 Deployment 파일 수정 및 배포
 
+BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
+Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
 
-### 2.3. Mongodb 서비스 Deployment 파일 수정 및 배포
+deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 활용하고 해당 가이드는 Bosh2.0 가이드를 참고한다.
 
-BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML  파일이다.
-Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용 할 것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
-
-- PaaS-TA-Deployment.zip 파일 압축을 풀고 폴더안에 있는 vSphere 용 Mongodb Deployment 파일인 paasta-mongodb-shard-vsphere-2.0.yml 를 복사한다.
-다운로드 받은 Deployment Yml 파일을 확인한다. (paasta-mongodb-shard-vsphere-2.0.yml)
+-	cloud config 내용 조회
 
 - **사용 예시**
 
-		$ ls --all
-		
-![mongodb_image_03]
+		bosh -e micro-bosh cloud-config
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		azs:
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z1
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z2
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z3
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z4
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z5
+		- cloud_properties:
+		    datacenters:
+		    - clusters:
+		      - BD-HA:
+			  resource_pool: CF_BOSH2_Pool
+		      name: BD-HA
+		  name: z6
+		compilation:
+		  az: z1
+		  network: default
+		  reuse_compilation_vms: true
+		  vm_type: large
+		  workers: 5
+		disk_types:
+		- disk_size: 1024
+		  name: default
+		- disk_size: 1024
+		  name: 1GB
+		- disk_size: 2048
+		  name: 2GB
+		- disk_size: 4096
+		  name: 4GB
+		- disk_size: 5120
+		  name: 5GB
+		- disk_size: 8192
+		  name: 8GB
+		- disk_size: 10240
+		  name: 10GB
+		- disk_size: 20480
+		  name: 20GB
+		- disk_size: 30720
+		  name: 30GB
+		- disk_size: 51200
+		  name: 50GB
+		- disk_size: 102400
+		  name: 100GB
+		- disk_size: 1048576
+		  name: 1TB
+		networks:
+		- name: default
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.111.40
+		- name: public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.177
+		    range: 115.68.46.176/28
+		    reserved:
+		    - 115.68.46.176 - 115.68.46.188
+		    static:
+		    - 115.68.46.189 - 115.68.46.190
+		  type: manual
+		- name: service_private
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: Internal
+		    dns:
+		    - 8.8.8.8
+		    gateway: 10.30.20.23
+		    range: 10.30.0.0/16
+		    reserved:
+		    - 10.30.0.0 - 10.30.106.255
+		    static:
+		    - 10.30.107.1 - 10.30.107.255
+		- name: service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.47.161
+		    range: 115.68.47.160/24
+		    reserved:
+		    - 115.68.47.161 - 115.68.47.174
+		    static:
+		    - 115.68.47.175 - 115.68.47.185
+		  type: manual
+		- name: portal_service_public
+		  subnets:
+		  - azs:
+		    - z1
+		    - z2
+		    - z3
+		    - z4
+		    - z5
+		    - z6
+		    cloud_properties:
+		      name: External
+		    dns:
+		    - 8.8.8.8
+		    gateway: 115.68.46.209
+		    range: 115.68.46.208/28
+		    reserved:
+		    - 115.68.46.216 - 115.68.46.222
+		    static:
+		    - 115.68.46.214
+		  type: manual
+		vm_extensions:
+		- cloud_properties:
+		    ports:
+		    - host: 3306
+		  name: mysql-proxy-lb
+		- name: cf-router-network-properties
+		- name: cf-tcp-router-network-properties
+		- name: diego-ssh-proxy-network-properties
+		- name: cf-haproxy-network-properties
+		- cloud_properties:
+		    disk: 51200
+		  name: small-50GB
+		- cloud_properties:
+		    disk: 102400
+		  name: small-highmem-100GB
+		vm_types:
+		- cloud_properties:
+		    cpu: 1
+		    disk: 8192
+		    ram: 1024
+		  name: minimal
+		- cloud_properties:
+		    cpu: 1
+		    disk: 10240
+		    ram: 2048
+		  name: default
+		- cloud_properties:
+		    cpu: 1
+		    disk: 30720
+		    ram: 4096
+		  name: small
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 4096
+		  name: medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 20480
+		    ram: 8192
+		  name: medium-memory-8GB
+		- cloud_properties:
+		    cpu: 4
+		    disk: 20480
+		    ram: 8192
+		  name: large
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: xlarge
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB
+		- cloud_properties:
+		    cpu: 2
+		    disk: 51200
+		    ram: 4096
+		  name: small-50GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 4
+		    disk: 102400
+		    ram: 8192
+		  name: small-highmem-100GB-ephemeral-disk
+		- cloud_properties:
+		    cpu: 8
+		    disk: 20480
+		    ram: 16384
+		  name: small-highmem-16GB
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 2048
+		  name: caas_small
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 1024
+		  name: caas_small_api
+		- cloud_properties:
+		    cpu: 1
+		    disk: 4096
+		    ram: 4096
+		  name: caas_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 8192
+		    ram: 4096
+		  name: service_medium
+		- cloud_properties:
+		    cpu: 2
+		    disk: 10240
+		    ram: 2048
+		  name: service_medium_2G
+
+		Succeeded
 
 
-- Director UUID를 확인한다.
-BOSH CLI가 배포에 대한 모든 작업을 허용하기 위한 현재 대상 BOSH Director의 UUID와 일치해야 한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director에 target 되어 있는 UUID를 확인할 수 있다.
+-	Deployment 파일을 서버 환경에 맞게 수정한다.
 
-- **사용 예시**
+```yml
+# openpaas-mongodb-shard-service 설정 파일 내용
+---
+name: paasta-mongodb-shard-service  # 서비스 배포이름(필수)
 
-		$ bosh status
+release:
+  name: paasta-mongodb-shard  #서비스 릴리즈 이름(필수)
+  version: "2.0"   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
-![mongodb_image_04]
+stemcells:
+- alias: default
+  os: ((stemcell_os))
+  version: "((stemcell_version))"
 
+update:
+  canaries: 1                                          # canary 인스턴스 수(필수)
+  canary_watch_time: 30000-180000                      # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 6                                     # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  update_watch_time: 30000-180000                      # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
 
-- Deploy시 사용할 Stemcell을 확인한다.
+instance_groups:
+- name: mongodb_slave1  #작업 이름(필수): mongodb replica set의 slave 서버
+  azs:
+  - z5
+  instances: 2  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.202
+    - 10.30.107.203
+  properties:
+    replSetName: op1 # replicaSet1 의 이름
+  templates:
+  - name: mongodb_slave                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-- **사용 예시**
+- name: mongodb_slave2  #작업 이름(필수): mongodb replica set의 slave 서버
+  azs:
+  - z5
+  instances: 2  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.205
+    - 10.30.107.206
+  properties:
+    replSetName: op2 # replicaSet1 의 이름
+  templates:
+  - name: mongodb_slave                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-		$ bosh stemcells
+- name: mongodb_slave3  #작업 이름(필수): mongodb replica set의 slave 서버
+  azs:
+  - z5
+  instances: 2  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.208
+    - 10.30.107.209
+  properties:
+    replSetName: op3 # replicaSet1 의 이름
+  templates:
+  - name: mongodb_slave                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-![mongodb_image_05]
+- name: mongodb_master1   #작업 이름(필수): mongodb replica set의 master 서버
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.201
+  properties:
+    replSet_hosts: ["10.30.107.201","10.30.107.202","10.30.107.203"] # 첫번째 Host는 replicaSet1의 master
+    replSetName: op1 # replicaSet1 의 이름
+  templates:
+  - name: mongodb_master                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드 해야 한다.
+- name: mongodb_master2   #작업 이름(필수): mongodb replica set의 master 서버
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.204
+  properties:
+    replSet_hosts: ["10.30.107.204","10.30.107.205","10.30.107.206"] # 첫번째 Host는 replicaSet1의 master
+    replSetName: op2 # replicaSet1 의 이름
+  templates:
+  - name: mongodb_master                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
+- name: mongodb_master3   #작업 이름(필수): mongodb replica set의 master 서버
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.207
+  properties:
+    replSet_hosts: ["10.30.107.207","10.30.107.208","10.30.107.209"] # 첫번째 Host는 replicaSet1의 master
+    replSetName: op3 # replicaSet1 의 이름
+  templates:
+  - name: mongodb_master                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
--	paasta-mongodb-shard-vsphere-2.0.yml Deployment 파일을 서버 환경에 맞게 수정한다. (빨간색으로 표시된 부분 특히 주의)
+- name: mongodb_config   #작업 이름(필수): mongodb  mongodb_config
+  azs:
+  - z5
+  instances: 3  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  persistent_disk_type: 10GB              # cloud config 에 정의한 영구 디스크 타입 
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.210
+    - 10.30.107.211
+    - 10.30.107.212
+  templates:
+  - name: mongodb_config                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-- **사용 예시**
+- name: mongodb_shard   #작업 이름(필수): mongodb mongodb_shard
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.213
+  properties:
+    bindIp: 0.0.0.0
+    configsvr_hosts: # mongodb_config hosts
+    - 10.30.107.210
+    - 10.30.107.211
+    - 10.30.107.212
+    repl_name_host_list: # mongodb_master properties
+    - op1/10.30.107.201 # replicaSet1 의 이름/host
+    - op2/10.30.107.204 # replicaSet2 의 이름/host
+    - op3/10.30.107.207 # replicaSet3 의 이름/host
+  templates:
+  - name: mongodb_shard                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-		$ vi paasta-mongodb-shard-vsphere-2.0.yml
-		 
-		# paasta-mongodb-shard-vsphere 설정 파일 내용
-		
-		---
-        name: paasta-mongodb-shard-service  # 서비스 배포이름(필수)
-        director_uuid ##################    # bosh status 에서 확인한 Director UUID을 입력(필수)
-        
-        release:
-          name: paasta-mongodb-shard        # 서비스 릴리즈 이름(필수)
-          version: 2.0                      # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
-        
-        compilation:                        # 컴파일시 필요한 가상머신의 속성(필수)
-          cloud_properties:                 # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone)
-            instance_type: monitoring       # 인스턴스 타입: Flavors 타입 (필수)
-          network: default                  # Networks block에서 선언한 network 이름(필수)
-          reuse_compilation_vms: true       # 컴파일지 VM 재사용 여부(옵션)
-          workers: 4                        # 컴파일 하는 가상머신의 최대수(필수)
-        
-        # this section describes how updates are handled
-        update:
-          canaries: 1                        # canary 인스턴스 수(필수)
-          canary_watch_time: 30000           # canary 인스턴스가 수행하기 위한 대기 시간(필수)
-          update_watch_time: 30000           # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
-          max_in_flight: 4
-        networks:                            # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
-        - name: default
-          subnets:
-          - cloud_properties:
-              net_id: b7c8c08f-2d3b-4a86-bd10-641cb6faa317
-              security_groups: [bosh]
-            dns:                             # DNS 정보
-            - 10.244.3.4
-            - 8.8.8.8
-            gateway: 10.244.3.1
-            range: 10.244.3.0/24             # 사용할 네트워크 범위
-            reserved:                        # 설치시 제외할 IP 설정
-            - 10.244.3.2 - 10.244.3.140
-            static:
-            - 10.244.3.141 - 10.244.3.170    # 사용 가능한 IP 설정
-        resource_pools:                      # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique >해야함(필수)
-        - cloud_properties:
-            instance_type: monitoring
-          env:
-            bosh: #password: dhvms09!
-              password: $6$mwZOg/kA$r64mds4/xoqhW2tR8ck7oxmhqGiCBsDS5SWW/j8vgahvpdHkKJrb25/Wc2..CT3ja02qLgh0JB60RTP2ndjAh0
-            # bosh:
-            #  password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
-          name: small               # 고유한 resource pool 이름
-          network: default
-          stemcell:
-            name:  bosh-openstack-kvm-ubuntu-trusty-go_agent     # stemcell 이름(필수)
-            version: 3309                    # stemcell 버전(필수)
-        
-        
-        jobs:
-          - name: mongodb_slave1             # 작업 이름(필수): mongodb replica set의 slave 서버
-            template: mongodb_slave          # job template 이름(필수)
-            instances: 1                     # job 인스턴스 수(필수)
-            resource_pool: small             # resource_pools block에 정의한 resource pool 이름(필수)
-            persistent_disk: 9000            # 영구적 디스크 사이즈 정의(옵션): 16G
-            networks:                        # 네트워크 구성정보
-            - name: default                  # Networks block에서 선언한 network 이름(필수)
-              static_ips:                    # 사용할 IP addresses 정의(필수)
-              - 10.244.3.142
-            properties:
-              replSetName: op1               # replicaSet1 의 이름
-        
-          - name: mongodb_master1            # 작업 이름(필수): mongodb replica set의 master 서버
-            template: mongodb_master         # job template 이름(필수)
-            instances: 1                     # job 인스턴스 수(필수)
-            resource_pool: small             # resource_pools block에 정의한 resource pool 이름(필수)
-            persistent_disk: 9000            # 영구적 디스크 사이즈 정의(옵션): 16G
-            networks:                        # 네트워크 구성정보
-            - name: default                  # Networks block에서 선언한 network 이름(필수)
-              static_ips:
-              - 10.244.3.141                 # 사용할 IP addresses 정의(필수)
-            properties:
-              replSet_hosts: ["10.244.3.141","10.244.3.142"]      # 첫번째 Host는 replicaSet1의 master
-              replSetName: op1               # replicaSet1 의 이름
-        
-          - name: mongodb_config
-            template: mongodb_config
-            instances: 1
-            resource_pool: small
-            persistent_disk: 9000            # 영구적 디스크 사이즈 정의(옵션): 16G
-            networks:
-            - name: default
-              static_ips:
-              - 10.244.3.150
-        
-          - name: mongodb_shard
-            template: mongodb_shard
-            instances: 1
-            resource_pool: small
-            persistent_disk: 9000            # 영구적 디스크 사이즈 정의(옵션): 16G
-            networks:
-            - name: default
-              static_ips:
-              - 10.244.3.170
-            properties:
-              bindIp: 0.0.0.0
-              configsvr_hosts:               # mongodb_config hosts
-              - 10.244.3.150
-        
-              repl_name_host_list:           # mongodb_master properties
-              - op1/10.244.3.141             # replicaSet1 의 이름/host
-              # - op2/10.244.3.144            # replicaSet2 의 이름/host
-              # - op3/10.244.3.147            # replicaSet3 의 이름/host
-        
-          - name: mongodb_broker                # 작업 이름(필수): mongodb 서비스 브로커
-            template: mongodb_broker            # job template 이름(필수)
-            instances: 1                        # job 인스턴스 수(필수)
-            resource_pool: small                # resource_pools block에 정의한 resource pool 이름(필수)
-            networks:                           # 네트워크 구성정보
-            - name: default                     # Networks block에서 선언한 network 이름(필수)
-              static_ips:                       # 사용할 IP addresses 정의(필수)
-              - 10.244.3.154
-        
-          - name : mongodb_broker_registrar       # 작업 이름: 서비스 브로커 등록
-            template : mongodb_broker_registrar
-            instances: 1
-            lifecycle: errand             # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
-            resource_pool: small
-            networks:
-            - name: default
-            properties:
-              broker:                              # 서비스 브로커 설정 정보
-                host: 10.244.3.154                 # 서비스 브로커 IP
-                name: Mongo-DB                     # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
-                password: cloudfoundry             # 브로커 접근 아이디 비밀번호(필수)
-                username: admin                    # 브로커 접근 아이디(필수)
-                protocol: http
-                port: 8080                         # 브로커 포트
-              cf:
-                admin_password: admin                           # CF 사용자의 패스워드
-                admin_username: admin                           # CF 사용자 이름
-                api_url: https://api.api.115.68.151.188.xip.io  # CF 설치시 설정한 api uri 정보(필수)
-            release: paasta-mongodb-shard
-        
-          - name : mongodb_broker_deregistrar                   # 작업 이름: 서비스 브로커 삭제
-            template : mongodb_broker_deregistrar
-            instances: 1
-            lifecycle: errand
-            resource_pool: small
-            networks:
-            - name: default
-            properties:
-              broker:
-                host: 10.244.3.154
-                name: Mongo-DB
-                password: cloudfoundry
-                username: admin
-                protocol: http
-                port: 8080
-              cf:
-                admin_password: admin
-                admin_username: admin
-                api_url: https://api.115.68.151.188.xip.io
-            release: paasta-mongodb-shard
-        
-        meta:
-          apps_domain: api.115.68.151.188.xip.io                # CF 설치시 설정한 apps 도메인 정보
-          environment: null
-          external_domain: api.115.68.151.188.xip.io            # CF 설치시 설정한 외부 도메인 정보
-          nats:                                                 # CF 설치시 설정한 nats 정보
-            machines:
-            - 10.244.3.11
-            password: admin
-            port: 4222
-            user: nats
-          syslog_aggregator: null
-        
-        properties:
-          mongodb:            # mongodb shard release의 여러 job에서 공통적으로 허용하는 properties
-                              # key는 shard를 구성할 때 mongos와 각 replicaSet의 인증을 하기위해 사용
-            key: |
-              +Qy+1icfeV8D2WXIfCojRjvYlryMVI2Ry+dAi8mYZ1H1Z9pDstRkOC0/oJYs0L/i
-              +Dj/3PurWo8MJuqBYrWVGsRnsx31um0SVAgFZM2GQEKvHIByX5hq/MuHlulSLM0h
-              GKkMT19zqDwFBFIN53jN0PLuuOnJ6FxZSb4cTLymfWM543WGpYx/31b8ehPYyeRp
-              T7P2o2vUd9hecb8mQFxcjsBN7PTLwuPb5lK0BRL4Ze7rh6qeC8j7M3zimV8lX2X5
-              9EtWlQP0ORYIlFpqijatZhS8Bf5AfI1EW6kZgfqwycl2ghxmSIbeleiqyQgYZNKQ
-              yBXV9disuBXcKy4tsOjSFvKw7y61kjjQOn8KXElefokefdLbcrpeARP6LR9WwR1v
-              ZTHcChfzWA4apHo6gJZkoqGVPjF4ArXTYxZfC+hHrsa5oe3XZjNapwV6XQfBNCuQ
-              EihT3Td/B7iAUWJnGQvugFJwYKJ5EYOYubhk8QtO9QIvoZxQPDq9tgUsVgiQ6gty
-              ZT83oxFAIgm3vky9l3uPwYi6jQ2FvsEJvDyiZl7gulOaC5UD/BdcM4Y5n/dxy/6Y
-              qphWWuPsJwnYBXLJgwtTZ/NkYDYyX/tL9gyzXGPkpMMD7DofFjWEpJvHlVRKIxp1
-              /zlxbVOMAmASgZDaqFperSQQyrfQqpuvAA8pRkWgorROyrsiRYYWlJZWWa4qHlI9
-              OZ1dDp8o71l3v0SqsKbEtxINpdiUNx4OdafsMNN/KVxw9oGdrPXnDl5DomtmAoKZ
-              uaCf3AQ3RsDeymgVX3j5EpLCHBhcPj+0B5tv4Yln652HAzDissOUKPyDf+PJaVRo
-              OfDOkUvmuqnwl45DOoOtZ0BMw7hXGdgm6Xfv5jEmtSjJzQ1pfwHOOfiY+zZWhHAi
-              ow/WNvLtUgNUhobi+OQb11bMMNNtmGWe+cZft6QzBsnd2xa/tAYTZDfAJ8OCvYQK
-              e46UrHd54ZJFzdzicRZ8DeuU9G4K
-            user: root               # admin 권한 사용자이름
-            passwd: paasta           # admin 권한 사용자 비밀번호
-        #    replSetName: op
-        #    bindIp: 10.244.3.153    # shard server ip
-            port: 27017              # mongodb port
-        
-          mongodb_broker:
-            db_name: mongodb-broker   # mongodb broker 관리용 데이터베이스
-            authsource: admin         # mongodb broker 관리용 데이터베이스에 접근할 때 인증정보가 있는 데이터베이스
-            hosts: 10.244.3.153       # mongodb Host
+- name: mongodb_broker  #작업 이름(필수): mongodb 서비스 브로커
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+    static_ips:                           # 사용할 IP addresses
+    - 10.30.107.214
+  templates:
+  - name: mongodb_broker                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
+- name: mongodb_broker_registrar   # 작업 이름: 서비스 브로커 등록
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  lifecycle: errand   # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+  properties:
+    broker:   # 서비스 브로커 설정 정보
+      host: 10.30.107.214   # 서비스 브로커 IP 
+      name: Mongo-DB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
+      password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
+      username: admin   # 브로커 접근 아이디(필수)
+      protocol: http
+      port: 8080  # 브로커 포트
+    cf:
+      admin_password: admin   # CF 사용자의 패스워드
+      admin_username: admin_test   # CF 사용자 이름
+      api_url: https://api.115.68.46.189.xip.io  # CF 설치시 설정한 api uri 정보(필수)
+  templates:
+  - name: mongodb_broker_registrar                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
--   Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
+- name: mongodb_broker_deregistrar   # 작업 이름: 서비스 브로커 등록
+  azs:
+  - z5
+  instances: 1  # job 인스턴스 수(필수)
+  lifecycle: errand   # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 >테스트 용도에 쓰임
+  vm_type: ((vm_type_small))              # cloud config 에 정의한 vm_type
+  stemcell: default
+  networks:
+  - name: ((default_network_name))        # cloud config 에 정의한 network 이름
+  properties:
+    broker:   # 서비스 브로커 설정 정보
+      host: 10.30.107.214   # 서비스 브로커 IP 
+      name: Mongo-DB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
+      password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
+      username: admin   # 브로커 접근 아이디(필수)
+      protocol: http
+      port: 8080  # 브로커 포트
+    cf:
+      admin_password: admin   # CF 사용자의 패스워드
+      admin_username: admin_test   # CF 사용자 이름
+      api_url: https://api.115.68.46.189.xip.io  # CF 설치시 설정한 api uri 정보(필수)
+  templates:
+  - name: mongodb_broker_deregistrar                # job template 이름(필수)
+    release: paasta-mongodb-shard
 
-- **사용 예시**
+properties:
+  mongodb:  # mongodb shard release의 여러 job에서 공통적으로 하용하는 properties
+    # key는 shard를 구성할 때 mongos와 각 replicaSet의 인증을 하기위해 사용
+    key: |
+      +Qy+1icfeV8D2WXIfCojRjvYlryMVI2Ry+dAi8mYZ1H1Z9pDstRkOC0/oJYs0L/i
+      +Dj/3PurWo8MJuqBYrWVGsRnsx31um0SVAgFZM2GQEKvHIByX5hq/MuHlulSLM0h
+      GKkMT19zqDwFBFIN53jN0PLuuOnJ6FxZSb4cTLymfWM543WGpYx/31b8ehPYyeRp
+      T7P2o2vUd9hecb8mQFxcjsBN7PTLwuPb5lK0BRL4Ze7rh6qeC8j7M3zimV8lX2X5
+      9EtWlQP0ORYIlFpqijatZhS8Bf5AfI1EW6kZgfqwycl2ghxmSIbeleiqyQgYZNKQ
+      yBXV9disuBXcKy4tsOjSFvKw7y61kjjQOn8KXElefokefdLbcrpeARP6LR9WwR1v
+      ZTHcChfzWA4apHo6gJZkoqGVPjF4ArXTYxZfC+hHrsa5oe3XZjNapwV6XQfBNCuQ
+      EihT3Td/B7iAUWJnGQvugFJwYKJ5EYOYubhk8QtO9QIvoZxQPDq9tgUsVgiQ6gty
+      ZT83oxFAIgm3vky9l3uPwYi6jQ2FvsEJvDyiZl7gulOaC5UD/BdcM4Y5n/dxy/6Y
+      qphWWuPsJwnYBXLJgwtTZ/NkYDYyX/tL9gyzXGPkpMMD7DofFjWEpJvHlVRKIxp1
+      /zlxbVOMAmASgZDaqFperSQQyrfQqpuvAA8pRkWgorROyrsiRYYWlJZWWa4qHlI9
+      OZ1dDp8o71l3v0SqsKbEtxINpdiUNx4OdafsMNN/KVxw9oGdrPXnDl5DomtmAoKZ
+      uaCf3AQ3RsDeymgVX3j5EpLCHBhcPj+0B5tv4Yln652HAzDissOUKPyDf+PJaVRo
+      OfDOkUvmuqnwl45DOoOtZ0BMw7hXGdgm6Xfv5jEmtSjJzQ1pfwHOOfiY+zZWhHAi
+      ow/WNvLtUgNUhobi+OQb11bMMNNtmGWe+cZft6QzBsnd2xa/tAYTZDfAJ8OCvYQK
+      e46UrHd54ZJFzdzicRZ8DeuU9G4K
+    user: root  # admin 권한 사용자이름
+    passwd: openpaas  # admin 권한 사용자 비밀번호
+    port: 27017   # mongodb port
 
-		$ bosh deployment {Deployment manifest 파일 PATH}
-		 
-		  Deployment set to '/home/ubuntu/workspace/bd_test/paasta-mongodb-shard-2.0.yml'
+  mongodb_broker:
+    db_name: mongodb-broker # mongodb broker 관리용 데이터베이스
+    authsource: admin   # mongodb broker 관리용 데이터베이스에 접근할 때 인증정보가 있는 데이터베이스
+    hosts: 10.30.107.213 # mongodb Host
+```
+
+-	deploy-mongodb-shard-bosh2.0.sh 파일을 서버 환경에 맞게 수정한다.
+
+```sh
+#!/bin/bash
+# stemcell 버전은 3309 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+
+bosh -e micro-bosh -d paasta-mongodb-shard-service deploy paasta_mongodb_shard_bosh2.0.yml \
+   -v default_network_name=service_private \
+   -v stemcell_os=ubuntu-trusty \
+   -v stemcell_version=3309 \
+   -v vm_type_small=minimal
+```
 
 
 -	Mongodb 서비스팩을 배포한다.
 
 - **사용 예시**
 
-		$ bosh deploy
-		 
-		Acting as user 'admin' on deployment 'paasta-mongodb-shard-service' on 'my-bosh'
-		Getting deployment properties from director...
-		Unable to get properties list from director, trying without it...
-		 
-		Detecting deployment changes
-        ----------------------------
-        resource_pools:
-        …
-        중략
-        …
-        Please review all changes carefully
-        
-        Deploying
-        ---------
-        Are you sure you want to deploy? (type 'yes' to continue): yes
-        
-        Director task 756
-        Deprecation: Ignoring cloud config. Manifest contains 'networks' section.
-        
-          Started preparing deployment > Preparing deployment. Done (00:00:01)
-        
-          Started preparing package compilation > Finding packages to compile. Done (00:00:00)
-        
-          Started creating missing vms
-          Started creating missing vms > mongodb_slave1/0 (66bbef0c-e135-417c-ba20-d61195fb7cfd)
-          Started creating missing vms > mongodb_master1/0 (6090417a-2183-4d98-ac5b-9883172f2e0c)
-          Started creating missing vms > mongodb_config/0 (2409b059-873e-45d1-b452-05fd5a336fff)
-             Done creating missing vms > mongodb_master1/0 (6090417a-2183-4d98-ac5b-9883172f2e0c) (00:01:20)
-          Started creating missing vms > mongodb_shard/0 (3e7db12a-0c39-4cb3-9e31-04a647206c00)
-             Done creating missing vms > mongodb_slave1/0 (66bbef0c-e135-417c-ba20-d61195fb7cfd) (00:01:24)
-          Started creating missing vms > mongodb_broker/0 (9de2c4f3-abd0-4cf3-91cb-674ae7d3b598)
-             Done creating missing vms > mongodb_config/0 (2409b059-873e-45d1-b452-05fd5a336fff) (00:01:24)
-             Done creating missing vms > mongodb_shard/0 (3e7db12a-0c39-4cb3-9e31-04a647206c00) (00:01:21)
-             Done creating missing vms > mongodb_broker/0 (9de2c4f3-abd0-4cf3-91cb-674ae7d3b598) (00:01:21)
-             Done creating missing vms (00:02:45)
-        
-          Started updating job mongodb_slave1 > mongodb_slave1/0 (66bbef0c-e135-417c-ba20-d61195fb7cfd) (canary). Done (00:01:11)
-          Started updating job mongodb_master1 > mongodb_master1/0 (6090417a-2183-4d98-ac5b-9883172f2e0c) (canary). Done (00:01:07)
-          Started updating job mongodb_config > mongodb_config/0 (2409b059-873e-45d1-b452-05fd5a336fff) (canary). Done (00:01:15)
-          Started updating job mongodb_shard > mongodb_shard/0 (3e7db12a-0c39-4cb3-9e31-04a647206c00) (canary). Done (00:01:13)
-          Started updating job mongodb_broker > mongodb_broker/0 (9de2c4f3-abd0-4cf3-91cb-674ae7d3b598) (canary). Done (00:00:48)
-        
-        Task 756 done
-        
-        Started		2017-01-16 09:19:33 UTC
-        Finished	2017-01-16 09:27:53 UTC
-        Duration	00:08:20
-        
-        Deployed 'paasta-mongodb-shard-service' to 'my-bosh'
+		$ ./deploy-mongodb-shard-bosh2.0.sh
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
+
+		Using deployment 'paasta-mongodb-shard-service'
+
+		+ stemcells:
+		+ - alias: default
+		+   os: ubuntu-trusty
+		+   version: '3309'
+
+		+ update:
+		+   canaries: 1
+		+   canary_watch_time: 30000-180000
+		+   max_in_flight: 6
+		+   update_watch_time: 30000-180000
+
+		+ release:
+		+   name: paasta-mongodb-shard
+		+   version: '2.0'
+
+		+ instance_groups:
+		+ - azs:
+		+   - z5
+		+   instances: 2
+		+   name: mongodb_slave1
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.102
+		+     - 10.30.107.103
+		+   persistent_disk_type: 10GB
+		+   properties:
+		+     replSetName: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_slave
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 2
+		+   name: mongodb_slave2
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.105
+		+     - 10.30.107.106
+		+   persistent_disk_type: 10GB
+		+   properties:
+		+     replSetName: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_slave
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 2
+		+   name: mongodb_slave3
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.108
+		+     - 10.30.107.109
+		+   persistent_disk_type: 10GB
+		+   properties:
+		+     replSetName: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_slave
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: mongodb_master1
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.101
+		+   persistent_disk_type: 10GB
+		+   properties:
+		+     replSet_hosts:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     replSetName: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_master
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: mongodb_master2
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.104
+		+   persistent_disk_type: 10GB
+		+   properties:
+		+     replSet_hosts:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     replSetName: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_master
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: mongodb_master3
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.107
+		+   persistent_disk_type: 10GB
+		+   properties:
+		+     replSet_hosts:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     replSetName: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_master
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 3
+		+   name: mongodb_config
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.110
+		+     - 10.30.107.111
+		+     - 10.30.107.112
+		+   persistent_disk_type: 10GB
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_config
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: mongodb_shard
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.113
+		+   properties:
+		+     bindIp: "<redacted>"
+		+     configsvr_hosts:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     repl_name_host_list:
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+     - "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_shard
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   name: mongodb_broker
+		+   networks:
+		+   - name: service_private
+		+     static_ips:
+		+     - 10.30.107.114
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_broker
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: mongodb_broker_registrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       host: "<redacted>"
+		+       name: "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       protocol: "<redacted>"
+		+       username: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_broker_registrar
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+		+ - azs:
+		+   - z5
+		+   instances: 1
+		+   lifecycle: errand
+		+   name: mongodb_broker_deregistrar
+		+   networks:
+		+   - name: service_private
+		+   properties:
+		+     broker:
+		+       host: "<redacted>"
+		+       name: "<redacted>"
+		+       password: "<redacted>"
+		+       port: "<redacted>"
+		+       protocol: "<redacted>"
+		+       username: "<redacted>"
+		+     cf:
+		+       admin_password: "<redacted>"
+		+       admin_username: "<redacted>"
+		+       api_url: "<redacted>"
+		+   stemcell: default
+		+   templates:
+		+   - name: mongodb_broker_deregistrar
+		+     release: paasta-mongodb-shard
+		+   vm_type: minimal
+
+		+ name: paasta-mongodb-shard-service
+
+		+ properties:
+		+   mongodb:
+		+     key: "<redacted>"
+		+     passwd: "<redacted>"
+		+     port: "<redacted>"
+		+     user: "<redacted>"
+		+   mongodb_broker:
+		+     authsource: "<redacted>"
+		+     db_name: "<redacted>"
+		+     hosts: "<redacted>"
+
+		Continue? [yN]: y
+
+		Task 8129
+
+		Task 8129 | 06:53:48 | Preparing deployment: Preparing deployment (00:00:02)
+		Task 8129 | 06:53:52 | Preparing package compilation: Finding packages to compile (00:00:00)
+		Task 8129 | 06:53:52 | Compiling packages: cli/668cd93a9dc828726341909df08f74dce57478fe
+		Task 8129 | 06:53:52 | Compiling packages: java7/a6b0fd78eadc51bfbf305a5571a710128fae6fe5
+		Task 8129 | 06:53:52 | Compiling packages: mongodb/f48a8e934cc387162028629a196040c17bfa3401
+		Task 8129 | 06:55:49 | Compiling packages: cli/668cd93a9dc828726341909df08f74dce57478fe (00:01:57)
+		Task 8129 | 06:55:59 | Compiling packages: java7/a6b0fd78eadc51bfbf305a5571a710128fae6fe5 (00:02:07)
+		Task 8129 | 06:55:59 | Compiling packages: mongodb_broker/25bacb6034e74fc63b592c8bb6ba98cf512afbbc
+		Task 8129 | 06:56:11 | Compiling packages: mongodb/f48a8e934cc387162028629a196040c17bfa3401 (00:02:19)
+		Task 8129 | 06:56:24 | Compiling packages: mongodb_broker/25bacb6034e74fc63b592c8bb6ba98cf512afbbc (00:00:25)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_slave1/bb6275f1-4ab5-4998-ba89-ef30c36c3f67 (1)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_slave1/2710c368-dbc2-4d72-a100-1fa37d73e2ec (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_slave2/fed23144-9c18-42f6-9f99-213f7dc294ee (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_config/35ee66e6-9c25-44c2-85a4-e7c1d520641b (1)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_slave3/7cebf99b-5a79-4033-a4e8-86f8d476a709 (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_slave2/9671e09b-7ca1-4da2-af8a-88d20caeebfe (1)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_config/cc798fba-7840-46ea-9211-6b5646fc766f (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_master3/88e1aa1c-fb1f-467d-a550-b6334fdfce8d (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_broker/0e8933f1-1b67-4486-b37a-2b104da1351a (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_master1/1e8b971e-c503-4ba6-bcba-ab28dd7dd797 (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_slave3/ab6d22fb-d436-4c1c-a423-9e9d82c4266a (1)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_master2/7a4460e4-a9b5-4d15-9508-adba3405f387 (0)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_config/935aed3c-e7a4-4179-b397-68d0535bc1d9 (2)
+		Task 8129 | 06:57:10 | Creating missing vms: mongodb_shard/1fd85812-c8d4-4ebd-98f5-c8cf637db9e5 (0)
+		Task 8129 | 07:01:12 | Creating missing vms: mongodb_slave1/bb6275f1-4ab5-4998-ba89-ef30c36c3f67 (1) (00:04:02)
+		Task 8129 | 07:01:26 | Creating missing vms: mongodb_master2/7a4460e4-a9b5-4d15-9508-adba3405f387 (0) (00:04:16)
+		Task 8129 | 07:01:49 | Creating missing vms: mongodb_slave3/ab6d22fb-d436-4c1c-a423-9e9d82c4266a (1) (00:04:39)
+		Task 8129 | 07:01:53 | Creating missing vms: mongodb_slave2/fed23144-9c18-42f6-9f99-213f7dc294ee (0) (00:04:43)
+		Task 8129 | 07:02:01 | Creating missing vms: mongodb_config/935aed3c-e7a4-4179-b397-68d0535bc1d9 (2) (00:04:51)
+		Task 8129 | 07:02:04 | Creating missing vms: mongodb_master3/88e1aa1c-fb1f-467d-a550-b6334fdfce8d (0) (00:04:54)
+		Task 8129 | 07:02:05 | Creating missing vms: mongodb_master1/1e8b971e-c503-4ba6-bcba-ab28dd7dd797 (0) (00:04:55)
+		Task 8129 | 07:02:06 | Creating missing vms: mongodb_slave1/2710c368-dbc2-4d72-a100-1fa37d73e2ec (0) (00:04:56)
+		Task 8129 | 07:02:10 | Creating missing vms: mongodb_slave2/9671e09b-7ca1-4da2-af8a-88d20caeebfe (1) (00:05:00)
+		Task 8129 | 07:02:12 | Creating missing vms: mongodb_config/35ee66e6-9c25-44c2-85a4-e7c1d520641b (1) (00:05:02)
+		Task 8129 | 07:02:12 | Creating missing vms: mongodb_shard/1fd85812-c8d4-4ebd-98f5-c8cf637db9e5 (0) (00:05:02)
+		Task 8129 | 07:02:13 | Creating missing vms: mongodb_broker/0e8933f1-1b67-4486-b37a-2b104da1351a (0) (00:05:03)
+		Task 8129 | 07:02:13 | Creating missing vms: mongodb_config/cc798fba-7840-46ea-9211-6b5646fc766f (0) (00:05:03)
+		Task 8129 | 07:02:14 | Creating missing vms: mongodb_slave3/7cebf99b-5a79-4033-a4e8-86f8d476a709 (0) (00:05:04)
+		Task 8129 | 07:02:15 | Updating instance mongodb_slave1: mongodb_slave1/2710c368-dbc2-4d72-a100-1fa37d73e2ec (0) (canary) (00:02:03)
+		Task 8129 | 07:04:18 | Updating instance mongodb_slave1: mongodb_slave1/bb6275f1-4ab5-4998-ba89-ef30c36c3f67 (1) (00:02:03)
+		Task 8129 | 07:06:21 | Updating instance mongodb_slave2: mongodb_slave2/fed23144-9c18-42f6-9f99-213f7dc294ee (0) (canary) (00:02:03)
+		Task 8129 | 07:08:24 | Updating instance mongodb_slave2: mongodb_slave2/9671e09b-7ca1-4da2-af8a-88d20caeebfe (1) (00:02:03)
+		Task 8129 | 07:10:27 | Updating instance mongodb_slave3: mongodb_slave3/7cebf99b-5a79-4033-a4e8-86f8d476a709 (0) (canary) (00:02:04)
+		Task 8129 | 07:12:31 | Updating instance mongodb_slave3: mongodb_slave3/ab6d22fb-d436-4c1c-a423-9e9d82c4266a (1) (00:02:05)
+		Task 8129 | 07:14:36 | Updating instance mongodb_master1: mongodb_master1/1e8b971e-c503-4ba6-bcba-ab28dd7dd797 (0) (canary) (00:02:04)
+		Task 8129 | 07:16:40 | Updating instance mongodb_master2: mongodb_master2/7a4460e4-a9b5-4d15-9508-adba3405f387 (0) (canary) (00:02:01)
+		Task 8129 | 07:18:42 | Updating instance mongodb_master3: mongodb_master3/88e1aa1c-fb1f-467d-a550-b6334fdfce8d (0) (canary) (00:02:03)
+		Task 8129 | 07:20:45 | Updating instance mongodb_config: mongodb_config/cc798fba-7840-46ea-9211-6b5646fc766f (0) (canary) (00:02:07)
+		Task 8129 | 07:22:52 | Updating instance mongodb_config: mongodb_config/35ee66e6-9c25-44c2-85a4-e7c1d520641b (1)
+		Task 8129 | 07:22:52 | Updating instance mongodb_config: mongodb_config/935aed3c-e7a4-4179-b397-68d0535bc1d9 (2)
+		Task 8129 | 07:24:59 | Updating instance mongodb_config: mongodb_config/35ee66e6-9c25-44c2-85a4-e7c1d520641b (1) (00:02:07)
+		Task 8129 | 07:25:01 | Updating instance mongodb_config: mongodb_config/935aed3c-e7a4-4179-b397-68d0535bc1d9 (2) (00:02:09)
+		Task 8129 | 07:25:01 | Updating instance mongodb_shard: mongodb_shard/1fd85812-c8d4-4ebd-98f5-c8cf637db9e5 (0) (canary) (00:00:58)
+		Task 8129 | 07:25:59 | Updating instance mongodb_broker: mongodb_broker/0e8933f1-1b67-4486-b37a-2b104da1351a (0) (canary) (00:01:01)
+
+		Task 8129 Started  Thu Sep 13 06:53:48 UTC 2018
+		Task 8129 Finished Thu Sep 13 07:27:00 UTC 2018
+		Task 8129 Duration 00:33:12
+		Task 8129 done
+
+		Succeeded
 
 
 -	배포된 Mongodb 서비스팩을 확인한다.
 
 - **사용 예시**
 
-		$ bosh vms
-		Acting as user 'admin' on deployment 'paasta-mongodb-shard-service' on 'my-bosh'
-		 
-		Director task 764 
-		 
-		Task 764 done
-		
-		+----------------------------------------------------------+---------+-----+---------+--------------+
-		| VM                                                       | State   | AZ  | VM Type | IPs          |
-		+----------------------------------------------------------+---------+-----+---------+--------------+
-		| mongodb_broker/0 (9de2c4f3-abd0-4cf3-91cb-674ae7d3b598)  | running | n/a | small   | 10.244.3.154 |
-		| mongodb_config/0 (2409b059-873e-45d1-b452-05fd5a336fff)  | running | n/a | small   | 10.244.3.150 |
-		| mongodb_master1/0 (6090417a-2183-4d98-ac5b-9883172f2e0c) | running | n/a | small   | 10.244.3.141 |
-		| mongodb_shard/0 (3e7db12a-0c39-4cb3-9e31-04a647206c00)   | running | n/a | small   | 10.244.3.170 |
-		| mongodb_slave1/0 (66bbef0c-e135-417c-ba20-d61195fb7cfd)  | running | n/a | small   | 10.244.3.142 |
-		+----------------------------------------------------------+---------+-----+---------+--------------+
+		$bosh -e micro-bosh -d paasta-mongodb-shard-service vms
+		Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-		VMs total: 5
+		Task 8176. Done
+
+		Deployment 'paasta-mongodb-shard-service'
+
+		Instance                                              Process State  AZ  IPs            VM CID                                   VM Type  Active  
+		mongodb_broker/0e8933f1-1b67-4486-b37a-2b104da1351a   running        z5  10.30.107.114  vm-e0bb79c6-6482-497a-b071-f7df4bf2a059  minimal  true  
+		mongodb_config/35ee66e6-9c25-44c2-85a4-e7c1d520641b   running        z5  10.30.107.111  vm-672ce5b9-4d8f-4b22-9745-43f7d9e39402  minimal  true  
+		mongodb_config/935aed3c-e7a4-4179-b397-68d0535bc1d9   running        z5  10.30.107.112  vm-8069a84b-5a91-44ca-a5d8-cca37b5d8952  minimal  true  
+		mongodb_config/cc798fba-7840-46ea-9211-6b5646fc766f   running        z5  10.30.107.110  vm-5a7a9d16-8de4-4adf-b504-1364716decce  minimal  true  
+		mongodb_master1/1e8b971e-c503-4ba6-bcba-ab28dd7dd797  running        z5  10.30.107.101  vm-54b33ec2-582d-44ef-a4bf-6281acfbf81b  minimal  true  
+		mongodb_master2/7a4460e4-a9b5-4d15-9508-adba3405f387  running        z5  10.30.107.104  vm-a388a44e-4ab9-4340-9227-b12b7bd2c410  minimal  true  
+		mongodb_master3/88e1aa1c-fb1f-467d-a550-b6334fdfce8d  running        z5  10.30.107.107  vm-9c6aed35-69aa-4a7d-9b08-c5671e728e2a  minimal  true  
+		mongodb_shard/1fd85812-c8d4-4ebd-98f5-c8cf637db9e5    running        z5  10.30.107.113  vm-c2628ba8-feed-4401-b1c9-be1445722d34  minimal  true  
+		mongodb_slave1/2710c368-dbc2-4d72-a100-1fa37d73e2ec   running        z5  10.30.107.102  vm-048757cf-1c19-4c30-a3cd-2b0dd05c1554  minimal  true  
+		mongodb_slave1/bb6275f1-4ab5-4998-ba89-ef30c36c3f67   running        z5  10.30.107.103  vm-6d0f52ef-a0b3-4c26-8e04-cb5cef30337d  minimal  true  
+		mongodb_slave2/9671e09b-7ca1-4da2-af8a-88d20caeebfe   running        z5  10.30.107.106  vm-8a57713b-68df-4639-8ab3-3d12c01fd880  minimal  true  
+		mongodb_slave2/fed23144-9c18-42f6-9f99-213f7dc294ee   running        z5  10.30.107.105  vm-c58e860a-8b5e-43e1-abe9-c3043cbfb16d  minimal  true  
+		mongodb_slave3/7cebf99b-5a79-4033-a4e8-86f8d476a709   running        z5  10.30.107.108  vm-d34d8a3f-37fb-41a8-b995-6e8c7e8ff041  minimal  true  
+		mongodb_slave3/ab6d22fb-d436-4c1c-a423-9e9d82c4266a   running        z5  10.30.107.109  vm-ca14b629-4d00-4c96-8782-1cf7a174ce1e  minimal  true  
+
+		14 vms
+
+		Succeeded
 
 
-### 2.4. Mongodb 서비스 브로커 등록
+### <div id='24'> 2.4. Mongodb 서비스 브로커 등록
 
 Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Mongodb 서비스 브로커를 등록해 주어야 한다.
 
@@ -536,7 +1174,7 @@ Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 �
   **서비스팩 사용자ID** / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.<br>
   **서비스팩 URL** : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.
 
->`$ cf create-service-broker mongodb-shard-service-broker admin cloudfoundry http://10.30.60.54:8080`
+>`$ cf create-service-broker mongodb-shard-service-broker admin cloudfoundry http://10.30.107.114:8080`
 
 > ![mongodb_image_07]
 
@@ -565,12 +1203,12 @@ Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 �
 > ![mongodb_image_10]
 
 
-# 3. Mongodb 연동 Sample Web App 설명
+# <div id='3'> 3. Mongodb 연동 Sample Web App 설명
 
 본 Sample Web App은 PaaS-TA에 배포되며 Mongodb의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
 
 
-### 3.1. Sample App 구조
+### <div id='31'> 3.1. Sample App 구조
 
 Sample Web App은 PaaS-TA에 App으로 배포가 된다. App을 배포하여 구동시 Bind 된 Mongodb 서비스 연결정보로 접속하여 초기 데이터를 생성하게 된다. 배포 완료 후 정상적으로 App 이 구동되면 브라우저나 curl로 해당 App에 접속 하여 Mongodb 환경정보(서비스 연결 정보)와 초기 적재된 데이터를 보여준다.
 
@@ -608,7 +1246,7 @@ Sample Web App 구조는 다음과 같다.
 
 <br>
 
-### <div id='13'> 3.2. PaaS-TA에서 서비스 신청
+### <div id='32'> 3.2. PaaS-TA에서 서비스 신청
 
 Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 신청(Provision)을 해야 한다.
 *참고: 서비스 신청시 개방형 클라우드 플랫폼에서 서비스를 신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
@@ -645,7 +1283,7 @@ Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 �
 <br>
 
 
-3.3. Sample App에 서비스 바인드 신청 및 App 확인
+3.3. <div id='33'> Sample App에 서비스 바인드 신청 및 App 확인
 -------------------------------------------------
 서비스 신청이 완료되었으면 Sample Web App 에서는 생성된 서비스 인스턴스를 Bind 하여 App에서 Mongodb 서비스를 이용한다.
 *참고: 서비스 Bind 신청시 개방형 클라우드 플랫폼에서 서비스 Bind신청 할 수 있는 사용자로 로그인이 되어 있어야 한다.
@@ -764,12 +1402,12 @@ $ cf restart hello-spring-Mongodb
 > ![mongodb_image_23]
 
 
-# 4.  Mongodb Client 툴 접속
+# <div id='4'> 4.  Mongodb Client 툴 접속
 
 Application에 바인딩된 Mongodb 서비스 연결정보는 Private IP로 구성되어 있기 때문에 Mongodb Client 툴에서 직접 연결할수 없다. 따라서 SSH 터널, Proxy 터널 등을 제공하는 Mongodb Client 툴을 사용해서 연결하여야 한다. 본 가이드는 SSH 터널을 이용하여 연결 하는 방법을 제공하며 Mongodb Client 툴로써는 MongoChef 로 가이드한다. MongoChef 에서 접속하기 위해서 먼저 SSH 터널링 할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 PaaS-TA에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 OpenStack관리자 및 PaaS-TA 운영자에게 문의하여 구성한다.
 
 
-# 4.1.  MongoChef 설치 & 연결
+# <div id='41'> 4.1.  MongoChef 설치 & 연결
 MongoChef 프로그램은 무료로 사용할 수 있는 소프트웨어이다.
 
 

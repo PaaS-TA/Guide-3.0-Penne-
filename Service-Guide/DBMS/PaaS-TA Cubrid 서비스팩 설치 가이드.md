@@ -244,7 +244,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 		
 >Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell을 업로드를 해야 한다. (cubrid 는 stemcell 3215.4 버전을 사용)
 
-### 2.3. Cubrid 서비스 Deployment 파일 및 deploy-cubrid-bosh2.0.sh 수정 및 배포
+### <div id='9'> 2.3. Cubrid 서비스 Deployment 파일 및 deploy-cubrid-bosh2.0.sh 수정 및 배포
 
 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.
 Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell (OS, BOSH agent) 을 사용할것이며 Release (Software packages, Config templates, Scripts) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
@@ -1179,7 +1179,7 @@ bosh -e micro-bosh -d paasta-cubrid-service deploy paasta_cubrid_bosh2.0.yml \
 
 		Succeeded
 
-### 2.4. Cubrid 서비스 브로커 등록
+### <div id='10'> 2.4. Cubrid 서비스 브로커 등록
 Cubrid 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Cubrid 서비스 브로커를 등록해 주어야 한다.  
 서비스 브로커 등록시 PaaS-TA에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
 
@@ -1198,7 +1198,7 @@ Cubrid 서비스팩 배포가 완료 되었으면 Application에서 서비스 �
 - **서비스플랜** : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. RabbitMQ 서비스는 standard plan만 지원한다.
 - **내 서비스명** : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경 설정 정보를 가져온다.
  
->`cf create-service-broker cubrid-service-broker admin cloudfoundry http://10.30.60.22:8080`
+>`cf create-service-broker cubrid-service-broker admin cloudfoundry http://10.30.107.122:8080`
 
 > ![2-4-1-0]
 
