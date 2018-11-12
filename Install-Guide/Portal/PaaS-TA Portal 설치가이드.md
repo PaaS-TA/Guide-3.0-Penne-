@@ -12,7 +12,7 @@
 3. [PaaS-TA Portal 운영](#3-paas-ta-portal-운영)
     *  [3.1 DB Migration](#31-db-migration)
     *  [3.2 Log](#32-log)
-    *  [3.3 카탈로그 적용](#33-catalog)
+    *  [3.3 카탈로그 적용](#33-카탈로그-적용)
 
 # 1. 문서 개요
 ### 1.1. 목적
