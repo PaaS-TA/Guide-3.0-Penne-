@@ -45,7 +45,7 @@
 
  운영자 포탈 설치는 [PaaS-TA Portal 배포 가이드 문서](https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Install-Guide/Portal/PaaS-TA%20Portal%20%EC%84%A4%EC%B9%98%EA%B0%80%EC%9D%B4%EB%93%9C.md)를 참고한다.
 
-## <a name="1"/>2.  PaaS-TA 운영자 포탈 시작
+## <a name="2"/>2.  PaaS-TA 운영자 포탈 시작
 
 PaaS-TA 운영자 포탈 웹 사이트에 접속한다.
 
