@@ -211,7 +211,7 @@
 
 ![IMG_034]
 ![IMG_036]
-![IMG_038]
+![IMG_037]
 
 
 #### <div id='3-2-4-2'/> 3.2.4.2. Pods
@@ -282,7 +282,7 @@
 [IMG_030]:/Use-Guide/images/caas/CAAS-030.png
 [IMG_034]:/Use-Guide/images/caas/CAAS-034.png
 [IMG_036]:/Use-Guide/images/caas/CAAS-036.png
-[IMG_038]:/Use-Guide/images/caas/CAAS-038.png
+[IMG_037]:/Use-Guide/images/caas/CAAS-037.png
 [IMG_039]:/Use-Guide/images/caas/CAAS-039.png
 [IMG_041]:/Use-Guide/images/caas/CAAS-041.png
 [IMG_042]:/Use-Guide/images/caas/CAAS-042.png
