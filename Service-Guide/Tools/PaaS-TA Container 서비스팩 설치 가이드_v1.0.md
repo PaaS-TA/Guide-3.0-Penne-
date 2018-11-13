@@ -154,7 +154,7 @@ Deployment 파일에서 사용하는 network, vm_type 등은 Cloud config를 활
 - Cloud config 내용 조회
 
   ```
-  $ bosh cloud-config
+  $ bosh -e micro-bosh cloud-config
   Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
   azs:
@@ -2018,7 +2018,7 @@ Succeeded
 - 업로드된 Container 서비스 릴리즈를 확인한다.
 
 ```
-$ bosh releases
+$ bosh -e micro-bosh releases
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 Name                               Version   Commit Hash  
@@ -2043,7 +2043,7 @@ Succeeded
 
 
 ```
-$ bosh vms
+$ bosh -e micro-bosh -d paasta-caas-service-beta vms
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 Task 62642 done
