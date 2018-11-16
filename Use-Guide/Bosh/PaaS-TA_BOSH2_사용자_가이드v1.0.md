@@ -127,7 +127,7 @@ BOSH 및 PaaS-TA 설치를 위해 Inception 서버에 구성해야 할 컴포넌
 $ sudo apt-get update
 $ mkdir workspace
 $ cd workspace
-$ curl -Lo ./bosh https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.0.1-linux-amd64
+$ curl -Lo ./bosh https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.1.2-linux-amd64
 $ chmod +x ./bosh
 $ sudo mv ./bosh /usr/local/bin/bosh
 $ bosh -v
@@ -139,7 +139,7 @@ $ sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl
 ```
 
 ※  bosh2 cli 
-bosh2 cli는 bosh deploy, paasta deploy시 certificate 정보를 생성해 주는 기능이 있다. 
+bosh2 cli는 bosh deploy시 bosh certificate 정보를 생성해 주는 기능이 있다. 
 bosh site에서 기본으로 받는 bosh cli는 인증서가 1년으로 제한되어 있다. 
 
 만약 인증서 기간을 늘리고 싶다면 bosh-cli 소스를 받아 compile해서 사용 해야 한다.
@@ -159,7 +159,7 @@ $ export PATH=$GOPATH/bin:$PATH
 
 $ go get -d github.com/cloudfoundry/bosh-cli
 $ cd $GOPATH/src/github.com/cloudfoundry/bosh-cli
-$ git checkout v3.0.1
+$ git checkout v5.1.2
 $ vi ./vendor/github.com/cloudfoundry/config-server/types/certificate_generator.go
 
 func generateCertTemplate 함수에 아래 내용중 365(일)을 원하는 기간 만큼 수정한다.
@@ -176,6 +176,9 @@ bosh -version
 ### <div id='15'/>3.3.3.	Deployment 및 release 파일 다운로드
 
 1.	다운로드 파일이 위치할 경로 디렉토리를 만든다.
+
+- [설치 파일 다운로드 받기](../Download_Page.md)
+
 ```
 $ mkdir -p ~/workspace/paasta-3.5/deployment
 $ mkdir -p ~/workspace/paasta-3.5/release
@@ -276,7 +279,7 @@ $ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
 $ chmod 755 *.sh  
 ```
 
-~/workspace/paasta-3.5/deployment/bosh-deployment 이하 디렉토리에는 iaas별 bosh를 설 치 하는 shell이 존재한다. Shell 파일을 이용하여 bosh를 설치 한다.
+~/workspace/paasta-3.5/deployment/bosh-deployment 이하 디렉토리에는 iaas별 bosh를 설치 하는 shell이 존재한다. Shell 파일을 이용하여 bosh를 설치 한다.
 파일명은 deploy-{iaaS-name}.sh 로 만들어 졌다. 
 
 
@@ -316,7 +319,7 @@ $ chmod 755 *.sh
 </tr>
 <tr>
 <td>--vars-store</td>
-<td>Bosh 설치 명령어를 실행할 때 생성되는 file로 bosh가 설치 될 때 Bosh Cli는 Bosh 내부 컴포넌트가 사용하는 인증서를 생성한다. (중요, backup 필요)</td>
+<td>Bosh 설치 명령어를 실행할 때 생성되는 file로 bosh가 설치 될 때 Bosh Cli는 Bosh 내부 컴포넌트가 사용하는 인증서 및 인증정보를 생성 저장한다. (중요, backup 필요)</td>
 </tr>   
 <tr>
 <td>-o</td>
@@ -325,10 +328,6 @@ $ chmod 755 *.sh
 <tr>
 <td>-v</td>
 <td>Bosh 설치시 사용되는 yml 파일 또는 option 파일에 변수에 값을 설정할 경우 사용 할 수 있다. Yml, optionfile 속성에 따라 필수인 경우와 option인 경우가 있다.</td>
-</tr>
-<tr>
-<td>deploy-azure.sh</td>
-<td>Azure 설치 bosh 설치 shell</td>
 </tr>
 <tr>
 <td>--var-file</td>
@@ -502,7 +501,7 @@ $ ./deploy-{iaas}.sh
 ![PaaSTa_BOSH_Use_Guide_Image10]
 
 ### <div id='25'/>3.3.7. BOSH Login
-bosh가 설치 되면 bosh설치 디렉토리 이하 var-store/creds.yml 이 생성된다. creds.yml은 bosh 인증정보를 가지고 있으며 creds.yml을 활용하여 bosh에 login 한다. Bosh 로그인 후 bosh-cli 명령어를 이용하어 paasta를 설치 할 수 있다
+bosh가 설치 되면 bosh설치 디렉토리 이하 {iaas}/creds.yml 이 생성된다. creds.yml은 bosh 인증정보를 가지고 있으며 creds.yml을 활용하여 bosh에 login 한다. Bosh 로그인 후 bosh-cli 명령어를 이용하어 paasta를 설치 할 수 있다
 
 ```
 $ cd ~/workspace/paasta-3.5/deployment/bosh-deployment
