@@ -73,16 +73,22 @@ paasta-3.5는 bosh2를 기반으로 설치된다. Bosh2를 사용하여 Bosh생�
 ## <div id='9'/>3.1.	pre-requsite
 
 1.	PaaS-ta 3.5를 설치 하기 위해서는 bosh 설치과정에서 언급한 것 처럼 관련 deployment, release , stemcell을 파스타 사이트에서 다운로드 받아 정해진 경로에 복사 해야 한다.
- 
-   - [설치 파일 다운로드 받기](../Download_Page.md)
-
 2.	Bosh를 bosh2 기반으로 설치 되어 있어야 한다.
 3.	Paasta-3.5설치하는 환경은 bosh를 deploy한 inception(설치 환경)에서 작업 해야 한다.
 
+### <div id='11'/>3.2.	PaaS-TA Release 파일 다운로드
+
+   - [설치 파일 다운로드 받기](../../Download_Page.md)
+
+1. 파스타 다운로드 URL에서 [PaaS-TA 설치 릴리즈] 파일을 다운로드 받아 ~/workspace/paasta-3.5/release 이하 디렉토리에 압축을 푼다. 
+압출을 풀면 아래 그림과 같이 ~/workspace/paasta-3.5/release/paasta 이하 디렉토리가 생성되며 이하에 릴리즈 파일(tgz)이 존재한다.
+
+![PaaSTa_release_Image]
+
 ### <div id='10'/>3.2.	Stemcell upload
 
-Paasta-3.5는 stemcell 3586.26을 기반으로 한다. Bosh login 후 stemcell을 upload 한다. Stemcell은 Deploy될 때 생성되는 PaaS-TA VM Base OS Image이다.
-Bosh Login 후 다음 명령어를 수행하여 stemcel을 upload 한다.
+Paasta-3.5는 ubuntu trusty stemcell 3586.26을 기반으로 한다. Bosh login 후 stemcell을 upload 한다. Stemcell은 Deploy될 때 생성되는 PaaS-TA VM Base OS Image이다.
+Bosh Login 후 다음 명령어를 수행하여 stemcel을 upload 한다. stemcell은 bosh 설치시 download 받아야 한다.
 director_name은 bosh를 설치할때 사용한 director_name을 입력한다.
 ```
 $ cd ~/workspace/paasta-3.5/stemcells
@@ -97,7 +103,7 @@ $ bosh -e {director_name} stemcells
 
 ### <div id='11'/>3.3.	cloud-config
 
-Paasta 설치하기 위한 iaas 관련 network/storage/vm 관련 설정들을 정의 한다. IaaS/network/disk등 상황에 따라 설정이 다르다. paasta-deployment.yml은 cloud-config설정에 따라 paasta-vm을 설치 한다.
+Paasta 설치하기 위한 iaas 관련 network,storage,vm 관련 설정들을 정의 한다. IaaS,network,disk등 상황에 따라 설정이 다르다. paasta-deployment.yml은 cloud-config설정에 따라 paasta-vm을 설치 한다.
 PaaS-TA Deploy전에 cloud-config가 Bosh에 Upload 되어야 한다.
 PaaS-TA는 iaas별 cloud-config 예제를 제공하며, paasta를 설치 하려면 cloud-config.yml을 iaas상황에 맞게 수정 해야 한다.
 
@@ -731,3 +737,4 @@ cf login                                      # login
 [PaaSTa_VMS_Guide_Image]:../images/paasta-3.5/paasta-vms.png
 [PaaSTa_LOGIN_Guide_Image]:../images/paasta-3.5/paasta-login.png
 [PaaSTa_FLAVOR_Image]:../images/paasta-3.5/flavor.png
+[PaaSTa_release_Image]:../images/paasta-3.5/paasta-release.png

@@ -177,7 +177,7 @@ bosh -version
 
 1.	다운로드 파일이 위치할 경로 디렉토리를 만든다.
 
-- [설치 파일 다운로드 받기](../Download_Page.md)
+- [설치 파일 다운로드 받기](../../Download_Page.md)
 
 ```
 $ mkdir -p ~/workspace/paasta-3.5/deployment
@@ -186,11 +186,11 @@ $ mkdir -p ~/workspace/paasta-3.5/stemcell
 
 ```
 
-2.	파스타 사이트에서 deployment 다운로드 받아 ~/workspace/paasta-3.5/deployment 이하 디렉토리에 이동한다.
+2.	파스타 다운로드 URL에서 [PaaS-TA Deployment] 파일을 다운로드 받아 ~/workspace/paasta-3.5/deployment 이하 디렉토리에 압축을 푼다.
 
-3.	파스타 사이트에서 release 다운로드 받아 ~/workspace/paasta-3.5/release 이하 디렉토리에 이동한다.
+3.	파스타 다운로드 URL에서 [PaaS-TA BOSH 릴리즈 다운로드] 파일을 다운로드 받아 ~/workspace/paasta-3.5/release 이하 디렉토리에 압축을 푼다.
 
-4.	파스타 사이트에서 release 다운로드 받아 ~/workspace/paasta-3.5/stemcell 이하 디렉토리에 이동한다.
+4.	파스타 다운로드 URL에서 [PaaS-TA 스템셀 이미지] 파일을 다운로드 받아 ~/workspace/paasta-3.5/stemcell 이하 디렉토리에 압축을 푼다.
 
 
 
