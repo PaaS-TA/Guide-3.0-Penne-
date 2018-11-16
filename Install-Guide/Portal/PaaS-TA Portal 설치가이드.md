@@ -72,7 +72,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 - PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PAASTA-PORTAL.zip)
 
 - 다운로드 위치
->PaaSTA-Portal-Release : **<https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Portal.zip>**,  **<https://github.com/PaaS-TA/PAAS-TA-PORTAL-RELEASE>**
+>PaaSTA-Portal-Release : **<https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Portal.zip>**
 
 
 ### 2.2. PaaS-TA Portal 릴리즈 업로드
