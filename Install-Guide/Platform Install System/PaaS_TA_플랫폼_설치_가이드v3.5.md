@@ -737,4 +737,4 @@ cf login                                      # login
 [PaaSTa_VMS_Guide_Image]:../images/paasta-3.5/paasta-vms.png
 [PaaSTa_LOGIN_Guide_Image]:../images/paasta-3.5/paasta-login.png
 [PaaSTa_FLAVOR_Image]:../images/paasta-3.5/flavor.png
-[PaaSTa_release_Image]:../images/paasta-3.5/paasta-release.png
+[PaaSTa_release_Image]:../images/paasta-3.5/paasta-release.PNG
