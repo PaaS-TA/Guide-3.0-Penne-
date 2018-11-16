@@ -328,6 +328,26 @@ Deployment 파일에서 사용하는 network, vm_type 등은 Cloud config를 활
       static:
       - 115.68.46.214 - 115.68.46.216
     type: manual
+  - name: portal_service_public
+    subnets:
+    - azs:
+      - z1
+      - z2
+      - z3
+      - z4
+      - z5
+      - z6
+      cloud_properties:
+        name: External
+      dns:
+      - 8.8.8.8
+      gateway: 115.68.46.209
+      range: 115.68.46.208/28
+      reserved:
+      - 115.68.46.217 - 115.68.46.222
+      static:
+      - 115.68.46.214 - 115.68.46.216
+    type: manual  
   vm_extensions:
   - cloud_properties:
       ports:
@@ -483,7 +503,7 @@ $ vi ./manifests/paasta-caas-service-vsphere-vars.yml
 
 
 # RELEASE
-caas_projects_release_name: "paasta-caas-projects-release"
+caas_projects_release_name: "paasta-caas-projects-release-beta"
 caas_projects_release_version: "1.0"
 
 # IAAS
@@ -530,49 +550,54 @@ cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
 cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
 
 # HAPROXY
-haproxy_http_port: "8080"
+haproxy_http_port: 8080
 haproxy_azs: [z1]
 
 # MARIADB
 mariadb_port: "<MARIADB_PORT>"
-mariadb_azs: [z1]
+mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
 mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
 mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
 
 # DASHBOARD
-caas_dashboard_port: "8091"
-caas_dashboard_azs: [z1]
+caas_dashboard_instances: 1
+caas_dashboard_port: 8091
+caas_dashboard_azs: [z3]
 caas_dashboard_management_security_enabled: false
 caas_dashboard_logging_level: "INFO"
 
 # API
-caas_api_port: "3333"
+caas_api_instances: 1
+caas_api_port: 3333
 caas_api_azs: [z1]
 caas_api_management_security_enabled: false
 caas_api_logging_level: "INFO"
 
 # COMMON API
-caas_common_api_port: "3334"
-caas_common_api_azs: [z1]
+caas_common_api_instances: 1
+caas_common_api_port: 3334
+caas_common_api_azs: [z2]
 caas_common_api_logging_level: "INFO"
 
 # SERVICE BROKER
-caas_service_broker_port: "8888"
-caas_service_broker_azs: [z1]
+caas_service_broker_instances: 1
+caas_service_broker_port: 8888
+caas_service_broker_azs: [z3]
 
 # ADDON
 caas_apply_addons_azs: [z1]
 
 # MASTER
-caas_master_backend_port: "8443"
-caas_master_port: "8443"
-caas_master_azs: [z1]
+caas_master_backend_port: 8443
+caas_master_port: 8443
+caas_master_azs: [z2]
 caas_master_persistent_disk_type: 5120
 
 # WORKER
 caas_worker_instances: 3
 caas_worker_azs: [z1,z2,z3]
+
 ```
 
 > AWS용
@@ -582,7 +607,7 @@ $ vi ./manifests/paasta-caas-service-aws-vars.yml
 
 
 # RELEASE
-caas_projects_release_name: "paasta-caas-projects-release"
+caas_projects_release_name: "paasta-caas-projects-release-beta"
 caas_projects_release_version: "1.0"
 
 # IAAS
@@ -590,7 +615,7 @@ aws_access_key_id_master: '<AWS_ACCESS_KEY_ID_MASTER>'
 aws_secret_access_key_master: '<AWS_SECRET_ACCESS_KEY_MASTER>'
 aws_access_key_id_worker: '<AWS_ACCESS_KEY_ID_WORKER>'
 aws_secret_access_key_worker: '<AWS_SECRET_ACCESS_KEY_WORKER>'
-kubernetes_cluster_tag: 'kubernetes'                                            # Do not update!
+kubernetes_cluster_tag: 'kubernetes'          # Do not update!
 
 # STEMCELL
 stemcell_os: "ubuntu-trusty"
@@ -629,36 +654,40 @@ cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
 cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
 
 # HAPROXY
-haproxy_http_port: "8080"
+haproxy_http_port: 8080
 haproxy_azs: [z1]
 
 # MARIADB
 mariadb_port: "<MARIADB_PORT>"
-mariadb_azs: [z1]
+mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
 mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
 mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
 
 # DASHBOARD
-caas_dashboard_port: "8091"
-caas_dashboard_azs: [z1]
+caas_dashboard_instances: 1
+caas_dashboard_port: 8091
+caas_dashboard_azs: [z3]
 caas_dashboard_management_security_enabled: false
 caas_dashboard_logging_level: "INFO"
 
 # API
-caas_api_port: "3333"
+caas_api_instances: 1
+caas_api_port: 3333
 caas_api_azs: [z1]
 caas_api_management_security_enabled: false
 caas_api_logging_level: "INFO"
 
 # COMMON API
-caas_common_api_port: "3334"
-caas_common_api_azs: [z1]
+caas_common_api_instances: 1
+caas_common_api_port: 3334
+caas_common_api_azs: [z2]
 caas_common_api_logging_level: "INFO"
 
 # SERVICE BROKER
-caas_service_broker_port: "8888"
-caas_service_broker_azs: [z1]
+caas_service_broker_instances: 1
+caas_service_broker_port: 8888
+caas_service_broker_azs: [z3]
 
 # ADDON
 caas_apply_addons_azs: [z1]
@@ -666,12 +695,13 @@ caas_apply_addons_azs: [z1]
 # MASTER
 caas_master_backend_port: "8443"
 caas_master_port: "8443"
-caas_master_azs: [z1]
+caas_master_azs: [z2]
 caas_master_persistent_disk_type: 5120
 
 # WORKER
 caas_worker_instances: 3
 caas_worker_azs: [z1,z2,z3]
+
 ```
 
 
@@ -682,7 +712,7 @@ $ vi ./manifests/paasta-caas-service-openstack-vars.yml
 
 
 # RELEASE
-caas_projects_release_name: "paasta-caas-projects-release"
+caas_projects_release_name: "paasta-caas-projects-release-beta"
 caas_projects_release_version: "1.0"
 
 # IAAS
@@ -705,10 +735,6 @@ vm_type_small_highmem_16GB: "minimal"
 vm_type_caas_small: "minimal"
 vm_type_caas_small_api: "minimal"
 
-#vm_type_small: "small"
-#vm_type_small_highmem_16GB: "small-highmem-16GB"
-#vm_type_caas_small: "small"
-#vm_type_caas_small_api: "minimal"
 
 # NETWORK
 service_private_networks_name: "default"
@@ -736,49 +762,54 @@ cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
 cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
 
 # HAPROXY
-haproxy_http_port: "8080"
+haproxy_http_port: 8080
 haproxy_azs: [z1]
 
 # MARIADB
 mariadb_port: "<MARIADB_PORT>"
-mariadb_azs: [z1]
+mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
 mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
 mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
 
 # DASHBOARD
-caas_dashboard_port: "8091"
-caas_dashboard_azs: [z1]
+caas_dashboard_instances: 1
+caas_dashboard_port: 8091
+caas_dashboard_azs: [z3]
 caas_dashboard_management_security_enabled: false
 caas_dashboard_logging_level: "INFO"
 
 # API
-caas_api_port: "3333"
+caas_api_instances: 1
+caas_api_port: 3333
 caas_api_azs: [z1]
 caas_api_management_security_enabled: false
 caas_api_logging_level: "INFO"
 
 # COMMON API
-caas_common_api_port: "3334"
-caas_common_api_azs: [z1]
+caas_common_api_instances: 1
+caas_common_api_port: 3334
+caas_common_api_azs: [z2]
 caas_common_api_logging_level: "INFO"
 
 # SERVICE BROKER
+caas_service_broker_instances: 1
 caas_service_broker_port: "8888"
-caas_service_broker_azs: [z1]
+caas_service_broker_azs: [z3]
 
 # ADDON
 caas_apply_addons_azs: [z1]
 
 # MASTER
-caas_master_backend_port: "8443"
-caas_master_port: "8443"
-caas_master_azs: [z1]
+caas_master_backend_port: 8443
+caas_master_port: 8443
+caas_master_azs: [z2]
 caas_master_persistent_disk_type: 5120
 
 # WORKER
 caas_worker_instances: 3
 caas_worker_azs: [z1,z2,z3]
+
 ```
 
 
@@ -793,17 +824,18 @@ $ vi deploy-vsphere.sh
 #!/bin/bash
 
 # SET VARIABLES
-export CAAS_DEPLOYMENT_NAME='paasta-caas-service'
+export CAAS_DEPLOYMENT_NAME='paasta-caas-service-beta'
 export CAAS_BOSH2_NAME='micro-bosh'
 export CAAS_BOSH2_UUID=`bosh int <(bosh -e ${CAAS_BOSH2_NAME} environment --json) --path=/Tables/0/Rows/0/uuid`
 
 # DEPLOY
 bosh -e ${CAAS_BOSH2_NAME} -n -d ${CAAS_DEPLOYMENT_NAME} deploy --no-redact manifests/paasta-caas-service-deployment.yml \
     -l manifests/paasta-caas-service-vsphere-vars.yml \
+    -o manifests/ops-files/paasta-caas-service/vsphere-network.yml \
     -o manifests/ops-files/iaas/vsphere/cloud-provider.yml \
     -o manifests/ops-files/iaas/vsphere/set-working-dir-no-rp.yml \
-    -o manifests/ops-files/rename.yml \
     -o manifests/ops-files/misc/first-time-deploy.yml \
+    -o manifests/ops-files/rename.yml \
     -v director_uuid=${CAAS_BOSH2_UUID} \
     -v director_name=${CAAS_BOSH2_NAME} \
     -v deployment_name=${CAAS_DEPLOYMENT_NAME}
@@ -818,135 +850,138 @@ $ ./deploy-vsphere.sh
 
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-Using deployment 'paasta-caas-service'
+Using deployment 'paasta-caas-service-beta'
 
-######################################################### 100.00% 21.00 KiB/s 0s
-Task 57159
+######################################################### 100.00% 11.43 KiB/s 0s
+Task 62603
 
-Task 57159 | 05:29:23 | Extracting release: Extracting release (00:00:00)
-Task 57159 | 05:29:23 | Verifying manifest: Verifying manifest (00:00:00)
-Task 57159 | 05:29:23 | Resolving package dependencies: Resolving package dependencies (00:00:00)
-Task 57159 | 05:29:23 | Processing 3 existing packages: Processing 3 existing packages (00:00:00)
-Task 57159 | 05:29:23 | Processing 3 existing jobs: Processing 3 existing jobs (00:00:00)
-Task 57159 | 05:29:24 | Release has been created: cfcr-etcd/1.3 (00:00:00)
+############################################################ 100.00% 38.92 KiB/s
+Task 62603 | 01:19:56 | Verifying manifest: Verifying manifest (00:00:00)
+############################################################ 100.00% 15.33 KiB/sencies (00:00:01)
+Task 62603 | 01:19:57 | Processing 3 existing packages: Processing 3 existing packages (00:00:00)
+######################################################### 100.00% 12.16 KiB/s 0s00:00:00)
 
-Task 57159 Started  Thu Oct 25 05:29:23 UTC 2018
-Task 57159 Finished Thu Oct 25 05:29:24 UTC 2018
-Task 57159 Duration 00:00:01
-Task 57159 done
-######################################################## 100.00% 104.48 KiB/s 0s
+########################################################### 100.00% 139.06 KiB/s
+Task 62603 | 01:19:57 | Release has been created: cfcr-etcd/1.3 (00:00:00)
 
-Task 57160
+Task 62603 Started  Tue Nov 13 01:19:56 UTC 2018
+Task 62603 Finished Tue Nov 13 01:19:57 UTC 2018
+Task 62603 Duration 00:00:01
+Task 62603 done
+############################################################ 100.00% 69.59 KiB/s
+Task 62604 | 01:19:57 | Extracting release: Extracting release (00:00:01)
+Task 62604 | 01:19:58 | Verifying manifest: Verifying manifest (00:00:00)
+######################################################### 100.00% 56.67 KiB/s 0sencies
 
-Task 57160 | 05:29:25 | Extracting release: Extracting release (00:00:00)
-Task 57160 | 05:29:25 | Verifying manifest: Verifying manifest (00:00:00)
-Task 57160 | 05:29:25 | Resolving package dependencies: Resolving package dependencies (00:00:00)
-Task 57160 | 05:29:25 | Processing 7 existing packages: Processing 7 existing packages (00:00:00)
-Task 57160 | 05:29:25 | Processing 6 existing jobs: Processing 6 existing jobs (00:00:00)
-Task 57160 | 05:29:25 | Release has been created: docker/32.0.0 (00:00:00)
+Task 62605
+Task 62604 | 01:19:58 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+Task 62604 | 01:19:58 | Processing 4 existing packages: Processing 4 existing packages (00:00:00)
+Task 62604 | 01:19:58 | Processing 2 existing jobs: Processing 2 existing jobs (00:00:00)
+Task 62604 | 01:19:58 | Release has been created: bpm/0.6.0 (00:00:00)
 
-Task 57160 Started  Thu Oct 25 05:29:25 UTC 2018
-Task 57160 Finished Thu Oct 25 05:29:25 UTC 2018
-Task 57160 Duration 00:00:00
-Task 57160 done
-######################################################## 100.00% 501.85 KiB/s 0s
+Task 62604 Started  Tue Nov 13 01:19:57 UTC 2018
+Task 62604 Finished Tue Nov 13 01:19:58 UTC 2018
+Task 62604 Duration 00:00:01
+Task 62604 done
 
-                                                                           0.00%
+Task 62605 | 01:19:59 | Extracting release: Extracting release (00:00:00)
+Task 62605 | 01:19:59 | Verifying manifest: Verifying manifest (00:00:00)
+Task 62605 | 01:19:59 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+Task 62605 | 01:19:59 | Processing 7 existing packages: Processing 7 existing packages (00:00:00)
+Task 62605 | 01:19:59 | Processing 6 existing jobs: Processing 6 existing jobs (00:00:00)
+Task 62605 | 01:19:59 | Release has been created: docker/32.0.0 (00:00:00)
 
-Task 57161 | 05:29:28 | Extracting release: Extracting release (00:00:00)
-Task 57161 | 05:29:28 | Verifying manifest: Verifying manifest (00:00:00)
-Task 57161 | 05:29:28 | Resolving package dependencies: Resolving package dependencies (00:00:00)
-Task 57161 | 05:29:28 | Processing 6 existing packages: Processing 6 existing packages (00:00:00)
-Task 57161 | 05:29:28 | Processing 4 existing jobs: Processing 4 existing jobs (00:00:00)
-Task 57161 | 05:29:28 | Release has been created: bosh-dns/1.5.0 (00:00:00)
+Task 62605 Started  Tue Nov 13 01:19:59 UTC 2018
+Task 62605 Finished Tue Nov 13 01:19:59 UTC 2018
+Task 62605 Duration 00:00:00
+Task 62605 done
+######################################################## 100.00% 267.40 KiB/s 0s
 
-Task 57161 Started  Thu Oct 25 05:29:28 UTC 2018
-Task 57161 Finished Thu Oct 25 05:29:28 UTC 2018
-Task 57161 Duration 00:00:00
-Task 57161 done
-######################################################### 100.00% 36.43 KiB/s 0s
+Task 62606
 
-Task 57162
+Task 62606 | 01:20:01 | Extracting release: Extracting release (00:00:00)
+Task 62606 | 01:20:01 | Verifying manifest: Verifying manifest (00:00:00)
+Task 62606 | 01:20:01 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+Task 62606 | 01:20:02 | Processing 6 existing packages: Processing 6 existing packages (00:00:00)
+Task 62606 | 01:20:02 | Processing 4 existing jobs: Processing 4 existing jobs (00:00:00)
+Task 62606 | 01:20:02 | Release has been created: bosh-dns/1.5.0 (00:00:00)
 
-Task 57162 | 05:29:29 | Extracting release: Extracting release (00:00:00)
-Task 57162 | 05:29:29 | Verifying manifest: Verifying manifest (00:00:00)
-Task 57162 | 05:29:29 | Resolving package dependencies: Resolving package dependencies (00:00:00)
-Task 57162 | 05:29:29 | Processing 4 existing packages: Processing 4 existing packages (00:00:00)
-Task 57162 | 05:29:29 | Processing 2 existing jobs: Processing 2 existing jobs (00:00:00)
-Task 57162 | 05:29:29 | Release has been created: bpm/0.6.0 (00:00:00)
+Task 62606 Started  Tue Nov 13 01:20:01 UTC 2018
+Task 62606 Finished Tue Nov 13 01:20:02 UTC 2018
+Task 62606 Duration 00:00:01
+Task 62606 done
+######################################################## 100.00% 243.99 KiB/s 0s
 
-Task 57162 Started  Thu Oct 25 05:29:29 UTC 2018
-Task 57162 Finished Thu Oct 25 05:29:29 UTC 2018
-Task 57162 Duration 00:00:00
-Task 57162 done
-######################################################## 100.00% 377.85 KiB/s 0s
+Task 62607
 
-Task 57163
+Task 62607 | 01:20:07 | Extracting release: Extracting release (00:00:00)
+Task 62607 | 01:20:07 | Verifying manifest: Verifying manifest (00:00:00)
+Task 62607 | 01:20:07 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+Task 62607 | 01:20:07 | Processing 12 existing packages: Processing 12 existing packages (00:00:01)
+Task 62607 | 01:20:08 | Processing 15 existing jobs: Processing 15 existing jobs (00:00:00)
+Task 62607 | 01:20:08 | Release has been created: kubo/0.19.0 (00:00:00)
 
-Task 57163 | 05:29:33 | Extracting release: Extracting release (00:00:00)
-Task 57163 | 05:29:33 | Verifying manifest: Verifying manifest (00:00:00)
-Task 57163 | 05:29:33 | Resolving package dependencies: Resolving package dependencies (00:00:00)
-Task 57163 | 05:29:33 | Processing 12 existing packages: Processing 12 existing packages (00:00:00)
-Task 57163 | 05:29:33 | Processing 15 existing jobs: Processing 15 existing jobs (00:00:00)
-Task 57163 | 05:29:33 | Release has been created: kubo/0.19.0 (00:00:00)
+Task 62607 Started  Tue Nov 13 01:20:07 UTC 2018
+Task 62607 Finished Tue Nov 13 01:20:08 UTC 2018
+Task 62607 Duration 00:00:01
+Task 62607 done
+######################################################## 100.00% 168.53 KiB/s 0s
 
-Task 57163 Started  Thu Oct 25 05:29:33 UTC 2018
-Task 57163 Finished Thu Oct 25 05:29:33 UTC 2018
-Task 57163 Duration 00:00:00
-Task 57163 done
-######################################################## 100.00% 377.85 KiB/s 0s
+Task 62608
 
-Task 57164
+Task 62608 | 01:20:14 | Extracting release: Extracting release (00:00:00)
+Task 62608 | 01:20:14 | Verifying manifest: Verifying manifest (00:00:00)
+Task 62608 | 01:20:14 | Resolving package dependencies: Resolving package dependencies (00:00:00)
+Task 62608 | 01:20:14 | Processing 8 existing packages: Processing 8 existing packages (00:00:00)
+Task 62608 | 01:20:14 | Processing 6 existing jobs: Processing 6 existing jobs (00:00:00)
+Task 62608 | 01:20:14 | Release has been created: paasta-caas-projects-release-beta/1.0 (00:00:00)
 
-
-
-
-Task 57164 Started  Thu Oct 25 05:29:56 UTC 2018
-Task 57164 Finished Thu Oct 25 05:30:40 UTC 2018
-Task 57164 Duration 00:00:44
-Task 57164 done
+Task 62608 Started  Tue Nov 13 01:20:14 UTC 2018
+Task 62608 Finished Tue Nov 13 01:20:14 UTC 2018
+Task 62608 Duration 00:00:00
+Task 62608 done
 + azs:
 + - cloud_properties:
 +     datacenters:
 +     - clusters:
-+       - PAASTA-HA:
++       - BD-HA:
 +           resource_pool: CF_BOSH2_Pool
-+       name: PAASTA-HA
++       name: BD-HA
 +   name: z1
 + - cloud_properties:
 +     datacenters:
 +     - clusters:
-+       - PAASTA-HA:
++       - BD-HA:
 +           resource_pool: CF_BOSH2_Pool
-+       name: PAASTA-HA
++       name: BD-HA
 +   name: z2
 + - cloud_properties:
 +     datacenters:
 +     - clusters:
-+       - PAASTA-HA:
++       - BD-HA:
 +           resource_pool: CF_BOSH2_Pool
-+       name: PAASTA-HA
++       name: BD-HA
 +   name: z3
 + - cloud_properties:
 +     datacenters:
 +     - clusters:
-+       - PAASTA-HA:
++       - BD-HA:
 +           resource_pool: CF_BOSH2_Pool
-+       name: PAASTA-HA
++       name: BD-HA
 +   name: z4
 + - cloud_properties:
 +     datacenters:
 +     - clusters:
-+       - PAASTA-HA:
++       - BD-HA:
 +           resource_pool: CF_BOSH2_Pool
-+       name: PAASTA-HA
++       name: BD-HA
 +   name: z5
 + - cloud_properties:
 +     datacenters:
 +     - clusters:
-+       - PAASTA-HA:
++       - BD-HA:
 +           resource_pool: CF_BOSH2_Pool
-+       name: PAASTA-HA
++       name: BD-HA
 +   name: z6
 
 + vm_types:
@@ -1113,7 +1148,7 @@ Task 57164 done
 +       name: Internal
 +     dns:
 +     - 8.8.8.8
-+     gateway: 10.100.20.23
++     gateway: 10.30.20.23
 +     range: 10.30.0.0/16
 +     reserved:
 +     - 10.30.0.0 - 10.30.111.40
@@ -1150,7 +1185,7 @@ Task 57164 done
 +       name: Internal
 +     dns:
 +     - 8.8.8.8
-+     gateway: 10.100.20.23
++     gateway: 10.30.20.23
 +     range: 10.30.0.0/16
 +     reserved:
 +     - 10.30.0.0 - 10.30.106.255
@@ -1174,7 +1209,7 @@ Task 57164 done
 +     reserved:
 +     - 115.68.47.161 - 115.68.47.174
 +     static:
-+     - 115.68.47.175 - 115.68.47.185
++     - 115.68.47.175 - 115.68.47.190
 +   type: manual
 + - name: portal_service_public
 +   subnets:
@@ -1248,8 +1283,8 @@ Task 57164 done
 +   sha1: 4f0f239abdc801d71de9063625aa56e3c42634b5
 +   url: file://./releases/bpm-release-0.6.0.tgz
 +   version: 0.6.0
-+ - name: paasta-caas-projects-release
-+   url: file://./releases/paasta-caas-projects.tgz
++ - name: paasta-caas-projects-release-beta
++   url: file://./releases/paasta-caas-projects-release-beta.tgz
 +   version: '1.0'
 
 + update:
@@ -1437,31 +1472,31 @@ Task 57164 done
 +     properties:
 +       caas_api:
 +         server:
-+           port: '3333'
++           port: 3333
 +         urls:
 +         - 10.30.107.40
 +       caas_common_api:
 +         server:
-+           port: '3334'
++           port: 3334
 +         urls:
 +         - 10.30.107.41
 +       caas_dashboard:
 +         server:
-+           port: '8091'
++           port: 8091
 +         urls:
 +         - 10.30.107.42
 +       caas_service_broker:
 +         server:
-+           port: '8888'
++           port: 8888
 +         urls:
 +         - 10.30.107.43
 +       host_ip: 10.30.107.44
-+       http_port: '8080'
++       http_port: 8080
 +       mariadb:
 +         port: '<MARIADB_PORT>'
 +         urls:
 +         - 10.30.107.45
-+     release: paasta-caas-projects-release
++     release: paasta-caas-projects-release-beta
 +   name: haproxy
 +   networks:
 +   - name: service_private
@@ -1477,7 +1512,7 @@ Task 57164 done
 +     serial: true
 +   vm_type: caas_small
 + - azs:
-+   - z1
++   - z2
 +   instances: 1
 +   jobs:
 +   - name: mariadb
@@ -1486,7 +1521,7 @@ Task 57164 done
 +         id: <MARIADB_ADMIN_USER_ID>
 +         password: <MARIADB_ADMIN_USER_PASSWORD>
 +       port: '<MARIADB_PORT>'
-+     release: paasta-caas-projects-release
++     release: paasta-caas-projects-release-beta
 +   name: mariadb
 +   networks:
 +   - name: service_private
@@ -1499,7 +1534,7 @@ Task 57164 done
 +     serial: true
 +   vm_type: caas_small
 + - azs:
-+   - z1
++   - z3
 +   instances: 1
 +   jobs:
 +   - name: caas-dashboard
@@ -1510,7 +1545,7 @@ Task 57164 done
 +         authorization:
 +           id: <CAAS_API_AUTH_ID>
 +           password: <CAAS_API_AUTH_PASSWORD>
-+         port: '3333'
++         port: 3333
 +         url: 115.68.47.179
 +       cf:
 +         api:
@@ -1535,7 +1570,7 @@ Task 57164 done
 +         authorization:
 +           id: <CAAS_COMMON_API_AUTH_ID>
 +           password: <CAAS_COMMON_API_AUTH_PASSWORD>
-+         port: '3334'
++         port: 3334
 +         url: 115.68.47.179
 +       java_opts: "-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K
 +         -Xmx681574K"
@@ -1548,11 +1583,11 @@ Task 57164 done
 +         security:
 +           enabled: false
 +       server:
-+         port: '8091'
++         port: 8091
 +       spring:
 +         freemarker:
 +           template-loader-path: classpath:/templates/
-+     release: paasta-caas-projects-release
++     release: paasta-caas-projects-release-beta
 +   name: caas-dashboard
 +   networks:
 +   - name: service_private
@@ -1562,7 +1597,7 @@ Task 57164 done
 +   update:
 +     max_in_flight: 1
 +     serial: true
-+   vm_type: caas_small_api
++   vm_type: caas_small
 + - azs:
 +   - z1
 +   instances: 1
@@ -1576,7 +1611,7 @@ Task 57164 done
 +         authorization:
 +           id: <CAAS_COMMON_API_AUTH_ID>
 +           password: <CAAS_COMMON_API_AUTH_PASSWORD>
-+         port: '3334'
++         port: 3334
 +         url: 115.68.47.179
 +       java_opts: "-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K
 +         -Xmx681574K"
@@ -1589,8 +1624,8 @@ Task 57164 done
 +         security:
 +           enabled: false
 +       server:
-+         port: '3333'
-+     release: paasta-caas-projects-release
++         port: 3333
++     release: paasta-caas-projects-release-beta
 +   name: caas-api
 +   networks:
 +   - name: service_private
@@ -1602,7 +1637,7 @@ Task 57164 done
 +     serial: true
 +   vm_type: caas_small_api
 + - azs:
-+   - z1
++   - z2
 +   instances: 1
 +   jobs:
 +   - name: caas-common-api
@@ -1611,7 +1646,7 @@ Task 57164 done
 +         authorization:
 +           id: <CAAS_API_AUTH_ID>
 +           password: <CAAS_API_AUTH_PASSWORD>
-+         port: '3333'
++         port: 3333
 +         url: 115.68.47.179
 +       java_opts: "-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K
 +         -Xmx681574K"
@@ -1621,12 +1656,12 @@ Task 57164 done
 +           ROOT: INFO
 +         path: classpath:logback-spring.xml
 +       server:
-+         port: '3334'
++         port: 3334
 +       spring:
 +         datasource:
 +           driver_class_name: com.mysql.cj.jdbc.Driver
 +           password: <MARIADB_ADMIN_USER_PASSWORD>
-+           url: jdbc:mysql://<MARIADB_URI>/caas?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
++           url: jdbc:mysql://115.68.47.179:3306/caas?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
 +           username: <MARIADB_ADMIN_USER_ID>
 +           validationQuery: SELECT 1
 +         jpa:
@@ -1642,7 +1677,7 @@ Task 57164 done
 +               format_sql: true
 +               show_sql: true
 +               use_sql_comments: true
-+     release: paasta-caas-projects-release
++     release: paasta-caas-projects-release-beta
 +   name: caas-common-api
 +   networks:
 +   - name: service_private
@@ -1654,7 +1689,7 @@ Task 57164 done
 +     serial: true
 +   vm_type: caas_small_api
 + - azs:
-+   - z1
++   - z3
 +   instances: 1
 +   jobs:
 +   - name: caas-service-broker
@@ -1664,7 +1699,7 @@ Task 57164 done
 +         password: <CAAS_SERVICE_BROKER_AUTH_PASSWORD>
 +       caas:
 +         api_server_url: https://115.68.47.178:8443
-+         cluster: micro-bosh/paasta-caas-service
++         cluster: micro-bosh/paasta-caas-service-beta
 +         common_api_url: http://115.68.47.179:3334/adminToken
 +         exit_code: caas_exit
 +         service_broker:
@@ -1674,7 +1709,7 @@ Task 57164 done
 +         cluster:
 +           command: "/var/vcap/jobs/caas-service-broker/script/set_caas_service_info.sh"
 +         common:
-+           port: '3334'
++           port: 3334
 +           url: 115.68.47.179
 +         url: https://115.68.47.178:8443
 +       credhub:
@@ -1701,15 +1736,15 @@ Task 57164 done
 +           org:
 +             hibernate: info
 +             openpaas:
-+               servicebroker: INFO
++               servicebroker: DEBUG
 +       server:
-+         port: '8888'
++         port: 8888
 +       serviceDefinition:
 +         bindable: false
 +         desc: for CaaS Plans, You can choose plan about CPU, Memory, disk.
 +         id: 8a3f2d14-5283-487f-b6c8-6663639ad8b1_test
 +         image_url: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAC/VBMVEVHcEwxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQ1/RrDAAAA/nRSTlMAA/wI/SAC/gHfBvoEBwsJ6BD3GPUK+QXt7vMS4fIT+A3wFOQl+93sGhUb8Tnr6sX2Dir0g+Dm2+fXDBa23JQXuxEPzx8dVrpH4lfl7zJEOhnp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
-+         name: caas-kubernetes
++         name: caas-test
 +         plan1:
 +           cpu: 2
 +           desc: 2 CPUs, 2GB Memory (free)
@@ -1739,7 +1774,7 @@ Task 57164 done
 +           weight: 3
 +         planupdatable: 'true'
 +         tags: CaaS,Containers as a Service
-+     release: paasta-caas-projects-release
++     release: paasta-caas-projects-release-beta
 +   name: caas-service-broker
 +   networks:
 +   - name: service_private
@@ -1775,7 +1810,7 @@ Task 57164 done
 +   stemcell: trusty
 +   vm_type: caas_small
 + - azs:
-+   - z1
++   - z2
 +   instances: 1
 +   jobs:
 +   - name: bpm
@@ -1789,13 +1824,13 @@ Task 57164 done
 +     properties:
 +       admin-password: "((kubo-admin-password))"
 +       admin-username: <CAAS-KUBO-ADMIN-USERNAME>
-+       backend_port: '8443'
++       backend_port: 8443
 +       kube-controller-manager-password: "((kube-controller-manager-password))"
 +       kube-proxy-password: "((kube-proxy-password))"
 +       kube-scheduler-password: "((kube-scheduler-password))"
 +       kubelet-drain-password: "((kubelet-drain-password))"
 +       kubelet-password: "((kubelet-password))"
-+       port: '8443'
++       port: 8443
 +       route-sync-password: "((route-sync-password))"
 +       service-account-public-key: "((service-account-key.public_key))"
 +       tls:
@@ -1864,7 +1899,7 @@ Task 57164 done
 +           server: <VCENTER-SERVER-IP>
 +           user: <VCENTER-MASTER-ID>
 +           vms: CF_BOSH2_VMs
-+           working-dir: "/PAASTA-DC/vm/CF_BOSH2_VMs"
++           working-dir: "/BD-DC/vm/CF_BOSH2_VMs"
 +     provides:
 +       cloud-provider:
 +         as: master-cloud-provider
@@ -1933,70 +1968,57 @@ Task 57164 done
 +   stemcell: trusty
 +   vm_type: small-highmem-16GB
 
-+ name: paasta-caas-service
++ name: paasta-caas-service-beta
 
-Task 57166
+Task 62609
 
-Task 57166 | 05:30:42 | Preparing deployment: Preparing deployment (00:00:18)
-Task 57166 | 05:31:52 | Preparing package compilation: Finding packages to compile (00:00:00)
-Task 57166 | 05:31:52 | Compiling packages: caas-service-broker/bd1adfa07a0399c93eda4f9031845fd56d6ba1ecaeac88b4bac54f3cc4dda0e2
-Task 57166 | 05:31:52 | Compiling packages: caas-common-api/7dc5d3615ecd9c3de9089e157bd8e8ef7834fdf2557fd64aed58af3d7b1e8db5
-Task 57166 | 05:31:52 | Compiling packages: caas-api/3fc460d20904bce7bbc0697a58e4a9c98bed7435c9ff9b48bf386e6daeed6f3b
-Task 57166 | 05:31:52 | Compiling packages: mariadb/467dceb9fb6dbc9df546c837c92895243c3a173d9dae773ae7ff9518ee3eac0d
-Task 57166 | 05:31:52 | Compiling packages: caas-dashboard/81fbab9f85b500bb1ea6e59fed7bc29a7aea3592f6e5bf4cf33129e37f1acb7b
-Task 57166 | 05:34:23 | Compiling packages: caas-api/3fc460d20904bce7bbc0697a58e4a9c98bed7435c9ff9b48bf386e6daeed6f3b (00:02:31)
-Task 57166 | 05:34:23 | Compiling packages: haproxy/6ed4812a877abc966f63981b10787df1ebc4e920184de45d51ea8eced8b55015
-Task 57166 | 05:34:45 | Compiling packages: caas-dashboard/81fbab9f85b500bb1ea6e59fed7bc29a7aea3592f6e5bf4cf33129e37f1acb7b (00:02:53)
-Task 57166 | 05:34:45 | Compiling packages: caas-common-api/7dc5d3615ecd9c3de9089e157bd8e8ef7834fdf2557fd64aed58af3d7b1e8db5 (00:02:53)
-Task 57166 | 05:34:45 | Compiling packages: java/6f8fe36b71b495b4f6a034925d507d919fba7bedd27b3cb9d4bfc6b4d35e06cc
-Task 57166 | 05:34:52 | Compiling packages: caas-service-broker/bd1adfa07a0399c93eda4f9031845fd56d6ba1ecaeac88b4bac54f3cc4dda0e2 (00:03:00)
-Task 57166 | 05:35:24 | Compiling packages: java/6f8fe36b71b495b4f6a034925d507d919fba7bedd27b3cb9d4bfc6b4d35e06cc (00:00:39)
-Task 57166 | 05:35:39 | Compiling packages: mariadb/467dceb9fb6dbc9df546c837c92895243c3a173d9dae773ae7ff9518ee3eac0d (00:03:47)
-Task 57166 | 05:35:41 | Compiling packages: haproxy/6ed4812a877abc966f63981b10787df1ebc4e920184de45d51ea8eced8b55015 (00:01:18)
-Task 57166 | 05:36:45 | Creating missing vms: haproxy/6bffc42d-e86a-401c-80d9-0f460093e335 (0)
-Task 57166 | 05:36:45 | Creating missing vms: mariadb/45f8f166-07fb-4efe-86f6-77be132acea3 (0)
-Task 57166 | 05:36:45 | Creating missing vms: caas-api/3cd40125-6309-4ed5-9ab7-b229b2505da5 (0)
-Task 57166 | 05:36:45 | Creating missing vms: caas-dashboard/5ea78452-3edd-43f8-b0c3-e4625cb6894b (0)
-Task 57166 | 05:36:45 | Creating missing vms: caas-common-api/7d70a118-5c86-4f84-833d-e0fe70286096 (0)
-Task 57166 | 05:36:45 | Creating missing vms: worker/0be83ab4-b3ec-4ad3-96cf-ada8762872f7 (0)
-Task 57166 | 05:36:45 | Creating missing vms: master/fc3690a7-3357-45cb-8e88-0888ca3ae265 (0)
-Task 57166 | 05:36:45 | Creating missing vms: caas-service-broker/284355eb-b463-46b6-bcdd-930172e3739b (0)
-Task 57166 | 05:36:45 | Creating missing vms: worker/e27cb702-e85d-4419-9b2d-96401b4b7640 (2)
-Task 57166 | 05:36:45 | Creating missing vms: worker/13ad3d26-09e0-46f0-adc8-839a49f3f003 (1)
-Task 57166 | 05:40:25 | Creating missing vms: caas-service-broker/284355eb-b463-46b6-bcdd-930172e3739b (0) (00:03:40)
-Task 57166 | 05:40:56 | Creating missing vms: caas-common-api/7d70a118-5c86-4f84-833d-e0fe70286096 (0) (00:04:11)
-Task 57166 | 05:40:59 | Creating missing vms: mariadb/45f8f166-07fb-4efe-86f6-77be132acea3 (0) (00:04:14)
-Task 57166 | 05:41:01 | Creating missing vms: caas-dashboard/5ea78452-3edd-43f8-b0c3-e4625cb6894b (0) (00:04:16)
-Task 57166 | 05:41:02 | Creating missing vms: haproxy/6bffc42d-e86a-401c-80d9-0f460093e335 (0) (00:04:17)
-Task 57166 | 05:41:04 | Creating missing vms: caas-api/3cd40125-6309-4ed5-9ab7-b229b2505da5 (0) (00:04:19)
-Task 57166 | 05:41:11 | Creating missing vms: worker/e27cb702-e85d-4419-9b2d-96401b4b7640 (2) (00:04:26)
-Task 57166 | 05:41:18 | Creating missing vms: worker/0be83ab4-b3ec-4ad3-96cf-ada8762872f7 (0) (00:04:33)
-Task 57166 | 05:41:19 | Creating missing vms: worker/13ad3d26-09e0-46f0-adc8-839a49f3f003 (1) (00:04:34)
-Task 57166 | 05:41:21 | Creating missing vms: master/fc3690a7-3357-45cb-8e88-0888ca3ae265 (0) (00:04:36)
-Task 57166 | 05:41:23 | Updating instance haproxy: haproxy/6bffc42d-e86a-401c-80d9-0f460093e335 (0) (canary) (00:00:42)
-Task 57166 | 05:42:05 | Updating instance mariadb: mariadb/45f8f166-07fb-4efe-86f6-77be132acea3 (0) (canary)
-Task 57166 | 05:44:39 | Updating instance caas-dashboard: caas-dashboard/5ea78452-3edd-43f8-b0c3-e4625cb6894b (0) (canary) (00:00:41)
-Task 57166 | 05:45:20 | Updating instance caas-api: caas-api/3cd40125-6309-4ed5-9ab7-b229b2505da5 (0) (canary) (00:00:41)
-Task 57166 | 05:46:01 | Updating instance caas-common-api: caas-common-api/7d70a118-5c86-4f84-833d-e0fe70286096 (0) (canary) (00:00:41)
-Task 57166 | 05:46:42 | Updating instance caas-service-broker: caas-service-broker/284355eb-b463-46b6-bcdd-930172e3739b (0) (canary) (00:00:49)
-Task 57166 | 05:47:31 | Updating instance master: master/fc3690a7-3357-45cb-8e88-0888ca3ae265 (0) (canary) (00:03:05)
-Task 57166 | 05:50:36 | Updating instance worker: worker/0be83ab4-b3ec-4ad3-96cf-ada8762872f7 (0) (canary) (00:01:22)
-Task 57166 | 05:51:58 | Updating instance worker: worker/13ad3d26-09e0-46f0-adc8-839a49f3f003 (1) (00:02:47)
-Task 57166 | 05:54:45 | Updating instance worker: worker/e27cb702-e85d-4419-9b2d-96401b4b7640 (2) (00:03:03)
+Task 62609 | 01:20:17 | Preparing deployment: Preparing deployment (00:00:16)
+Task 62609 | 01:21:25 | Preparing package compilation: Finding packages to compile (00:00:01)
+Task 62609 | 01:21:26 | Creating missing vms: haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9 (0)
+Task 62609 | 01:21:26 | Creating missing vms: mariadb/689775ed-d80a-4301-934a-4a053563c672 (0)
+Task 62609 | 01:21:26 | Creating missing vms: caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0)
+Task 62609 | 01:21:26 | Creating missing vms: caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0)
+Task 62609 | 01:21:26 | Creating missing vms: caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0)
+Task 62609 | 01:21:26 | Creating missing vms: caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0)
+Task 62609 | 01:21:26 | Creating missing vms: worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e (0)
+Task 62609 | 01:21:26 | Creating missing vms: master/e663affd-016f-4132-86ab-7fcba028dad5 (0)
+Task 62609 | 01:21:26 | Creating missing vms: worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c (1)
+Task 62609 | 01:21:26 | Creating missing vms: worker/dac5e512-55a1-466a-b111-a41590a280c1 (2)
+Task 62609 | 01:25:12 | Creating missing vms: caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0) (00:03:46)
+Task 62609 | 01:25:15 | Creating missing vms: caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0) (00:03:49)
+Task 62609 | 01:25:24 | Creating missing vms: caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0) (00:03:58)
+Task 62609 | 01:25:34 | Creating missing vms: worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c (1) (00:04:08)
+Task 62609 | 01:25:37 | Creating missing vms: mariadb/689775ed-d80a-4301-934a-4a053563c672 (0) (00:04:11)
+Task 62609 | 01:25:42 | Creating missing vms: haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9 (0) (00:04:16)
+Task 62609 | 01:25:43 | Creating missing vms: caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0) (00:04:17)
+Task 62609 | 01:25:56 | Creating missing vms: worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e (0) (00:04:30)
+Task 62609 | 01:25:56 | Creating missing vms: worker/dac5e512-55a1-466a-b111-a41590a280c1 (2) (00:04:30)
+Task 62609 | 01:26:06 | Creating missing vms: master/e663affd-016f-4132-86ab-7fcba028dad5 (0) (00:04:40)
+Task 62609 | 01:26:10 | Updating instance haproxy: haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9 (0) (canary) (00:00:45)
+Task 62609 | 01:26:55 | Updating instance mariadb: mariadb/689775ed-d80a-4301-934a-4a053563c672 (0) (canary) (00:02:43)
+Task 62609 | 01:29:38 | Updating instance caas-dashboard: caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0) (canary) (00:00:44)
+Task 62609 | 01:30:22 | Updating instance caas-api: caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0) (canary) (00:00:41)
+Task 62609 | 01:31:03 | Updating instance caas-common-api: caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0) (canary) (00:00:42)
+Task 62609 | 01:31:45 | Updating instance caas-service-broker: caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0) (canary) (00:00:52)
+Task 62609 | 01:32:37 | Updating instance master: master/e663affd-016f-4132-86ab-7fcba028dad5 (0) (canary) (00:03:04)
+Task 62609 | 01:35:41 | Updating instance worker: worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e (0) (canary) (00:03:40)
+Task 62609 | 01:39:21 | Updating instance worker: worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c (1) (00:01:23)
+Task 62609 | 01:40:44 | Updating instance worker: worker/dac5e512-55a1-466a-b111-a41590a280c1 (2) (00:03:08)
 
-Task 57166 Started  Thu Oct 25 05:30:42 UTC 2018
-Task 57166 Finished Thu Oct 25 05:57:48 UTC 2018
-Task 57166 Duration 00:27:06
-Task 57166 done
+Task 62609 Started  Tue Nov 13 01:20:17 UTC 2018
+Task 62609 Finished Tue Nov 13 01:43:52 UTC 2018
+Task 62609 Duration 00:23:35
+Task 62609 done
 
 Succeeded
+
 ```
 
 
 - 업로드된 Container 서비스 릴리즈를 확인한다.
 
 ```
-$ bosh releases
+$ bosh -e micro-bosh releases
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 Name                               Version   Commit Hash  
@@ -2021,26 +2043,26 @@ Succeeded
 
 
 ```
-$ bosh -e micro-bosh -d paasta-caas-service vms
+$ bosh -e micro-bosh -d paasta-caas-service-beta vms
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-Task 56776. Done
+Task 62642 done
 
-Deployment 'paasta-caas-service'
+Deployment 'paasta-caas-service-beta'
 
 Instance                                                  Process State  AZ  IPs            VM CID                                   VM Type             Active  
-caas-api/0708804a-8192-496a-9868-70546b277622             running        z1  10.30.107.40   vm-1e7c49e1-bb4c-49ee-ac5a-bb71591bd22a  caas_small_api      true  
-caas-common-api/0a984bf9-1d4b-4c53-80c4-4a46bbb4f767      running        z1  10.30.107.41   vm-1582168c-b84c-4545-a391-a5f13e5cabcc  caas_small_api      true  
-caas-dashboard/42156d15-ef97-451e-8156-a1e27e41f485       running        z1  10.30.107.42   vm-4a7a35e1-091b-41d6-a0bb-04825d875863  caas_small_api      true  
-caas-service-broker/cf659dcd-6f1d-466a-9973-64722ee2fe09  running        z1  10.30.107.43   vm-2d516225-1659-411b-86c2-50ac08b4bd3a  caas_small_api      true  
-haproxy/681602b1-5ec3-4abc-b9c6-1e587c8ce093              running        z1  10.30.107.44   vm-022b36ea-ea35-4d4c-b26c-d11b4e32a828  caas_small          true  
+caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506             running        z1  10.30.107.40   vm-5e7f69e5-dc49-46db-9390-1b3a3053f0ca  caas_small_api      true  
+caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41      running        z2  10.30.107.41   vm-b12711c7-8811-4579-82de-b2e264f4e80f  caas_small_api      true  
+caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93       running        z3  10.30.107.42   vm-35dccdc1-f939-41c7-a726-2388f6124920  caas_small          true  
+caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e  running        z3  10.30.107.43   vm-2f9d63ac-e3fe-4e6e-96eb-ef725acc01e1  caas_small_api      true  
+haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9              running        z1  10.30.107.44   vm-c3488820-2eeb-40a2-84a6-e4bbec5e27aa  caas_small          true  
                                                                              115.68.47.179                                                                 
-mariadb/08935668-b6e8-42af-af32-a7755bc0d9b1              running        z1  10.30.107.45   vm-be71efd5-3043-4e2a-b888-248220df683a  caas_small          true  
-master/ec991d34-e9ef-4441-a517-3eb6abda6877               running        z1  10.30.107.0    vm-398d33c4-bd27-46c0-a8c8-b35f5c0caf61  small               true  
+mariadb/689775ed-d80a-4301-934a-4a053563c672              running        z2  10.30.107.45   vm-b9a18b3e-281d-471f-ae42-859b65f58a29  caas_small          true  
+master/e663affd-016f-4132-86ab-7fcba028dad5               running        z2  10.30.107.0    vm-58219f94-023c-4fb0-ba5a-ba870071215d  small               true  
                                                                              115.68.47.178                                                                 
-worker/43c2d140-31c5-48f3-a7d8-36c9093e3ee8               running        z2  10.30.108.1    vm-092143f1-d95d-4217-b61a-acbeb1695f76  small-highmem-16GB  true  
-worker/7e1491f8-ad46-4466-8e85-68b9d535c525               running        z1  10.30.108.0    vm-04cf5f15-13f4-404f-979b-edb6dca01f72  small-highmem-16GB  true  
-worker/82a4ca3f-8749-4039-8e12-81072dd143d4               running        z3  10.30.108.2    vm-50840561-42b5-4ff9-a06f-b0a5e7152a77  small-highmem-16GB  true  
+worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e               running        z1  10.30.108.0    vm-04f5b88b-1b48-490c-84c4-578cbc4364b2  small-highmem-16GB  true  
+worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c               running        z2  10.30.108.1    vm-468dbbdb-3034-4be8-8d60-3e6d6ba5e0c1  small-highmem-16GB  true  
+worker/dac5e512-55a1-466a-b111-a41590a280c1               running        z3  10.30.108.2    vm-04ca0cad-4282-472b-8ac0-18a3171e6381  small-highmem-16GB  true  
 
 10 vms
 
@@ -2049,7 +2071,7 @@ Succeeded
 
 
 ### <div id='24'/> 2.4. Container 서비스 브로커 등록
-Container 서비스팩 배포가 완료되었으면 파스-타 포탈에서 서비스 팩을 사용하기 위해서 먼저 Container 서비스 브로커를 등록해 주어야 한다. 서비스 브로커 등록 시 개방형 클라우드 플랫폼에서 서비스 브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
+Container 서비스팩 배포가 완료되었으면 PaaS-TA 포탈에서 서비스 팩을 사용하기 위해서 먼저 Container 서비스 브로커를 등록해 주어야 한다. 서비스 브로커 등록 시 개방형 클라우드 플랫폼에서 서비스 브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
 
 - 서비스 브로커 목록을 확인한다.
 

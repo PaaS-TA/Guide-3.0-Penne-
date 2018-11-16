@@ -121,7 +121,7 @@
 ![IMG_017]
 
 
-##### <div id='3-2-1-3'/> 3.2.1.3. Namespaces
+#### <div id='3-2-1-3'/> 3.2.1.3. Namespaces
 ##### <div id='3-2-1-3-1'/> 3.2.1.3.1. Namespace 상세 조회
 
 - Namespace 상세 페이지는 Details, Events 탭으로 구성된다.
@@ -133,7 +133,7 @@
 ![IMG_049]
 
 
-##### <div id='3-2-1-4'/> 3.2.1.4. Nodes
+#### <div id='3-2-1-4'/> 3.2.1.4. Nodes
 ##### <div id='3-2-1-4-1'/> 3.2.1.4.1. Node 상세 조회
 
 - Node 상세 페이지는 Summary, Details, Events 탭으로 구성된다.
@@ -196,7 +196,7 @@
 
 ![IMG_020]
 
-##### <div id='3-2-4-1'/> 3.2.4.1. Deployments
+#### <div id='3-2-4-1'/> 3.2.4.1. Deployments
 
 ##### <div id='3-2-4-1-1'/> 3.2.4.1.1. Deployment 목록 조회
 1. Workloads의 Deployment 탭을 클릭하여 Deployment 목록 페이지로 이동한다.
@@ -211,10 +211,10 @@
 
 ![IMG_034]
 ![IMG_036]
-![IMG_038]
+![IMG_037]
 
 
-##### <div id='3-2-4-2'/> 3.2.4.2. Pods
+#### <div id='3-2-4-2'/> 3.2.4.2. Pods
 
 ##### <div id='3-2-4-2-1'/> 3.2.4.2.1. Pod 목록 조회
 1. Workloads의 Pods 탭을 클릭하여 Pod 목록 페이지로 이동한다.
@@ -231,7 +231,7 @@
 ![IMG_046]
 
 
-##### <div id='3-2-4-3'/> 3.2.4.3. Replica Sets
+#### <div id='3-2-4-3'/> 3.2.4.3. Replica Sets
 
 ##### <div id='3-2-4-3-1'/> 3.2.4.3.1. Replica Set 목록 조회
 1. Workloads의 Replica Sets 탭을 클릭하여 Replica Set 목록 페이지로 이동한다.
@@ -282,7 +282,7 @@
 [IMG_030]:/Use-Guide/images/caas/CAAS-030.png
 [IMG_034]:/Use-Guide/images/caas/CAAS-034.png
 [IMG_036]:/Use-Guide/images/caas/CAAS-036.png
-[IMG_038]:/Use-Guide/images/caas/CAAS-038.png
+[IMG_037]:/Use-Guide/images/caas/CAAS-037.png
 [IMG_039]:/Use-Guide/images/caas/CAAS-039.png
 [IMG_041]:/Use-Guide/images/caas/CAAS-041.png
 [IMG_042]:/Use-Guide/images/caas/CAAS-042.png
