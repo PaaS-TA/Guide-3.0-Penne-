@@ -553,12 +553,11 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 		Succeeded
 
 
-
-```diff
 -  Deployment 파일을 서버 환경에 맞게 수정한다.
 -  azs의 경우 z5 ~ z6 로 설정한다.
 -  "(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
-+  Object Storage 경우 stemcell 버전을 3468.51로 무조건 지정해서 설치를 진행해야한다.
+```diff
+-  Object Storage 경우 stemcell 버전을 3468.51로 무조건 지정해서 설치를 진행해야한다.
 ```
  
 ```yml
