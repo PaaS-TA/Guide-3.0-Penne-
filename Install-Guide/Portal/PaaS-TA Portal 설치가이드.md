@@ -179,13 +179,6 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
         
         Succeeded
 
-- ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
->![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
-```diff
-+ this will be highlighted in green
-- this will be highlighted in red
-```
-
 -	PaaS-TA Portal 릴리즈를 확인한다.
 
 - **사용 예시**
@@ -248,7 +241,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 		(*) Currently deployed
 
-		3 stemcells
+		4 stemcells
 
 		Succeeded
 		
@@ -560,9 +553,13 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 		Succeeded
 
 
--	Deployment 파일을 서버 환경에 맞게 수정한다.
+
+```diff
+-  Deployment 파일을 서버 환경에 맞게 수정한다.
 -  azs의 경우 z5 ~ z6 로 설정한다.
->"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
+-  "(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
++  Object Storage 경우 stemcell 버전을 3468.51로 무조건 지정해서 설치를 진행해야한다.
+```
  
 ```yml
 # paas-ta-portal-bosh2.0.yml 설정 파일 내용
@@ -1036,7 +1033,6 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paasta-portal-bosh2.0.yml \
       Name                              Version   Commit Hash  
       paas-ta-portal-release             2.0*      00000000  
 
-<span style="color:red">some **This is Red Bold.** text</span>
 > stemcell_os : 스템셀 OS를 입력한다. $bosh stemcells 명령문으로 확인가능\
 > stemcell_version : 스템셀 버전을 입력한다. $bosh stemcells 명령문으로 확인가능(3468.51 verion 사용)\
 > stemcell_alias : bosh deploy시 사용할 스템셀 명칭을 정한다.
