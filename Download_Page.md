@@ -2,7 +2,7 @@
 #### PaaSTA Penne 3.1 Release를 이용하시려면 해당 Git Hub의 Tag에서 3.1을 선택 하십시오.
 |패키지 명|설명 |다운로드 링크|checksum|
 |---------|-------|--------------|---------------|
-|PaaSTA-Deploy|PaaS-TA 배포| https://paas-ta.kr/data/packages/3.5/PaaSTA-Deploy.zip |md5sum: bf9b1af101a59420e9c2692a123e6a33  |
+|PaaSTA-Deployments|PaaS-TA 배포| http://45.248.73.44/index.php/s/xiEoP4JpyjHXTab/download |md5sum: 6f064131941410496c5b755307a25fee  |
 |PaaSTA-Stemcell|PaaS-TA 스템셀 이미지| https://paas-ta.kr/data/packages/3.5/PaaSTA-Stemcell.zip   |md5sum: d87cbe8cfa4c37c7905205bff987ffd1  |
 |PaaSTA-Releases-Paasta|PaaS-TA 설치 릴리즈| https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Paasta.zip   |md5sum: 88f514a1d140bec0efc4fa6e949363d9  |
 |PaaSTA-Releases-Service|PaaS-TA 서비스 설치 릴리즈| https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Service.zip    |md5sum: 1e4930178e3df9743933105929e7c652  |
