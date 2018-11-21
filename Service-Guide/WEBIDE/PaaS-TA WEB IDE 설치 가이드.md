@@ -1054,20 +1054,11 @@ bosh -e micro-bosh -d paasta-web-ide-service deploy paasta_web_ide_bosh2.0.yml \
 
 ### <div id='11'/> 3.1. 설치전 준비사항
 
-본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
-서비스팩 설치를 위해서는 먼저 BOSH CLI v2 가 설치 되어 있어야 하고 BOSH 에 로그인이 되어 있어야 한다.<br>
-BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이드 문서를 참고 하여 BOSH CLI v2를 설치를 하고 사용법을 숙지 해야 한다.<br>
-
-- BOSH2.0 사용자 가이드
->BOSH2 사용자 가이드 : **<https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH2_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md>**
-
->BOSH CLI V2 사용자 가이드 : **<https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_%EC%82%AC%EC%9A%A9%EC%9E%90_%EA%B0%80%EC%9D%B4%EB%93%9Cv1.0.md>**
-
-- PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PaaSTA-Deployment.zip, PaaSTA-Sample-Apps.zip, PaaSTA-Services.zip)
+- PaaS-TA WEB IDE 브로커에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (webide-broker-release.zip)
 
 - 다운로드 위치
->PaaSTA-Deployment : **<https://paas-ta.kr/data/packages/3.5/deployment.zip>**  
->PaaSTA-Sample-Apps : **<https://paas-ta.kr/data/packages/2.0/PaaSTA-Sample-Apps.zip>**
+>WEBIDE-BROKER-RELEASE : **<http://45.248.73.44/index.php/s/yHWRW44Zdk9CxEH/download>**  
+
 
 ### <div id='12'/> 3.2. WEB-IDE 브로커 릴리즈 업로드
 
@@ -1188,12 +1179,12 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 		uaa                               60.2*     ebb5895  
 		webide-broker-release             1.1       non-git  
 
-	    	(*) Currently deployed
-	    	(+) Uncommitted changes
+	    (*) Currently deployed
+	    (+) Uncommitted changes
 
-	    	32 releases
+	    32 releases
 
-	    	Succeeded
+	    Succeeded
 		
 -	WEB-IDE 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
@@ -1810,16 +1801,16 @@ bosh -e micro-bosh -d webide-broker-service deploy paasta_web_ide_vsphere_2.0.ym
 
 ### <div id='16'/> 4.1. WEB-IDE 브로커 대시보드 화면
 
--   카탈로그 서비스 목록의 [앱 서비스]를 클릭한다.
+-   카탈로그 서비스 목록의 [ 앱 서비스 ]를 클릭한다.
 > ① 앱 서비스에 등록 할 이름을 입력한다.<br>
   ② 분류는 "개발 지원 도구"로 지정한다.<br>
-  ③ 서비스는 등록 된 WEB IDE 브로커이름 "webide"를 선택한다.<br>
+  ③ 서비스는 등록 된 WEB IDE 브로커이름 [ webide ]를 선택한다.<br>
   ④ 썸네일은 사용자가 등록하고자 하는 이미지를 지정하여 선택한다.<br>
-  ⑤ 문서 URL을 입력한다. (예)https://github.com/PaaS-TA/PAAS-TA-WEB-IDE-BROKER<br>
+  ⑤ 문서 URL을 입력한다. (예) https://github.com/PaaS-TA/PAAS-TA-WEB-IDE-BROKER<br>
   ⑥ 서비스 생성 파라미터 사용은 서비스 생성 시 필요한 파라미터 값을 설정한다.<br>
-  ⑦ 앱 바인드 사용은 "N"으로 선택한다.<br>
-  ⑧ 공개 "Y" 를 설정 시 활성화 된다. 공개 "N" 설정 시 공개 여부가 비 활성화 된다.<br>
-  ⑨ 대시보드 "Y" 를 필수 설정한다. 대시보드 "N" 설정시 대시보드 버튼이 비 활성화 된다.<br>
+  ⑦ 앱 바인드 사용은 [ N ]으로 선택한다.<br>
+  ⑧ 공개 [ Y ] 를 설정 시 활성화 된다. 공개 [ N ] 설정 시 공개 여부가 비 활성화 된다.<br>
+  ⑨ 대시보드 [ Y ] 를 필수 설정한다. 대시보드 [ N ] 설정 시 대시보드 버튼이 비 활성화 된다.<br>
   ⑩ 태그는 생성시 필요한 태그 값을 설정한다.<br>
   ⑪ 요약에 등록 할 간략한 정보를 입력한다.<br>
   ⑫ 설명에 등록 할 자세한 정보를 입력한다.<br>
@@ -1827,8 +1818,6 @@ bosh -e micro-bosh -d webide-broker-service deploy paasta_web_ide_vsphere_2.0.ym
  ![](/Service-Guide/images/webide/web-ide-07.png) <br>
   
 -   참고 : https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/portal/PaaS-TA%20%EC%9A%B4%EC%98%81%EC%9E%90%20%ED%8F%AC%ED%83%88%20%EA%B0%80%EC%9D%B4%EB%93%9C_v1.1.md#--433-%EC%B9%B4%ED%83%88%EB%A1%9C%EA%B7%B8-%EA%B4%80%EB%A6%AC-%EC%84%9C%EB%B9%84%EC%8A%A4
-
-
 <br>
 
 # <div id='17'/> 5. WEB-IDE 에서 CF CLI 사용법
@@ -1842,6 +1831,12 @@ bosh -e micro-bosh -d webide-broker-service deploy paasta_web_ide_vsphere_2.0.ym
   
  ![](/Service-Guide/images/webide/web-ide-08.png)
 
+<br>
+
+- 서비스 목록에서 해당 WEB-IDE 서비스의 "대시보드" 버튼을 클릭한다. 
+
+ ![](/Service-Guide/images/webide/web-ide-15.png)
+ 
 <br>
 
 - Workspace를 구성하기 위해 Docker 관련 자료를 다운로드한다.
