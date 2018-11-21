@@ -72,7 +72,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 - PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PAASTA-PORTAL.zip)
 
 - 다운로드 위치
->PaaSTA-Portal-Release : **<https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Portal.zip>**,  **<https://github.com/PaaS-TA/PAAS-TA-PORTAL-RELEASE>**
+>PaaSTA-Portal-Release : **<https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Portal.zip>**
 
 
 ### 2.2. PaaS-TA Portal 릴리즈 업로드
@@ -179,8 +179,6 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
         
         Succeeded
 
-
-
 -	PaaS-TA Portal 릴리즈를 확인한다.
 
 - **사용 예시**
@@ -236,13 +234,14 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 
 		$ bosh -e micro-bosh stemcells
 		Name                                      Version   OS             CPI  CID  
-		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
-		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
+		bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9
+		~                                         3468.51*  ubuntu-trusty  -    sc-bd8fadf2-92f2-495b-b172-d571a388abf5  
+		~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24
 		~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
 
 		(*) Currently deployed
 
-		3 stemcells
+		4 stemcells
 
 		Succeeded
 		
@@ -554,9 +553,12 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 		Succeeded
 
 
--	Deployment 파일을 서버 환경에 맞게 수정한다.
+-  Deployment 파일을 서버 환경에 맞게 수정한다.
 -  azs의 경우 z5 ~ z6 로 설정한다.
->"(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
+-  "(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
+```diff
+-  Object Storage 경우 stemcell 버전을 3468.51로 무조건 지정해서 설치를 진행해야한다.
+```
  
 ```yml
 # paas-ta-portal-bosh2.0.yml 설정 파일 내용
@@ -1037,11 +1039,12 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paasta-portal-bosh2.0.yml \
     - $ bosh stemcells
       Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
       Name                                      Version   OS             CPI  CID  
-      bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9  
+      bosh-vsphere-esxi-ubuntu-trusty-go_agent  3586.26*  ubuntu-trusty  -    sc-109fbdb0-f663-49e8-9c30-8dbdd2e5b9b9
+      ~                                         3468.51*  ubuntu-trusty  -    sc-bd8fadf2-92f2-495b-b172-d571a388abf5  
       ~                                         3445.2*   ubuntu-trusty  -    sc-025c70b5-7d6e-4ba3-a12b-7e71c33dad24  
       ~                                         3309*     ubuntu-trusty  -    sc-22429dba-e5cc-4469-ab3a-882091573277  
       (*) Currently deployed
-      3 stemcells
+      4 stemcells
       
 > internal_networks_name : 내부 ip 할당할 network name $ bosh -e micro-bosh cloud-config로 확인가능\
 > external_networks_name : 외부 ip 할당할 network name $ bosh -e micro-bosh cloud-config로 확인가능
