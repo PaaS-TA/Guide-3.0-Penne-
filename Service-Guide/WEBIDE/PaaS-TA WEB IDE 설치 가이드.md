@@ -1620,7 +1620,7 @@ properties:
 
 ```sh
 #!/bin/bash
-# stemcell 버전은 3445.2 버전으로 사용하시고 https://github.com/PaaS-TA/Guide-2.0-Linguine-/blob/master/Download_Page.md 에서 다운받아 쓰십시요.
+
 # vsphere 이이외 iaas 사용시 use-public-network-vsphere.yml 대신 use-public-network.yml 을 사용
 
 bosh -e micro-bosh -d webide-broker-service deploy paasta_web_ide_vsphere_2.0.yml \
@@ -1795,8 +1795,8 @@ bosh -e micro-bosh -d webide-broker-service deploy paasta_web_ide_vsphere_2.0.ym
         webide                 webide-shared*                                            A paasta web ide service for application development.provision parameters
         
         * 해당 서비스 플랜에 연관된 비용이 있습니다. 서비스 인스턴스를 작성하면 이 비용이 발생합니다.
+ <br>
 
- 
 # <div id='15'/> 4. WEB-IDE 브로커 PaaS-TA 포털사이트 연동
 
 ### <div id='16'/> 4.1. WEB-IDE 브로커 대시보드 화면
