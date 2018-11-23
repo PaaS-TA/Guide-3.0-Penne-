@@ -911,6 +911,9 @@ instance_groups:
         url: ((cf_uaa_url))
         clientsecret: ((portal_client_secret))
         logouturl: ((cf_uaa_logouturl))
+    monitoring: ((portal_webuser_monitoring))
+    quantity: ((portal_webuser_quantity))
+    automaticApproval: ((portal_webuser_automaticapproval))
 
 ######### COMMON PROPERTIES ##########
 properties:
