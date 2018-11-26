@@ -7,7 +7,7 @@
 2. [Cubrid 서비스팩 설치](#6)
   -  [2.1. 설치전 준비사항](#7)
   -  [2.2. Cubrid 서비스 릴리즈 업로드](#8)
-  -  [2.3. Cubrid 서비스 Deployment 파일 수정 및 배포](#9)
+  -  [2.3. Cubrid 서비스 Deployment 파일 및 deploy-cubrid-bosh2.0.sh 수정 및 배포](#9)
   -  [2.4. Cubrid 서비스 브로커 등록](#10)
 3. [Cubrid 연동 Sample App 설명](#11)
   -  [3.1. Sample App 구조](#12)
