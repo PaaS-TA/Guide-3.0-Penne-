@@ -1283,9 +1283,9 @@ Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신
 
 >`$ cf create-service {서비스명} {서비스플랜} {내서비스명}  `
 
-**서비스명** CubridDB로 Marketplace에서 보여지는 서비스 명칭이다.  
-**서비스플랜** 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. Cubrid 서비스는 100mb, 1gb를 지원한다.  
-**내서비스명**내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
+- **서비스명** CubridDB로 Marketplace에서 보여지는 서비스 명칭이다.  
+- **서비스플랜** 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. Cubrid 서비스는 100mb, 1gb를 지원한다.  
+- **내서비스명**내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
 
 >`$ cf create-service CubridDB utf8 cubrid-service-instance `
 
