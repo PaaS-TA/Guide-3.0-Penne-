@@ -630,7 +630,7 @@ bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
 bosh -e {director_name} -d paasta deploy paasta-deployment.yml \
    -o operations/use-compiled-releases.yml \
    -o operations/use-haproxy.yml \
-   -o operations/use-haproxy-public-network.yml \
+   -o paasta-addon/use-haproxy-public-network-vsphere.yml \
    -o operations/use-postgres.yml \
    -v inception_os_user_name=ubuntu \          # home user명 (release file path와 연관성 있음. /home/ubuntu/paasta-3.5 이하 release 파일들의 경로 설정)
    -v haproxy_public_ip=35.200.2.244 \          # paasta public ip
