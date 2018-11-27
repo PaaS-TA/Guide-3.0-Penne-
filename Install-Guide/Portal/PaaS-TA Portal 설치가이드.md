@@ -1146,6 +1146,10 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paasta-portal-bosh2.0.yml \
  mail_smtp_properties_starttls_required: smtp의 starttls_required값을 설정한다.\
  mail_smtp_properties_subject: 메일제목을 설정한다.
  
+>portal_webuser_automaticapproval: 회원가입시 cf에 접속가능 여부 true일경우 관리자포탈에서 승인을 해주어야 접근 가능하다.
+ portal_webuser_monitoring : 모니터링 사용 여부 true일경우 앱 상세정보에서 모니터링창이 활성화가 된다.
+ portal_webuser_quantity : 사용량 조회 창 활성화 여부
+ 
  -	PaaS-TA Portal을 배포한다.
 
 - **사용 예시**
