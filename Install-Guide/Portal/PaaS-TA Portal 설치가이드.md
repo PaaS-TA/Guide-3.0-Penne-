@@ -72,7 +72,7 @@ BOSH CLI v2 가 설치 되어 있지 않을 경우 먼저 BOSH2.0 설치 가이�
 - PaaS-TA에서 제공하는 압축된 릴리즈 파일들을 다운받는다. (PAASTA-PORTAL.zip)
 
 - 다운로드 위치
->PaaSTA-Portal-Release : **<https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Portal.zip>**
+>PaaSTA-Portal-Release : **<https://paas-ta.kr/data/packages/3.5/PaaSTA-Releases-Portal.zip>**, **<https://github.com/PaaS-TA/PAAS-TA-PORTAL-RELEASE/tree/v3.5>**
 
 
 ### 2.2. PaaS-TA Portal 릴리즈 업로드
@@ -557,7 +557,7 @@ deployment 파일에서 사용하는 network, vm_type 등은 cloud config 를 �
 -  azs의 경우 z5 ~ z6 로 설정한다.
 -  "(())" 구문은 bosh deploy 할 때 변수로 받아서 처리하는 구문이므로 이 부분의 수정 방법은 아래의 deploy-portal-bosh2.0.sh 참고 예) os : ((stemcell_os))
 ```diff
--  Object Storage 경우 stemcell 버전을 3468.51로 무조건 지정해서 설치를 진행해야한다.
+-  Object Storage 경우 stemcell 버전을 3468.51이상의 버전에선 지원하지 않음.
 ```
  
 ```yml
@@ -1145,6 +1145,10 @@ bosh -e micro-bosh -d paas-ta-portal-v2 deploy paasta-portal-bosh2.0.yml \
  mail_smtp_properties_starttls_enable: smtp의 starttls_enable값을 설정한다.\
  mail_smtp_properties_starttls_required: smtp의 starttls_required값을 설정한다.\
  mail_smtp_properties_subject: 메일제목을 설정한다.
+ 
+>portal_webuser_automaticapproval: 회원가입시 cf에 접속가능 여부 true일경우 관리자포탈에서 승인을 해주어야 접근 가능하다.
+ portal_webuser_monitoring : 모니터링 사용 여부 true일경우 앱 상세정보에서 모니터링창이 활성화가 된다.
+ portal_webuser_quantity : 사용량 조회 창 활성화 여부
  
  -	PaaS-TA Portal을 배포한다.
 
