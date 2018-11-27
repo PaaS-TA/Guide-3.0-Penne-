@@ -9,7 +9,8 @@
 
 [2. Container 서비스팩 설치](#2)
 
-  -  [2.1. 설치 전 준비사항](#21)  
+  -  [2.1. 설치 전 준비사항](#21)
+  -  [2.1.1. Deployment 및 Release 파일 다운로드](#211)
   -  [2.2. Stemcell 업로드](#22)
   -  [2.3. Container 서비스 릴리즈 Deployment 파일 수정 및 배포](#23)
   -  [2.4. Container 서비스 브로커 등록](#24)
@@ -102,21 +103,35 @@ PaaS-TA 3.5 버전부터는 Bosh 2.0 기반으로 배포(deploy)를 진행한다
 >http://bosh.io/docs
 http://docs.cloudfoundry.org
 
+
 # <div id='2'/> 2. Container 서비스팩 설치
 
 ### <div id='21'/> 2.1. 설치 전 준비사항
 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.
 서비스팩 설치를 위해서는 먼저 BOSH CLI v2가 설치되어 있어야 하고 BOSH에 로그인이 되어 있어야 한다.<br>
 BOSH CLI v2가 설치 되어 있지 않을 경우, 먼저 BOSH 2.0 설치 가이드 문서를 참고하여 BOSH CLI v2를 설치를 하고 사용법을 숙지해야한다.<br>
-PaaS-TA에서 제공하는 압축된 릴리즈 파일을 다운로드한다. (PaaSTA-Deploy.zip)
 
 - BOSH 2.0 사용자 가이드
   >BOSH 2 사용자 가이드 : <https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH2_사용자_가이드v1.0.md>
   >
   >BOSH CLI V2 사용자 가이드 : <https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Use-Guide/Bosh/PaaS-TA_BOSH_CLI_V2_사용자_가이드v1.0.md>
 
-- 릴리즈 다운로드 위치
-  >https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Download_Page.md
+
+#### <div id='211'/> 2.1.1. Deployment 및 Release 파일 다운로드
+1. Release, deployment 파일은 /home/{user_name}/workspace/paasta-3.5 이하에 다운로드 받아야 한다.
+
+2. 다운로드 파일이 위치할 경로 디렉토리를 만든다.
+```
+$ mkdir -p ~/workspace/paasta-3.5/deployment/service-deployment/paasta-container-service-2.0
+$ mkdir -p ~/workspace/paasta-3.5/release/service
+```
+
+3. 파일을 다운받는다.
+> https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Download_Page.md
+
+4. 파스타 사이트에서 deployment 다운로드 받아 ~/workspace/paasta-3.5/deployment/service-deployment/paasta-container-service-2.0 이하 디렉토리에 이동한다.
+
+5. 파스타 사이트에서 release 다운로드 받아 ~/workspace/paasta-3.5/release/service 이하 디렉토리에 이동한다.
 
 
 ### <div id='22'/> 2.2. Stemcell 업로드
