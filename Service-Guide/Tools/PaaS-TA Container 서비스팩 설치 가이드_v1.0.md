@@ -559,21 +559,21 @@ credhub_server_url: "10.30.40.111:8844"
 credhub_admin_client_secret: "<CREDHUB_ADMIN_CLIENT_SECRET>"
 
 # CF
-cf_uaa_oauth_uri: "https://uaa.<DOMAIN>"
-cf_api_url: "https://api.<DOMAIN>"
-cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
-cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
+cf_uaa_oauth_uri: "https://uaa.115.68.46.189.xip.io"
+cf_api_url: "https://api.115.68.46.189.xip.io"
+cf_uaa_oauth_client_id: "caasclient"
+cf_uaa_oauth_client_secret: "clientsecret"
 
 # HAPROXY
 haproxy_http_port: 8080
 haproxy_azs: [z1]
 
 # MARIADB
-mariadb_port: "<MARIADB_PORT>"
+mariadb_port: "3306"
 mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
-mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
-mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
+mariadb_admin_user_id: "root"
+mariadb_admin_user_password: "Paasta@2018"
 
 # DASHBOARD
 caas_dashboard_instances: 1
@@ -655,18 +655,18 @@ caas_dashboard_private_ips: ["10.0.1.42"]
 caas_service_broker_private_ips: ["10.0.1.43"]
 haproxy_private_ips: "10.0.0.44"
 mariadb_private_urls: ["10.0.1.45"]
-caas_master_public_url: "<CAAS-MASTER-PUBLIC-URL>"
-haproxy_public_ips: "<HAPROXY-PUBLIC-IPS>"
+caas_master_public_url: "52.78.21.76"
+haproxy_public_ips: "54.180.13.40"
 
 # CREDHUB
 credhub_server_url: "10.0.1.6:8844"
 credhub_admin_client_secret: "<CREDHUB_ADMIN_CLIENT_SECRET>"
 
 # CF
-cf_uaa_oauth_uri: "https://uaa.<DOMAIN>"
-cf_api_url: "https://api.<DOMAIN>"
-cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
-cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
+cf_uaa_oauth_uri: "https://uaa.115.68.46.189.xip.io"
+cf_api_url: "https://api.115.68.46.189.xip.io"
+cf_uaa_oauth_client_id: "caasclient"
+cf_uaa_oauth_client_secret: "clientsecret"
 
 # HAPROXY
 haproxy_http_port: 8080
@@ -676,8 +676,8 @@ haproxy_azs: [z1]
 mariadb_port: "<MARIADB_PORT>"
 mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
-mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
-mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
+mariadb_admin_user_id: "root"
+mariadb_admin_user_password: "Paasta@2018"
 
 # DASHBOARD
 caas_dashboard_instances: 1
@@ -731,12 +731,12 @@ caas_projects_release_name: "paasta-caas-projects-release-beta"
 caas_projects_release_version: "1.0"
 
 # IAAS
-auth_url: 'http://<IAAS-IP>:5000/v3'
-openstack_domain: '<OPENSTACK_DOMAIN>'
+auth_url: 'http://115.68.151.175:5000/v3'
+openstack_domain: 'default'
 openstack_username: '<OPENSTACK_USERNAME>'
 openstack_password: '<OPENSTACK_PASSWORD>'
 openstack_project_id: '<OPENSTACK_PROJECT_ID>'
-region: '<OPENSTACK_REGION>'
+region: 'RegionOne'
 ignore-volume-az: true
 
 # STEMCELL
@@ -771,10 +771,10 @@ credhub_server_url: "10.20.0.7:8844"
 credhub_admin_client_secret: "<CREDHUB_ADMIN_CLIENT_SECRET>"
 
 # CF
-cf_uaa_oauth_uri: "https://uaa.<DOMAIN>"
-cf_api_url: "https://api.<DOMAIN>"
-cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
-cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
+cf_uaa_oauth_uri: "https://uaa.115.68.46.189.xip.io"
+cf_api_url: "https://api.115.68.46.189.xip.io"
+cf_uaa_oauth_client_id: "caasclient"
+cf_uaa_oauth_client_secret: "clientsecret"
 
 # HAPROXY
 haproxy_http_port: 8080
@@ -784,8 +784,8 @@ haproxy_azs: [z1]
 mariadb_port: "<MARIADB_PORT>"
 mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
-mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
-mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
+mariadb_admin_user_id: "root"
+mariadb_admin_user_password: "Paasta@2018"
 
 # DASHBOARD
 caas_dashboard_instances: 1
@@ -2226,7 +2226,7 @@ Context: admin, from client admin
 > - 클라이언트 비밀번호 : uaac 클라이언트 비밀번호를 입력한다.
 > - 컨테이너 서비스 대시보드 URI : 성공적으로 리다이렉션 할 컨테이너 서비스 대시보드 URI를 입력한다.
 > - 퍼미션 범위: 클라이언트가 사용자를 대신하여 얻을 수있는 허용 범위 목록을 입력한다.
-> - 권한 타입 : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.
+> - 권한 타입 : 서비스팩이 제공하는 API를 사용할 수 있는 권한 목록을 입력한다.
 > - 권한 퍼미션 : 클라이언트에 부여 된 권한 목록을 입력한다.
 > - 자동승인권한: 사용자 승인이 필요하지 않은 권한 목록을 입력한다.
 
@@ -2239,6 +2239,13 @@ $ uaac client add caasclient -s clientsecret --redirect_uri "http://localhost:80
 ```
 
 
+- Container 서비스 계정 수정을 한다. (이미 uaac client가 등록되어 있는 경우)
 
+> $ uaac client update caasclient --redirect_uri={컨테이너 서비스 대시보드 URI}
+> - 컨테이너 서비스 대시보드 URI : 성공적으로 리다이렉션 할 컨테이너 서비스 대시보드 URI를 입력한다.
+
+```
+$ uaac client update caasclient --redirect_uri="http://54.180.13.40:8091 http://115.68.151.177:8091 http://localhost:8091 http://115.68.47.179:8091 http://115.68.47.176:8091
+```
 
 [Architecture]:/Service-Guide/images/caas/CaaS_Architecture.png
