@@ -2239,6 +2239,13 @@ $ uaac client add caasclient -s clientsecret --redirect_uri "http://localhost:80
 ```
 
 
+- Container 서비스 계정 수정을 한다. (이미 uaac client가 등록되어 있는 경우)
 
+> $ uaac client update caasclient --redirect_uri={컨테이너 서비스 대시보드 URI}
+> - 컨테이너 서비스 대시보드 URI : 성공적으로 리다이렉션 할 컨테이너 서비스 대시보드 URI를 입력한다.
+
+```
+$ uaac client update caasclient --redirect_uri="http://54.180.13.40:8091 http://115.68.151.177:8091 http://localhost:8091 http://115.68.47.179:8091 http://115.68.47.176:8091
+```
 
 [Architecture]:/Service-Guide/images/caas/CaaS_Architecture.png
