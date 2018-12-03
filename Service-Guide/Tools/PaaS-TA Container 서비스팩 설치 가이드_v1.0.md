@@ -15,6 +15,7 @@
   -  [2.3. Container 서비스 릴리즈 Deployment 파일 수정 및 배포](#23)
   -  [2.4. Container 서비스 브로커 등록](#24)
   -  [2.5. Container 서비스 UAA Client Id 등록](#25)
+  -  [2.6. Container 서비스 Private image Repository 설정 (Optional)](#26)
 
 # <div id='1'/> 1. 문서 개요
 
@@ -118,20 +119,35 @@ BOSH CLI v2가 설치 되어 있지 않을 경우, 먼저 BOSH 2.0 설치 가이
 
 
 #### <div id='211'/> 2.1.1. Deployment 및 Release 파일 다운로드
-1. Release, deployment 파일은 /home/{user_name}/workspace/paasta-3.5 이하에 다운로드 받아야 한다.
 
-2. 다운로드 파일이 위치할 경로 디렉토리를 만든다.
+Container 서비스 설치에 필요한 Deployment 및 릴리즈 파일을 다운로드 받아 서비스 설치 작업 경로로 위치시킨다.
+
+-	설치 파일 다운로드 위치 : https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Download_Page.md
+-	Release, deployment 파일은 /home/{user_name}/workspace/paasta-4.0 이하에 다운로드 받아야 한다.
+-	설치 작업 경로 생성 및 파일 다운로드
+
+>	Deployment 파일
+ >> paasta-container-service-2.0
+
+> Release 파일
+ >> bosh-dns-release-1.5.0.tgz<br>
+ >> bpm-release-0.6.0.tgz<br>
+ >> cfcr-etcd-release-1.3.tgz<br>
+ >> docker-32.0.0.tgz<br>
+ >> kubo-release.tgz<br>
+ >> paasta-container-service-projects-release.tgz<br>
+
+
 ```
-$ mkdir -p ~/workspace/paasta-3.5/deployment/service-deployment/paasta-container-service-2.0
-$ mkdir -p ~/workspace/paasta-3.5/release/service
+- Deployment 다운로드 파일 위치 경로 생성
+$ mkdir -p ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
+
+- 릴리즈 다운로드 파일 위치 경로 생성
+$ mkdir -p ~/workspace/paasta-4.0/release/service
 ```
 
-3. 파일을 다운받는다.
-> https://github.com/PaaS-TA/Guide-3.0-Penne-/blob/v3.5/Download_Page.md
-
-4. 파스타 사이트에서 deployment 다운로드 받아 ~/workspace/paasta-3.5/deployment/service-deployment/paasta-container-service-2.0 이하 디렉토리에 이동한다.
-
-5. 파스타 사이트에서 release 다운로드 받아 ~/workspace/paasta-3.5/release/service 이하 디렉토리에 이동한다.
+-	Deployment 파일을 다운로드 받아 ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0 이하 디렉토리에 이동한다.
+-	Release 파일을 다운로드 받아 ~/workspace/paasta-4.0/release/service 이하 디렉토리에 이동한다.
 
 
 ### <div id='22'/> 2.2. Stemcell 업로드
@@ -507,18 +523,32 @@ Deployment 파일에서 사용하는 network, vm_type 등은 Cloud config를 활
 
   Succeeded
   ```
+-	Deployment 를 하기 전에 remove-all-addons.sh 을 환경에 맞게 수정한다.
+```
+$ cd ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
+$ vi remove-all-addons.sh
 
 
+#!/bin/bash
+
+director_name='micro-bosh'
+
+bosh -e ${director_name} update-runtime-config manifests/ops-files/paasta-container-service/remove-all-addons.yml
+
+```
 - Deployment YAML에서 사용하는 변수들을 서버 환경에 맞게 수정한다.
 
 > vSphere용
 
 ```
-$ vi ./manifests/paasta-caas-service-vsphere-vars.yml
+$ cd ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
+$ vi ./manifests/paasta-container-service-vsphere-vars.yml
 
+# INCEPTION OS USER NAME
+inception_os_user_name: "inception"
 
 # RELEASE
-caas_projects_release_name: "paasta-caas-projects-release-beta"
+caas_projects_release_name: "paasta-container-service-projects-release"
 caas_projects_release_version: "1.0"
 
 # IAAS
@@ -545,35 +575,35 @@ service_private_networks_name: "service_private"
 service_public_networks_name: "service_public"
 
 # IPS
-caas_api_private_ips: ["10.30.107.40"]
-caas_common_api_private_ips: ["10.30.107.41"]
-caas_dashboard_private_ips: ["10.30.107.42"]
-caas_service_broker_private_ips: ["10.30.107.43"]
-haproxy_private_ips: "10.30.107.44"
-mariadb_private_urls: ["10.30.107.45"]
-caas_master_public_url: "115.68.47.178"
-haproxy_public_ips: "115.68.47.179"
+caas_master_public_url: "115.68.47.178"    # CAAS-MASTER-PUBLIC-URL
+haproxy_public_url: "115.68.47.179"        # HAPROXY-PUBLIC-IPS
 
 # CREDHUB
-credhub_server_url: "10.30.40.111:8844"
+credhub_server_url: "10.30.40.111:8844"    # Bosh credhub server URL
 credhub_admin_client_secret: "<CREDHUB_ADMIN_CLIENT_SECRET>"
 
 # CF
-cf_uaa_oauth_uri: "https://uaa.115.68.46.189.xip.io"
-cf_api_url: "https://api.115.68.46.189.xip.io"
-cf_uaa_oauth_client_id: "caasclient"
-cf_uaa_oauth_client_secret: "clientsecret"
+cf_uaa_oauth_uri: "https://uaa.<DOMAIN>"
+cf_api_url: "https://api.<DOMAIN>"
+cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
+cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
 
 # HAPROXY
 haproxy_http_port: 8080
 haproxy_azs: [z1]
 
 # MARIADB
-mariadb_port: "3306"
+mariadb_port: "<MARIADB_PORT>"
 mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
-mariadb_admin_user_id: "root"
-mariadb_admin_user_password: "Paasta@2018"
+mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
+mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
+mariadb_role_set_administrator_code_name: "Administrator"
+mariadb_role_set_administrator_code: "RS0001"
+mariadb_role_set_regular_user_code_name: "Regular User"
+mariadb_role_set_regular_user_code: "RS0002"
+mariadb_role_set_init_user_code_name: "Init User"
+mariadb_role_set_init_user_code: "RS0003"
 
 # DASHBOARD
 caas_dashboard_instances: 1
@@ -618,11 +648,14 @@ caas_worker_azs: [z1,z2,z3]
 > AWS용
 
 ```
-$ vi ./manifests/paasta-caas-service-aws-vars.yml
+$ cd ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
+$ vi ./manifests/paasta-container-service-aws-vars.yml
 
+# INCEPTION OS USER NAME
+inception_os_user_name: "ubuntu"
 
 # RELEASE
-caas_projects_release_name: "paasta-caas-projects-release-beta"
+caas_projects_release_name: "paasta-container-service-projects-release"
 caas_projects_release_version: "1.0"
 
 # IAAS
@@ -630,7 +663,7 @@ aws_access_key_id_master: '<AWS_ACCESS_KEY_ID_MASTER>'
 aws_secret_access_key_master: '<AWS_SECRET_ACCESS_KEY_MASTER>'
 aws_access_key_id_worker: '<AWS_ACCESS_KEY_ID_WORKER>'
 aws_secret_access_key_worker: '<AWS_SECRET_ACCESS_KEY_WORKER>'
-kubernetes_cluster_tag: 'kubernetes'          # Do not update!
+kubernetes_cluster_tag: 'kubernetes'      # Do not update!
 
 # STEMCELL
 stemcell_os: "ubuntu-trusty"
@@ -649,24 +682,18 @@ service_private_networks_name: "service_private"
 service_public_networks_name: "service_public"
 
 # IPS
-caas_api_private_ips: ["10.0.1.40"]
-caas_common_api_private_ips: ["10.0.1.41"]
-caas_dashboard_private_ips: ["10.0.1.42"]
-caas_service_broker_private_ips: ["10.0.1.43"]
-haproxy_private_ips: "10.0.0.44"
-mariadb_private_urls: ["10.0.1.45"]
-caas_master_public_url: "52.78.21.76"
-haproxy_public_ips: "54.180.13.40"
+caas_master_public_url: "52.78.21.76" # CAAS-MASTER-PUBLIC-URL
+haproxy_public_url: "54.180.13.40" # HAPROXY-PUBLIC-IPS
 
 # CREDHUB
-credhub_server_url: "10.0.1.6:8844"
+credhub_server_url: "10.0.1.6:8844" # Bosh credhub server URL
 credhub_admin_client_secret: "<CREDHUB_ADMIN_CLIENT_SECRET>"
 
 # CF
-cf_uaa_oauth_uri: "https://uaa.115.68.46.189.xip.io"
-cf_api_url: "https://api.115.68.46.189.xip.io"
-cf_uaa_oauth_client_id: "caasclient"
-cf_uaa_oauth_client_secret: "clientsecret"
+cf_uaa_oauth_uri: "https://uaa.<DOMAIN>"
+cf_api_url: "https://api.<DOMAIN>"
+cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
+cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
 
 # HAPROXY
 haproxy_http_port: 8080
@@ -676,8 +703,14 @@ haproxy_azs: [z1]
 mariadb_port: "<MARIADB_PORT>"
 mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
-mariadb_admin_user_id: "root"
-mariadb_admin_user_password: "Paasta@2018"
+mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
+mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
+mariadb_role_set_administrator_code_name: "Administrator"
+mariadb_role_set_administrator_code: "RS0001"
+mariadb_role_set_regular_user_code_name: "Regular User"
+mariadb_role_set_regular_user_code: "RS0002"
+mariadb_role_set_init_user_code_name: "Init User"
+mariadb_role_set_init_user_code: "RS0003"
 
 # DASHBOARD
 caas_dashboard_instances: 1
@@ -708,8 +741,8 @@ caas_service_broker_azs: [z3]
 caas_apply_addons_azs: [z1]
 
 # MASTER
-caas_master_backend_port: "8443"
-caas_master_port: "8443"
+caas_master_backend_port: 8443
+caas_master_port: 8443
 caas_master_azs: [z2]
 caas_master_persistent_disk_type: 5120
 
@@ -723,20 +756,23 @@ caas_worker_azs: [z1,z2,z3]
 > OpenStack용
 
 ```
-$ vi ./manifests/paasta-caas-service-openstack-vars.yml
+$ cd ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
+$ vi ./manifests/paasta-container-service-openstack-vars.yml
 
+# INCEPTION OS USER NAME
+inception_os_user_name: "ubuntu"
 
 # RELEASE
-caas_projects_release_name: "paasta-caas-projects-release-beta"
+caas_projects_release_name: "paasta-container-service-projects-release"
 caas_projects_release_version: "1.0"
 
 # IAAS
-auth_url: 'http://115.68.151.175:5000/v3'
-openstack_domain: 'default'
+auth_url: 'http://<IAAS-IP>:5000/v3'
+openstack_domain: '<OPENSTACK_DOMAIN>'
 openstack_username: '<OPENSTACK_USERNAME>'
 openstack_password: '<OPENSTACK_PASSWORD>'
 openstack_project_id: '<OPENSTACK_PROJECT_ID>'
-region: 'RegionOne'
+region: '<OPENSTACK_REGION>'
 ignore-volume-az: true
 
 # STEMCELL
@@ -745,36 +781,28 @@ stemcell_version: "3586.26"
 stemcell_alias: "trusty"
 
 # VM_TYPE
-vm_type_small: "minimal"
-vm_type_small_highmem_16GB: "minimal"
-vm_type_caas_small: "minimal"
+vm_type_small: "small"
+vm_type_small_highmem_16GB: "small-highmem-16GB"
+vm_type_caas_small: "small"
 vm_type_caas_small_api: "minimal"
-
 
 # NETWORK
 service_private_networks_name: "default"
 service_public_networks_name: "vip"
 
 # IPS
-caas_api_private_ips: ["10.20.10.111"]
-caas_common_api_private_ips: ["10.20.10.112"]
-caas_dashboard_private_ips: ["10.20.10.113"]
-caas_service_broker_private_ips: ["10.20.10.114"]
-haproxy_private_ips: "10.20.10.115"
-mariadb_private_urls: ["10.20.10.116"]
-kubernetes_master_host: "115.68.151.178"
-caas_master_public_url: "115.68.151.178"
-haproxy_public_ips: "115.68.151.177"
+caas_master_public_url: "115.68.151.178"   # CAAS-MASTER-PUBLIC-URL
+haproxy_public_url: "115.68.151.177"       # HAPROXY-PUBLIC-IPS
 
 # CREDHUB
-credhub_server_url: "10.20.0.7:8844"
+credhub_server_url: "10.20.0.7:8844"       # Bosh credhub server URL
 credhub_admin_client_secret: "<CREDHUB_ADMIN_CLIENT_SECRET>"
 
 # CF
-cf_uaa_oauth_uri: "https://uaa.115.68.46.189.xip.io"
-cf_api_url: "https://api.115.68.46.189.xip.io"
-cf_uaa_oauth_client_id: "caasclient"
-cf_uaa_oauth_client_secret: "clientsecret"
+cf_uaa_oauth_uri: "https://uaa.<DOMAIN>"
+cf_api_url: "https://api.<DOMAIN>"
+cf_uaa_oauth_client_id: "<CF_UAA_OAUTH_CLIENT_ID>"
+cf_uaa_oauth_client_secret: "<CF_UAA_OAUTH_CLIENT_SECRET>"
 
 # HAPROXY
 haproxy_http_port: 8080
@@ -784,8 +812,14 @@ haproxy_azs: [z1]
 mariadb_port: "<MARIADB_PORT>"
 mariadb_azs: [z2]
 mariadb_persistent_disk_type: "10GB"
-mariadb_admin_user_id: "root"
-mariadb_admin_user_password: "Paasta@2018"
+mariadb_admin_user_id: "<MARIADB_ADMIN_USER_ID>"
+mariadb_admin_user_password: "<MARIADB_ADMIN_USER_PASSWORD>"
+mariadb_role_set_administrator_code_name: "Administrator"
+mariadb_role_set_administrator_code: "RS0001"
+mariadb_role_set_regular_user_code_name: "Regular User"
+mariadb_role_set_regular_user_code: "RS0002"
+mariadb_role_set_init_user_code_name: "Init User"
+mariadb_role_set_init_user_code: "RS0003"
 
 # DASHBOARD
 caas_dashboard_instances: 1
@@ -809,7 +843,7 @@ caas_common_api_logging_level: "INFO"
 
 # SERVICE BROKER
 caas_service_broker_instances: 1
-caas_service_broker_port: "8888"
+caas_service_broker_port: 8888
 caas_service_broker_azs: [z3]
 
 # ADDON
@@ -827,45 +861,62 @@ caas_worker_azs: [z1,z2,z3]
 
 ```
 
-
 - Deploy 스크립트 파일을 서버 환경에 맞게 수정한다.
   -	vSphere : **deploy_vsphere.sh**
   - AWS : **deploy_aws.sh**
   - OpenStack : **deploy_openstack.sh**
 
 ```
+$ cd ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
 $ vi deploy-vsphere.sh
 
 #!/bin/bash
 
 # SET VARIABLES
-export CAAS_DEPLOYMENT_NAME='paasta-caas-service-beta'
+export CAAS_DEPLOYMENT_NAME='paasta-container-service'
 export CAAS_BOSH2_NAME='micro-bosh'
 export CAAS_BOSH2_UUID=`bosh int <(bosh -e ${CAAS_BOSH2_NAME} environment --json) --path=/Tables/0/Rows/0/uuid`
 
 # DEPLOY
-bosh -e ${CAAS_BOSH2_NAME} -n -d ${CAAS_DEPLOYMENT_NAME} deploy --no-redact manifests/paasta-caas-service-deployment.yml \
-    -l manifests/paasta-caas-service-vsphere-vars.yml \
-    -o manifests/ops-files/paasta-caas-service/vsphere-network.yml \
+bosh -e ${CAAS_BOSH2_NAME} -n -d ${CAAS_DEPLOYMENT_NAME} deploy --no-redact manifests/paasta-container-service-deployment.yml \
+    -l manifests/paasta-container-service-vsphere-vars.yml \
+    -o manifests/ops-files/paasta-container-service/vsphere-network.yml \
+    -o manifests/ops-files/paasta-container-service/use-compiled-releases.yml \
     -o manifests/ops-files/iaas/vsphere/cloud-provider.yml \
     -o manifests/ops-files/iaas/vsphere/set-working-dir-no-rp.yml \
-    -o manifests/ops-files/misc/first-time-deploy.yml \
     -o manifests/ops-files/rename.yml \
+    -o manifests/ops-files/misc/single-master.yml \
+    -o manifests/ops-files/misc/first-time-deploy.yml \
     -v director_uuid=${CAAS_BOSH2_UUID} \
     -v director_name=${CAAS_BOSH2_NAME} \
     -v deployment_name=${CAAS_DEPLOYMENT_NAME}
 
-```
 
+```
+**※	Private Image Repository 를 사용할 경우**
+```
+* 각 IaaS 환경에 따라 아래 명령어를 추가한다.
+
+> vSphere
+manifests/ops-files/paasta-container-service/add-private-image-repository-vsphere.yml
+
+> AWS
+manifests/ops-files/paasta-container-service/add-private-image-repository-aws.yml
+
+> OpenStack
+manifests/ops-files/paasta-container-service/add-private-image-repository-openstack.yml
+```
 
 - Container 서비스팩을 배포한다.
 
 ```
+$ cd ~/workspace/paasta-4.0/deployment/service-deployment/paasta-container-service-2.0
+$ ./remove-all-addons.sh
 $ ./deploy-vsphere.sh
 
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
-Using deployment 'paasta-caas-service-beta'
+Using deployment 'paasta-container-service'
 
 ######################################################### 100.00% 11.43 KiB/s 0s
 Task 62603
@@ -949,7 +1000,7 @@ Task 62608 | 01:20:14 | Verifying manifest: Verifying manifest (00:00:00)
 Task 62608 | 01:20:14 | Resolving package dependencies: Resolving package dependencies (00:00:00)
 Task 62608 | 01:20:14 | Processing 8 existing packages: Processing 8 existing packages (00:00:00)
 Task 62608 | 01:20:14 | Processing 6 existing jobs: Processing 6 existing jobs (00:00:00)
-Task 62608 | 01:20:14 | Release has been created: paasta-caas-projects-release-beta/1.0 (00:00:00)
+Task 62608 | 01:20:14 | Release has been created: paasta-container-service-projects-release/1.0 (00:00:00)
 
 Task 62608 Started  Tue Nov 13 01:20:14 UTC 2018
 Task 62608 Finished Tue Nov 13 01:20:14 UTC 2018
@@ -1298,8 +1349,8 @@ Task 62608 done
 +   sha1: 4f0f239abdc801d71de9063625aa56e3c42634b5
 +   url: file://./releases/bpm-release-0.6.0.tgz
 +   version: 0.6.0
-+ - name: paasta-caas-projects-release-beta
-+   url: file://./releases/paasta-caas-projects-release-beta.tgz
++ - name: paasta-container-service-projects-release
++   url: file://./releases/paasta-container-service-projects-release.tgz
 +   version: '1.0'
 
 + update:
@@ -1511,7 +1562,7 @@ Task 62608 done
 +         port: '<MARIADB_PORT>'
 +         urls:
 +         - 10.30.107.45
-+     release: paasta-caas-projects-release-beta
++     release: paasta-container-service-projects-release
 +   name: haproxy
 +   networks:
 +   - name: service_private
@@ -1536,7 +1587,7 @@ Task 62608 done
 +         id: <MARIADB_ADMIN_USER_ID>
 +         password: <MARIADB_ADMIN_USER_PASSWORD>
 +       port: '<MARIADB_PORT>'
-+     release: paasta-caas-projects-release-beta
++     release: paasta-container-service-projects-release
 +   name: mariadb
 +   networks:
 +   - name: service_private
@@ -1552,7 +1603,7 @@ Task 62608 done
 +   - z3
 +   instances: 1
 +   jobs:
-+   - name: caas-dashboard
++   - name: container-service-dashboard
 +     properties:
 +       caas:
 +         url: https://115.68.47.178:8443
@@ -1602,8 +1653,8 @@ Task 62608 done
 +       spring:
 +         freemarker:
 +           template-loader-path: classpath:/templates/
-+     release: paasta-caas-projects-release-beta
-+   name: caas-dashboard
++     release: paasta-container-service-projects-release
++   name: container-service-dashboard
 +   networks:
 +   - name: service_private
 +     static_ips:
@@ -1617,7 +1668,7 @@ Task 62608 done
 +   - z1
 +   instances: 1
 +   jobs:
-+   - name: caas-api
++   - name: container-service-api
 +     properties:
 +       caasMaster:
 +         api:
@@ -1640,8 +1691,8 @@ Task 62608 done
 +           enabled: false
 +       server:
 +         port: 3333
-+     release: paasta-caas-projects-release-beta
-+   name: caas-api
++     release: paasta-container-service-projects-release
++   name: container-service-api
 +   networks:
 +   - name: service_private
 +     static_ips:
@@ -1655,7 +1706,7 @@ Task 62608 done
 +   - z2
 +   instances: 1
 +   jobs:
-+   - name: caas-common-api
++   - name: container-service-common-api
 +     properties:
 +       caasApi:
 +         authorization:
@@ -1692,8 +1743,8 @@ Task 62608 done
 +               format_sql: true
 +               show_sql: true
 +               use_sql_comments: true
-+     release: paasta-caas-projects-release-beta
-+   name: caas-common-api
++     release: paasta-container-service-projects-release
++   name: container-service-common-api
 +   networks:
 +   - name: service_private
 +     static_ips:
@@ -1707,14 +1758,14 @@ Task 62608 done
 +   - z3
 +   instances: 1
 +   jobs:
-+   - name: caas-service-broker
++   - name: container-service-broker
 +     properties:
 +       auth:
 +         id: <CAAS_SERVICE_BROKER_AUTH_ID>
 +         password: <CAAS_SERVICE_BROKER_AUTH_PASSWORD>
 +       caas:
 +         api_server_url: https://115.68.47.178:8443
-+         cluster: micro-bosh/paasta-caas-service-beta
++         cluster: micro-bosh/paasta-container-service
 +         common_api_url: http://115.68.47.179:3334/adminToken
 +         exit_code: caas_exit
 +         service_broker:
@@ -1722,7 +1773,7 @@ Task 62608 done
 +           url: http://115.68.47.179:8888/tokens
 +       caasMaster:
 +         cluster:
-+           command: "/var/vcap/jobs/caas-service-broker/script/set_caas_service_info.sh"
++           command: "/var/vcap/jobs/container-service-broker/script/set_caas_service_info.sh"
 +         common:
 +           port: 3334
 +           url: 115.68.47.179
@@ -1759,7 +1810,7 @@ Task 62608 done
 +         desc: for CaaS Plans, You can choose plan about CPU, Memory, disk.
 +         id: 8a3f2d14-5283-487f-b6c8-6663639ad8b1_test
 +         image_url: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAC/VBMVEVHcEwxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQxbOQ1/RrDAAAA/nRSTlMAA/wI/SAC/gHfBvoEBwsJ6BD3GPUK+QXt7vMS4fIT+A3wFOQl+93sGhUb8Tnr6sX2Dir0g+Dm2+fXDBa23JQXuxEPzx8dVrpH4lfl7zJEOhnp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
-+         name: caas-test
++         name: container-service
 +         plan1:
 +           cpu: 2
 +           desc: 2 CPUs, 2GB Memory (free)
@@ -1789,8 +1840,8 @@ Task 62608 done
 +           weight: 3
 +         planupdatable: 'true'
 +         tags: CaaS,Containers as a Service
-+     release: paasta-caas-projects-release-beta
-+   name: caas-service-broker
++     release: paasta-container-service-projects-release
++   name: container-service-broker
 +   networks:
 +   - name: service_private
 +     static_ips:
@@ -1983,7 +2034,7 @@ Task 62608 done
 +   stemcell: trusty
 +   vm_type: small-highmem-16GB
 
-+ name: paasta-caas-service-beta
++ name: paasta-container-service
 
 Task 62609
 
@@ -1991,30 +2042,30 @@ Task 62609 | 01:20:17 | Preparing deployment: Preparing deployment (00:00:16)
 Task 62609 | 01:21:25 | Preparing package compilation: Finding packages to compile (00:00:01)
 Task 62609 | 01:21:26 | Creating missing vms: haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9 (0)
 Task 62609 | 01:21:26 | Creating missing vms: mariadb/689775ed-d80a-4301-934a-4a053563c672 (0)
-Task 62609 | 01:21:26 | Creating missing vms: caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0)
-Task 62609 | 01:21:26 | Creating missing vms: caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0)
-Task 62609 | 01:21:26 | Creating missing vms: caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0)
-Task 62609 | 01:21:26 | Creating missing vms: caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0)
+Task 62609 | 01:21:26 | Creating missing vms: container-service-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0)
+Task 62609 | 01:21:26 | Creating missing vms: container-service-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0)
+Task 62609 | 01:21:26 | Creating missing vms: container-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0)
+Task 62609 | 01:21:26 | Creating missing vms: container-service-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0)
 Task 62609 | 01:21:26 | Creating missing vms: worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e (0)
 Task 62609 | 01:21:26 | Creating missing vms: master/e663affd-016f-4132-86ab-7fcba028dad5 (0)
 Task 62609 | 01:21:26 | Creating missing vms: worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c (1)
 Task 62609 | 01:21:26 | Creating missing vms: worker/dac5e512-55a1-466a-b111-a41590a280c1 (2)
-Task 62609 | 01:25:12 | Creating missing vms: caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0) (00:03:46)
-Task 62609 | 01:25:15 | Creating missing vms: caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0) (00:03:49)
-Task 62609 | 01:25:24 | Creating missing vms: caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0) (00:03:58)
+Task 62609 | 01:25:12 | Creating missing vms: container-service-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0) (00:03:46)
+Task 62609 | 01:25:15 | Creating missing vms: container-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0) (00:03:49)
+Task 62609 | 01:25:24 | Creating missing vms: container-service-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0) (00:03:58)
 Task 62609 | 01:25:34 | Creating missing vms: worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c (1) (00:04:08)
 Task 62609 | 01:25:37 | Creating missing vms: mariadb/689775ed-d80a-4301-934a-4a053563c672 (0) (00:04:11)
 Task 62609 | 01:25:42 | Creating missing vms: haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9 (0) (00:04:16)
-Task 62609 | 01:25:43 | Creating missing vms: caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0) (00:04:17)
+Task 62609 | 01:25:43 | Creating missing vms: container-service-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0) (00:04:17)
 Task 62609 | 01:25:56 | Creating missing vms: worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e (0) (00:04:30)
 Task 62609 | 01:25:56 | Creating missing vms: worker/dac5e512-55a1-466a-b111-a41590a280c1 (2) (00:04:30)
 Task 62609 | 01:26:06 | Creating missing vms: master/e663affd-016f-4132-86ab-7fcba028dad5 (0) (00:04:40)
 Task 62609 | 01:26:10 | Updating instance haproxy: haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9 (0) (canary) (00:00:45)
 Task 62609 | 01:26:55 | Updating instance mariadb: mariadb/689775ed-d80a-4301-934a-4a053563c672 (0) (canary) (00:02:43)
-Task 62609 | 01:29:38 | Updating instance caas-dashboard: caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0) (canary) (00:00:44)
-Task 62609 | 01:30:22 | Updating instance caas-api: caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0) (canary) (00:00:41)
-Task 62609 | 01:31:03 | Updating instance caas-common-api: caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0) (canary) (00:00:42)
-Task 62609 | 01:31:45 | Updating instance caas-service-broker: caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0) (canary) (00:00:52)
+Task 62609 | 01:29:38 | Updating instance container-service-dashboard: container-service-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93 (0) (canary) (00:00:44)
+Task 62609 | 01:30:22 | Updating instance container-service-api: container-service-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506 (0) (canary) (00:00:41)
+Task 62609 | 01:31:03 | Updating instance container-service-common-api: container-service-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41 (0) (canary) (00:00:42)
+Task 62609 | 01:31:45 | Updating instance container-service-broker: container-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e (0) (canary) (00:00:52)
 Task 62609 | 01:32:37 | Updating instance master: master/e663affd-016f-4132-86ab-7fcba028dad5 (0) (canary) (00:03:04)
 Task 62609 | 01:35:41 | Updating instance worker: worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e (0) (canary) (00:03:40)
 Task 62609 | 01:39:21 | Updating instance worker: worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c (1) (00:01:23)
@@ -2042,7 +2093,7 @@ bpm                                0.9.0*    c9b7136
 cfcr-etcd                          1.3*      6a62d8f  
 docker                             32.0.0*   542c382  
 kubo                               0.19.0*   c9294bb  
-paasta-caas-projects-release       1.0*      0126121+  
+paasta-container-service-projects-release       1.0*      0126121+  
 
 
 (*) Currently deployed
@@ -2058,26 +2109,26 @@ Succeeded
 
 
 ```
-$ bosh -e micro-bosh -d paasta-caas-service-beta vms
+$ bosh -e micro-bosh -d paasta-container-service vms
 Using environment '10.30.40.111' as user 'admin' (openid, bosh.admin)
 
 Task 62642 done
 
-Deployment 'paasta-caas-service-beta'
+Deployment 'paasta-container-service'
 
-Instance                                                  Process State  AZ  IPs            VM CID                                   VM Type             Active  
-caas-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506             running        z1  10.30.107.40   vm-5e7f69e5-dc49-46db-9390-1b3a3053f0ca  caas_small_api      true  
-caas-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41      running        z2  10.30.107.41   vm-b12711c7-8811-4579-82de-b2e264f4e80f  caas_small_api      true  
-caas-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93       running        z3  10.30.107.42   vm-35dccdc1-f939-41c7-a726-2388f6124920  caas_small          true  
-caas-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e  running        z3  10.30.107.43   vm-2f9d63ac-e3fe-4e6e-96eb-ef725acc01e1  caas_small_api      true  
-haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9              running        z1  10.30.107.44   vm-c3488820-2eeb-40a2-84a6-e4bbec5e27aa  caas_small          true  
-                                                                             115.68.47.179                                                                 
-mariadb/689775ed-d80a-4301-934a-4a053563c672              running        z2  10.30.107.45   vm-b9a18b3e-281d-471f-ae42-859b65f58a29  caas_small          true  
-master/e663affd-016f-4132-86ab-7fcba028dad5               running        z2  10.30.107.0    vm-58219f94-023c-4fb0-ba5a-ba870071215d  small               true  
-                                                                             115.68.47.178                                                                 
-worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e               running        z1  10.30.108.0    vm-04f5b88b-1b48-490c-84c4-578cbc4364b2  small-highmem-16GB  true  
-worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c               running        z2  10.30.108.1    vm-468dbbdb-3034-4be8-8d60-3e6d6ba5e0c1  small-highmem-16GB  true  
-worker/dac5e512-55a1-466a-b111-a41590a280c1               running        z3  10.30.108.2    vm-04ca0cad-4282-472b-8ac0-18a3171e6381  small-highmem-16GB  true  
+Instance                                                               Process State  AZ  IPs            VM CID                                   VM Type             Active  
+container-service-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506             running        z1  10.30.107.40   vm-5e7f69e5-dc49-46db-9390-1b3a3053f0ca  caas_small_api      true  
+container-service-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41      running        z2  10.30.107.41   vm-b12711c7-8811-4579-82de-b2e264f4e80f  caas_small_api      true  
+container-service-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93       running        z3  10.30.107.42   vm-35dccdc1-f939-41c7-a726-2388f6124920  caas_small          true  
+container-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e          running        z3  10.30.107.43   vm-2f9d63ac-e3fe-4e6e-96eb-ef725acc01e1  caas_small_api      true  
+haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9                           running        z1  10.30.107.44   vm-c3488820-2eeb-40a2-84a6-e4bbec5e27aa  caas_small          true  
+                                                                                          115.68.47.179                                                                 
+mariadb/689775ed-d80a-4301-934a-4a053563c672                           running        z2  10.30.107.45   vm-b9a18b3e-281d-471f-ae42-859b65f58a29  caas_small          true  
+master/e663affd-016f-4132-86ab-7fcba028dad5                            running        z2  10.30.107.0    vm-58219f94-023c-4fb0-ba5a-ba870071215d  small               true  
+                                                                                          115.68.47.178                                                                 
+worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e                            running        z1  10.30.108.0    vm-04f5b88b-1b48-490c-84c4-578cbc4364b2  small-highmem-16GB  true  
+worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c                            running        z2  10.30.108.1    vm-468dbbdb-3034-4be8-8d60-3e6d6ba5e0c1  small-highmem-16GB  true  
+worker/dac5e512-55a1-466a-b111-a41590a280c1                            running        z3  10.30.108.2    vm-04ca0cad-4282-472b-8ac0-18a3171e6381  small-highmem-16GB  true  
 
 10 vms
 
@@ -2117,7 +2168,7 @@ $ cf service-brokers
 Getting service brokers as admin...
 
 name                               url
-caas-service-broker                http://10.30.107.43:8888
+container-service-broker                http://10.30.107.43:8888
 delivery-pipeline-service-broker   http://10.30.107.64:8080
 ```
 
@@ -2126,11 +2177,11 @@ delivery-pipeline-service-broker   http://10.30.107.64:8080
 ```
 $ cf service-access
 Getting service access as admin...
-broker: caas-service-broker
-   service   plan       access   orgs
-   caas      Micro      none
-   caas      Small      none
-   caas      Advanced   none
+broker: container-service-broker
+   service                plan       access   orgs
+   container-service      Micro      none
+   container-service      Small      none
+   container-service      Advanced   none
 
 broker: delivery-pipeline-service-broker
    service                plan                          access   orgs
@@ -2152,11 +2203,11 @@ OK
 ```
 $ cf service-access
 Getting service access as admin...
-broker: caas-service-broker
-   service   plan       access   orgs
-   caas      Micro      all
-   caas      Small      all
-   caas      Advanced   all
+broker: container-service-broker
+   service                plan       access   orgs
+   container-service      Micro      all
+   container-service      Small      all
+   container-service      Advanced   all
 
 broker: delivery-pipeline-service-broker
    service                plan                          access   orgs
@@ -2172,26 +2223,27 @@ UAA 포털 계정 등록 절차에 대한 순서를 확인한다.
 - Container 서비스 대시보드에 접근이 가능한 IP를 알기 위해 **haproxy IP** 를 확인한다.
 
 ```
-$ bosh -e micro-bosh -d paasta-caas-service vms
-Deployment 'paasta-caas-service'
+$ bosh -e micro-bosh -d paasta-container-service vms
+Deployment 'paasta-container-service'
 
-Instance                                                  Process State  AZ  IPs            VM CID                                   VM Type             Active  
-caas-api/3cd40125-6309-4ed5-9ab7-b229b2505da5             running        z1  10.30.107.40   vm-3e9d9f1a-97b7-48c3-8e10-0f78be984686  caas_small_api      true  
-caas-common-api/7d70a118-5c86-4f84-833d-e0fe70286096      running        z1  10.30.107.41   vm-c7ae9505-d2d3-46ab-b9fb-ee9317f7d7b4  caas_small_api      true  
-caas-dashboard/5ea78452-3edd-43f8-b0c3-e4625cb6894b       running        z1  10.30.107.42   vm-a7c8904a-2958-4b66-847b-d5c1fbd49cd9  caas_small_api      true  
-caas-service-broker/284355eb-b463-46b6-bcdd-930172e3739b  running        z1  10.30.107.43   vm-6177ae74-dea5-46e2-b9f6-5e9e96eb2b81  caas_small_api      true  
-haproxy/6bffc42d-e86a-401c-80d9-0f460093e335              running        z1  10.30.107.44   vm-594bb32f-3caf-4933-8116-4c6883b70b7f  caas_small          true  
-                                                                             115.68.47.179                                                                 
-mariadb/45f8f166-07fb-4efe-86f6-77be132acea3              running        z1  10.30.107.45   vm-aecbccf8-166a-4204-811d-e77845bff8de  caas_small          true  
-master/fc3690a7-3357-45cb-8e88-0888ca3ae265               running        z1  10.30.107.0    vm-ea8d4a36-cb9d-4f49-9cb8-aa9aae24d3e9  small               true  
-                                                                             115.68.47.178                                                                 
-worker/0be83ab4-b3ec-4ad3-96cf-ada8762872f7               running        z1  10.30.108.0    vm-5ff0affb-fff4-4c69-a8b6-9433d897b34e  small-highmem-16GB  true  
-worker/13ad3d26-09e0-46f0-adc8-839a49f3f003               running        z2  10.30.108.1    vm-3aa6572c-57cf-4c94-b0cd-b1a12cb14726  small-highmem-16GB  true  
-worker/e27cb702-e85d-4419-9b2d-96401b4b7640               running        z3  10.30.108.2    vm-0d1eb119-a417-4f8d-883f-4ba7fab0c4e2  small-highmem-16GB  true  
+Instance                                                               Process State  AZ  IPs            VM CID                                   VM Type             Active  
+container-service-api/f8f7ea3f-7451-4bfc-93c8-8cd74fec7506             running        z1  10.30.107.40   vm-5e7f69e5-dc49-46db-9390-1b3a3053f0ca  caas_small_api      true  
+container-service-common-api/7b1874b7-83bc-4aea-9d88-ed4b8523ab41      running        z2  10.30.107.41   vm-b12711c7-8811-4579-82de-b2e264f4e80f  caas_small_api      true  
+container-service-dashboard/acbd03d9-f2c2-44b7-be9a-c60eb9706a93       running        z3  10.30.107.42   vm-35dccdc1-f939-41c7-a726-2388f6124920  caas_small          true  
+container-service-broker/21285375-f0a0-420e-a65c-20c656a4df0e          running        z3  10.30.107.43   vm-2f9d63ac-e3fe-4e6e-96eb-ef725acc01e1  caas_small_api      true  
+haproxy/ff28d149-3f58-4be6-9e5d-c3e599d48bd9                           running        z1  10.30.107.44   vm-c3488820-2eeb-40a2-84a6-e4bbec5e27aa  caas_small          true  
+                                                                                          115.68.47.179                                                                 
+mariadb/689775ed-d80a-4301-934a-4a053563c672                           running        z2  10.30.107.45   vm-b9a18b3e-281d-471f-ae42-859b65f58a29  caas_small          true  
+master/e663affd-016f-4132-86ab-7fcba028dad5                            running        z2  10.30.107.0    vm-58219f94-023c-4fb0-ba5a-ba870071215d  small               true  
+                                                                                          115.68.47.178                                                                 
+worker/562d3b1a-2b1d-4741-8d0e-51aad9efc38e                            running        z1  10.30.108.0    vm-04f5b88b-1b48-490c-84c4-578cbc4364b2  small-highmem-16GB  true  
+worker/5f73b4ec-3c18-43cd-997b-6f21af34e99c                            running        z2  10.30.108.1    vm-468dbbdb-3034-4be8-8d60-3e6d6ba5e0c1  small-highmem-16GB  true  
+worker/dac5e512-55a1-466a-b111-a41590a280c1                            running        z3  10.30.108.2    vm-04ca0cad-4282-472b-8ac0-18a3171e6381  small-highmem-16GB  true  
 
 10 vms
 
 Succeeded
+
 ```
 
 - uaac server의 endpoint를 설정한다.
@@ -2247,5 +2299,26 @@ $ uaac client add caasclient -s clientsecret --redirect_uri "http://localhost:80
 ```
 $ uaac client update caasclient --redirect_uri="http://54.180.13.40:8091 http://115.68.151.177:8091 http://localhost:8091 http://115.68.47.179:8091 http://115.68.47.176:8091
 ```
+
+### <div id='26'/> 2.6. Container 서비스 Private Image Repository 설정 (Optional)
+
+해당 설정은 Container 서비스에서 설치된 Private Image Repository에 저장된 Image를 참조하기 위해
+각 Work Node Host의 Private Image Repository와 Docker 간의 액세스를 위한 설정이다.
+
+-	insecure registry 항목 등록(모든 Work Node마다 수정 필요)
+
+
+```
+$ vi /etc/docker/daemon.json  
+{
+    "insecure-registries": [
+        "10.30.111.41:5000"
+    ]
+}
+
+$ sudo /var/vcap/jobs/docker/bin/ctl stop
+$ sudo /var/vcap/jobs/docker/bin/ctl start
+```
+
 
 [Architecture]:/Service-Guide/images/caas/CaaS_Architecture.png
