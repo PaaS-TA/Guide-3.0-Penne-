@@ -427,7 +427,7 @@ deploy 명령어 예시<br>
 $ bosh –e {director_name} –d paasta deploy {deploy.yml}
 ```
 
-paasta deploy시 위의 bosh deploy 명령어 만으로 배포가 안 되므로 아래의 설치 option을 추가 해 주어야 한다.
+위의 bosh deploy로 paasta deploy시 설치 option을 추가 해 주어야 하며, 설치 opntion에 대한 설명은 아래와 같다.
 
 설치 option
 
