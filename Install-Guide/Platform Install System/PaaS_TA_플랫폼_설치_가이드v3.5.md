@@ -421,12 +421,13 @@ $ chmod 755 *.sh
 
 설치 shell 파일은 각 iaas별로 존재하며 bosh 설치 시 명령어는 deploy 로 시작한다. Shell 이 아닌 bosh command로 실행이 가능하며 설치하는 IaaS 환경에 따라 Option들이 달라진다.
 
+deploy 명령어 예시<br>
+(paasta deploy는 [3.5 paasta deploy shell](#20) 참조)
 ```
-deploy 명령어 예시
-paasta deploy는 3.5 paasta deploy shell 참조
-
 $ bosh –e {director_name} –d paasta deploy {deploy.yml}
 ```
+
+paasta deploy시 위의 bosh deploy 명령어 만으로 배포가 안 되므로 아래의 설치 option을 추가 해 주어야 한다.
 
 설치 option
 
